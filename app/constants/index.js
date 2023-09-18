@@ -5,7 +5,6 @@ import * as Base from './constant';
 import CommonStyles from './styles';
 import { customTheme } from './theme';
 
-import Container from '../components/common/container';
 import SafeContainer from '../components/common/safeContainer';
 const Colors = { ...MyColors }
 export {
@@ -14,7 +13,6 @@ export {
   Fonts,
   Base,
   CommonStyles,
-  Container,
   SafeContainer,
   customTheme
 };

@@ -3,7 +3,7 @@ import { StyleSheet, Pressable } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Padding, FontSize, FontFamily, Color, Border } from "../../../views/GlobalStyles";
-export const MyTeams = () => {
+export const TeamsBar = () => {
     return <View style={styles.myTeamsParent}>
         <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
         <View style={styles.teamNamesRow}>

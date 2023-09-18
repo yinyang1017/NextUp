@@ -12,7 +12,7 @@ import {
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import DashBoardHeader from "../../components/common/DashBoardHeader";
-import { MyTeams } from "../../components/players/Dashboard/MyTeams";
+import { MyTeams, TeamsBar } from "../../components/players/Dashboard/MyTeams";
 import { EventCarousel } from "../../components/players/Dashboard/EventsCarousel";
 import StatsContainer from "../../components/players/Dashboard/StatsContainer";
 import { MyChallenges } from "../../components/players/Dashboard/Challenges";
@@ -31,7 +31,7 @@ const PlayerDashboard = () => {
         >
             <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
                 <DashBoardHeader />
-                <MyTeams />
+                <TeamsBar />
                 <EventCarousel />
                 <StatsContainer />
                 <MyChallenges />
