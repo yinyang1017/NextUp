@@ -7,7 +7,7 @@ const Seperator = () => (
   <View
     style={{
       height: 0.5,
-      backgroundColor: Colors.shade,
+      backgroundColor: customTheme.colors.shade,
       marginVertical: wide * 0.03,
     }}
   />

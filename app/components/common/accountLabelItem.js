@@ -7,7 +7,9 @@ import {
   Layout,
   Colors,
   Fonts,
+  customTheme
 } from '../../constants';
+
 
 let wide = Layout.width;
 let high = Layout.height;
@@ -38,13 +40,13 @@ const AccountItem = ({ title, icon, onPress }) => {
           source={icon}
           style={{
             width: 25, height: 25,
-            tintColor: Colors.light
+            tintColor: customTheme.colors.light
           }}
         // resizeMode={''}
         />
         <Text style={{
           marginHorizontal: wide * 0.03,
-          color: Colors.light, fontSize: 14,
+          color: customTheme.colors.light, fontSize: 14,
           fontFamily: Fonts.SemiBold, lineHeight: 18,
         }}>{title}</Text>
       </View>
@@ -60,7 +62,7 @@ const AccountItem = ({ title, icon, onPress }) => {
         <View style={{
           height: '60%',
           width: 1,
-          backgroundColor: Colors.newGrayFontColor,
+          backgroundColor: customTheme.colors.newGrayFontColor,
         }} />
 
         <View style={{

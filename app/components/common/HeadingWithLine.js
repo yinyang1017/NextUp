@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../../constants';
+import { Colors, Fonts, customTheme } from '../../constants';
 
 const HeadingWithLine = ({ heading, txtStyle, lineStyle, containerStyle, teamId }) => {
   return (
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   heading: {
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 17,
     fontFamily: Fonts.SemiBold,
   },

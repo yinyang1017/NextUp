@@ -37,7 +37,7 @@ class AppLoader extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.overlay,
+    backgroundColor: customTheme.colors.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -48,7 +48,7 @@ AppLoader.propTypes = {
 };
 
 AppLoader.defaultProps = {
-  onRequestClose: () => {},
+  onRequestClose: () => { },
 };
 
 export default AppLoader;

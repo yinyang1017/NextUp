@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Fonts, Layout } from '../../constants';
+import { Colors, Fonts, Layout, customTheme } from '../../constants';
 let wide = Layout.width;
 let high = Layout.height;
 
@@ -63,7 +63,7 @@ const FullScreenQuickBoxScoreTable = ({
     <View style={{ flex: 1 }}>
       <View style={styles.teamNameAndBoxesSoreTxt}>
         {/* <Text style={styles.teamName}></Text> */}
-        {/* <Text style={{...styles.teamName, color:Colors.light}}> Quick Box Score</Text> */}
+        {/* <Text style={{...styles.teamName, color:customTheme.colors.light}}> Quick Box Score</Text> */}
       </View>
       {renderHeadingRow(rowHeadingList)}
       {defenderWithEachQuarter.map((item, index) => {
@@ -84,7 +84,7 @@ const FullScreenQuickBoxScoreTable = ({
       <View style={styles.rowContainer}>
         {
           <View
-            style={{ ...styles.rowItemContainer, backgroundColor: Colors.base }}
+            style={{ ...styles.rowItemContainer, backgroundColor: customTheme.colors.base }}
           />
         }
         {list.map((item, index) => {
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   rowHeadingTxt: {
     fontSize: 12,
     fontFamily: Fonts.Regular,
-    color: Colors.light,
+    color: customTheme.colors.light,
   },
 });
 

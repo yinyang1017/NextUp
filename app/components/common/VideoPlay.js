@@ -143,7 +143,7 @@ const VideoPlay = ({ source, sty, thumbnailUrl, onBackPress }) => {
                     width: wide * 0.09, height: wide * 0.09,
                     borderRadius: wide * 0.03, borderWidth: 1,
                     borderColor: Colors.borderColor,
-                    backgroundColor: Colors.base,
+                    backgroundColor: customTheme.colors.base,
 
                 }}
                     source={require('../../Images/back_ico.png')}

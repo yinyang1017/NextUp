@@ -10,7 +10,7 @@ const Back = ({ onPress }) => (
     onPress={onPress}>
     <View
       style={{ justifyContent: 'center', height: '100%', width: wide * 0.1 }}>
-      <Icon size={22} name={'chevron-left'} color={Colors.base} />
+      <Icon size={22} name={'chevron-left'} color={customTheme.colors.base} />
     </View>
   </TouchableOpacity>
 );

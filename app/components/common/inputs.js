@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
-import { CommonStyles, Layout, Colors, Fonts } from '../../constants';
+import { CommonStyles, Layout, Colors, Fonts, customTheme } from '../../constants';
 import { Seperator } from './seperator';
 
 let wide = Layout.width;
@@ -57,7 +57,7 @@ class FormInputs extends Component {
             style={CommonStyles.input}
             ref={(input) => (this.textInput = input)}
             secureTextEntry={secured}
-            placeholderTextColor={Colors.shade}
+            placeholderTextColor={customTheme.colors.shade}
             onSubmitEditing={this.onSubmitEditing}
             onChangeText={this.props.onChangeText}
             placeholder={placeholder}
@@ -88,7 +88,7 @@ class FormInputs extends Component {
     return (
       <>
         <TextInput
-          placeholderTextColor={Colors.shade}
+          placeholderTextColor={customTheme.colors.shade}
           placeholder={placeholder}
           blurOnSubmit={this.props.returnKeyType == 'next' ? false : true}
           ref={(input) => (this.textInput = input)}
@@ -104,7 +104,7 @@ class FormInputs extends Component {
             height: '100%',
             fontSize: large ? 16 : 14,
             fontFamily: Fonts.Regular,
-            color: !this.props.editable ? Colors.shade : Colors.dark,
+            color: !this.props.editable ? customTheme.colors.shade : customTheme.colors.dark,
           }}
         />
         <Seperator />
@@ -122,14 +122,14 @@ class FormInputs extends Component {
 
 const MultilineInput = ({ placeholder, light, onChangeText, value }) => (
   <TextInput
-    placeholderTextColor={Colors.shade}
+    placeholderTextColor={customTheme.colors.shade}
     style={[
       {
         fontSize: 16,
         width: '100%',
         marginTop: 10,
         minHeight: wide * 0.3,
-        backgroundColor: light ? Colors.light : Colors.lightshade,
+        backgroundColor: light ? customTheme.colors.light : Colors.lightshade,
         padding: wide * 0.02,
         textAlignVertical: 'top',
         fontFamily: Fonts.Regular,

@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, Dimensions } from 'react-native'
-import { Colors, Fonts, Layout } from "../../constants";
+import { Colors, Fonts, Layout, customTheme } from "../../constants";
 
 let width = Layout.width
 
@@ -25,7 +25,7 @@ const TeamTable = ({ info, response }) => {
           }}>
             <Text style={{
               fontWeight: '500',
-              color: Colors.light,
+              color: customTheme.colors.light,
               fontSize: 12,
               lineHeight: 14,
               fontFamily: Fonts.Regular,
@@ -46,7 +46,7 @@ const TeamTable = ({ info, response }) => {
                   {key == 'Final' ?
                     <Text style={{
                       fontWeight: '500',
-                      color: Colors.light,
+                      color: customTheme.colors.light,
                       fontSize: 12,
                       lineHeight: 14,
                       fontFamily: Fonts.Regular,
@@ -57,7 +57,7 @@ const TeamTable = ({ info, response }) => {
                     :
                     <Text style={{
                       fontWeight: '500',
-                      color: Colors.light,
+                      color: customTheme.colors.light,
                       fontSize: 12,
                       lineHeight: 14,
                       fontFamily: Fonts.Regular,
@@ -173,7 +173,7 @@ const TeamTable = ({ info, response }) => {
 
   function renderRow(team, rowNo) {
     return <View style={styles.container}>
-      <Text style={{ ...styles.name, color: rowNo === 2 ? Colors.lightBlue : Colors.light }}>{team}</Text>
+      <Text style={{ ...styles.name, color: rowNo === 2 ? Colors.lightBlue : customTheme.colors.light }}>{team}</Text>
       {
         renderRowNbr(rowNo, rowNo == 2 ? chal?.QUARTER_1 : def?.QUARTER_1)
       }{
@@ -194,7 +194,7 @@ const TeamTable = ({ info, response }) => {
     return <Text style={{
       ...styles.number,
       fontFamily: rowNo === 3 ? Fonts.Regular : Fonts.SemiBold,
-      color: rowNo === 1 ? Colors.light : rowNo === 2 ? Colors.lightBlue : Colors.fontGray
+      color: rowNo === 1 ? customTheme.colors.light : rowNo === 2 ? Colors.lightBlue : Colors.fontGray
     }}>{number}</Text>
   }
 }
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   number: {
     width: width / 13,
     fontSize: 16,
-    color: Colors.light,
+    color: customTheme.colors.light,
     marginHorizontal: 10
   }
 })

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { Colors, CommonStyles, Layout, Fonts } from '../../constants';
+import { Colors, CommonStyles, Layout, Fonts, customTheme } from '../../constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 let wide = Layout.wide;
@@ -12,12 +12,12 @@ const Badge = ({ data, size }) => (
         height: size,
         width: size,
         borderRadius: size / 2,
-        backgroundColor: Colors.base,
+        backgroundColor: customTheme.colors.base,
       },
       CommonStyles.center,
     ]}>
     <Text
-      style={{ color: Colors.light, fontSize: 14, fontFamily: Fonts.Regular }}>
+      style={{ color: customTheme.colors.light, fontSize: 14, fontFamily: Fonts.Regular }}>
       {data}
     </Text>
   </View>
@@ -33,7 +33,7 @@ const PlayIcon = ({ data, touchable, action }) => {
     CommonStyles.full,
   ];
   let ImgIcon = () => (
-    <Icon name={'play-circle'} size={36} color={Colors.light} />
+    <Icon name={'play-circle'} size={36} color={customTheme.colors.light} />
   );
   if (data > 0) {
     return touchable ? (

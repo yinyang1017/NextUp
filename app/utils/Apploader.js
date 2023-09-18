@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Easing,
 } from 'react-native';
-import { Colors } from '../constants';
+import { Colors, customTheme } from '../constants';
 
 class AppLoader extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class AppLoader extends React.Component {
         onRequestClose={onRequestClose}
         {...this.props}>
         <View style={styles.container}>
-          <ActivityIndicator animating size={30} color={Colors.light} />
+          <ActivityIndicator animating size={30} color={customTheme.colors.light} />
         </View>
       </Modal>
     );
@@ -30,7 +30,7 @@ class AppLoader extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.overlay,
+    backgroundColor: customTheme.colors.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import { Colors, Layout, CommonStyles } from '../../constants';
+import { Colors, Layout, CommonStyles, customTheme } from '../../constants';
 import Back from '../HeaderButtons/Back';
 import { isNotch, getDeviceModel } from '../deviceInfo';
 import { DefaultLabel } from '../../components/common/label';
@@ -11,7 +11,7 @@ const CustomHeader = ({ onBack, Title, SubTitle, back }) => {
     <View style={[styles.container, styles.row]}>
       {back && (
         <View style={[{ flex: 0.2 }, CommonStyles.center]}>
-          <Back Color={Colors.base} onPress={onBack} />
+          <Back Color={customTheme.colors.base} onPress={onBack} />
         </View>
       )}
       <View style={{ flex: 1 }}>
@@ -30,7 +30,7 @@ export const DefaultHeader = ({ title }) => (
       {
         height:
           Platform.OS === 'ios' ? Layout.width * 0.12 : Layout.width * 0.15,
-        backgroundColor: Colors.light,
+        backgroundColor: customTheme.colors.light,
         elevation: 4,
       },
       Platform.OS == 'ios' ? CommonStyles.btmborder : {},

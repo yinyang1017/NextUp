@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Fonts.SemiBold,
     textAlign: 'center',
-    color: Colors.base,
+    color: customTheme.colors.base,
   },
 });
 

@@ -12,6 +12,7 @@ import {
   Container,
   Colors,
   Fonts,
+  customTheme
 } from '../../constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import i18n from 'i18n';
@@ -23,11 +24,11 @@ const SearchInput = ({ filter, style, onChange }) => (
     <TextInput
       style={[
         styles.input,
-        !filter && { backgroundColor: Colors.light, ...CommonStyles.shadow },
+        !filter && { backgroundColor: customTheme.colors.light, ...CommonStyles.shadow },
       ]}
       autoCorrect={false}
       onChangeText={onChange}
-      placeholderTextColor={Colors.shade}
+      placeholderTextColor={customTheme.colors.shade}
       placeholder={i18n.t('Search')}
     />
     {filter && (
@@ -35,7 +36,7 @@ const SearchInput = ({ filter, style, onChange }) => (
         style={styles.searchIcon}
         name={'search'}
         size={16}
-        color={Colors.shade}
+        color={customTheme.colors.shade}
       />
     )}
   </Container>
@@ -49,7 +50,7 @@ const SearchBar = ({ filter, onChange }) => (
       onPress={filter}
       style={[CommonStyles.container, CommonStyles.center, { flex: 0.15, paddingHorizontal: 0, marginLeft: 10 }]}>
       <View style={[styles.filter, CommonStyles.center]}>
-        <Icon name={'filter'} color={Colors.light} size={20} />
+        <Icon name={'filter'} color={customTheme.colors.light} size={20} />
       </View>
       <Text numberOfLines={1} style={styles.filterlabel}>
         {i18n.t('Filter')}
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     height: wide * 0.12,
     borderRadius: (wide * 0.1) / 2,
     paddingHorizontal: wide * 0.1,
-    color: Colors.dark,
+    color: customTheme.colors.dark,
     fontFamily: Fonts.Regular,
     textAlignVertical: 'center',
   },
@@ -87,12 +88,12 @@ const styles = StyleSheet.create({
   filter: {
     height: wide * 0.1,
     width: wide * 0.1,
-    backgroundColor: Colors.base,
+    backgroundColor: customTheme.colors.base,
     borderRadius: (wide * 0.1) / 2,
   },
   filterlabel: {
     fontSize: 12,
-    color: Colors.darkshade,
+    color: customTheme.colors.darkshade,
     fontFamily: Fonts.Regular,
   },
 });

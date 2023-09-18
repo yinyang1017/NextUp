@@ -10,7 +10,7 @@ const Done = ({ onPress }) => (
     onPress={onPress}>
     <View
       style={{ justifyContent: 'center', height: '100%', width: wide * 0.1 }}>
-      <Icon size={22} name={'check'} color={Colors.base} />
+      <Icon size={22} name={'check'} color={customTheme.colors.base} />
     </View>
   </TouchableOpacity>
 );

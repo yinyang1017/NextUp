@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Alert } from 'react-native';
-import { Colors, CommonStyles } from '../constants';
+import { Colors, CommonStyles, customTheme } from '../constants';
 import { DefaultLabel } from '../components/common/label';
 import { openSettings } from 'react-native-permissions'
 
@@ -30,7 +30,7 @@ export const NoInternet = ({ Offline }) => {
     return (
       <View style={[CommonStyles.noInternet, CommonStyles.center]}>
         <DefaultLabel
-          style={{ color: Colors.light }}
+          style={{ color: customTheme.colors.light }}
           data={'Offline'}
         />
       </View>
@@ -44,7 +44,7 @@ export const ShowInfo = ({ Info, Message }) => {
   if (Info) {
     return (
       <View style={[CommonStyles.showinfo, CommonStyles.center]}>
-        <DefaultLabel style={{ color: Colors.light }} data={Message} />
+        <DefaultLabel style={{ color: customTheme.colors.light }} data={Message} />
       </View>
     );
   } else {

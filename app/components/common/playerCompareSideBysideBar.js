@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Layout, Colors, Fonts } from '../../constants';
+import { Layout, Colors, Fonts, customTheme } from '../../constants';
 
 const PlayerSideBySideBarGraph = ({ pgsData }) => {
   // let content
@@ -89,7 +89,7 @@ const PlayerSideBySideBarGraph = ({ pgsData }) => {
               >
                 <Text
                   style={{
-                    color: Colors.light,
+                    color: customTheme.colors.light,
                     fontSize: 12,
                     fontFamily: Fonts.Bold,
                   }}
@@ -224,7 +224,7 @@ const PlayerSideBySideBarGraph = ({ pgsData }) => {
                   >
                     <Text
                       style={{
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                         fontSize: 12,
                         fontFamily: Fonts.Bold,
                       }}
@@ -348,7 +348,7 @@ const PlayerSideBySideBarGraph = ({ pgsData }) => {
                 >
                   <Text
                     style={{
-                      color: Colors.light,
+                      color: customTheme.colors.light,
                       fontSize: 12,
                       fontFamily: Fonts.Bold,
                     }}

@@ -72,7 +72,7 @@ const VideoPlayer = ({ source, close }) => {
         isFullScreen={isFullScreen}
         duration={duration}
         isLoading={isLoading}
-        mainColor={Colors.base}
+        mainColor={customTheme.colors.base}
         onFullScreen={noop}
         onPaused={onPaused}
         onReplay={onReplay}

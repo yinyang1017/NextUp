@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Switch, StyleSheet, StatusBar } from 'react-native';
 import Navigation from "../../../lib/Navigation";
-import { Colors, CommonStyles, Fonts, Layout } from "../../../constants";
+import { Colors, CommonStyles, Fonts, Layout, customTheme } from "../../../constants";
 import Svg, { Path } from "react-native-svg"
 import Orientation from 'react-native-orientation-locker';
 let wide = Layout.width;
@@ -45,7 +45,7 @@ const PlayingGameScreenHeader = ({
         <Text style={{ ...styles.scoreTxt, }}>{blueTeamNewScore}</Text>
         {blueTeamDetails()}
         <Switch
-          trackColor={{ false: Colors.newGrayFontColor, true: Colors.newGrayFontColor }}
+          trackColor={{ false: customTheme.colors.newGrayFontColor, true: customTheme.colors.newGrayFontColor }}
           thumbColor={isEnabled ? Colors.lightRed : Colors.lightBlue}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
 
   },
   captainName: {
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 12,
     fontFamily: Fonts.SemiBold,
   },
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   circleTxt: {
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 20,
     fontFamily: Fonts.Bold,
   },
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     height: wide * 0.05,
   },
   roundTxt: {
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 16,
     fontFamily: Fonts.Regular,
   },

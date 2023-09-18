@@ -8,7 +8,13 @@ import {
   FlatList,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Colors, Fonts, CommonStyles } from '../../constants';
+import {
+  Layout,
+  Colors,
+  Fonts,
+  customTheme
+} from '../../constants';
+
 import TextInCircle from './TextInCircle';
 
 const ScoreActiveTeamPlayer = ({
@@ -67,13 +73,13 @@ const ScoreActiveTeamPlayer = ({
             }}
           >
             {e.playerProfilePictureUrl !== null &&
-            e.playerProfilePictureUrl !== undefined ? (
+              e.playerProfilePictureUrl !== undefined ? (
               <TouchableOpacity
                 style={{
                   width: 63,
                   height: 63,
                   borderRadius: 63 / 2,
-                  // backgroundColor: Colors.newGrayFontColor,
+                  // backgroundColor: customTheme.colors.newGrayFontColor,
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop: 30,
@@ -103,7 +109,7 @@ const ScoreActiveTeamPlayer = ({
                   },
                   ...itemStyle,
                 }}
-                txtStyle={{ color: Colors.base }}
+                txtStyle={{ color: customTheme.colors.base }}
               />
             )}
             <Text
@@ -112,7 +118,7 @@ const ScoreActiveTeamPlayer = ({
                 fontFamily: Fonts.Medium,
                 fontWeight: '500',
                 lineHeight: 18,
-                color: Colors.light,
+                color: customTheme.colors.light,
                 marginTop: 7,
               }}
             >
@@ -146,14 +152,14 @@ const ScoreActiveTeamPlayer = ({
                 },
                 ...itemStyle,
               }}
-              txtStyle={{ color: Colors.base }}
+              txtStyle={{ color: customTheme.colors.base }}
             />
             <Text
               style={{
                 fontSize: 14,
                 fontFamily: Fonts.Bold,
                 lineHeight: 24,
-                color: Colors.base,
+                color: customTheme.colors.base,
               }}
             >
               {' '}
@@ -291,7 +297,7 @@ const ActiveTeamPlayer = ({
                 >
                   <View style={{ width: '35%' }}>
                     {e.playerProfilePictureUrl !== null &&
-                    e.playerProfilePictureUrl !== undefined ? (
+                      e.playerProfilePictureUrl !== undefined ? (
                       <View
                         style={{
                           width: 25,
@@ -325,7 +331,7 @@ const ActiveTeamPlayer = ({
                       >
                         <Text
                           style={{
-                            color: Colors.light,
+                            color: customTheme.colors.light,
                             fontSize: 12,
                             lineHeight: 18,
                             fontFamily: Fonts.Regular,
@@ -346,7 +352,7 @@ const ActiveTeamPlayer = ({
                   >
                     <Text
                       style={{
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                         fontSize: 12,
                         lineHeight: 18,
                         fontFamily: Fonts.Regular,
@@ -357,7 +363,7 @@ const ActiveTeamPlayer = ({
                     </Text>
                     <Text
                       style={{
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                         fontSize: 12,
                         lineHeight: 18,
                         fontFamily: Fonts.Regular,
@@ -368,7 +374,7 @@ const ActiveTeamPlayer = ({
                     </Text>
                     <Text
                       style={{
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                         fontSize: 12,
                         lineHeight: 18,
                         fontFamily: Fonts.Regular,
@@ -379,7 +385,7 @@ const ActiveTeamPlayer = ({
                     </Text>
                     <Text
                       style={{
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                         fontSize: 12,
                         lineHeight: 18,
                         fontFamily: Fonts.Regular,
@@ -411,7 +417,7 @@ const ActiveTeamPlayer = ({
               backgroundColor: e.id === activePlayer ? Colors.lightGreen : bgColor
             }, ...itemStyle
           }}
-          txtStyle={{ color: Colors.base, }} />)
+          txtStyle={{ color: customTheme.colors.base, }} />)
       } */}
       </View>
     </View>
@@ -472,13 +478,13 @@ const AssistTeamPlayer = ({
             }}
           >
             {e.playerProfilePictureUrl !== null &&
-            e.playerProfilePictureUrl !== undefined ? (
+              e.playerProfilePictureUrl !== undefined ? (
               <TouchableOpacity
                 style={{
                   width: 63,
                   height: 63,
                   borderRadius: 63 / 2,
-                  backgroundColor: Colors.newGrayFontColor,
+                  backgroundColor: customTheme.colors.newGrayFontColor,
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop: 30,
@@ -510,7 +516,7 @@ const AssistTeamPlayer = ({
                   },
                   ...itemStyle,
                 }}
-                txtStyle={{ color: Colors.base }}
+                txtStyle={{ color: customTheme.colors.base }}
               />
             )}
             <Text
@@ -519,7 +525,7 @@ const AssistTeamPlayer = ({
                 fontFamily: Fonts.Bold,
                 lineHeight: 18,
                 fontWeight: '500',
-                color: Colors.light,
+                color: customTheme.colors.light,
                 marginTop: 7,
               }}
             >
@@ -550,10 +556,10 @@ const AssistTeamPlayer = ({
               backgroundColor: bgColor
             }, ...itemStyle,
           }}
-          txtStyle={{ color: Colors.base, }} />
+          txtStyle={{ color: customTheme.colors.base, }} />
         <Text style={{
           fontSize: 14, fontFamily: Fonts.Bold,
-          lineHeight: 24, color: Colors.base
+          lineHeight: 24, color: customTheme.colors.base
         }}></Text>
       </View> */}
       </View>
@@ -592,7 +598,7 @@ const SubActiveTeamPlayer = ({
 
   const headingTxt = {
     marginLeft: 10,
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 16,
     lineHeight: 20,
     fontFamily: Fonts.Light,
@@ -628,13 +634,13 @@ const SubActiveTeamPlayer = ({
               }}
             >
               {item?.item.playerProfilePictureUrl !== null &&
-              item?.item.playerProfilePictureUrl !== undefined ? (
+                item?.item.playerProfilePictureUrl !== undefined ? (
                 <TouchableOpacity
                   style={{
                     width: 63,
                     height: 63,
                     borderRadius: 63 / 2,
-                    backgroundColor: Colors.newGrayFontColor,
+                    backgroundColor: customTheme.colors.newGrayFontColor,
                     alignItems: 'center',
                     justifyContent: 'center',
                     // marginTop: 30,
@@ -670,7 +676,7 @@ const SubActiveTeamPlayer = ({
                     },
                     ...itemStyle,
                   }}
-                  txtStyle={{ color: Colors.base }}
+                  txtStyle={{ color: customTheme.colors.base }}
                 />
               )}
               <Text
@@ -679,7 +685,7 @@ const SubActiveTeamPlayer = ({
                   fontFamily: Fonts.SemiBold,
                   fontWeight: '600',
                   lineHeight: 12,
-                  color: Colors.light,
+                  color: customTheme.colors.light,
                   width: 65,
                   textAlign: 'center',
                   marginTop: 5,
@@ -717,14 +723,14 @@ const SubActiveTeamPlayer = ({
                 },
                 ...itemStyle,
               }}
-              txtStyle={{ color: Colors.base }}
+              txtStyle={{ color: customTheme.colors.base }}
             />
             <Text
               style={{
                 fontSize: 14,
                 fontFamily: Fonts.Bold,
                 lineHeight: 24,
-                color: Colors.base,
+                color: customTheme.colors.base,
               }}
             >
               {' '}
@@ -769,7 +775,7 @@ const SubNonActiveTeamPlayer = ({
 
   const headingTxt = {
     marginLeft: 10,
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 16,
     lineHeight: 20,
     fontFamily: Fonts.Light,
@@ -803,13 +809,13 @@ const SubNonActiveTeamPlayer = ({
               }}
             >
               {item?.item.playerProfilePictureUrl !== null &&
-              item?.item.playerProfilePictureUrl !== undefined ? (
+                item?.item.playerProfilePictureUrl !== undefined ? (
                 <TouchableOpacity
                   style={{
                     width: 63,
                     height: 63,
                     borderRadius: 63 / 2,
-                    backgroundColor: Colors.newGrayFontColor,
+                    backgroundColor: customTheme.colors.newGrayFontColor,
                     alignItems: 'center',
                     justifyContent: 'center',
                     // marginTop: 30,
@@ -845,7 +851,7 @@ const SubNonActiveTeamPlayer = ({
                     },
                     ...itemStyle,
                   }}
-                  txtStyle={{ color: Colors.base }}
+                  txtStyle={{ color: customTheme.colors.base }}
                 />
               )}
               <Text
@@ -854,7 +860,7 @@ const SubNonActiveTeamPlayer = ({
                   fontFamily: Fonts.SemiBold,
                   fontWeight: '600',
                   lineHeight: 12,
-                  color: Colors.light,
+                  color: customTheme.colors.light,
                   width: 65,
                   textAlign: 'center',
                   marginTop: 5,
@@ -892,14 +898,14 @@ const SubNonActiveTeamPlayer = ({
                 },
                 ...itemStyle,
               }}
-              txtStyle={{ color: Colors.base }}
+              txtStyle={{ color: customTheme.colors.base }}
             />
             <Text
               style={{
                 fontSize: 14,
                 fontFamily: Fonts.Bold,
                 lineHeight: 24,
-                color: Colors.base,
+                color: customTheme.colors.base,
               }}
             >
               {' '}

@@ -2,7 +2,7 @@ import { BlurView } from '@react-native-community/blur';
 import React from 'react';
 import { View, Modal, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Colors, Fonts } from '../../../constants';
+import { Colors, Fonts, customTheme } from '../../../constants';
 
 {
   /* onPress={() => this.setState({ showFirstSeasonDrop: false })} */
@@ -73,7 +73,7 @@ const DropDownModal = ({
                     style={[
                       {
                         fontFamily: Fonts.Regular,
-                        color: Colors.light,
+                        color: customTheme.colors.light,
                       },
                       preSelected === item.value && { color: '#74C896' },
                     ]}
@@ -133,7 +133,7 @@ const DropDownModal = ({
     //                 style={[
     //                   {
     //                     fontFamily: Fonts.Regular,
-    //                     color: Colors.light,
+    //                     color: customTheme.colors.light,
     //                   },
     //                   preSelected === item.value && { color: '#74C896' },
     //                 ]}>

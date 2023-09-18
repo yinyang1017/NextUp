@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Colors, CommonStyles, Fonts } from "../../constants";
+import { Colors, CommonStyles, Fonts, customTheme } from "../../constants";
 import Navigation from "../../lib/Navigation";
 
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   vsTxt: {
     fontSize: 16,
-    color: Colors.light,
+    color: customTheme.colors.light,
     marginHorizontal: 10
   },
   circle: {
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   captainName: {
     fontSize: 13, lineHeight: 13,
     fontFamily: Fonts.Light,
-    fontWeight: "400", color: Colors.light
+    fontWeight: "400", color: customTheme.colors.light
   },
   clubName: {
     color: Colors.btnBg, fontSize: 12,

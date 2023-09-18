@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Image, Text, View } from 'react-native';
-import { CommonStyles, Layout, Colors } from '../../constants';
+import { CommonStyles, Layout, Colors, customTheme } from '../../constants';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 // import FIcon from 'react-native-vector-icons/FontAwesome';
 let wide = Layout.width;
@@ -12,7 +12,7 @@ export const HiddenButton = ({ action, trash }) => (
     style={[CommonStyles.hiddenbtn, CommonStyles.rightRounded]}
     onPress={action}>
     {/* {trash ? (
-      <FIcon name={'trash'} color={Colors.light} size={20} />
+      <FIcon name={'trash'} color={customTheme.colors.light} size={20} />
     ) : (
         <Image
           source={msgIcon}
@@ -55,11 +55,11 @@ export const RoundButtons = ({ action, iconName, style, upload, msgImg }) => (
       />
     ) : msgImg ? <Image
       resizeMode={'cover'}
-      style={[CommonStyles.small, { tintColor: Colors.base }]}
+      style={[CommonStyles.small, { tintColor: customTheme.colors.base }]}
       source={msgBottomIcon}
     />
         :
-        <Icon size={18} color={Colors.base} name={iconName} />
+        <Icon size={18} color={customTheme.colors.base} name={iconName} />
     } */}
   </TouchableOpacity>
 );

@@ -4,6 +4,7 @@ import {
     Layout,
     Colors,
     Fonts,
+    customTheme
 } from '../../constants';
 import SelectDropdown from 'react-native-select-dropdown';
 
@@ -20,7 +21,7 @@ export const DropDown = ({ dropData, onSelectionChange }) => {
                 flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around',
             }}
             rowTextStyle={{
-                color: Colors.light, fontSize: 13, lineHeight: 12,
+                color: customTheme.colors.light, fontSize: 13, lineHeight: 12,
                 fontFamily: Fonts.Bold,
             }}
             buttonStyle={{
@@ -30,7 +31,7 @@ export const DropDown = ({ dropData, onSelectionChange }) => {
 
             }}
             buttonTextStyle={{
-                color: Colors.light, fontSize: 10, lineHeight: 18,
+                color: customTheme.colors.light, fontSize: 10, lineHeight: 18,
                 fontFamily: Fonts.Bold, marginRight: 30,
             }}
             renderDropdownIcon={() =>

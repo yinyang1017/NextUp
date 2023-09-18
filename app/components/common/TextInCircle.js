@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
-import { Colors, CommonStyles, Fonts } from "../../constants";
+import { Colors, CommonStyles, Fonts, customTheme } from "../../constants";
 
 
 const TextInCircle = ({ text, style, txtStyle, onPress, key }) => {
@@ -13,7 +13,7 @@ const TextInCircle = ({ text, style, txtStyle, onPress, key }) => {
       >
         <Text style={{
           ...{
-            color: Colors.light,
+            color: customTheme.colors.light,
             fontSize: 22,
             fontFamily: Fonts.Bold,
             // backgroundColor: 'red'

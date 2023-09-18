@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   NativeMethodsMixin
 } from 'react-native';
+
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import invariant from 'invariant';

@@ -15,7 +15,7 @@ const InfoAction = ({ primary, secondary, action, style, terms }) => (
       activeOpacity={1}
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       onPress={() => (terms ? action() : {})}>
-      <Text style={[CommonStyles.info, { color: Colors.shade, ...style }]}>
+      <Text style={[CommonStyles.info, { color: customTheme.colors.shade, ...style }]}>
         {primary}{' '}
       </Text>
     </TouchableOpacity>
@@ -46,17 +46,17 @@ const InfoSeperated = ({ primary, secondary, secondaryAction }) => {
           { alignItems: 'flex-start', paddingRight: 0, flex: 1 },
         ]}>
         <Text
-          style={[CommonStyles.info, { fontSize: 14, color: Colors.shade }]}>
+          style={[CommonStyles.info, { fontSize: 14, color: customTheme.colors.shade }]}>
           <>
             {checked ? <Icon
               size={16}
-              color={Colors.base}
+              color={customTheme.colors.base}
               name={'checksquare'}
             />
               :
               <Ionicon
                 size={16}
-                color={Colors.base}
+                color={customTheme.colors.base}
                 name={'square-outline'}
               />
             }

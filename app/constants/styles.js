@@ -1,6 +1,7 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 import { Layout } from './dimensions';
-import { Colors } from './colors';
+import { Colors, } from './colors';
+import { customTheme } from './theme';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Fonts } from './fonts';
 let wide = Layout.width;
@@ -9,7 +10,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: wide * 0.04,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
   },
   chatBadge: {
     position: 'absolute',
@@ -30,14 +31,14 @@ export default StyleSheet.create({
     bottom: 0,
     height: wide * 0.08,
     width: '100%',
-    backgroundColor: Colors.base,
+    backgroundColor: customTheme.colors.base,
   },
   showinfo: {
     position: 'absolute',
     top: 0,
     width: '100%',
     height: 30,
-    backgroundColor: Colors.base,
+    backgroundColor: customTheme.colors.base,
   },
   horizontalPadding: {
     paddingHorizontal: wide * 0.04,
@@ -101,24 +102,24 @@ export default StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.overlay,
+    backgroundColor: customTheme.colors.overlay,
   },
   boldText: {
     fontFamily: Fonts.Bold,
   },
   bordered: {
     borderWidth: 0.5,
-    borderColor: Colors.shade,
+    borderColor: customTheme.colors.shade,
   },
   btmborder: {
     marginVertical: 0,
     borderBottomWidth: 0.5,
-    borderColor: Colors.shade,
+    borderColor: customTheme.colors.shade,
   },
   verticalBorder: {
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
-    borderColor: Colors.shade,
+    borderColor: customTheme.colors.shade,
   },
   hiddenbtn: {
     alignItems: 'flex-end',
@@ -128,18 +129,18 @@ export default StyleSheet.create({
     top: 0,
     width: wide * 0.2,
     borderWidth: 0.5,
-    borderColor: Colors.shade,
+    borderColor: customTheme.colors.shade,
     paddingHorizontal: wide * 0.03,
-    backgroundColor: Colors.base,
+    backgroundColor: customTheme.colors.base,
     right: 0,
     marginVertical: wide * 0.02,
   },
   buttons: {
-    backgroundColor: Colors.base,
+    backgroundColor: customTheme.colors.base,
     width: '50%',
     height: wide * 0.13,
     borderRadius: wide * 0.5,
-    shadowColor: Colors.dark,
+    shadowColor: customTheme.colors.dark,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -149,12 +150,12 @@ export default StyleSheet.create({
     marginVertical: wide * 0.05,
   },
   label: {
-    color: Colors.light,
+    color: customTheme.colors.light,
     fontSize: 22,
     fontFamily: Fonts.Bold,
   },
   shadow: {
-    shadowColor: Colors.dark,
+    shadowColor: customTheme.colors.dark,
     shadowOpacity: 0.1,
     shadowRadius: 5,
     shadowOffset: {
@@ -162,32 +163,32 @@ export default StyleSheet.create({
       height: 2,
     },
     elevation: 2,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
   },
   lightshadow: {
-    shadowColor: Colors.dark,
+    shadowColor: customTheme.colors.dark,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
     elevation: 3,
   },
   topshadow: {
-    shadowColor: Colors.dark,
+    shadowColor: customTheme.colors.dark,
     shadowOffset: {
       width: 0,
       height: 12,
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
     elevation: 24,
   },
   info: {
-    color: Colors.base,
+    color: customTheme.colors.base,
     fontWeight: '500',
     fontSize: 16,
     fontFamily: Fonts.Regular,
@@ -204,32 +205,32 @@ export default StyleSheet.create({
     position: 'absolute',
     top: -wide * 0.038,
     left: wide * 0.06,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
     marginVertical: 0,
   },
   input: {
     width: '70%',
     textAlignVertical: 'center',
-    color: Colors.dark,
+    color: customTheme.colors.dark,
     height: '100%',
     fontFamily: Fonts.Regular,
   },
   listItem: {
     flexDirection: 'row',
     minHeight: wide * 0.15,
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
     paddingVertical: wide * 0.02,
     marginVertical: wide * 0.02,
   },
   text: {
     fontSize: 16,
-    color: Colors.grey,
+    color: customTheme.colors.grey,
     lineHeight: wide * 0.05,
     fontFamily: Fonts.Regular,
   },
   title: {
     fontSize: 18,
-    color: Colors.darkshade,
+    color: customTheme.colors.darkshade,
     lineHeight: wide * 0.06,
     maxWidth: '80%',
     fontFamily: Fonts.Regular,
@@ -259,6 +260,6 @@ export default StyleSheet.create({
   },
   headerBottomLine: {
     borderBottomWidth: 0.4,
-    borderBottomColor: Colors.newGrayFontColor
+    borderBottomColor: customTheme.colors.newGrayFontColor
   }
 });

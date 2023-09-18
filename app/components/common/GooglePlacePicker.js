@@ -87,7 +87,7 @@ export class GooglePlacePicker extends Component {
         transparent={true}
         visible={this.props.isVisible}
       >
-        <SafeAreaView style={{ backgroundColor: Colors.base }}>
+        <SafeAreaView style={{ backgroundColor: customTheme.colors.base }}>
           <View
             style={{
               width: '100%',

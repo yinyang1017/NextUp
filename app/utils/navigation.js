@@ -1,13 +1,13 @@
-import { Colors, Fonts } from '../constants';
+import { Colors, Fonts, customTheme } from '../constants';
 import { TransitionPresets } from 'react-navigation-stack';
 export const Header = () => ({
   headerStyle: {
-    backgroundColor: Colors.light,
+    backgroundColor: customTheme.colors.light,
   },
   headerBackTitle: null,
-  headerTintColor: Colors.base,
+  headerTintColor: customTheme.colors.base,
   headerTitleStyle: {
-    color: Colors.base,
+    color: customTheme.colors.base,
     fontSize: 20,
     fontFamily: Fonts.Bold,
   },

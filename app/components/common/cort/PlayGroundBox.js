@@ -9,7 +9,13 @@ import Svg, {
   Circle,
   ForeignObject,
 } from 'react-native-svg';
-import { Colors } from '../../../constants';
+import {
+  Layout,
+  Colors,
+  Fonts,
+  customTheme
+} from '../../constants';
+
 import TouchableOpacityG from './TouchableOpacityG';
 
 function PlayGroundBox(props) {
@@ -33,7 +39,7 @@ function PlayGroundBox(props) {
       {...props}
     >
       {props.clickedCourtArea != null &&
-      props.clickedCourtArea !== undefined ? (
+        props.clickedCourtArea !== undefined ? (
         props.clickedCourtArea.map((obj) => {
           return (
             <Circle
@@ -42,8 +48,8 @@ function PlayGroundBox(props) {
               stroke={obj.isMade ? Colors.btnGren : Colors.btnRed}
               cx={obj.x}
               cy={obj.y}
-              // cx={0}
-              // cy={0}
+            // cx={0}
+            // cy={0}
             />
           );
         })
@@ -138,7 +144,7 @@ function PlayGroundBox(props) {
       >
         <Path
           d="M139.394 137L113 190.612l26.394 10.92L161.22 206H180v-31.273l-17.765-2.482-11.674-7.446-7.106-10.921L139.394 137zM216.97 137L241 190.612l-24.03 10.92L197.098 206H180v-31.273l16.174-2.482 10.629-7.446 6.47-10.921L216.97 137z"
-          // fill={props.shapeCenterCircleHolderBGColor}
+        // fill={props.shapeCenterCircleHolderBGColor}
         />
       </TouchableOpacityG>
 
@@ -162,7 +168,7 @@ function PlayGroundBox(props) {
         <Path
           d="M112.5 191L81 257h97.5v-50l-16.5-1-27.5-5.5-22-9.5z"
 
-          // fill={props.shapeHolderLeftBGColor}
+        // fill={props.shapeHolderLeftBGColor}
         />
       </TouchableOpacityG>
 
@@ -173,7 +179,7 @@ function PlayGroundBox(props) {
       >
         <Path
           d="M244 191l31.5 66H178v-50l16.5-1 27.5-5.5 22-9.5z"
-          // fill={props.shapeHolderRightBGColor}
+        // fill={props.shapeHolderRightBGColor}
         />
       </TouchableOpacityG>
 
@@ -224,7 +230,7 @@ function PlayGroundBox(props) {
         <Path
           d="M354 0v-2h2v2h-2zm0 257.167h2v2h-2v-2zm-179 0v2h-2v-2h2zM175 0h-2v-2h2v2zm53.468 134.25h2v2h-2v-2zM321.745-2H354v4h-32.255v-4zM356 0v101.414h-4V0h4zm0 101.414v155.753h-4V101.414h4zm-34.255-2H354v4h-32.255v-4zm2-99.414v50.707h-4V0h4zm0 50.707v50.707h-4V50.707h4zm-2 2h-93.277v-4h93.277v4zM228.468-2h93.277v4h-93.277v-4zm-2 52.707V0h4v50.707h-4zM175-2h39.519v4H175v-4zm39.519 0h13.949v4h-13.949v-4zm2 2v134.25h-4V0h4zm-2 132.25h13.949v4h-13.949v-4zm11.949 2V50.707h4v83.543h-4zm-11.949 2H175v-4h39.519v4zM354 259.167h-80.782v-4H354v4zm-80.782 0H175v-4h98.218v4zM173 174.641V134.25h4v40.391h-4zm43.519-40.391c0 13.211-3.115 23.89-10.06 31.265-6.967 7.397-17.461 11.126-31.459 11.126v-4c13.316 0 22.583-3.536 28.547-9.868 5.985-6.356 8.972-15.872 8.972-28.523h4zm-43.519 0V29.058h4V134.25h-4zm0-105.192V0h4v29.058h-4zm21.179 2H175v-4h19.179v4zm77.234 226.971l-31.639-66.253 3.61-1.724 31.638 66.253-3.609 1.724zm-31.639-66.253l-27.059-56.664 3.609-1.724 27.06 56.664-3.61 1.724zM173 257.167v-50.561h4v50.561h-4zm0-50.561v-31.965h4v31.965h-4zm69.421-13.878c-12.555 5.832-22.293 9.718-32.477 12.183-10.191 2.468-20.741 3.492-34.915 3.694l-.058-3.999c14.01-.2 24.236-1.21 34.032-3.582 9.804-2.374 19.264-6.132 31.733-11.924l1.685 3.628zm81.146-90.489c-9.68 21.383-18.792 37.003-31.097 50.789-12.296 13.776-27.697 25.623-49.824 39.578l-2.134-3.384c21.989-13.867 37.035-25.483 48.974-38.858 11.931-13.366 20.844-28.585 30.437-49.775l3.644 1.65z"
           fill={props.background}
-          // fill={Colors.lightBlue}
+        // fill={Colors.lightBlue}
         />
         <Path
           d="M176.291 29.93a4.94 4.94 0 010 9.88v-9.88zM204.058 29.93a29.046 29.046 0 01-8.511 20.548A29.048 29.048 0 01175 58.988v-1.952a27.11 27.11 0 0025.042-16.733 27.108 27.108 0 002.063-10.373h1.953zM212.52 133.959c0-2.628-.176-5.107-.51-7.442l3.96-.565c.362 2.532.55 5.201.55 8.007h-4zm-1.633-12.881c-1.416-5.141-3.689-9.451-6.57-12.982l3.099-2.529c3.246 3.979 5.769 8.792 7.327 14.449l-3.856 1.062zm-10.369-16.908c-3.687-3.216-8.035-5.544-12.752-7.01l1.187-3.82c5.199 1.616 10.05 4.201 14.194 7.815l-2.629 3.015zm-18.138-8.287a44.68 44.68 0 00-7.38-.605v-4c2.709 0 5.402.217 8.041.66l-.661 3.945z"
