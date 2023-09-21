@@ -166,6 +166,10 @@ We are committed to making participation in this project a harassment-free exper
 # Directory structure 
  [This is the directory structure we are following ](DIRECTORY.md)
 
+# Styles 
+ [Follow this for style guide](STYLE_GUIDE.md)
+ # Themes and spacing  
+ [Follow this  guide](THEME_GUIDE.md)
 
 
 ## License
