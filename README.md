@@ -153,14 +153,20 @@ Before submitting a PR, ensure that your changes are well-tested.
 
 - Be responsive to feedback from maintainers and other contributors. If changes are requested, make them promptly.
 
-## License
-
-By contributing to this project, you agree that your contributions will be licensed under the project's [LICENSE](LICENSE.md).
-
----
 
 # Code of Conduct
 
 As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests, and other activities.
 
 We are committed to making participation in this project a harassment-free experience for everyone, regardless of their age, body size, disability, ethnicity, gender identity and expression, level
+
+# List of dependencies 
+ These are list of dependencies we are using in our project. [DEPENDECIES][DEPENDECIES.md]
+
+
+
+## License
+
+By contributing to this project, you agree that your contributions will be licensed under the project's [LICENSE](LICENSE.md).
+
+---
