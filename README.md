@@ -170,10 +170,10 @@ We are committed to making participation in this project a harassment-free exper
  [Follow this for style guide](STYLE_GUIDE.md)
  # Themes and spacing  
  [Follow this  guide](THEME_GUIDE.md)
+ # Navigation 
+  [Follow for navigation guide](NAVIGATION.md)
 
 
 ## License
 
 By contributing to this project, you agree that your contributions will be licensed under the project's [LICENSE](LICENSE.md).
-
----
