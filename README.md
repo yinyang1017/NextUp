@@ -161,7 +161,8 @@ As contributors and maintainers of this project, we pledge to respect all people
 We are committed to making participation in this project a harassment-free experience for everyone, regardless of their age, body size, disability, ethnicity, gender identity and expression, level
 
 # List of dependencies 
- These are list of dependencies we are using in our project. [DEPENDECIES][DEPENDECIES.md]
+
+[These are the dependencies we are using in our project. ](DEPENDECIES.md)
 
 
 
