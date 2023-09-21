@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import SplashScreen from 'react-native-splash-screen';
 import { PlayerStack } from './PlayerStack';
-import WelcomeScreen from '../views/welcome/WelcomeScreen';
+import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 export default function AppLoadignStack() {
     const Stack = createNativeStackNavigator();
     const userToken = null

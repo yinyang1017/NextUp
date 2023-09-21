@@ -163,6 +163,9 @@ We are committed to making participation in this project a harassment-free exper
 
 [These are the dependencies we are using in our project. ](DEPENDECIES.md)
 
+# Directory structure 
+ [This is the directory structure we are following ](DIRECTORY.md)
+
 
 
 ## License
