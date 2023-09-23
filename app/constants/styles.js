@@ -145,7 +145,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: wide * 0.04,
-    backgroundColor: customTheme.colors.light,
   },
   appThemeBgContainer: {
     flex: 1,

@@ -99,6 +99,7 @@ const useBackend = () => {
             // await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
             const credential = auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken);
+            console.log(credential, "with cred");
             return auth().signInWithCredential(credential);
         } catch (error) {
             console.error(error);

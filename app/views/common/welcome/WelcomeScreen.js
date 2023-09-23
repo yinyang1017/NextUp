@@ -53,7 +53,9 @@ export default function WelcomeScreen() {
                         }}
                         imageSrc={item.logo}
                         imageStyle={CommonStyles.midSizeLogo}
-                        onPressButton={() => handleImperativeLogin(item.id)}
+                        onPressButton={() => handleImperativeLogin(item.id).then(res => {
+                            console.log(res)
+                        })}
                     />
 
                 </View>
