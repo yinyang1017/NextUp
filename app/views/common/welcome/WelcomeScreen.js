@@ -9,6 +9,7 @@ import { CommonStyles, customTheme } from '../../../constants';
 import TextComponent from '../../../components/common/TextComponent';
 import SocialButton from '../../../components/common/SocialButton';
 import useBackend from '../../../hooks/useBackend';
+import { useUserRegister } from '../../../api/register.api';
 const loginOptions = [
     {
         id: 1,
@@ -28,6 +29,22 @@ const loginOptions = [
 ]
 export default function WelcomeScreen() {
     const { user, handleImperativeLogin } = useBackend()
+    const {
+        mutate,
+        isLoading
+    } = useUserRegister({
+        onSuccess: () => {
+            console.log(user)
+        }
+    })
+    const handleSubmit = async (type) => {
+        await handleImperativeLogin(type).then((res) => {
+            console.log(res, "in welcome screen")
+            alert(JSON.stringify(res, null, 2))
+        }).catch((err) => {
+            console.log(err, "in welcome screen")
+        })
+    }
     return <SafeAreaView style={[CommonStyles.appThemeBgContainer]}>
         <Image
             source={appImages.login_logo}
@@ -53,9 +70,7 @@ export default function WelcomeScreen() {
                         }}
                         imageSrc={item.logo}
                         imageStyle={CommonStyles.midSizeLogo}
-                        onPressButton={() => handleImperativeLogin(item.id).then(res => {
-                            console.log(res)
-                        })}
+                        onPressButton={() => handleSubmit(item?.id)}
                     />
 
                 </View>

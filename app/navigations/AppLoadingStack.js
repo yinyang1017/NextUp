@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import SplashScreen from 'react-native-splash-screen';
 import { PlayerStack } from './PlayerStack';
-import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
+
 import OnBoardingStack from './OnBoardingStack';
 export default function AppLoadignStack() {
     const Stack = createNativeStackNavigator();
     const userToken = null
-    // useEffect(() => {
-    //     SplashScreen.hide();
-    // }, []);
     return <>
+
         <Stack.Navigator initialRouteName='OnboadingStack' screenOptions={{
             headerShown: false,
             cardStyle: {
