@@ -10,6 +10,7 @@ import TextComponent from '../../../components/common/TextComponent';
 import SocialButton from '../../../components/common/SocialButton';
 import useBackend from '../../../hooks/useBackend';
 import { useUserRegister } from '../../../api/register.api';
+import { useAuth } from '../../../hooks/useAuth';
 const loginOptions = [
     {
         id: 1,
@@ -28,19 +29,29 @@ const loginOptions = [
     }
 ]
 export default function WelcomeScreen() {
-    const { user, handleImperativeLogin } = useBackend()
+    const { handleImperativeLogin } = useBackend()
+    const { login } = useAuth()
     const {
         mutate,
         isLoading
     } = useUserRegister({
-        onSuccess: () => {
-            console.log(user)
+        onSuccess: (data) => {
+            login(data)
         }
     })
     const handleSubmit = async (type) => {
         await handleImperativeLogin(type).then((res) => {
-            console.log(res, "in welcome screen")
-            alert(JSON.stringify(res, null, 2))
+            const dataToSend = {
+                email: res?.email,
+                firebaseAuthTokenId: res?.serverAuthCode,
+                loginWith: 'EMAIL',
+                roles: [
+                    "ROLE_COACH",
+                    "ROLE_PLAYER"
+                ]
+            }
+            mutate(dataToSend)
+            // alert(JSON.stringify(res, null, 2))
         }).catch((err) => {
             console.log(err, "in welcome screen")
         })

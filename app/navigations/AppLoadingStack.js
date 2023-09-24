@@ -4,9 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PlayerStack } from './PlayerStack';
 
 import OnBoardingStack from './OnBoardingStack';
+import { useAuth } from '../hooks/useAuth';
+import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 export default function AppLoadignStack() {
     const Stack = createNativeStackNavigator();
-    const userToken = null
+    const { user, isAuthenticated, onBoardingDone } = useAuth()
     return <>
 
         <Stack.Navigator initialRouteName='OnboadingStack' screenOptions={{
@@ -15,12 +17,15 @@ export default function AppLoadignStack() {
                 padding: 20
             }
         }}>
-
-            <Stack.Screen name="PlayerStack" component={PlayerStack} />
-            <Stack.Screen name='OnboadingStack' component={OnBoardingStack} />
-
-
-
+            {
+                !isAuthenticated && <Stack.Screen name='Welcome' component={WelcomeScreen} />
+            }
+            {
+                isAuthenticated && !onBoardingDone && <Stack.Screen name='OnboadingStack' component={OnBoardingStack} />
+            }
+            {
+                isAuthenticated && onBoardingDone && <Stack.Screen name='PlayerStack' component={PlayerStack} />
+            }
         </Stack.Navigator>
     </>
 }

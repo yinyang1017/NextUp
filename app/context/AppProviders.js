@@ -11,7 +11,7 @@ import { useAppState } from "../hooks/useAppState";
 import { useOnlineManager } from "../hooks/useOnlineManager";
 import { Platform } from "react-native";
 import ErrorBoundary from 'react-native-error-boundary';
-import { Button } from "react-native-ui-lib";
+import { Button, View, Text } from "react-native-ui-lib";
 const mutationCache = new MutationCache({
     onError(error, variables, context, mutation) {
         console.log(error)
@@ -35,9 +35,9 @@ function onAppStateChange(status) {
     }
 }
 const ErrorFallback = (props) => (
-    <View style={styles.container}>
-        <Text style={styles.title}>Something happened!</Text>
-        <Text style={styles.text}>{props.error.toString()}</Text>
+    <View >
+        <Text >Something happened!</Text>
+        <Text >{props.error.toString()}</Text>
         <Button onPress={props?.reset}
             label="Try again" ß
         />

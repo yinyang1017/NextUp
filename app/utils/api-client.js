@@ -1,41 +1,59 @@
 /* eslint-disable prefer-promise-reject-errors */
+const baseUrl = `http://34.134.29.128:8081/v1`
 
-import axios from 'axios';
 
-const baseUrl = `http://34.134.29.128:8081/v1/`;
 
-const axiosInstance = axios.create({
-    baseURL: baseUrl,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
 
-axiosInstance.interceptors.request.use(async (config) => {
-    const token = null /* Get your authentication token here */;
+async function client(
+    endpoint,
+    { apiURL = baseUrl, data, token, headers: customHeaders, ...customConfig } = {}
+) {
+    const headers = {};
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        headers.Authorization = `Bearer ${token}`;
     }
-    return config;
-});
+    if (data) {
+        headers['Content-Type'] = 'application/json';
+    }
+    const config = {
+        method: data ? 'POST' : 'GET',
+        ...customConfig,
+        headers: {
+            ...headers,
+            ...customHeaders,
+        },
+    };
+    if (data) {
+        config.body = JSON.stringify(data);
+    }
 
-axiosInstance.interceptors.response.use(
-    (response) => {
-        if (response.status === 204) {
-            return Promise.resolve('Delete successfully');
-        }
-        return response.data.payload || response.data;
-    },
-    (error) => {
-        if (error.response && error.response.status === 401) {
-            // Unauthorized, perform logout and redirect logic here
+    try {
+        const response = await fetch(`${apiURL}/${endpoint}`, config);
 
-            // You may need to handle navigation differently in React Native
+        if (response.status === 401) {
+            // await logout();
+            // Handle navigation differently in React Native
             // Example: navigation.navigate('Login');
-            return Promise.reject({ message: 'Please re-authenticate.' });
+            throw new Error('Please re-authenticate.');
         }
-        return Promise.reject(error.response ? error.response.data : error);
-    }
-);
+        if (response.status === 204) {
+            return 'Delete successfully';
+        }
 
-export { axiosInstance };
+        const responseData = await response.json();
+        // console.log('response in fecth', responseData);
+        if (response.ok) {
+            // console.log('response in fecth', 'ok');
+            return responseData;
+        }
+
+        throw responseData;
+    } catch (error) {
+        console.log('error in fecth', error);
+        // Handle other err
+        // ˀˀors
+        return Promise.reject(error);
+    }
+}
+
+export { client };

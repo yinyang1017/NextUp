@@ -3,17 +3,21 @@ import { customTheme } from "./constants"
 import { NavigationContainer } from "@react-navigation/native"
 import AppLoadignStack from "./navigations/AppLoadingStack"
 import AppProviders from "./context/AppProviders"
+import AuthProvider from "./context/AuthProvider"
 export default function App() {
     return <AppProviders>
-        <StatusBar
-            barStyle={customTheme.statusBarStyle}
-            backgroundColor={customTheme.colors.light.background}
-        />
-        <NavigationContainer theme={customTheme}>
+        <AuthProvider>
+            <StatusBar
+                barStyle={customTheme.statusBarStyle}
+                backgroundColor={customTheme.colors.light.background}
+            />
+            <NavigationContainer theme={customTheme}>
 
-            <AppLoadignStack />
+                <AppLoadignStack />
 
 
-        </NavigationContainer>
+            </NavigationContainer>
+        </AuthProvider>
+
     </AppProviders>
 }

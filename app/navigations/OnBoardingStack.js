@@ -8,13 +8,13 @@ import PhotoUpload from '../views/common/on-boarding/PhotoUpload';
 export default function OnBoardingStack() {
     const Stack = createNativeStackNavigator();
     return <>
-        <Stack.Navigator initialRouteName='Welcome' screenOptions={{
+        <Stack.Navigator initialRouteName='TellUsMore' screenOptions={{
             headerShown: false,
             cardStyle: {
                 padding: 20
             }
         }}>
-            <Stack.Screen name='Welcome' component={WelcomeScreen} />
+            {/* <Stack.Screen name='Welcome' component={WelcomeScreen} /> */}
             <Stack.Screen name='TellUsMore' component={TellUsMore} />
             <Stack.Screen name='PlayerDetails' component={PlayerDetails} />
             <Stack.Screen name='PlayerStyle' component={PlayerStyle} />
