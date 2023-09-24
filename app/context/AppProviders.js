@@ -12,6 +12,7 @@ import { useOnlineManager } from "../hooks/useOnlineManager";
 import { Platform } from "react-native";
 import ErrorBoundary from 'react-native-error-boundary';
 import { Button, View, Text } from "react-native-ui-lib";
+import { customTheme } from "../constants";
 const mutationCache = new MutationCache({
     onError(error, variables, context, mutation) {
         console.log(error)
@@ -35,11 +36,12 @@ function onAppStateChange(status) {
     }
 }
 const ErrorFallback = (props) => (
-    <View >
-        <Text >Something happened!</Text>
-        <Text >{props.error.toString()}</Text>
+    <View center centerV centerH flex backgroundColor={customTheme.colors.background}  >
+        <Text white marginV-12 >Something happened!</Text>
+        <Text white marginV-12 >{props.error.toString()}</Text>
         <Button onPress={props?.reset}
-            label="Try again" ß
+            label="Try again"
+            backgroundColor={customTheme.colors.blue20}
         />
     </View>
 )

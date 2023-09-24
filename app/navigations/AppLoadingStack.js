@@ -17,6 +17,7 @@ export default function AppLoadignStack() {
                 padding: 20
             }
         }}>
+            {/* <Stack.Screen name='OnboadingStack' component={OnBoardingStack} /> */}
             {
                 !isAuthenticated && <Stack.Screen name='Welcome' component={WelcomeScreen} />
             }

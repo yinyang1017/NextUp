@@ -145,6 +145,7 @@ export function FormRadioGroup({
 export function FormSelectable({
     data,
     value,
+    onChange
 }) {
     return <>
         <View row center spread   >
@@ -155,6 +156,7 @@ export function FormSelectable({
                         title={item?.label}
                         imgSrc={item?.imgSrc}
                         isSelected={item?.value === value}
+                        onPress={() => onChange(item?.value)}
                         conatinerStyle={{
                             marginHorizontal: customTheme.spacings.spacing_16,
 
@@ -263,16 +265,20 @@ export function FormButton({
 export function FormDatePicker({
     label,
     value,
+    onChange,
     ...props
 
 }) {
     return <View>
         <DateTimePicker
             mode="date"
+            onChange={onChange}
+
             renderInput={inputProps =>
                 <FormInputField
                     label={label}
                     value={value}
+
                     {...props}
                     {...inputProps}
                 />}

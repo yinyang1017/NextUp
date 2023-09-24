@@ -14,7 +14,7 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                isAuthenticated: true,
+                isAuthenticated: false,
             };
         case 'LOGOUT':
             // Implement your logout logic here and update the state accordingly

@@ -4,31 +4,31 @@
             "name": "Shooter",
             "description": "Shooting specialists who excel at long-range and three-point shots.",
             "image_source": "https://unsplash.com/photos/G38HyRyx3Cw/download?force=true",
-            "value": "shooter"
+            "value": "POWER_SHOOTER"
         },
         {
             "name": "Playmaker",
             "description": "Talented ball handlers and passers who create opportunities for their teammates.",
             "image_source": "https://unsplash.com/photos/zqLr3mvHK3I/download?force=true",
-            "value": "playmaker"
+            "value": "PLAYMAKER"
         },
         {
             "name": "Defender",
             "description": "Lockdown defenders known for their ability to guard opponents effectively.",
             "image_source": "https://unsplash.com/photos/G38HyRyx3Cw/download?force=true",
-            "value": "defender"
+            "value": "DEFENDER"
         },
         {
             "name": "Rebounder",
             "description": "Specialists in grabbing rebounds and controlling the boards for their team.",
             "image_source": "https://unsplash.com/photos/zqLr3mvHK3I/download?force=true",
-            "value": "rebounder"
+            "value": "REBOUNDER"
         },
         {
-            "name": "Slasher",
+            "name": "POWER FORWARD",
             "description": "Aggressive players who drive to the basket and finish with layups or dunks.",
             "image_source": "https://unsplash.com/photos/G38HyRyx3Cw/download?force=true",
-            "value": "slasher"
+            "value": "POWER_FORWARD"
         }
     ]
 }

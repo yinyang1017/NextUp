@@ -4,6 +4,7 @@ const appImages = {
     fb_logo: require('../assets/images/facebook-circular-logo.png'),
     google_logo: require('../assets/images/google_logo.png'),
     player_male: require('../assets/images/player_male.png'),
+    player_female: require('../assets/images/female_onboard_Icon.png'),
     // backIcon: require('../assets/images/back_ico.png'),
     // maleProfile: require('../assets/images/maleProfile.jpg'),
     // femaleProfile: require('../assets/images/FemalePlayerProfile.jpg'),

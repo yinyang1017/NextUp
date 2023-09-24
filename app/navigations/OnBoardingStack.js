@@ -5,9 +5,10 @@ import TellUsMore from '../views/common/on-boarding/TellUsMore';
 import PlayerDetails from '../views/common/on-boarding/PlayerDetails';
 import PlayerStyle from '../views/common/on-boarding/PlayerStyle';
 import PhotoUpload from '../views/common/on-boarding/PhotoUpload';
+import OnBoardingProvider from '../context/OnBoardingProviider';
 export default function OnBoardingStack() {
     const Stack = createNativeStackNavigator();
-    return <>
+    return <OnBoardingProvider>
         <Stack.Navigator initialRouteName='TellUsMore' screenOptions={{
             headerShown: false,
             cardStyle: {
@@ -22,5 +23,5 @@ export default function OnBoardingStack() {
 
 
         </Stack.Navigator>
-    </>
+    </OnBoardingProvider>
 }

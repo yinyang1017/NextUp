@@ -42,15 +42,16 @@ export default function WelcomeScreen() {
     const handleSubmit = async (type) => {
         await handleImperativeLogin(type).then((res) => {
             const dataToSend = {
-                email: res?.email,
-                firebaseAuthTokenId: res?.serverAuthCode,
-                loginWith: 'EMAIL',
+                email: res?.user._user?.email,
+                firebaseAuthTokenId: res?.user._user.uid,
+                loginWith: 'GOOGLE',
                 roles: [
                     "ROLE_COACH",
                     "ROLE_PLAYER"
                 ]
             }
-            mutate(dataToSend)
+            console.log(dataToSend)
+            // mutate(dataToSend)
             // alert(JSON.stringify(res, null, 2))
         }).catch((err) => {
             console.log(err, "in welcome screen")
