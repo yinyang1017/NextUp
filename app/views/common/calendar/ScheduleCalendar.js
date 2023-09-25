@@ -1,14 +1,14 @@
 import { ScrollView } from "react-native";
 import { Text, View } from "react-native-ui-lib";
-import { customTheme } from "../../constants";
-import { ScreenHeader } from "../../components/common/ScreenHeader";
+import { customTheme } from "../../../constants";
+import { ScreenHeader } from "../../../components/common/ScreenHeader";
 import { useNavigation } from "@react-navigation/native";
 import CalendarStrip from 'react-native-calendar-strip';
 import { useState } from "react";
-import styles from "../../constants/styles";
+import styles from "../../../constants/styles";
 import moment from "moment";
-import { EventCarousel } from "../../components/players/Dashboard/EventsCarousel";
-import { MyChallenges } from "../../components/players/Dashboard/Challenges";
+import { EventCarousel } from "../../../components/players/Dashboard/EventsCarousel";
+import { MyChallenges } from "../../../components/players/Dashboard/Challenges";
 export default function ScheduleCalendar() {
     const navigation = useNavigation()
     const [selected, setSelected] = useState('');

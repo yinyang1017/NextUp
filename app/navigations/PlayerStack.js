@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import PlayerDashboard from '../views/players/DashBoard.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCalendar, faDashboard, faHome, faHomeAlt, faMessage, faUser, faUserFriends, faUserSecret, faUsers } from '@fortawesome/free-solid-svg-icons';
-import ScheduleCalendar from '../views/calendar/ScheduleCalendar';
+import ScheduleCalendar from '../views/common/calendar/ScheduleCalendar';
 import { Text } from 'react-native-ui-lib';
 import { StyleSheet } from 'react-native';
-import MyAccount from '../views/account/PlayerAccount';
+import MyAccount from '../views/common/account/PlayerAccount';
 import MyTeamsStack from '../views/players/MyTeams/MyTeamsStack';
 
 

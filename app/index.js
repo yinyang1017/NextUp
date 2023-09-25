@@ -1,16 +1,23 @@
-import { StatusBar, Text } from "react-native"
+import { StatusBar } from "react-native"
 import { customTheme } from "./constants"
 import { NavigationContainer } from "@react-navigation/native"
-import PlayerDashboard from "./views/players/DashBoard"
 import AppLoadignStack from "./navigations/AppLoadingStack"
+import AppProviders from "./context/AppProviders"
+import AuthProvider from "./context/AuthProvider"
 export default function App() {
-    return <>
-        <StatusBar
-            barStyle={customTheme.statusBarStyle}
-            backgroundColor={customTheme.colors.light.background}
-        />
-        <NavigationContainer theme={customTheme}>
-            <AppLoadignStack />
-        </NavigationContainer>
-    </>
+    return <AppProviders>
+        <AuthProvider>
+            <StatusBar
+                barStyle={customTheme.statusBarStyle}
+                backgroundColor={customTheme.colors.light.background}
+            />
+            <NavigationContainer theme={customTheme}>
+
+                <AppLoadignStack />
+
+
+            </NavigationContainer>
+        </AuthProvider>
+
+    </AppProviders>
 }

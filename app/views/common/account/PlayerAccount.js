@@ -1,17 +1,19 @@
 import { Avatar, Image, Text, TouchableOpacity, View, } from "react-native-ui-lib";
 import { Pressable } from "react-native";
-import { ScrollViewContainer } from "../../components/common/SrollViewContainer";
-import { customTheme } from "../../constants";
+import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
+import { customTheme } from "../../../constants";
 import _ from "lodash"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAngleRight, faUser, faUserAlt, faUserAltSlash, faTicketSimple, faTrashAlt, faRightFromBracket, faStar, faShare, faShareNodes, faStickyNote, faCheckSquare, faHeadphonesSimple } from '@fortawesome/free-solid-svg-icons'
-import { ConfirmationDialog } from "../../components/common/confirmationDialog";
+import { ConfirmationDialog } from "../../../components/common/confirmationDialog";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MyAccount() {
     const [dialog, setDialog] = useState({
         logout: false
     })
+    const navigation = useNavigation()
     const profileMenuOptions = [
         {
             name: 'My Profile',
@@ -138,7 +140,7 @@ export default function MyAccount() {
             cancelText="No, stay here"
             onClose={() => setDialog({ ...dialog, logout: false })}
             onConfirm={() => {
-                console.log('logout')
+                navigation.navigate('Welcome')
                 setDialog({ ...dialog, logout: false })
             }}
         />
