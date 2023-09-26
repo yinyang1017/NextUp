@@ -11,22 +11,25 @@ export function useUserRegister({ onSuccess }) {
         },
         {
             onSuccess: data => {
-
-                // queryClient.invalidateQueries('campaigns')
                 onSuccess(data)
             },
         }
     )
-    // return useMutation((data) => {
-    //     return client(`user/register`, {
-    //         method: 'POST',
-    //         data
-    //     }),
-    //     {
-    //         onSuccess: (data) => {
-    //             console.log('sucess data', data)
+}
 
-    //         }
-    //     }
-    // })
+export function useUserOnBoardingRegister({ onSuccess }) {
+    const client = useClient()
+    return useMutation(
+        ({ data, id }) => {
+            return client(`user/onBoarding/${id}`, {
+                method: 'POST',
+                data,
+            })
+        },
+        {
+            onSuccess: data => {
+                onSuccess(data)
+            },
+        }
+    )
 }

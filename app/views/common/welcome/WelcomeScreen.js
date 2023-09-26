@@ -36,6 +36,7 @@ export default function WelcomeScreen() {
         isLoading
     } = useUserRegister({
         onSuccess: (data) => {
+
             login(data)
         }
     })
@@ -50,8 +51,8 @@ export default function WelcomeScreen() {
                     "ROLE_PLAYER"
                 ]
             }
-            console.log(dataToSend)
-            // mutate(dataToSend)
+            // console.log(dataToSend)s
+            mutate(dataToSend)
             // alert(JSON.stringify(res, null, 2))
         }).catch((err) => {
             console.log(err, "in welcome screen")
