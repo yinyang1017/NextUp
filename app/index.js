@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import AppLoadignStack from "./navigations/AppLoadingStack"
 import AppProviders from "./context/AppProviders"
 import AuthProvider from "./context/AuthProvider"
+import Toast from 'react-native-toast-message';
 export default function App() {
     return <AppProviders>
         <AuthProvider>
@@ -18,6 +19,6 @@ export default function App() {
 
             </NavigationContainer>
         </AuthProvider>
-
+        <Toast />
     </AppProviders>
 }

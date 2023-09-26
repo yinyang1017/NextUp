@@ -14,7 +14,7 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                isAuthenticated: false,
+                isAuthenticated: true,
             };
         case 'LOGOUT':
             // Implement your logout logic here and update the state accordingly
@@ -23,6 +23,14 @@ const authReducer = (state, action) => {
                 user: null,
                 isAuthenticated: false,
             };
+        case 'UPDATE_ONBOARDING':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    onBoardingDone: action.payload.onBoardingDone,
+                },
+            }
         default:
             return state;
     }
@@ -42,6 +50,10 @@ export default function AuthProvider({ children }) {
     const logout = () => {
         dispatch({ type: 'LOGOUT' });
     };
+    const updateOnBoarding = () => {
+        dispatch({ type: 'UPDATE_ONBOARDING', payload: { onBoardingDone: true } })
+
+    }
 
     // Create the 'value' prop to share data and functions with consumer components
     const authContextValue = {
@@ -50,6 +62,7 @@ export default function AuthProvider({ children }) {
         onBoardingDone: state?.user?.onBoardingDone,
         login,
         logout,
+        updateOnBoarding
     };
 
     return (

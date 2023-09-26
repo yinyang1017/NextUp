@@ -9,6 +9,9 @@ import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 export default function AppLoadignStack() {
     const Stack = createNativeStackNavigator();
     const { user, isAuthenticated, onBoardingDone } = useAuth()
+    console.log(isAuthenticated, 'user')
+    console.log(onBoardingDone, 'onBoardingDone')
+    console.log(user, 'user')
     return <>
 
         <Stack.Navigator initialRouteName='OnboadingStack' screenOptions={{
