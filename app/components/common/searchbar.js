@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -6,40 +6,26 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {
-  Layout,
-  CommonStyles,
-  Container,
-  Colors,
-  Fonts,
-  customTheme
-} from '../../constants';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import i18n from 'i18n';
+import { Layout, CommonStyles, Fonts, customTheme } from '../../constants';
+import { Image } from 'react-native-ui-lib';
+import { hp, wp } from '../../utils/responsive';
 
 let wide = Layout.width;
 
-const SearchInput = ({ filter, style, onChange }) => (
-  <Container style={[styles.search, { ...style }]}>
+export const SearchInput = ({ filter, style = {}, onChange, placeholder }) => (
+  <View style={[styles.searchInputContainer, { ...style }]}>
     <TextInput
-      style={[
-        styles.input,
-        !filter && { backgroundColor: customTheme.colors.light, ...CommonStyles.shadow },
-      ]}
+      style={[styles.searchInput]}
       autoCorrect={false}
       onChangeText={onChange}
       placeholderTextColor={customTheme.colors.shade}
-      placeholder={i18n.t('Search')}
+      placeholder={placeholder || 'Search'}
     />
-    {filter && (
-      <Icon
-        style={styles.searchIcon}
-        name={'search'}
-        size={16}
-        color={customTheme.colors.shade}
-      />
-    )}
-  </Container>
+    <Image
+      source={require('../../assets/images/search.png')}
+      style={styles.searchIcon}
+    />
+  </View>
 );
 
 const SearchBar = ({ filter, onChange }) => (
@@ -48,12 +34,16 @@ const SearchBar = ({ filter, onChange }) => (
     <TouchableOpacity
       activeOpacity={1}
       onPress={filter}
-      style={[CommonStyles.container, CommonStyles.center, { flex: 0.15, paddingHorizontal: 0, marginLeft: 10 }]}>
+      style={[
+        CommonStyles.container,
+        CommonStyles.center,
+        { flex: 0.15, paddingHorizontal: 0, marginLeft: 10 },
+      ]}>
       <View style={[styles.filter, CommonStyles.center]}>
-        <Icon name={'filter'} color={customTheme.colors.light} size={20} />
+        {/* <Icon name={'filter'} color={customTheme.colors.light} size={20} /> */}
       </View>
       <Text numberOfLines={1} style={styles.filterlabel}>
-        {i18n.t('Filter')}
+        {'Filter'}
       </Text>
     </TouchableOpacity>
   </View>
@@ -64,27 +54,26 @@ const styles = StyleSheet.create({
     height: wide * 0.2,
     flexDirection: 'row',
   },
-  search: {
-    paddingHorizontal: 0,
-    position: 'relative',
-    justifyContent: 'center',
-    flex: 0,
+  searchInputContainer: {
+    borderWidth: 1,
+    borderColor: '#ffffff24',
+    borderRadius: wp(1.5),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp(4),
+    width: wp(92),
+    aspectRatio: wp(2),
   },
-  input: {
-    width: '100%',
-    backgroundColor: Colors.lightshade,
-    height: wide * 0.12,
-    borderRadius: (wide * 0.1) / 2,
-    paddingHorizontal: wide * 0.1,
-    color: customTheme.colors.dark,
+  searchInput: {
+    color: customTheme.colors.white,
     fontFamily: Fonts.Regular,
     textAlignVertical: 'center',
+    paddingVertical: 0,
+    paddingRight: wp(4),
+    flex: 1,
   },
-  searchIcon: {
-    position: 'absolute',
-    top: wide * 0.08,
-    left: wide * 0.04,
-  },
+  searchIcon: { height: wp(5), width: wp(5) },
   filter: {
     height: wide * 0.1,
     width: wide * 0.1,
@@ -98,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { SearchBar, SearchInput };
+export { SearchBar };

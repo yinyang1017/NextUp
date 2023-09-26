@@ -1,17 +1,30 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
-import { Layout, Colors } from '../../constants';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-let wide = Layout.width;
-const Back = ({ onPress }) => (
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { wp } from '../responsive';
+
+const Back = ({ onPress, containerStyle = {} }) => (
   <TouchableOpacity
     activeOpacity={0.5}
-    style={{ paddingHorizontal: wide * 0.02 }}
+    style={[styles.container, containerStyle]}
     onPress={onPress}>
-    <View
-      style={{ justifyContent: 'center', height: '100%', width: wide * 0.1 }}>
-      <Icon size={22} name={'chevron-left'} color={customTheme.colors.base} />
-    </View>
+    <Image
+      source={require('../../assets/leftArrow1.png')}
+      style={styles.backImage}
+    />
   </TouchableOpacity>
 );
+
 export default Back;
+
+const styles = StyleSheet.create({
+  container: {
+    height: wp(8),
+    width: wp(8),
+    borderRadius: wp(1),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#373A44',
+  },
+  backImage: { height: wp(3.5), width: wp(3.5) },
+});
