@@ -8,7 +8,7 @@ export const OnBoardingContext = React.createContext();
 export default function OnBoardingProvider({ children }) {
 
     const navigation = useNavigation()
-    const { user } = useAuth()
+    const { updateOnBoarding } = useAuth()
     const [onBoarding, setOnBoarding] = useState(null)
 
     const [onBoardingCount, setOnBoardingCount] = useState(0)
@@ -34,15 +34,21 @@ export default function OnBoardingProvider({ children }) {
                 ...values
             }
         })
-        setOnBoardingCount(prev => prev + 5)
+        setOnBoardingCount(prev => prev + 30)
     }
     const handleNavigation = (screen) => {
         navigation.navigate(screen)
+    }
+    const handleUserOnboardingRegistration = () => {
+        console.log(onBoarding)
+        updateOnBoarding()
+
     }
     return (
         <OnBoardingContext.Provider value={{
             handleNavigation,
             handleOnBoarding,
+            handleUserOnboardingRegistration,
             onBoarding,
             onBoardingCount,
         }}>

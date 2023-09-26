@@ -1,4 +1,4 @@
-import { View, Text, ProgressBar, Avatar } from "react-native-ui-lib"
+import { View, Text, ProgressBar, TouchableOpacity } from "react-native-ui-lib"
 import { ScreenHeader } from "../../../components/common/ScreenHeader"
 import { ViewContainer } from "../../../components/common/ViewConatiner"
 import { customTheme } from "../../../constants"
@@ -8,8 +8,17 @@ import { FormButton } from "../../../components/common/FormInputs"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { faCamera } from "@fortawesome/free-solid-svg-icons"
 import { useNavigation } from "@react-navigation/native"
+import { useUpload } from "../../../hooks/useUpload"
+import { useOnBoarding } from "../../../hooks/useOnBoarding"
 export default function PhotoUpload() {
-    const navigation = useNavigation()
+
+    const { handleUserOnboardingRegistration } = useOnBoarding()
+    const {
+        isUploading,
+        uploadProgress,
+        pickDocument,
+        scanDocument
+    } = useUpload()
     return <ViewContainer>
         <ScreenHeader />
         <ProgressBar progress={55} progressColor={customTheme.colors.blue20} />
@@ -24,30 +33,38 @@ export default function PhotoUpload() {
                 fontFamily: customTheme.fontFamily.robotoLight,
                 fontWeight: '700',
             }}>Photo </Text>
-            <View center centerV flex>
-                <ImageBackground
-                    source={appImages.player_male}
-                    style={{
+            <TouchableOpacity onPress={scanDocument} center centerV flex>
+                <>
+                    <ImageBackground
+                        source={appImages.player_male}
+                        style={{
 
-                        width: Dimensions.get('window').width / 2,
-                        height: Dimensions.get('window').width / 2,
-                        borderRadius: Dimensions.get('window').width,
-                        overflow: 'hidden',
+                            width: Dimensions.get('window').width / 2,
+                            height: Dimensions.get('window').width / 2,
+                            borderRadius: Dimensions.get('window').width,
+                            overflow: 'hidden',
 
 
-                    }}>
-                    <View center centerH centerV flex backgroundColor={customTheme.colors.blue20} style={
-                        {
-                            opacity: 0.8
-                        }
-                    }>
-                        <FontAwesomeIcon icon={faCamera} size={customTheme.spacings.spacing_24} color={customTheme.colors.light} />
-                    </View>
+                        }}>
+                        <View center centerH centerV flex backgroundColor={customTheme.colors.blue20} style={
+                            {
+                                opacity: 0.8
+                            }
+                        }>
+                            <FontAwesomeIcon icon={faCamera} size={customTheme.spacings.spacing_24} color={customTheme.colors.light} />
+                        </View>
 
-                </ImageBackground>
+                    </ImageBackground>
 
-            </View>
-            <FormButton label="Finish" onPress={() => navigation.navigate('PlayerStack')} />
+                </>
+            </TouchableOpacity>
+
+            <FormButton label="Finish" onPress={() => handleUserOnboardingRegistration()} />
+            <TouchableOpacity onPress={handleUserOnboardingRegistration}>
+                <Text center white marginB-20
+                >Skip</Text>
+            </TouchableOpacity>
+
         </View>
 
     </ViewContainer>

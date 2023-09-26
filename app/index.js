@@ -6,6 +6,7 @@ import AppLoadignStack from './navigations/AppLoadingStack';
 import AppProviders from './context/AppProviders';
 import AuthProvider from './context/AuthProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <AppLoadignStack />
           </NavigationContainer>
         </AuthProvider>
+        <Toast />
       </AppProviders>
     </SafeAreaProvider>
   );

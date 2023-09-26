@@ -41,8 +41,8 @@ export default function WelcomeScreen() {
           loginWith: 'GOOGLE',
           roles: ['ROLE_COACH', 'ROLE_PLAYER'],
         };
-        console.log(dataToSend);
-        // mutate(dataToSend)
+        // console.log(dataToSend)s
+        mutate(dataToSend);
         // alert(JSON.stringify(res, null, 2))
       })
       .catch(err => {
