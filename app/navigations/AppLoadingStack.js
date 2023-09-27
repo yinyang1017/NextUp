@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 import CoachStack from './CoachStack';
 import ChatScreen from '../views/common/inbox/ChatScreen';
+import AddNewTeam from '../views/team/AddNewTeam';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ export default function AppLoadignStack() {
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
+            <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
           </Stack.Group>
         )}
       </Stack.Navigator>

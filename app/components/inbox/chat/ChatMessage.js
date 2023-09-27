@@ -4,6 +4,7 @@ import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import moment from 'moment/moment';
 import { hp, wp } from '../../../utils/responsive';
 import commonChatStyles from './commonChatStyles';
+import { MyColors } from '../../../constants/colors';
 
 const ChatMessage = props => {
   const userId = 1;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     maxWidth: wp(65),
     marginLeft: isSameCurrentUser ? wp(1.5) : 0,
     marginRight: isSameCurrentUser ? 0 : wp(1.5),
-    backgroundColor: isSameCurrentUser ? '#23262F' : '#246BFD',
+    backgroundColor: isSameCurrentUser ? '#23262F' : MyColors.btnBg,
   }),
   messageText: {
     fontSize: FontSize.size_mini,

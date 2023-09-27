@@ -29,7 +29,7 @@ export const TeamsBar = () => {
         />
         <View style={styles.frameContainer}>
           <View>
-            <Pressable onPress={() => navigation.navigate('CoAddTeam')}>
+            <Pressable onPress={() => navigation.navigate('AddNewTeam')}>
               <LinearGradient
                 style={styles.addButtonChild}
                 locations={[0, 1]}

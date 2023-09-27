@@ -4,6 +4,7 @@ import { Image } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
 import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import { Colors } from '../../../constants';
+import { MyColors } from '../../../constants/colors';
 
 const ChatChallengeAccepted = ({ containerStyle = {} }) => {
   return (
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: wp(12),
     width: wp(12),
-    backgroundColor: '#246BFD',
+    backgroundColor: MyColors.btnBg,
     borderRadius: wp(8),
     justifyContent: 'center',
     alignItems: 'center',

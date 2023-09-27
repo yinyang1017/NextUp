@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import commonChatStyles from './commonChatStyles';
 import moment from 'moment';
 import Video from 'react-native-video';
@@ -22,6 +22,8 @@ const ChatVideoMessage = props => {
 
   const [showPausePlayButton, setShowPausePlayButton] = useState(true);
 
+  const videoRef = useRef(null);
+
   const onPressVideoOverlayHandler = () => {
     setShowPausePlayButton(prevValue => !prevValue);
     clearTimeout(timeoutId);
@@ -42,6 +44,14 @@ const ChatVideoMessage = props => {
     setTimeoutId(_tId);
   };
 
+  // const onPressShowFullScreenHandler = () => {
+  //   videoRef?.current?.presentFullscreenPlayer();
+  // };
+  // console.log(
+  //   '🚀 ~ file: ChatVideoMessage.js:56 ~ onPressShowFullScreenHandler ~ videoRef?.current:',
+  //   videoRef?.current,
+  // );
+
   return (
     <View style={commonChatStyles.container(isSameUserMessage)}>
       <Text style={commonChatStyles.dateTimeText}>
@@ -59,12 +69,23 @@ const ChatVideoMessage = props => {
                     ? require('../../../utils/react-native-mo-video-player/MoVideoPlayer/images/play.png')
                     : require('../../../utils/react-native-mo-video-player/MoVideoPlayer/images/pause.png')
                 }
-                style={{ height: wp(4), width: wp(4), left: paused ? 1.5 : 0 }}
+                style={styles.playPauseIcon(paused)}
               />
             </TouchableOpacity>
           </View>
         )}
+        {/* <View style={styles.fullScreenIconWrapper}>
+          <TouchableOpacity
+            style={styles.fullScreenButton}
+            onPress={onPressShowFullScreenHandler}>
+            <Image
+              source={require('../../../utils/react-native-mo-video-player/MoVideoPlayer/images/fullScreen.png')}
+              style={styles.fullScreenIcon}
+            />
+          </TouchableOpacity>
+        </View> */}
         <Video
+          ref={videoRef}
           source={{ uri: props.currentMessage?.video }}
           style={styles.messageVideo(
             isSameUserMessage,
@@ -114,4 +135,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  fullScreenIconWrapper: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    marginTop: hp(1),
+  },
+  fullScreenButton: {
+    marginLeft: 'auto',
+    marginRight: wp(5),
+    marginTop: wp(3),
+  },
+  fullScreenIcon: { height: wp(5), width: wp(5) },
+  playPauseIcon: paused => ({
+    height: wp(4),
+    width: wp(4),
+    left: paused ? 1.5 : 0,
+  }),
 });

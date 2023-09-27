@@ -5,6 +5,7 @@ import { hp, wp } from '../../utils/responsive';
 import { Colors } from '../../constants';
 import { FontFamily, FontSize } from '../../views/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
+import { MyColors } from '../../constants/colors';
 
 const InboxChatItem = ({ index }) => {
   const isAudio = index;
@@ -29,7 +30,9 @@ const InboxChatItem = ({ index }) => {
         <View style={styles.messagesContainer}>
           <Text style={styles.name}>Entire Team</Text>
           {isAudio ? (
-            <Text style={[styles.message, { color: '#246BFD' }]}>Audio</Text>
+            <Text style={[styles.message, { color: MyColors.btnBg }]}>
+              Audio
+            </Text>
           ) : (
             <Text style={styles.message} numberOfLines={1}>
               You:{' '}
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     color: '#FAFAFA50',
   },
   unreadCountBadge: {
-    backgroundColor: '#246BFD',
+    backgroundColor: MyColors.btnBg,
     height: wp(6),
     width: wp(6),
     justifyContent: 'center',

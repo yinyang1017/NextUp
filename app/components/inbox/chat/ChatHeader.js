@@ -6,6 +6,7 @@ import { Image } from 'react-native-ui-lib';
 import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import { Colors } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { MyColors } from '../../../constants/colors';
 
 const ChatHeader = () => {
   const navigation = useNavigation();
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   },
   onlineText: {
     marginTop: hp(0.2),
-    color: '#246BFD',
+    color: MyColors.btnBg,
     fontWeight: '500',
     fontFamily: FontFamily.robotoRegular,
   },
