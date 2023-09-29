@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 // import {Text} from 'react-native';
 import _ from 'lodash';
@@ -117,7 +118,9 @@ function RecordPan({homeRecord, awayRecord}) {
   );
 }
 
-function PieChart() {
+function PieChart({wins, looses, lastRecord = 'N/A'}) {
+  const startAngle = (90 * Math.abs(wins - looses)) / (looses + wins);
+  console.log(startAngle);
   return (
     <View
       style={{
@@ -125,10 +128,8 @@ function PieChart() {
         height: wide * 0.75,
         marginTop: wide * 0.01,
         marginHorizontal: wide * 0.05,
-        // flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // backgroundColor: 'green'
       }}>
       <>
         <View
@@ -149,7 +150,7 @@ function PieChart() {
               fontWeight: '400',
               textAlign: 'center',
             }}>
-            0
+            {wins + looses}
           </Text>
           <Text
             style={{
@@ -167,12 +168,14 @@ function PieChart() {
         <View style={{height: '70%', bottom: 30}}>
           <VictoryChart width={300} height={280}>
             <VictoryPie
-              colorScale={['#246BFD']}
+              colorScale={['#CE1141', '#246BFD']}
               standalone={false}
               width={180}
+              startAngle={startAngle}
+              endAngle={startAngle + 360}
               height={180}
               innerRadius={60}
-              data={[10]}
+              data={[looses, wins]}
               style={{
                 labels: {display: 'none'},
               }}
@@ -235,7 +238,7 @@ function PieChart() {
                 lineHeight: 18,
                 fontFamily: Fonts.Bold,
               }}>
-              0
+              {wins - looses}
             </Text>
           </View>
           <View
@@ -262,7 +265,7 @@ function PieChart() {
                 fontWeight: '600',
                 fontFamily: Fonts.SemiBold,
               }}>
-              0
+              {lastRecord}
             </Text>
           </View>
         </View>
@@ -291,7 +294,7 @@ function PieChart() {
                     fontFamily: Fonts.Bold,
                     marginHorizontal: 10,
                   }}>
-                  0 Wins
+                  {wins} Wins
                 </Text>
               </>
             </View>
@@ -319,24 +322,10 @@ function PieChart() {
                     fontFamily: Fonts.Bold,
                     marginHorizontal: 10,
                   }}>
-                  0 Losses
+                  {looses} Losses
                 </Text>
               </>
             </View>
-            {/* <View style={{ width: '75%', flexDirection: 'row', alignItems: 'center', marginTop: 8 }}>
-
-              <>
-                <View style={{ width: 28, height: 2, backgroundColor: '#FDB927' }}></View>
-                <Text style={{
-                  color: '#FDB927', fontSize: 16, lineHeight: 16,
-                  fontFamily: Fonts.Bold, marginHorizontal: 10
-                }}>
-                  0 Draw
-                </Text>
-              </>
-
-
-            </View> */}
           </>
         </View>
       </View>
@@ -411,6 +400,7 @@ function StatisticOverview() {
         </Picker>
       </View>
       <RecordPan homeRecord={homeRecord} awayRecord={awayRecord} />
+      <PieChart wins={4} looses={2} />
       {/* <View style={styles.data}>
         {_.map([...new Array(5)], (item, index) => {
           return (
@@ -508,20 +498,3 @@ function StatisticOverview() {
 }
 
 export default StatisticOverview;
-const styles = StyleSheet.create({
-  data: {
-    // alignSelf: 'center',
-    paddingHorizontal: Padding.p_11xl,
-    marginTop: 16,
-  },
-  group: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  label: {
-    color: Color.othersWhite,
-    fontFamily: FontFamily.robotoBold,
-    fontWeight: 400,
-  },
-});
