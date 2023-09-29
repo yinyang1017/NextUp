@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     maxWidth: wp(65),
     marginLeft: isSameCurrentUser ? wp(1.5) : 0,
     marginRight: isSameCurrentUser ? 0 : wp(1.5),
-    backgroundColor: isSameCurrentUser ? '#23262F' : MyColors.btnBg,
+    backgroundColor: isSameCurrentUser ? MyColors.lightDark : MyColors.btnBg,
   }),
   messageText: {
     fontSize: FontSize.size_mini,

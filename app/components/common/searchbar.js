@@ -8,25 +8,34 @@ import {
 } from 'react-native';
 import { Layout, CommonStyles, Fonts, customTheme } from '../../constants';
 import { Image } from 'react-native-ui-lib';
-import { hp, wp } from '../../utils/responsive';
+import { wp } from '../../utils/responsive';
+import debounce from 'lodash/debounce';
 
 let wide = Layout.width;
 
-export const SearchInput = ({ filter, style = {}, onChange, placeholder }) => (
-  <View style={[styles.searchInputContainer, { ...style }]}>
-    <TextInput
-      style={[styles.searchInput]}
-      autoCorrect={false}
-      onChangeText={onChange}
-      placeholderTextColor={customTheme.colors.shade}
-      placeholder={placeholder || 'Search'}
-    />
-    <Image
-      source={require('../../assets/images/search.png')}
-      style={styles.searchIcon}
-    />
-  </View>
-);
+export const SearchInput = ({
+  filter,
+  style = {},
+  onChange = () => {},
+  placeholder,
+}) => {
+  const debouncedOnChange = debounce(onChange, 500);
+  return (
+    <View style={[styles.searchInputContainer, { ...style }]}>
+      <TextInput
+        style={[styles.searchInput]}
+        autoCorrect={false}
+        onChangeText={debouncedOnChange}
+        placeholderTextColor={customTheme.colors.shade}
+        placeholder={placeholder || 'Search'}
+      />
+      <Image
+        source={require('../../assets/images/search.png')}
+        style={styles.searchIcon}
+      />
+    </View>
+  );
+};
 
 const SearchBar = ({ filter, onChange }) => (
   <View style={styles.container}>

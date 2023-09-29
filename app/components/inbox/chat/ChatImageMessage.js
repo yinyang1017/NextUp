@@ -44,7 +44,7 @@ const ChatImageMessage = props => {
                     }}>
                     {chunkItem.map((nestedChunkItem, nestedChunkIndex) => (
                       <FastImage
-                        key={nestedChunkIndex}
+                        key={chunkIndex + nestedChunkIndex}
                         style={{
                           height: hp(12),
                           width: isMoreThanThreeImages ? '100%' : '50%',

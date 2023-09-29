@@ -1,11 +1,24 @@
-import { Picker, View, TextField, Text, RadioGroup, RadioButton, Button, DateTimePicker } from "react-native-ui-lib"
-import _ from 'lodash'
-import { customTheme } from "../../constants"
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { SelectableCard } from "./SelectableCard";
-import { ActivityIndicator, Pressable } from "react-native";
-const dropdownIcon = <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import {
+  Picker,
+  View,
+  TextField,
+  Text,
+  RadioGroup,
+  RadioButton,
+  Button,
+  DateTimePicker,
+} from 'react-native-ui-lib';
+import _ from 'lodash';
+import { customTheme } from '../../constants';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { SelectableCard } from './SelectableCard';
+import { ActivityIndicator, Pressable } from 'react-native';
+const dropdownIcon = (
+  <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+);
 /**
  * Renders a form input picker component.
  *
@@ -15,64 +28,57 @@ const dropdownIcon = <FontAwesomeIcon icon={faChevronDown} color={customTheme.co
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
-export function FormInputPicker({
-    data,
-    value,
-    onValueChange,
-    label,
-    title
-}) {
-    return <View marginV-12 flex marginR-16>
-        <Picker
-            topBarProps={{ title: title }}
-            showSearch
-            renderPicker={() => {
-                return <>
-
-                    <TextField
-                        label={label}
-                        labelColor={customTheme.colors.light}
-                        labelStyle={{
-                            opacity: 0.6,
-                            marginBottom: customTheme.spacings.spacing_8,
-                            textTransform: 'uppercase',
-                            color: customTheme.colors.light,
-                            fontSize: customTheme.fontSizes.size_12,
-                            fontWeight: '700',
-                            opacity: 0.6,
-                            fontFamily: customTheme.fontFamily.robotoBold
-                        }}
-                        value={value}
-                        color={customTheme.colors.light}
-                        fieldStyle={{
-                            marginBottom: customTheme.spacings.spacing_12
-                        }}
-                        containerStyle={{
-                            borderBottomColor: customTheme.colors.tertiary,
-                            borderBottomWidth: 1
-                        }}
-                        trailingAccessory={dropdownIcon}
-
-
-                    />
-                </>
-            }}
-
-            searchStyle={{ color: customTheme.colors.blue20, placeholderTextColor: customTheme.colors.primary }}
-            onChange={(value) => {
-                onValueChange(value)
-            }}
-        >
-            {
-                _.map(data, (item, index) => {
-                    return <Picker.Item key={index} label={item?.label} value={item?.value} />
-                })
-            }
-
-        </Picker>
-
-
+export function FormInputPicker({ data, value, onValueChange, label, title }) {
+  return (
+    <View marginV-12 flex marginR-16>
+      <Picker
+        topBarProps={{ title: title }}
+        showSearch
+        renderPicker={() => {
+          return (
+            <>
+              <TextField
+                label={label}
+                labelColor={customTheme.colors.light}
+                labelStyle={{
+                  opacity: 0.6,
+                  marginBottom: customTheme.spacings.spacing_8,
+                  textTransform: 'uppercase',
+                  color: customTheme.colors.light,
+                  fontSize: customTheme.fontSizes.size_12,
+                  fontWeight: '700',
+                  opacity: 0.6,
+                  fontFamily: customTheme.fontFamily.robotoBold,
+                }}
+                value={value}
+                color={customTheme.colors.light}
+                fieldStyle={{
+                  marginBottom: customTheme.spacings.spacing_12,
+                }}
+                containerStyle={{
+                  borderBottomColor: customTheme.colors.tertiary,
+                  borderBottomWidth: 1,
+                }}
+                trailingAccessory={dropdownIcon}
+              />
+            </>
+          );
+        }}
+        searchStyle={{
+          color: customTheme.colors.blue20,
+          placeholderTextColor: customTheme.colors.primary,
+        }}
+        onChange={value => {
+          onValueChange(value);
+        }}>
+        {_.map(data, (item, index) => {
+          return (
+            <Picker.Item key={index} label={item?.label} value={item?.value} />
+          );
+        })}
+      </Picker>
     </View>
+  );
 }
 
 /**
@@ -87,54 +93,54 @@ export function FormInputPicker({
  * @return {ReactElement} The rendered radio group component.
  */
 export function FormRadioGroup({
-    label = 'Form Label',
-    value,
-    onValueChange,
-    radioValues = [],
-    direction = "row",
+  label = 'Form Label',
+  value,
+  onValueChange,
+  radioValues = [],
+  direction = 'row',
 }) {
-    const viewDir = {
-        row: true,
-        column: false
-    }
-    return <View marginV-12>
-        <Text style={
-            {
-                opacity: 0.6,
-                marginBottom: customTheme.spacings.spacing_8,
-                textTransform: 'uppercase',
-                color: customTheme.colors.light,
-                fontSize: customTheme.fontSizes.size_12,
-                fontWeight: '700',
-                opacity: 0.6,
-                fontFamily: customTheme.fontFamily.robotoBold
-            }
-        }>
-            {label}
-
-        </Text>
-        <RadioGroup initialValue={value} onValueChange={onValueChange}>
-            <View row={viewDir[direction]} animated>
-                {
-                    _.map(radioValues, (item, index) => {
-                        return <RadioButton
-                            key={index}
-                            value={item?.value ?? ''}
-                            label={item?.label ?? ''}
-                            containerStyle={{
-                                marginRight: customTheme.spacings.spacing_16,
-                                marginTop: customTheme.spacings.spacing_8
-                            }}
-                            labelStyle={{
-                                color: customTheme.colors.light
-                            }}
-                            color={customTheme.colors.blue20}
-                        />
-                    })
-                }
-            </View>
-        </RadioGroup>
+  const viewDir = {
+    row: true,
+    column: false,
+  };
+  return (
+    <View marginV-12>
+      <Text
+        style={{
+          opacity: 0.6,
+          marginBottom: customTheme.spacings.spacing_8,
+          textTransform: 'uppercase',
+          color: customTheme.colors.light,
+          fontSize: customTheme.fontSizes.size_12,
+          fontWeight: '700',
+          opacity: 0.6,
+          fontFamily: customTheme.fontFamily.robotoBold,
+        }}>
+        {label}
+      </Text>
+      <RadioGroup initialValue={value} onValueChange={onValueChange}>
+        <View row={viewDir[direction]} animated>
+          {_.map(radioValues, (item, index) => {
+            return (
+              <RadioButton
+                key={index}
+                value={item?.value ?? ''}
+                label={item?.label ?? ''}
+                containerStyle={{
+                  marginRight: customTheme.spacings.spacing_16,
+                  marginTop: customTheme.spacings.spacing_8,
+                }}
+                labelStyle={{
+                  color: customTheme.colors.light,
+                }}
+                color={customTheme.colors.blue20}
+              />
+            );
+          })}
+        </View>
+      </RadioGroup>
     </View>
+  );
 }
 
 /**
@@ -142,70 +148,64 @@ export function FormRadioGroup({
  *
  * @return {JSX.Element} An empty JSX element.
  */
-export function FormSelectable({
-    data,
-    value,
-    onChange
-}) {
-    return <>
-        <View row center spread   >
-            {
-                _.map(data, (item, index) => {
-                    return <SelectableCard
-                        key={index}
-                        title={item?.label}
-                        imgSrc={item?.imgSrc}
-                        isSelected={item?.value === value}
-                        onPress={() => onChange(item?.value)}
-                        conatinerStyle={{
-                            marginHorizontal: customTheme.spacings.spacing_16,
-
-                        }}
-
-
-                    />
-                })
-            }
-        </View>
+export function FormSelectable({ data, value, onChange }) {
+  return (
+    <>
+      <View row center spread>
+        {_.map(data, (item, index) => {
+          return (
+            <SelectableCard
+              key={index}
+              title={item?.label}
+              imgSrc={item?.imgSrc}
+              isSelected={item?.value === value}
+              onPress={() => onChange(item?.value)}
+              conatinerStyle={{
+                marginHorizontal: customTheme.spacings.spacing_16,
+              }}
+            />
+          );
+        })}
+      </View>
     </>
+  );
 }
-export function FormInputField({
-    label,
-    value,
-    ...props
-}) {
-    return <TextField
-        label={label}
-        marginV-12
-        labelColor={customTheme.colors.light}
-        placeholderTextColor={customTheme.colors.light}
-        labelStyle={{
-            opacity: 0.6,
-            marginBottom: customTheme.spacings.spacing_8,
-            textTransform: 'uppercase',
-            color: customTheme.colors.light,
-            fontSize: customTheme.fontSizes.size_12,
-            fontWeight: '700',
-            opacity: 0.6,
-            fontFamily: customTheme.fontFamily.robotoBold
-        }}
-        value={value}
-        color={customTheme.colors.light}
-        fieldStyle={{
-            marginBottom: customTheme.spacings.spacing_12
-        }}
-        containerStyle={{
-            borderBottomColor: customTheme.colors.tertiary,
-            borderBottomWidth: 1,
-            flex: 1,
-            marginRight: customTheme.spacings.spacing_16
-        }}
-        {...props
-        }
 
-
+export function FormInputField({ label, value, ...props }) {
+  return (
+    <TextField
+      label={label}
+      marginV-12
+      labelColor={customTheme.colors.light}
+      placeholderTextColor={customTheme.colors.light + '60'}
+      value={value}
+      color={customTheme.colors.light}
+      fieldStyle={{ marginBottom: customTheme.spacings.spacing_12 }}
+      {...props}
+      containerStyle={[
+        {
+          borderBottomColor: customTheme.colors.tertiary,
+          borderBottomWidth: 1,
+          marginRight: customTheme.spacings.spacing_16,
+        },
+        props.containerStyle,
+      ]}
+      labelStyle={[
+        {
+          opacity: 0.6,
+          marginBottom: customTheme.spacings.spacing_8,
+          textTransform: 'uppercase',
+          color: customTheme.colors.light,
+          fontSize: customTheme.fontSizes.size_12,
+          fontWeight: '700',
+          fontFamily: customTheme.fontFamily.robotoBold,
+        },
+        props.labelStyle,
+      ]}
     />
+  );
 }
+
 /**
  * Renders a form button component.
  *
@@ -216,72 +216,69 @@ export function FormInputField({
  * @return {JSX.Element} - The rendered button component.
  */
 export function FormButton({
-    loading = false,
-    disabled = false,
-    onPress,
-    label = 'Submit',
+  loading = false,
+  disabled = false,
+  onPress,
+  label = 'Submit',
 }) {
-    const handlePress = () => {
-        if (loading || disabled) {
-            return
-        }
-        onPress()
+  const handlePress = () => {
+    if (loading || disabled) {
+      return;
     }
-    return <>
-        <Pressable
-            onPress={handlePress}
-
-            disabled={disabled || loading} style={{
-                backgroundColor: disabled || loading ? customTheme.colors.tertiary : customTheme.colors.blue20,
-                borderRadius: customTheme.spacings.spacing_16,
-                paddingVertical: customTheme.spacings.spacing_12,
-                marginBottom: customTheme.spacings.spacing_48
-
-
+    onPress();
+  };
+  return (
+    <>
+      <Pressable
+        onPress={handlePress}
+        disabled={disabled || loading}
+        style={{
+          backgroundColor:
+            disabled || loading
+              ? customTheme.colors.tertiary
+              : customTheme.colors.blue20,
+          borderRadius: customTheme.spacings.spacing_16,
+          paddingVertical: customTheme.spacings.spacing_12,
+          marginBottom: customTheme.spacings.spacing_48,
+        }}>
+        <View row center spread>
+          <ActivityIndicator
+            animating={loading}
+            color={customTheme.colors.white}
+          />
+          <Text
+            animated
+            style={{
+              color: customTheme.colors.white,
+              fontSize: customTheme.fontSizes.size_16,
+              fontWeight: '700',
+              fontFamily: customTheme.fontFamily.robotoBold,
+              textAlign: 'center',
+              opacity: disabled ? 0.4 : 1,
             }}>
-            <View row center spread>
-                <ActivityIndicator animating={loading} color={customTheme.colors.white} />
-                <Text
-                    animated
-                    style={{
-                        color: customTheme.colors.white,
-                        fontSize: customTheme.fontSizes.size_16,
-                        fontWeight: '700',
-                        fontFamily: customTheme.fontFamily.robotoBold,
-                        textAlign: 'center',
-                        opacity: disabled ? 0.4 : 1
-                    }}
-                >{
-                        loading ? 'Loading...' : label
-                    }
-
-                </Text>
-            </View>
-
-        </Pressable>
-
+            {loading ? 'Loading...' : label}
+          </Text>
+        </View>
+      </Pressable>
     </>
+  );
 }
-export function FormDatePicker({
-    label,
-    value,
-    onChange,
-    ...props
 
-}) {
-    return <View>
-        <DateTimePicker
-            mode="date"
-            onChange={onChange}
-
-            renderInput={inputProps =>
-                <FormInputField
-                    label={label}
-                    value={value}
-
-                    {...props}
-                    {...inputProps}
-                />}
-        />
+export function FormDatePicker({ label, value, onChange, ...props }) {
+  return (
+    <View>
+      <DateTimePicker
+        mode="date"
+        onChange={onChange}
+        renderInput={inputProps => (
+          <FormInputField
+            label={label}
+            value={value}
+            {...props}
+            {...inputProps}
+          />
+        )}
+      />
     </View>
+  );
 }
