@@ -55,6 +55,7 @@
     "react-native-ui-lib": "^7.8.0",
     "react-query": "^3.39.3",
     "uuid": "^9.0.1",
+    "victory-native": "^36.6.11",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
