@@ -44,7 +44,8 @@ export const DashBoardHeader = ({imgSrc = null, name = null}) => {
         </Button>
         <Button
           round
-          // style={{width: 44, height: 44}}
+          
+          style={{width: 44, height: 44}}
           size={'large'}
           backgroundColor={customTheme.colors.overlay2}>
           <FontAwesomeIcon

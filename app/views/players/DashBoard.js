@@ -13,12 +13,12 @@ import LinearGradient from 'react-native-linear-gradient';
 // import {useNavigation} from '@react-navigation/native';
 import DashBoardHeader from '../../components/common/DashBoardHeader';
 import {MyTeams, TeamsBar} from '../../components/players/Dashboard/MyTeams';
-import {EventCarousel} from '../../components/players/Dashboard/EventsCarousel';
+import {UpcomingGames} from '../../components/players/Dashboard/EventsCarousel';
 import StatsContainer from '../../components/players/Dashboard/StatsContainer';
 import {MyChallenges} from '../../components/players/Dashboard/Challenges';
 import {Button, Colors} from 'react-native-ui-lib';
 import {customTheme} from '../../constants';
-
+import StatisticOverview from '../../components/players/Dashboard/StatisticOverview';
 import profileImg from '../../assets/images/avatar.png';
 
 const PlayerDashboard = () => {
@@ -33,7 +33,8 @@ const PlayerDashboard = () => {
       <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
         <DashBoardHeader imgSrc={profileImg} />
         <TeamsBar />
-        <EventCarousel />
+        <UpcomingGames />
+        <StatisticOverview />
         <StatsContainer />
         <MyChallenges />
       </View>
