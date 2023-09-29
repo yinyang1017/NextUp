@@ -1,24 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-// import {Text} from 'react-native';
 import _ from 'lodash';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Picker} from 'react-native-ui-lib';
-import {
-  VictoryAxis,
-  VictoryBar,
-  VictoryChart,
-  VictoryGroup,
-  VictoryLabel,
-  VictoryPie,
-} from 'victory-native';
+import {VictoryAxis, VictoryChart, VictoryPie} from 'victory-native';
 import {Colors, Fonts, Layout} from '../../../constants';
-import {
-  Color,
-  FontFamily,
-  FontSize,
-  Padding,
-} from '../../../views/GlobalStyles';
+import {Color, FontFamily, FontSize} from '../../../views/GlobalStyles';
 let wide = Layout.width;
 function RecordPan({homeRecord, awayRecord}) {
   return (
@@ -42,7 +29,7 @@ function RecordPan({homeRecord, awayRecord}) {
           borderRightColor: Colors.grey,
           borderRightWidth: 1,
         }}>
-        {homeRecord != '' && homeRecord != null ? (
+        {homeRecord !== undefined ? (
           <Text
             style={{
               color: Colors.light,
@@ -79,7 +66,7 @@ function RecordPan({homeRecord, awayRecord}) {
       </View>
 
       <View style={{flex: 1, alignItems: 'center', paddingVertical: 15}}>
-        {awayRecord != '' && awayRecord != null ? (
+        {awayRecord !== undefined ? (
           <Text
             style={{
               color: Colors.light,
@@ -120,7 +107,6 @@ function RecordPan({homeRecord, awayRecord}) {
 
 function PieChart({wins, looses, lastRecord = 'N/A'}) {
   const startAngle = (90 * Math.abs(wins - looses)) / (looses + wins);
-  console.log(startAngle);
   return (
     <View
       style={{
@@ -333,9 +319,18 @@ function PieChart({wins, looses, lastRecord = 'N/A'}) {
   );
 }
 
+const _data = {
+  home: {
+    wins: 3,
+    looses: 0,
+  },
+  away: {
+    wins: 0,
+    looses: 1,
+  },
+};
+
 function StatisticOverview() {
-  const homeRecord = '0-0';
-  const awayRecord = '0-0';
   const items = [
     {
       label: '2020-21',
@@ -349,9 +344,6 @@ function StatisticOverview() {
     },
   ];
   const [date, setDate] = React.useState(undefined);
-  const getWidth = width => {
-    return 100 * 0.5;
-  };
 
   return (
     <View
@@ -399,100 +391,14 @@ function StatisticOverview() {
           })}
         </Picker>
       </View>
-      <RecordPan homeRecord={homeRecord} awayRecord={awayRecord} />
-      <PieChart wins={4} looses={2} />
-      {/* <View style={styles.data}>
-        {_.map([...new Array(5)], (item, index) => {
-          return (
-            <View key={index} style={[styles.group]}>
-              <Text style={[styles.label]}>
-                PTS -{item} {index + 1}
-              </Text>
-              <View
-                style={{
-                  marginLeft: Padding.p_xl,
-                }}>
-                <Text
-                  style={{
-                    color: Color.othersWhite,
-                  }}>
-                  <View
-                    style={{
-                      width: 100 * 0.5,
-                      backgroundColor: Color.goldenrod_100,
-                      height: 8,
-                    }}
-                  />{' '}
-                  <Text>{getWidth(index + 1)}</Text>
-                </Text>
-                <Text
-                  style={{
-                    color: Color.darkgray_100,
-                  }}>
-                  <View
-                    style={{
-                      width: 200,
-                      backgroundColor: Color.darkgray_100,
-                      height: 8,
-                    }}
-                  />{' '}
-                  <Text>{getWidth(index + 1)}</Text>
-                </Text>
-              </View>
-
-              <View style={[styles.groupItem, styles.groupPosition1]} />
-            </View>
-          );
-        })}
-        <View
-          style={{
-            marginTop: 20,
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}>
-          <Text
-            style={{
-              marginHorizontal: 8,
-            }}>
-            <View
-              style={{
-                width: 25,
-                backgroundColor: Color.darkgray_300,
-                height: 8,
-              }}
-            />
-
-            <Text
-              style={{
-                color: Color.othersWhite,
-                marginLeft: Padding.p_12xs,
-                fontFamily: FontFamily.robotoBold,
-                fontWeight: 600,
-              }}>
-              {' '}
-              Overall Game
-            </Text>
-          </Text>
-          <Text>
-            <View
-              style={{
-                width: 25,
-                backgroundColor: Color.goldenrod_100,
-                height: 8,
-              }}
-            />
-
-            <Text
-              style={{
-                color: Color.goldenrod_100,
-                marginLeft: Padding.p_12xs,
-              }}>
-              {' '}
-              Last Game
-            </Text>
-          </Text>
-        </View>
-      </View> */}
+      <RecordPan
+        homeRecord={`${_data.home.wins}-${_data.home.looses}`}
+        awayRecord={`${_data.away.wins}-${_data.away.looses}`}
+      />
+      <PieChart
+        wins={_data.home.wins + _data.away.wins}
+        looses={_data.home.looses + _data.away.looses}
+      />
     </View>
   );
 }
