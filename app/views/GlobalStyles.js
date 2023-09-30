@@ -111,6 +111,7 @@ export const Padding = {
   p_mini: 15,
   p_7xs: 6,
   p_10xs: 3,
+  p_12xs: 5,
   p_11xl: 30,
   p_12xs: 1,
   p_13xl: 32,

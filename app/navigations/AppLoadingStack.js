@@ -8,6 +8,8 @@ import ChatScreen from '../views/common/inbox/ChatScreen';
 import AddNewTeam from '../views/team/AddNewTeam';
 import SearchPlayers from '../views/players/MyTeams/SearchPlayers';
 import InvitePlayers from '../views/players/MyTeams/InvitePlayers';
+import AllStandings from '../views/players/MyTeams/AllStandings';
+import GameStatistics from '../views/players/MyTeams/GameStatistics';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -33,6 +35,8 @@ export default function AppLoadignStack() {
             <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
             <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
             <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
+            <Stack.Screen name="AllStandings" component={AllStandings} />
+            <Stack.Screen name="GameStatistics" component={GameStatistics} />
           </Stack.Group>
         )}
       </Stack.Navigator>

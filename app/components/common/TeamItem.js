@@ -34,9 +34,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.white,
   },
   imageContainer: {
-    height: wp(20),
-    width: wp(20),
-    alignItems: 'center',
+    height: wp(22),
+    width: wp(22),
   },
   image: { width: '100%', height: '100%' },
   name: {

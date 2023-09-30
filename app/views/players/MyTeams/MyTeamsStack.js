@@ -57,7 +57,7 @@ const tabScreenOptions = { headerShown: true };
 
 export default function MyTeamsStack() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
       <View style={{ paddingHorizontal: customTheme.spacings.spacing_16 }}>
         <TeamsBar />
       </View>

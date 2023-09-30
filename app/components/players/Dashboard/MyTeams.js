@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native-ui-lib';
-import { StyleSheet, Pressable } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
   Padding,
@@ -11,14 +10,47 @@ import {
   Border,
 } from '../../../views/GlobalStyles';
 import TeamItem from '../../common/TeamItem';
+import { wp } from '../../../utils/responsive';
+import { MyColors } from '../../../constants/colors';
 
 export const TeamsBar = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.myTeamsParent}>
-      <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
-      <View style={styles.teamNamesRow}>
+    <View style={[styles.myTeamsParent]}>
+      <View style={styles.myTeamChildView}>
+        <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
+        <View style={styles.downView}>
+          <Image
+            source={require('../../../assets/chevrondown5.png')}
+            style={styles.downIcon}
+          />
+          <Text style={styles.yearText}>2020-21</Text>
+        </View>
+      </View>
+      <View style={[styles.teamNamesRow]}>
+        <View>
+          <TouchableOpacity
+            style={styles.plusChildView}
+            onPress={() => navigation.navigate('AddNewTeam')}>
+            <View
+              style={{
+                borderWidth: 1.5,
+                borderColor: '#246BFD',
+                alignSelf: 'center',
+                padding: wp(0.8),
+                borderRadius: wp(2.5),
+              }}>
+              <Image
+                style={[styles.plusIcon]}
+                source={require('../../../assets/plus.png')}
+                tintColor="#246BFD"
+              />
+            </View>
+          </TouchableOpacity>
+          <Text style={styles.addtext}>Add</Text>
+        </View>
+
         <TeamItem
           imageSource={require('../../../assets/frame8.png')}
           name="Rotary AAU 17"
@@ -27,37 +59,6 @@ export const TeamsBar = () => {
           imageSource={require('../../../assets/frame9.png')}
           name="O’Dea HS"
         />
-        <View style={styles.frameContainer}>
-          <View>
-            <Pressable onPress={() => navigation.navigate('AddNewTeam')}>
-              <LinearGradient
-                style={styles.addButtonChild}
-                locations={[0, 1]}
-                colors={['#3f424d', '#323640']}
-                useAngle={true}
-                angle={223.47}
-              />
-              <Image
-                style={styles.addButtonItem}
-                resizeMode="cover"
-                source={require('../../../assets/ellipse-685.png')}
-              />
-              <Image
-                style={[styles.addButtonInner, styles.text1Position]}
-                resizeMode="cover"
-                source={require('../../../assets/ellipse-686.png')}
-              />
-              <Image
-                style={[styles.plusIcon, styles.plusIconPosition]}
-                resizeMode="cover"
-                source={require('../../../assets/plus.png')}
-              />
-            </Pressable>
-          </View>
-          <Text style={[styles.highSchoolTeam1, styles.highTypo]}>
-            Add Team
-          </Text>
-        </View>
       </View>
     </View>
   );
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   highTypo: {
-    color: Color.darkgray_100,
+    color: Color.royalblue,
     textAlign: 'center',
     fontFamily: FontFamily.robotoBold,
     fontWeight: '600',
@@ -112,12 +113,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.bodyMediumSemibold_size,
   },
   text1Position: {
-    left: 38,
+    left: 28,
     position: 'absolute',
   },
   plusIconPosition: {
     zIndex: 3,
     position: 'absolute',
+    padding: 10,
   },
   parentFlexBox: {
     height: 16,
@@ -395,8 +397,7 @@ const styles = StyleSheet.create({
   myTeams: {
     fontSize: FontSize.size_3xl,
     color: Color.othersWhite,
-    lineHeight: 22,
-    textAlign: 'left',
+    lineHeight: 20,
   },
   frameIcon: {
     width: 80,
@@ -444,52 +445,85 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addButtonChild: {
-    borderRadius: 20,
-    width: 82,
-    height: 79,
-    zIndex: 0,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: 'blue',
+    width: 65,
+    height: 65,
     backgroundColor: 'transparent',
+    left: 17,
+    margin: 12,
   },
+
   addButtonItem: {
-    top: -5,
-    left: -5,
-    zIndex: 1,
     opacity: 0.14,
-    width: 43,
     position: 'absolute',
-    height: 42,
   },
   addButtonInner: {
-    width: 45,
-    height: 45,
-    zIndex: 2,
-    top: 38,
     opacity: 0.14,
   },
+
   plusIcon: {
-    top: 21,
-    left: 22,
-    height: 37,
-    width: 38,
-    overflow: 'hidden',
+    width: wp(5),
+    height: wp(5),
   },
-  highSchoolTeam1: {
-    marginTop: 10,
-    alignSelf: 'stretch',
-  },
-  frameContainer: {
+  plusChildView: {
+    borderWidth: 2,
+    width: wp(18),
+    height: wp(18),
+    borderColor: '#246BFD',
     justifyContent: 'center',
+    borderRadius: wp(10),
     alignItems: 'center',
+    marginTop: wp(2),
+  },
+  addtext: {
+    color: '#246BFD',
+    alignSelf: 'center',
+    lineHeight: 25,
+    fontSize: FontSize.bodyMediumSemibold_size,
+    fontFamily: FontFamily.robotoRegular,
+    width: '100%',
+    paddingVertical: Padding.p_8xs,
+    textAlign: 'center',
+  },
+  addTextview: {},
+  highSchoolTeam1: {
+    marginTop: 6,
     alignSelf: 'stretch',
+    left: 16,
+    bottom: 8,
   },
   teamNamesRow: {
     marginTop: 10,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
   myTeamsParent: {
     marginTop: 20,
     alignSelf: 'stretch',
+  },
+  myTeamChildView: {
+    flexDirection: 'row',
+    marginBottom: wp(2),
+  },
+  downView: {
+    flexDirection: 'row',
+    left: wp(50),
+    position: 'absolute',
+  },
+  downIcon: {
+    height: wp(5),
+    width: wp(5),
+    position: 'absolute',
+    left: wp(34),
+  },
+  yearText: {
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginHorizontal: wp(17),
+    fontSize: FontSize.size_lg,
+    color: MyColors.light,
   },
   seeAll: {
     color: Color.royalblue,

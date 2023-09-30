@@ -20,6 +20,7 @@ export const customTheme = {
   statusBarStyle: 'light-content',
   fontSizes: {
     size_4: 4,
+    size_10: 10,
     size_8: 8,
     size_12: 12,
     size_16: 16,
