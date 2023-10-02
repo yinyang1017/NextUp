@@ -1,13 +1,27 @@
-import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
-import { Text } from "react-native-ui-lib";
-import TeamTable from "../../../components/common/TeamTable";
-import { CustomTable } from "../../../components/common/CustomTable";
-export default function Games() {
-    return (
-        <ScrollViewContainer>
+import React from 'react';
+import StatisticalOverview from '../../../components/games/StatisticalOverview/StatisticalOverview';
+import { ScrollView, StyleSheet } from 'react-native';
+import { customTheme } from '../../../constants';
+import { hp } from '../../../utils/responsive';
+import LastGame from '../../../components/games/LastGame/LastGame';
+import Standings from '../../../components/games/Standings/Standings';
 
-            <CustomTable title="Team History" />
-            <CustomTable title="2021-22 Pacific Standings" />
-        </ScrollViewContainer>
-    )
+export default function Games() {
+  return (
+    <ScrollView contentContainerStyle={styles.content}>
+      {/* <CustomTable title="Team History" />
+      <CustomTable title="2021-22 Pacific Standings" /> */}
+      <StatisticalOverview />
+      <LastGame />
+      <Standings />
+    </ScrollView>
+  );
 }
+
+const styles = StyleSheet.create({
+  content: {
+    paddingHorizontal: customTheme.spacings.spacing_16,
+    marginTop: hp(4),
+    paddingBottom: hp(6),
+  },
+});

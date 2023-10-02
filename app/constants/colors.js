@@ -20,8 +20,8 @@ export const MyColors = {
   blackShade: 'rgba(39, 41, 48,1)',
   greenVariant: 'rgba(116, 200, 150,1)',
   seperator: 'rgba(47, 49, 56,1)',
-  matchColor: '#246BFD',  //same use for team invitation banner
-  challengeColor: '#D8A433',  //same use for trainer assigned banner
+  matchColor: '#246BFD', //same use for team invitation banner
+  challengeColor: '#D8A433', //same use for trainer assigned banner
   white_08: 'rgba(255,255,255,0.8)',
   payBanner_color: '#7F24FD',
   ractangelCardColor: '#272930',
@@ -52,9 +52,10 @@ export const MyColors = {
   darkRed: '#CE1141',
   lightDark: '#23262F',
   lightGray: '#363A47',
-  darkGray: '#32353E',//used for btn bg on playing screen
+  lightGray1: '#6E7589',
+  darkGray: '#32353E', //used for btn bg on playing screen
   darkYellow: '#FDB927',
-  lightGreen: "#74C896",
+  lightGreen: '#74C896',
   btnRed: '#FD2727',
   btnGren: '#48C81B',
   greyTxtColor: '#9598A1',
@@ -73,5 +74,5 @@ export const MyColors = {
   foulBarColor: '#4A4E5A',
   btnGrn: '#00A54D',
   declineBtnBg: '#E3E3E3',
-  declineTxtClr: '#666666'
+  declineTxtClr: '#666666',
 };

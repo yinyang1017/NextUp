@@ -21,10 +21,22 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.537714754431-ee89nel2s61999a4m1nsh4e11lelmcsr</string>
+				</array>
+			</dict>
+		</array>
 		<key>NSAppleMusicUsageDescription</key>
 		<string>Please give permission</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>allow to use image for sending chat images and videos in NextUp</string>
 		<key>NSCameraUsageDescription</key>
-		<string>Please give permission</string>
+		<string>allow to use image for sending chat images and videos in NextUp</string>
 		<key>NSContactsUsageDescription</key>
 		<string>Please give permission</string>
 		<key>NSFaceIDUsageDescription</key>
@@ -37,18 +49,6 @@
 		<string>Please give permission</string>
 		<key>NSPhotoLibraryAddUsageDescription</key>
 		<string>Access photos </string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Please give permission</string>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>com.googleusercontent.apps.537714754431-ee89nel2s61999a4m1nsh4e11lelmcsr</string>
-				</array>
-			</dict>
-		</array>
 		<key>CFBundleVersion</key>
 		<string>$(CURRENT_PROJECT_VERSION)</string>
 		<key>LSRequiresIPhoneOS</key>
