@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Image } from 'react-native-ui-lib';
-import { hp, wp } from '../../utils/responsive';
-import { Colors } from '../../constants';
-import { FontFamily, FontSize } from '../../views/GlobalStyles';
+import { hp, wp } from '../../../utils/responsive';
+import { Colors, customTheme } from '../../../constants';
+import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
-import { MyColors } from '../../constants/colors';
+import { MyColors } from '../../../constants/colors';
 
 const InboxChatItem = ({ index }) => {
   const isAudio = index;
@@ -25,7 +25,7 @@ const InboxChatItem = ({ index }) => {
         onPress={onPressChatHandler}>
         <Image
           style={styles.profileImage}
-          source={require('../../assets/avatar-without-online-badge.png')}
+          source={require('../../../assets/avatar-without-online-badge.png')}
         />
         <View style={styles.messagesContainer}>
           <Text style={styles.name}>Entire Team</Text>
@@ -36,7 +36,11 @@ const InboxChatItem = ({ index }) => {
           ) : (
             <Text style={styles.message} numberOfLines={1}>
               You:{' '}
-              <Text style={[styles.message, { color: '#FAFAFA50' }]}>
+              <Text
+                style={[
+                  styles.message,
+                  { color: customTheme.colors.Gray98 + '50' },
+                ]}>
                 Okay, I'll tell him
               </Text>
             </Text>
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     paddingRight: wp(2),
   },
   name: {
-    color: '#FAFAFA',
+    color: customTheme.colors.Gray98,
     lineHeight: 20,
     fontSize: FontSize.size_lg,
     fontFamily: FontFamily.robotoRegular,
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: FontSize.size_mini,
-    color: '#FAFAFA',
+    color: customTheme.colors.Gray98,
     fontWeight: '600',
     lineHeight: 20,
     marginTop: hp(0.5),
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm_3,
     fontFamily: FontFamily.robotoRegular,
     fontWeight: '500',
-    color: '#FAFAFA50',
+    color: customTheme.colors.Gray98 + '50',
   },
   unreadCountBadge: {
     backgroundColor: MyColors.btnBg,
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
   unreadCount: { fontFamily: FontFamily.robotoRegular, color: Colors.light },
   bottomDivider: {
     height: 1,
-    backgroundColor: '#FAFAFA15',
+    backgroundColor: customTheme.colors.Gray98 + '15',
     width: wp(92),
     alignSelf: 'center',
   },

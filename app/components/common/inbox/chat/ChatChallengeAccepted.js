@@ -1,19 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Image } from 'react-native-ui-lib';
-import { hp, wp } from '../../../utils/responsive';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
-import { Colors } from '../../../constants';
-import { MyColors } from '../../../constants/colors';
+import { hp, wp } from '../../../../utils/responsive';
+import { FontFamily, FontSize } from '../../../../views/GlobalStyles';
+import { Colors } from '../../../../constants';
+import { MyColors } from '../../../../constants/colors';
+import { appImages } from '../../../../constants/appImages';
 
 const ChatChallengeAccepted = ({ containerStyle = {} }) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require('../../../assets/fileEnvelope.png')}
-        />
+        <Image style={styles.image} source={appImages.fileEnvelope} />
       </View>
       <View style={styles.content}>
         <Text style={styles.dateText}>December 18, 2020</Text>

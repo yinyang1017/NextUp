@@ -1,14 +1,14 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ChatHeader from '../../../components/inbox/chat/ChatHeader';
-import ChatChallengeAccepted from '../../../components/inbox/chat/ChatChallengeAccepted';
+import ChatHeader from '../../../components/common/inbox/chat/ChatHeader';
+import ChatChallengeAccepted from '../../../components/common/inbox/chat/ChatChallengeAccepted';
 import { hp, wp } from '../../../utils/responsive';
 import { GiftedChat } from 'react-native-gifted-chat';
-import ChatInput from '../../../components/inbox/chat/ChatInput';
-import ChatMessage from '../../../components/inbox/chat/ChatMessage';
-import ChatVideoMessage from '../../../components/inbox/chat/ChatVideoMessage';
-import ChatImageMessage from '../../../components/inbox/chat/ChatImageMessage';
+import ChatInput from '../../../components/common/inbox/chat/ChatInput';
+import ChatMessage from '../../../components/common/inbox/chat/ChatMessage';
+import ChatVideoMessage from '../../../components/common/inbox/chat/ChatVideoMessage';
+import ChatImageMessage from '../../../components/common/inbox/chat/ChatImageMessage';
 
 const loginUserInfo = {
   _id: 1,

@@ -3,8 +3,8 @@ import React, { useRef, useState } from 'react';
 import commonChatStyles from './commonChatStyles';
 import moment from 'moment';
 import Video from 'react-native-video';
-import { hp, wp } from '../../../utils/responsive';
-import { Colors } from '../../../constants';
+import { hp, wp } from '../../../../utils/responsive';
+import { Colors } from '../../../../constants';
 
 const ChatVideoMessage = props => {
   const userId = 1;
@@ -66,8 +66,8 @@ const ChatVideoMessage = props => {
               <Image
                 source={
                   paused
-                    ? require('../../../utils/react-native-mo-video-player/MoVideoPlayer/images/play.png')
-                    : require('../../../utils/react-native-mo-video-player/MoVideoPlayer/images/pause.png')
+                    ? require('../../../../utils/react-native-mo-video-player/MoVideoPlayer/images/play.png')
+                    : require('../../../../utils/react-native-mo-video-player/MoVideoPlayer/images/pause.png')
                 }
                 style={styles.playPauseIcon(paused)}
               />

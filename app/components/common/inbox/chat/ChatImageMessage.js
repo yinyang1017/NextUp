@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import commonChatStyles from './commonChatStyles';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
-import { hp, wp } from '../../../utils/responsive';
+import { hp, wp } from '../../../../utils/responsive';
 import { chunk, isArray, times } from 'lodash';
 
 const ChatImageMessage = props => {

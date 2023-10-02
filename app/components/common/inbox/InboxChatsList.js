@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import React from 'react';
 import InboxChatItem from './InboxChatItem';
-import { hp } from '../../utils/responsive';
+import { hp } from '../../../utils/responsive';
 
 const InboxChatsList = ({ containerStyle = {} }) => {
   return (

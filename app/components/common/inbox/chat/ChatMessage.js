@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
+import { FontFamily, FontSize } from '../../../../views/GlobalStyles';
 import moment from 'moment/moment';
-import { hp, wp } from '../../../utils/responsive';
+import { hp, wp } from '../../../../utils/responsive';
 import commonChatStyles from './commonChatStyles';
-import { MyColors } from '../../../constants/colors';
+import { MyColors } from '../../../../constants/colors';
+import { customTheme } from '../../../../constants';
 
 const ChatMessage = props => {
   const userId = 1;
@@ -49,6 +50,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_mini,
     fontFamily: FontFamily.robotoRegular,
     fontWeight: '500',
-    color: '#FAFAFA',
+    color: customTheme.colors.Gray98,
   },
 });

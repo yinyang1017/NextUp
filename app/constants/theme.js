@@ -16,6 +16,7 @@ export const customTheme = {
     secondary: '#FFB920',
     tertiary: '#363A41',
     success: '#3EC300',
+    Gray98: '#FAFAFA',
   },
   statusBarStyle: 'light-content',
   fontSizes: {

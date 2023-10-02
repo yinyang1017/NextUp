@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Back from '../../../utils/HeaderButtons/Back';
-import { hp, wp } from '../../../utils/responsive';
+import Back from '../../../../utils/HeaderButtons/Back';
+import { hp, wp } from '../../../../utils/responsive';
 import { Image } from 'react-native-ui-lib';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
-import { Colors } from '../../../constants';
+import { FontFamily, FontSize } from '../../../../views/GlobalStyles';
+import { Colors } from '../../../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { MyColors } from '../../../constants/colors';
+import { MyColors } from '../../../../constants/colors';
 
 const ChatHeader = () => {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ const ChatHeader = () => {
         <Back onPress={gobackHandler} />
         <View style={styles.userInfoContainer}>
           <Image
-            source={require('../../../assets/avatar3.png')}
+            source={require('../../../../assets/avatar3.png')}
             style={styles.profileImage}
           />
           <View style={styles.usernameInfoContainer}>

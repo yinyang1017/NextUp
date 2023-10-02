@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { FontSize } from '../../../views/GlobalStyles';
-import { wp } from '../../../utils/responsive';
+import { FontSize } from '../../../../views/GlobalStyles';
+import { wp } from '../../../../utils/responsive';
+import { customTheme } from '../../../../constants';
 
 const commonChatStyles = StyleSheet.create({
   container: isSameCurrentUser => ({
@@ -10,7 +11,7 @@ const commonChatStyles = StyleSheet.create({
   dateTimeText: {
     fontSize: FontSize.size_sm_3,
     fontWeight: '500',
-    color: '#FAFAFA30',
+    color: customTheme.colors.Gray98 + '30',
   },
   messageBorderRadius: (isSameCurrentUser, isNextMessageSame) => ({
     borderTopLeftRadius: isSameCurrentUser ? wp(5) : wp(2),

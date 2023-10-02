@@ -6,7 +6,7 @@ import { hp, wp } from '../../../utils/responsive';
 import { SearchInput } from '../../../components/common/searchbar';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { customTheme } from '../../../constants';
-import InboxChatsList from '../../../components/inbox/InboxChatsList';
+import InboxChatsList from '../../../components/common/inbox/InboxChatsList';
 
 const InboxTopTabs = createMaterialTopTabNavigator();
 
