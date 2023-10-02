@@ -20,6 +20,7 @@ import {Button, Colors} from 'react-native-ui-lib';
 import {customTheme} from '../../constants';
 import StatisticOverview from '../../components/players/Dashboard/StatisticOverview';
 import profileImg from '../../assets/images/avatar.png';
+import LastGameSection from '../../components/players/Dashboard/LastGame';
 
 const PlayerDashboard = () => {
   // const navigation = useNavigation();
@@ -35,8 +36,9 @@ const PlayerDashboard = () => {
         <TeamsBar />
         <UpcomingGames />
         <StatisticOverview />
+        <LastGameSection />
         <StatsContainer />
-        <MyChallenges />
+        {/* <MyChallenges /> */}
       </View>
       <View>
         <Button

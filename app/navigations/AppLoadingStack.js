@@ -20,8 +20,8 @@ export default function AppLoadignStack() {
                 padding: 20
             }
         }}>
-            {/* <Stack.Screen name='OnboadingStack' component={OnBoardingStack} /> */}
-            {
+            <Stack.Screen name='PlayerStack' component={PlayerStack} />
+            {/* {
                 !isAuthenticated && <Stack.Screen name='Welcome' component={WelcomeScreen} />
             }
             {
@@ -29,7 +29,7 @@ export default function AppLoadignStack() {
             }
             {
                 isAuthenticated && onBoardingDone && <Stack.Screen name='PlayerStack' component={PlayerStack} />
-            }
+            } */}
         </Stack.Navigator>
     </>
 }

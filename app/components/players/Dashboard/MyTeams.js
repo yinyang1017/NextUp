@@ -30,11 +30,11 @@ const _teams = [
     name: "O'Dea HS",
     img: require('../../../assets/frame9.png'),
   },
-//   {
-//     id: 2,
-//     name: "O'Dea HS",
-//     img: require('../../../assets/frame9.png'),
-//   },
+  //   {
+  //     id: 2,
+  //     name: "O'Dea HS",
+  //     img: require('../../../assets/frame9.png'),
+  //   },
 ];
 
 export const TeamsBar = () => {
@@ -43,57 +43,56 @@ export const TeamsBar = () => {
     <View style={styles.myTeamsParent}>
       <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
       <View style={styles.teamNamesRow}>
-        
-          {_teams.map(team => (
-            <View style={styles.typenotSeenStoryComponentParent} key={team.id}>
-              <View style={styles.typenotSeenStoryComponent}>
-                <Image
-                  style={styles.frameIcon}
-                  resizeMode="cover"
-                  source={team.img}
-                />
-                <Text style={[styles.name, styles.nameTypo]}>Aubrey</Text>
-              </View>
-              <View style={styles.aauTeamWrapper}>
-                <Text style={[styles.aauTeam, styles.aauTeamTypo]}>
-                  {team.name}
-                </Text>
-              </View>
+        {_teams.map(team => (
+          <View style={styles.typenotSeenStoryComponentParent} key={team.id}>
+            <View style={styles.typenotSeenStoryComponent}>
+              <Image
+                style={styles.frameIcon}
+                resizeMode="cover"
+                source={team.img}
+              />
+              <Text style={[styles.name, styles.nameTypo]}>Aubrey</Text>
             </View>
-          ))}
-          {_teams.length < 3 && (
-            <View style={styles.frameContainer}>
-              <View>
-                <Pressable onPress={() => navigation.navigate('CoAddTeam')}>
-                  <LinearGradient
-                    style={styles.addButtonChild}
-                    locations={[0, 1]}
-                    colors={['#3f424d', '#323640']}
-                    useAngle={true}
-                    angle={223.47}
-                  />
-                  <Image
-                    style={styles.addButtonItem}
-                    resizeMode="cover"
-                    source={require('../../../assets/ellipse-685.png')}
-                  />
-                  <Image
-                    style={[styles.addButtonInner, styles.text1Position]}
-                    resizeMode="cover"
-                    source={require('../../../assets/ellipse-686.png')}
-                  />
-                  <Image
-                    style={[styles.plusIcon, styles.plusIconPosition]}
-                    resizeMode="cover"
-                    source={require('../../../assets/plus.png')}
-                  />
-                </Pressable>
-              </View>
-              <Text style={[styles.highSchoolTeam1, styles.highTypo]}>
-                Add Team
+            <View style={styles.aauTeamWrapper}>
+              <Text style={[styles.aauTeam, styles.aauTeamTypo]}>
+                {team.name}
               </Text>
             </View>
-          )}
+          </View>
+        ))}
+        {_teams.length < 3 && (
+          <View style={styles.frameContainer}>
+            <View>
+              <Pressable onPress={() => navigation.navigate('CoAddTeam')}>
+                <LinearGradient
+                  style={styles.addButtonChild}
+                  locations={[0, 1]}
+                  colors={['#3f424d', '#323640']}
+                  useAngle={true}
+                  angle={223.47}
+                />
+                <Image
+                  style={styles.addButtonItem}
+                  resizeMode="cover"
+                  source={require('../../../assets/ellipse-685.png')}
+                />
+                <Image
+                  style={[styles.addButtonInner, styles.text1Position]}
+                  resizeMode="cover"
+                  source={require('../../../assets/ellipse-686.png')}
+                />
+                <Image
+                  style={[styles.plusIcon, styles.plusIconPosition]}
+                  resizeMode="cover"
+                  source={require('../../../assets/plus.png')}
+                />
+              </Pressable>
+            </View>
+            <Text style={[styles.highSchoolTeam1, styles.highTypo]}>
+              Add Team
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

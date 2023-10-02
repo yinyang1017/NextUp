@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {View, Text, Image} from 'react-native-ui-lib';
 import {StyleSheet, Pressable, ScrollView} from 'react-native';
 import {
