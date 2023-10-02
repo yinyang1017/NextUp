@@ -4,12 +4,29 @@ const { View, Text } = require('react-native');
 const { default: styles } = require('./styles');
 const { default: GameHeaderTeamItem } = require('./GameHeaderTeamItem');
 
-const GameHeader = ({ containerStyle = {} }) => {
+const GameHeader = ({
+  containerStyle = {},
+  leftTeaminfo = {
+    name: 'Copper Kings',
+    color: MyColors.lightBlue,
+    subTitle: '',
+  },
+  rightTeamInfo = { name: 'Falcons', color: MyColors.lightRed, subTitle: '' },
+}) => {
   return (
     <View style={[styles.gameHeader, containerStyle]}>
-      <GameHeaderTeamItem name="Copper Kings" color={MyColors.lightBlue} />
+      <GameHeaderTeamItem
+        name={leftTeaminfo.name}
+        color={leftTeaminfo.color}
+        subTitle={leftTeaminfo.subTitle}
+      />
       <Text style={styles.gameHeaderVSText}>VS</Text>
-      <GameHeaderTeamItem name="Falcons" color={MyColors.lightRed} isReverse />
+      <GameHeaderTeamItem
+        name={rightTeamInfo.name}
+        color={rightTeamInfo.color}
+        subTitle={rightTeamInfo.subTitle}
+        isReverse
+      />
     </View>
   );
 };

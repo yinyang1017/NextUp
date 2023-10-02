@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { customTheme } from '../constants';
@@ -12,7 +12,7 @@ import {
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons';
 import ScheduleCalendar from '../views/common/calendar/ScheduleCalendar';
-import MyTeamsStack from '../views/players/MyTeams/MyTeamsStack';
+import { NewMyTeamsStack } from '../views/players/MyTeams/MyTeamsStack';
 import Inbox from '../views/common/inbox/Inbox';
 import MyAccount from '../views/common/account/PlayerAccount';
 import { wp } from '../utils/responsive';
@@ -98,7 +98,7 @@ const CoachStack = () => {
       />
       <Tab.Screen
         name="MyTeam"
-        component={MyTeamsStack}
+        component={NewMyTeamsStack}
         options={{
           tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>My Team</Text>;
@@ -138,5 +138,3 @@ const CoachStack = () => {
 };
 
 export default CoachStack;
-
-const styles = StyleSheet.create({});

@@ -7,6 +7,8 @@ const appImages = {
   player_female: require('../assets/images/female_onboard_Icon.png'),
   dropdown: require('../assets/chevrondown5.png'),
   fileEnvelope: require('../assets/fileEnvelope.png'),
+  court: require('../assets/court.png'),
+  moreVertical: require('../assets/images/more-vertical.png'),
   // backIcon: require('../assets/images/back_ico.png'),
   // maleProfile: require('../assets/images/maleProfile.jpg'),
   // femaleProfile: require('../assets/images/FemalePlayerProfile.jpg'),

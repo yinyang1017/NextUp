@@ -11,6 +11,9 @@ import { Color, FontSize } from '../../GlobalStyles';
 import { MyColors } from '../../../constants/colors';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { hp, wp } from '../../../utils/responsive';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AdvanceStats from './AdvanceStats';
+import Roles from './Roles';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -55,6 +58,17 @@ const CustomTabView = props => {
 
 const tabScreenOptions = { headerShown: true };
 
+const Stack = createNativeStackNavigator();
+
+export const NewMyTeamsStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MyTeams" component={MyTeamsStack} />
+      <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
+    </Stack.Navigator>
+  );
+};
+
 export default function MyTeamsStack() {
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top']}>
@@ -66,7 +80,7 @@ export default function MyTeamsStack() {
         <TopTab.Screen name="Games" component={Games} />
         <TopTab.Screen name="Stats" component={PlayerStats} />
         <TopTab.Screen name="Lineup" component={PlayerStats} />
-        <TopTab.Screen name="Coaches" component={PlayerStats} />
+        <TopTab.Screen name="Staff" component={Roles} />
       </TopTab.Navigator>
     </SafeAreaView>
   );

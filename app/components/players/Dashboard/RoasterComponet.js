@@ -12,8 +12,11 @@ import { Color, FontSize } from '../../../views/GlobalStyles';
 import { hp, wp } from '../../../utils/responsive';
 import { MyColors } from '../../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
+import { customTheme } from '../../../constants';
+import { HeaderGreyComponent } from '../../common/HeaderGreyComponet';
+import AddButtonWithIcon from '../../common/AddButtonWithIcon';
 
-const data = [
+const varsityData = [
   {
     id: '1',
     name: 'A.McCoy',
@@ -53,7 +56,8 @@ const data = [
     source: require('../../../assets/ellipse-7576.png'),
   },
 ];
-const Data = [
+
+const newPlayersData = [
   {
     id: '1',
     name: 'A.McCoy',
@@ -83,192 +87,190 @@ export const RoasterComponet = () => {
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: hp(4) }}>
-      <View style={styles.parentView}>
-        <Text style={styles.childText}>Varsity</Text>
-      </View>
-      <View style={styles.childIconView}>
-        <FlatList
-          data={data}
-          numColumns={5}
-          bounces={false}
-          renderItem={({ item }) => (
-            <View style={styles.iconView}>
-              <Image style={styles.icon} source={item.source} />
-              <Text style={styles.iconText}>{item.name}</Text>
-            </View>
-          )}
-          contentContainerStyle={{ alignItems: 'center' }}
-        />
-        <View style={styles.childNewView}>
-          <Text style={styles.childNewText}>New Players</Text>
-          <TouchableOpacity
+      <HeaderGreyComponent
+        title="Varsity"
+        containerStyle={{ marginTop: wp(7), marginHorizontal: wp(8) }}
+      />
+      <FlatList
+        data={varsityData}
+        numColumns={5}
+        bounces={false}
+        renderItem={({ item }) => (
+          <View style={styles.varsityIconsView}>
+            <Image style={styles.iconList} source={item.source} />
+            <Text style={styles.iconListText}>{item.name}</Text>
+          </View>
+        )}
+        contentContainerStyle={{ alignItems: 'center' }}
+      />
+      <HeaderGreyComponent
+        containerStyle={{ marginTop: wp(7), marginHorizontal: wp(8) }}
+        title="NewPlayers"
+        rightContent={() => (
+          <AddButtonWithIcon
             onPress={() => navigation.navigate('SearchPlayers')}
-            style={styles.plusView}>
-            <View
-              style={{
-                borderWidth: 1.5,
-                borderColor: '#246BFD',
-                alignSelf: 'center',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: wp(5.5),
-                height: wp(5.5),
-                borderRadius: wp(4),
-              }}>
-              <Image
-                style={styles.childIcon}
-                source={require('../../../assets/plus.png')}
-                tintColor={'#246BFD'}
-              />
-            </View>
-            <View>
-              <Text style={styles.plusText}>Add</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={Data}
-          bounces={false}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.newPlayersRow}>
-                <View style={styles.childView}>
-                  <Image style={styles.icon2} source={item.source} />
-                  <Text style={styles.iconText2}>{item.name}</Text>
-                </View>
-                {item.id == 3 ? (
-                  <>
-                    <TouchableOpacity style={styles.btn1View}>
-                      <Text style={styles.Butn1Text}>{item.Button}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn2View}>
-                      <Text style={styles.Butn2Text}>{item.Button2}</Text>
-                    </TouchableOpacity>
-                  </>
-                ) : (
-                  <>
-                    <TouchableOpacity style={styles.childBtnView}>
-                      <Text style={styles.child1Text}>{item.Button}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.child2View}>
-                      <Text style={styles.child2Text}>{item.Button2}</Text>
-                    </TouchableOpacity>
-                  </>
-                )}
+          />
+        )}
+      />
+      {/* <View style={styles.newPlayerView}>
+        <Text style={styles.newPlayerText}>New Players</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SearchPlayers')}
+          style={styles.addPlusIconParentView}>
+          <View style={styles.PlusIconChildView}>
+            <Image
+              style={styles.plusIcon}
+              source={require('../../../assets/plus.png')}
+              tintColor={customTheme.colors.btnBg}
+            />
+          </View>
+          <Text style={styles.plusIconAddText}>Add</Text>
+        </TouchableOpacity>
+      </View> */}
+      <FlatList
+        data={newPlayersData}
+        bounces={false}
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.newPlayersRow}>
+              <View style={styles.newPlayerChildView}>
+                <Image style={styles.userIcon} source={item.source} />
+                <Text style={styles.userIconText}>{item.name}</Text>
               </View>
-            );
-          }}
-        />
-      </View>
+              {item.id === 3 ? (
+                <>
+                  <TouchableOpacity style={styles.varsityButtonView}>
+                    <Text style={styles.varsityButtonText}>{item.Button}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.juniorVButtonView}>
+                    <Text style={styles.juniorVButtonText}>{item.Button2}</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity style={styles.rejectButtonView}>
+                    <Text style={styles.rejectButtonText}>{item.Button}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.confirmButtonView}>
+                    <Text style={styles.confirmButtonText}>{item.Button2}</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          );
+        }}
+      />
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
-  parentView: {
-    marginTop: wp(5),
-    marginHorizontal: wp(6),
-    backgroundColor: Color.gray_500,
-    borderRadius: wp(2),
-  },
-  childText: {
-    fontSize: FontSize.size_xl,
-    color: MyColors.light,
-    fontWeight: 'bold',
-    paddingVertical: wp(2),
-    paddingLeft: wp(2),
-  },
   imgeContainer: {
     height: 0,
     flexDirection: 'row',
     alignItems: 'stretch',
   },
-  icon: {
-    marginTop: hp(2.5),
+  iconList: {
+    marginTop: hp(2.3),
     width: wp(12),
     height: wp(12),
     marginHorizontal: wp(2),
   },
-  iconView: { alignItems: 'center' },
-  iconText: {
+  varsityIconsView: { alignItems: 'center' },
+  iconListText: {
     color: MyColors.light,
-    paddingHorizontal: wp(2),
+    paddingHorizontal: wp(4),
     marginTop: hp(0.5),
+    fontSize: FontSize.size_3xs,
+    fontWeight: '600',
   },
-  childNewView: {
+  newPlayerView: {
     marginTop: wp(4),
     marginHorizontal: wp(7.5),
     backgroundColor: Color.gray_500,
     borderRadius: wp(2),
-  },
-  childNewText: {
-    color: MyColors.light,
-    fontSize: FontSize.size_xl,
-    fontWeight: 'bold',
-    paddingVertical: wp(4),
-    paddingLeft: wp(2),
-  },
-  childIcon: { width: wp(4), height: wp(4) },
-  plusView: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    position: 'absolute',
-    left: wp(67),
-    top: wp(4),
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
-  plusText: {
-    color: '#246BFD',
-    fontSize: FontSize.bodyLargeBold_size,
-    fontWeight: '500',
-    position: 'absolute',
-    left: wp(2),
-    top: wp(0.7),
+  newPlayerText: {
+    color: MyColors.light,
+    fontSize: FontSize.size_mini,
+    fontWeight: '600',
+    paddingVertical: wp(2.5),
+    marginRight: wp(39),
+  },
+  plusIcon: { width: wp(3.5), height: wp(3.5) },
+  addPlusIconParentView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: wp(4),
+  },
+  PlusIconChildView: {
+    borderWidth: 1.5,
+    borderColor: customTheme.colors.btnBg,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: wp(5.3),
+    height: wp(5.3),
+    borderRadius: wp(4),
+    marginRight: wp(1.5),
+  },
+  plusIconAddText: {
+    color: customTheme.colors.btnBg,
+    fontSize: FontSize.size_smi,
+    fontWeight: '600',
   },
   newPlayersRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: wp(11),
+    paddingHorizontal: wp(9.7),
   },
-  childView: { alignItems: 'center' },
-  icon2: {
+  newPlayerChildView: { alignItems: 'center' },
+  userIcon: {
     marginTop: hp(1),
     width: wp(12),
     height: wp(12),
   },
-  iconText2: { color: MyColors.light, marginTop: hp(0.4) },
-  btn1View: {
-    borderTopLeftRadius: wp(1.5),
-    borderBottomLeftRadius: wp(1.5),
+  userIconText: {
+    color: MyColors.light,
+    marginTop: hp(0.4),
+    fontSize: FontSize.size_3xs,
+  },
+  varsityButtonView: {
+    borderTopLeftRadius: wp(1),
+    borderBottomLeftRadius: wp(1),
     paddingHorizontal: wp(4),
     backgroundColor: Color.royalblue,
-    padding: wp(2),
-    marginLeft: wp(24),
+    padding: wp(1.5),
+    marginLeft: wp(28),
   },
-  Butn1Text: { color: MyColors.light },
-  Butn2Text: {
+  varsityButtonText: { color: MyColors.light, fontSize: FontSize.size_xs },
+  juniorVButtonText: {
     color: MyColors.light,
+    fontSize: FontSize.size_xs,
   },
-  btn2View: {
-    borderTopRightRadius: wp(1.5),
-    borderBottomRightRadius: wp(1.5),
+  juniorVButtonView: {
+    borderTopRightRadius: wp(1),
+    borderBottomRightRadius: wp(1),
     backgroundColor: Color.gray_400,
-    padding: wp(2),
+    padding: wp(1.5),
     paddingHorizontal: wp(4),
   },
-  childBtnView: {
+  rejectButtonView: {
     borderRadius: wp(1.5),
-    paddingHorizontal: wp(4),
+    paddingHorizontal: wp(5),
     backgroundColor: '#C30000',
-    padding: wp(1),
+    paddingBottom: wp(0.4),
   },
-  child1Text: { color: MyColors.light },
-  child2Text: {
+  rejectButtonText: { color: MyColors.light },
+  confirmButtonText: {
     color: MyColors.light,
   },
-  child2View: {
+  confirmButtonView: {
     borderRadius: wp(1.5),
     backgroundColor: '#287504',
-    padding: wp(1),
-    paddingHorizontal: wp(2),
+    paddingBottom: wp(0.3),
+    paddingHorizontal: wp(3),
   },
 });

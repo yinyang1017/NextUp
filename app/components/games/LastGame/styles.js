@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
 
+  // GameHeader
   gameHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
     color: MyColors.light + '60',
   },
 
+  //GameHeaderTeamItem
   gameHeaderTeamItem: isReverse => ({
     flexDirection: isReverse ? 'row-reverse' : 'row',
     alignItems: 'center',
@@ -37,19 +39,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: wp(5),
   }),
-  gameHeaderTeamItemBadgeText: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
-    color: MyColors.light,
-  },
   gameHeaderTeamItemName: (color, isReverse) => ({
-    fontWeight: '600',
     color: color,
-    fontSize: FontSize.size_sm_3,
     flex: 1,
     textAlign: isReverse ? 'right' : 'left',
   }),
+  gameHeaderTeamItemNameContainer: {
+    justifyContent: 'center',
+  },
+  gameHeaderTeamItemSubTitle: (color, isReverse) => ({
+    color: color,
+    textAlign: isReverse ? 'right' : 'left',
+  }),
 
+  // /LastGameScoreTable
   lastGameScoreTable: {
     gap: hp(1),
     marginTop: hp(2),
