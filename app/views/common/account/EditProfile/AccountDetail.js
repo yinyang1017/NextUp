@@ -9,6 +9,10 @@ import AnimatedInput from '../../../../Helpers/react-native-animated-input';
 
 const wide = Layout.width;
 function AccountDetail() {
+  const [fname, setFname] = React.useState('');
+  const [sname, setSname] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
   return (
     <View style={styles.container}>
       <ImageUpload
@@ -17,51 +21,63 @@ function AccountDetail() {
         }}
         containerStyle={styles.imageUploadContainer}
       />
-      <EditAnimatedInput
-        placeholder="FIRST NAME"
-        // onChangeText={e => this.setTextofFields('fname', e)}
-        // value={fname}
-        styleInput={{
-          fontFamily: Fonts.Bold,
-          color: Colors.light,
-          fontSize: 16,
-          lineHeight: 18,
-        }}
-        styleLabel={{
-          fontFamily: Fonts.Bold,
-          color: Colors.txtFieldPlaceHolder,
-        }}
-        styleBodyContent={{
-          borderBottomWidth: 1.5,
-          borderBottomColor: Colors.newGrayFontColor,
-          width: wide * 0.4,
-        }}
-      />
-      <AnimatedInput
-        placeholder="FIRST NAME"
-        // onChangeText={e => this.setTextofFields('fname', e)}
-        // value={fname}
-        styleInput={{
-          fontFamily: Fonts.Bold,
-          color: Colors.light,
-          fontSize: 16,
-          lineHeight: 18,
-        }}
-        styleLabel={{
-          fontFamily: Fonts.Bold,
-          color: Colors.txtFieldPlaceHolder,
-        }}
-        styleBodyContent={{
-          borderBottomWidth: 1.5,
-          borderBottomColor: Colors.newGrayFontColor,
-          width: wide * 0.4,
-        }}
-      />
-      <View style={{marginTop: wide * 0.1, width: '90%', alignSelf: 'center'}}>
-        <EditAnimatedInput
+      <View
+        style={{
+          flexDirection: 'col',
+          paddingHorizontal: wide * 0.05,
+          gapColumn: hp(1),
+          alignSelf: 'center',
+          width: '100%',
+          marginTop: wide * 0.15,
+        }}>
+        <View
+          style={[styles.row, styles.flexItem]}>
+          <AnimatedInput
+            placeholder="FIRST NAME"
+            onChangeText={e => setFname(e)}
+            value={fname}
+            styleInput={{
+              fontFamily: Fonts.Bold,
+              color: Colors.light,
+              fontSize: 16,
+              lineHeight: 18,
+            }}
+            styleLabel={{
+              fontFamily: Fonts.Bold,
+              color: Colors.txtFieldPlaceHolder,
+            }}
+            styleBodyContent={{
+              borderBottomWidth: 1.5,
+              borderBottomColor: Colors.newGrayFontColor,
+              width: wide * 0.43,
+            }}
+          />
+          <AnimatedInput
+            placeholder="SECOND NAME"
+            onChangeText={e => setSname(e)}
+            value={sname}
+            styleInput={{
+              fontFamily: Fonts.Bold,
+              color: Colors.light,
+              fontSize: 16,
+              lineHeight: 18,
+            }}
+            styleLabel={{
+              fontFamily: Fonts.Bold,
+              color: Colors.txtFieldPlaceHolder,
+            }}
+            styleBodyContent={{
+              borderBottomWidth: 1.5,
+              borderBottomColor: Colors.newGrayFontColor,
+              width: wide * 0.43,
+            }}
+          />
+        </View>
+<View style={styles.flexItem}>
+        <AnimatedInput
           placeholder="PHONE NUMBER"
-          // onChangeText={e => this.setTextofFields('num', e)}
-          // value={this.state.num}
+          onChangeText={e => setPhone(e)}
+          value={phone}
           styleInput={{
             fontFamily: Fonts.Bold,
             color: Colors.light,
@@ -71,33 +87,6 @@ function AccountDetail() {
           // isAutoFocus={
           //   this.state.num !== null && this.state.num.length > 0 ? false : true
           // }
-          styleLabel={{fontFamily: Fonts.Bold, color: Colors.newGrayFontColor}}
-          styleBodyContent={{
-            borderBottomWidth: 1.5,
-            borderBottomColor: Colors.newGrayFontColor,
-          }}
-          keyboardType={'number-pad'}
-        />
-      </View>
-      <View
-        style={{
-          marginTop: wide * 0.1,
-          width: '90%',
-          alignSelf: 'center',
-        }}>
-        <AnimatedInput
-          disabled
-          placeholder="EMAIL ID"
-          //valid={() => isValidEmail(email)}
-          // errorText="Error"
-          // onChangeText={(e) => this.setTextofEmailAndPass('email', e)}
-          // value={this.state.email}
-          styleInput={{
-            fontFamily: Fonts.Bold,
-            color: Colors.light,
-            fontSize: 16,
-            lineHeight: 18,
-          }}
           styleLabel={{
             fontFamily: Fonts.Bold,
             color: Colors.newGrayFontColor,
@@ -105,11 +94,35 @@ function AccountDetail() {
           styleBodyContent={{
             borderBottomWidth: 1.5,
             borderBottomColor: Colors.newGrayFontColor,
-            // width: wide * 0.8
           }}
-          keyboardType={'email-address'}
+          keyboardType={'number-pad'}
         />
-        <TextInput value="123" />
+        </View>
+
+        <View style={styles.flexItem}>
+          <AnimatedInput
+            placeholder="EMAIL ID"
+            onChangeText={e => setEmail(e)}
+            value={email}
+            //valid={() => isValidEmail(email)}
+            errorText="Error"
+            styleInput={{
+              fontFamily: Fonts.Bold,
+              color: Colors.light,
+              fontSize: 16,
+              lineHeight: 18,
+            }}
+            styleLabel={{
+              fontFamily: Fonts.Bold,
+              color: Colors.newGrayFontColor,
+            }}
+            styleBodyContent={{
+              borderBottomWidth: 1.5,
+              borderBottomColor: Colors.newGrayFontColor,
+            }}
+            keyboardType={'email-address'}
+          />
+        </View>
       </View>
       <PrimaryButton title={'Save'} style={styles.saveButton} />
     </View>
@@ -125,4 +138,12 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: hp(2),
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
+    width: '100%',
+  },
+  flexItem: { marginBottom: 15,}
+  
 });
