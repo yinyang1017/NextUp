@@ -13,7 +13,7 @@ import { hp, wp } from '../../../utils/responsive';
 import { MyColors } from '../../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import { customTheme } from '../../../constants';
-import { HeaderGreyComponent } from '../../common/HeaderGreyComponet';
+import HeaderGreyComponent from '../../common/HeaderGreyComponet';
 import AddButtonWithIcon from '../../common/AddButtonWithIcon';
 
 const varsityData = [
@@ -87,10 +87,7 @@ export const RoasterComponet = () => {
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: hp(4) }}>
-      <HeaderGreyComponent
-        title="Varsity"
-        containerStyle={{ marginTop: wp(7), marginHorizontal: wp(8) }}
-      />
+      <HeaderGreyComponent title="Varsity" containerStyle={styles.headerGrey} />
       <FlatList
         data={varsityData}
         numColumns={5}
@@ -104,7 +101,7 @@ export const RoasterComponet = () => {
         contentContainerStyle={{ alignItems: 'center' }}
       />
       <HeaderGreyComponent
-        containerStyle={{ marginTop: wp(7), marginHorizontal: wp(8) }}
+        containerStyle={styles.headerGrey}
         title="NewPlayers"
         rightContent={() => (
           <AddButtonWithIcon
@@ -112,21 +109,6 @@ export const RoasterComponet = () => {
           />
         )}
       />
-      {/* <View style={styles.newPlayerView}>
-        <Text style={styles.newPlayerText}>New Players</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SearchPlayers')}
-          style={styles.addPlusIconParentView}>
-          <View style={styles.PlusIconChildView}>
-            <Image
-              style={styles.plusIcon}
-              source={require('../../../assets/plus.png')}
-              tintColor={customTheme.colors.btnBg}
-            />
-          </View>
-          <Text style={styles.plusIconAddText}>Add</Text>
-        </TouchableOpacity>
-      </View> */}
       <FlatList
         data={newPlayersData}
         bounces={false}
@@ -137,7 +119,7 @@ export const RoasterComponet = () => {
                 <Image style={styles.userIcon} source={item.source} />
                 <Text style={styles.userIconText}>{item.name}</Text>
               </View>
-              {item.id === 3 ? (
+              {item.id === '3' ? (
                 <>
                   <TouchableOpacity style={styles.varsityButtonView}>
                     <Text style={styles.varsityButtonText}>{item.Button}</Text>
@@ -164,11 +146,6 @@ export const RoasterComponet = () => {
   );
 };
 const styles = StyleSheet.create({
-  imgeContainer: {
-    height: 0,
-    flexDirection: 'row',
-    alignItems: 'stretch',
-  },
   iconList: {
     marginTop: hp(2.3),
     width: wp(12),
@@ -205,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: wp(4),
   },
-  PlusIconChildView: {
+  plusIconChildView: {
     borderWidth: 1.5,
     borderColor: customTheme.colors.btnBg,
     justifyContent: 'center',
@@ -273,4 +250,5 @@ const styles = StyleSheet.create({
     paddingBottom: wp(0.3),
     paddingHorizontal: wp(3),
   },
+  headerGrey: { marginTop: wp(7), marginHorizontal: wp(7) },
 });

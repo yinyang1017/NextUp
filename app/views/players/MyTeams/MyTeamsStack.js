@@ -9,11 +9,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 import { Color, FontSize } from '../../GlobalStyles';
 import { MyColors } from '../../../constants/colors';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { hp, wp } from '../../../utils/responsive';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AdvanceStats from './AdvanceStats';
 import Roles from './Roles';
+import Lineup from './Lineup';
+import { Challenges } from './Challenges';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -33,25 +35,33 @@ const CustomTabView = props => {
   };
 
   return (
-    <View style={styles.tabContainer}>
-      {routeNames.map((item, index) => {
-        const isActive = props.navigationState.index === index;
-        return (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.5}
-            onPress={() =>
-              onPressTabhandler(props.state.routes[index], isActive)
-            }>
-            <Text
-              numberOfLines={1}
-              style={[styles.tabItemText, isActive && styles.activeTabItemtext]}
-              key={index}>
-              {item}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
+    <View>
+      <ScrollView
+        contentContainerStyle={styles.tabContainer}
+        horizontal
+        showsHorizontalScrollIndicator={false}>
+        {routeNames.map((item, index) => {
+          const isActive = props.navigationState.index === index;
+          return (
+            <TouchableOpacity
+              key={index}
+              activeOpacity={0.5}
+              onPress={() =>
+                onPressTabhandler(props.state.routes[index], isActive)
+              }>
+              <Text
+                numberOfLines={1}
+                style={[
+                  styles.tabItemText,
+                  isActive && styles.activeTabItemtext,
+                ]}
+                key={index}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };
@@ -79,8 +89,10 @@ export default function MyTeamsStack() {
         <TopTab.Screen name="Roaster" component={Roaster} />
         <TopTab.Screen name="Games" component={Games} />
         <TopTab.Screen name="Stats" component={PlayerStats} />
-        <TopTab.Screen name="Lineup" component={PlayerStats} />
+        <TopTab.Screen name="Lineup" component={Lineup} />
         <TopTab.Screen name="Staff" component={Roles} />
+        <TopTab.Screen name="Schedule" component={Roles} />
+        <TopTab.Screen name="Challenges" component={Challenges} />
       </TopTab.Navigator>
     </SafeAreaView>
   );
@@ -90,9 +102,9 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: wp(4),
     marginTop: hp(2),
+    gap: wp(10),
   },
   tabItemText: {
     textTransform: 'capitalize',

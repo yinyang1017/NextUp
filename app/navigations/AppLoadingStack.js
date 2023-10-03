@@ -11,6 +11,8 @@ import InvitePlayers from '../views/players/MyTeams/InvitePlayers';
 import AllStandings from '../views/players/MyTeams/AllStandings';
 import GameStatistics from '../views/players/MyTeams/GameStatistics';
 import AdvanceStats from '../views/players/MyTeams/AdvanceStats';
+import AddLineup from '../views/players/MyTeams/AddLineup';
+import LineupDetails from '../views/players/MyTeams/LineupDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -38,6 +40,8 @@ export default function AppLoadignStack() {
           <Stack.Screen name="AllStandings" component={AllStandings} />
           <Stack.Screen name="GameStatistics" component={GameStatistics} />
           <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
+          <Stack.Screen name="AddLineup" component={AddLineup} />
+          <Stack.Screen name="LineupDetails" component={LineupDetails} />
         </Stack.Group>
       )}
     </Stack.Navigator>

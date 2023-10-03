@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { wp } from '../responsive';
 import { Colors } from '../../constants';
@@ -19,7 +19,7 @@ const Back = ({ onPress, containerStyle = {}, title = '' }) => (
   </View>
 );
 
-export default Back;
+export default memo(Back);
 
 const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row', alignItems: 'center' },

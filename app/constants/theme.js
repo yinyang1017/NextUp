@@ -1,10 +1,10 @@
 import { DefaultTheme } from '@react-navigation/native';
 import { Colors } from 'react-native-ui-lib';
 import { MyColors } from './colors';
-import { PixelRatio } from 'react-native';
-import React from 'react';
+
 const baseFontSize = 4; // Define a base font size for normal screens
 const baseSpacing = 4; // Define a base spacing unit for normal screens
+
 export const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -17,6 +17,8 @@ export const customTheme = {
     tertiary: '#363A41',
     success: '#3EC300',
     Gray98: '#FAFAFA',
+    darkYellow2: '#F4A800',
+    tangaroa: '#041639',
   },
   statusBarStyle: 'light-content',
   fontSizes: {
@@ -26,6 +28,7 @@ export const customTheme = {
     size_12: 12,
     size_13: 13,
     size_16: 16,
+    size_18: 18,
     size_20: 20,
     size_22: 22,
     size_24: 24,
@@ -33,6 +36,7 @@ export const customTheme = {
     size_32: 32,
     size_36: 36,
     size_40: 40,
+    size_48: 48,
   },
   fontFamily: {
     robotoBold: 'Roboto-Bold',

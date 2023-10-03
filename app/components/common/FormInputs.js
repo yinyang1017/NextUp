@@ -7,7 +7,6 @@ import {
   Text,
   RadioGroup,
   RadioButton,
-  Button,
   DateTimePicker,
 } from 'react-native-ui-lib';
 import _ from 'lodash';
@@ -47,7 +46,6 @@ export function FormInputPicker({ data, value, onValueChange, label, title }) {
                   color: customTheme.colors.light,
                   fontSize: customTheme.fontSizes.size_12,
                   fontWeight: '700',
-                  opacity: 0.6,
                   fontFamily: customTheme.fontFamily.robotoBold,
                 }}
                 value={value}
@@ -68,8 +66,8 @@ export function FormInputPicker({ data, value, onValueChange, label, title }) {
           color: customTheme.colors.blue20,
           placeholderTextColor: customTheme.colors.primary,
         }}
-        onChange={value => {
-          onValueChange(value);
+        onChange={_value => {
+          onValueChange(_value);
         }}>
         {_.map(data, (item, index) => {
           return (
@@ -107,7 +105,6 @@ export function FormRadioGroup({
     <View marginV-12>
       <Text
         style={{
-          opacity: 0.6,
           marginBottom: customTheme.spacings.spacing_8,
           textTransform: 'uppercase',
           color: customTheme.colors.light,
@@ -180,7 +177,6 @@ export function FormInputField({ label, value, ...props }) {
       placeholderTextColor={customTheme.colors.light + '60'}
       value={value}
       color={customTheme.colors.light}
-      fieldStyle={{ marginBottom: customTheme.spacings.spacing_12 }}
       {...props}
       containerStyle={[
         {
@@ -190,10 +186,13 @@ export function FormInputField({ label, value, ...props }) {
         },
         props.containerStyle,
       ]}
+      style={{
+        paddingTop: customTheme.spacings.spacing_8,
+        paddingBottom: customTheme.spacings.spacing_12,
+      }}
       labelStyle={[
         {
           opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
           textTransform: 'uppercase',
           color: customTheme.colors.light,
           fontSize: customTheme.fontSizes.size_12,

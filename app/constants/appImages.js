@@ -9,6 +9,8 @@ const appImages = {
   fileEnvelope: require('../assets/fileEnvelope.png'),
   court: require('../assets/court.png'),
   moreVertical: require('../assets/images/more-vertical.png'),
+  crown: require('../assets/images/crown.png'),
+  yellowCheckBadge: require('../assets/images/lineUpPremiumCheck.png'),
   // backIcon: require('../assets/images/back_ico.png'),
   // maleProfile: require('../assets/images/maleProfile.jpg'),
   // femaleProfile: require('../assets/images/FemalePlayerProfile.jpg'),

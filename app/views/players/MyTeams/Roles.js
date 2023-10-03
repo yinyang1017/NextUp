@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import React from 'react';
 import StaffItem from '../../../components/common/StaffItem';
 import { hp, wp } from '../../../utils/responsive';
-import { HeaderGreyComponent } from '../../../components/common/HeaderGreyComponet';
+import HeaderGreyComponent from '../../../components/common/HeaderGreyComponet';
 import AddButtonWithIcon from '../../../components/common/AddButtonWithIcon';
 
 const Roles = () => {

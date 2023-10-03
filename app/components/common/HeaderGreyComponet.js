@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { wp } from '../../utils/responsive';
-import { MyColors } from '../../constants/colors';
+import { StyleSheet, View } from 'react-native';
+import { hp, wp } from '../../utils/responsive';
 import { Color } from '../../views/GlobalStyles';
-import { customTheme } from '../../constants';
+import { Text } from 'react-native-ui-lib';
 
-export const HeaderGreyComponent = ({
+const HeaderGreyComponent = ({
   title = '',
   rightContent = () => {},
   containerStyle = {},
@@ -13,11 +12,15 @@ export const HeaderGreyComponent = ({
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text style={[styles.title, titleStyle]}>{title}</Text>
+      <Text medium-600 style={[styles.title, titleStyle]}>
+        {title}
+      </Text>
       {rightContent?.()}
     </View>
   );
 };
+
+export default HeaderGreyComponent;
 
 const styles = StyleSheet.create({
   container: {
@@ -28,10 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(2),
   },
   title: {
-    fontSize: customTheme.fontSizes.size_16,
-    color: MyColors.light,
-    fontWeight: '600',
-    paddingVertical: wp(2),
-    paddingLeft: wp(2),
+    paddingVertical: hp(1.2),
+    paddingHorizontal: wp(3),
   },
 });

@@ -33,10 +33,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: Colors.white,
   },
-  imageContainer: {
-    height: wp(22),
-    width: wp(22),
-  },
+  imageContainer: { height: wp(22), width: wp(22) },
   image: { width: '100%', height: '100%' },
   name: {
     lineHeight: 14,
