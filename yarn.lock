@@ -6701,6 +6701,11 @@ react-native-calendars@^1.1301.0:
   optionalDependencies:
     moment "^2.29.4"
 
+react-native-device-info@^10.11.0:
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.11.0.tgz#2c9f378f1c3c5eb9aafa803d015b84325991a9aa"
+  integrity sha512-qRzhuYOm5ZXQi5dhfJFjDq157oipxcEW/fo0QyMm5+TI6V6/+P/tju+Hif6z0rpLCf7MV7iDVRv2Kqha4D/yvQ==
+
 react-native-error-boundary@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-native-error-boundary/-/react-native-error-boundary-1.2.3.tgz#0c9261c2f7ab97222e0a0101852189f140c5f6e7"
@@ -6746,6 +6751,11 @@ react-native-pager-view@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-6.2.1.tgz#985d21bbb7d7bc012f4c142dedbb98ce4bdea104"
   integrity sha512-fZ8chez5J+w831nSnbtK8hwlCiMy1DgpFv8xG6ajXLsAI8uMkGvP554QDIDNlUoCuVwMf7OFyd32Y2Nm2Iaj9Q==
+
+react-native-permissions@^3.9.2:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.9.2.tgz#729ee7fe9ca437ee8e87f1ecec59acfe89bbb840"
+  integrity sha512-mBGoRDKi4twYH+UsPomPdi0dLpV6dGLmKzLpIgB5cLK/dzfM8Sr02Kch1xghVwT13ZkyCyd8DpcL4HgBJ4GQQg==
 
 react-native-push-notification@^8.1.1:
   version "8.1.1"

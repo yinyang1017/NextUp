@@ -8,19 +8,21 @@ import {
   Alert,
   PERMISSION_TYPE,
 } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import {showAppPermissionAlert} from '../../../../utils/info';
 import {Layout, Colors, Fonts} from '../../../../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 const wide = Layout.width;
 function Verification() {
+    const systemName = DeviceInfo.getSystemName();
   const [idProofUrl, setIdProofUrl] = React.useState(undefined);
   const [isIdApproved, setApproved] = React.useState(false);
   const [isCoachCertiApproved, setCoachCertiApproved] = React.useState(true);
   const userData = {
     typeOfUser: 'COACH',
   };
-  const certificateIdUrl = 'https://';
+  const [certificateIdUrl, setCertificateUrl] = React.useState(undefined);
   function pickIdSingle(cropit, circular = false, isFrom) {
     Alert.alert(
       isFrom === 'ava' ? 'PHOTO ID' : 'COACHING CERTIFICATE',
@@ -53,9 +55,9 @@ function Verification() {
                 .then(image => {
                   // console.log('received image', image);
                   if (isFrom === 'ava') {
-                    this.setState({idProofUrl: image.path});
+                    setIdProofUrl(image.path);
                   } else {
-                    this.setState({certificateIdUrl: image.path});
+                    setIdProofUrl(image.path);
                   }
                   //
                 })
@@ -64,7 +66,7 @@ function Verification() {
                   // Alert.alert(e.message ? e.message : e);
                 });
             } else {
-              if (Platform.OS == 'ios') {
+              if (systemName === 'ios') {
                 showAppPermissionAlert(
                   'Alert',
                   'You have not granted permission for photo library.',
@@ -93,7 +95,7 @@ function Verification() {
                 }
               });
             } else {
-              if (Platform.OS == 'ios') {
+              if (systemName === 'ios') {
                 showAppPermissionAlert(
                   'Alert',
                   'You have not granted permission for camera.',
