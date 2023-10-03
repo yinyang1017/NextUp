@@ -50,7 +50,7 @@ export default function AuthProvider({ children }) {
     const { mutate, isLoading } = useUserRegister({
         onSuccess: data => {
             login(data);
-            setIsAuthentication(false);
+
         },
     });
 
@@ -64,6 +64,7 @@ export default function AuthProvider({ children }) {
 
     // Define login and logout functions that dispatch actions
     const login = (user) => {
+        setIsAuthentication(false);
         dispatch({ type: 'LOGIN', payload: { user } });
     };
 
@@ -88,7 +89,7 @@ export default function AuthProvider({ children }) {
     }
 
     function onAuthStateChanged(user) {
-        // console.log(user, 'in auth state')
+        console.log(user, 'in auth state')
         if (user) {
             const dataToSend = {
                 email: user.email,
@@ -98,6 +99,7 @@ export default function AuthProvider({ children }) {
             };
             mutate(dataToSend);
         }
+        setIsAuthentication(false);
         // setUser(user);
         // if (initializing) setInitializing(false);
     }
