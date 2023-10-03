@@ -21,6 +21,8 @@ import {customTheme} from '../../constants';
 import StatisticOverview from '../../components/players/Dashboard/StatisticOverview';
 import profileImg from '../../assets/images/avatar.png';
 import LastGameSection from '../../components/players/Dashboard/LastGame';
+import MatchUp from '../../components/players/Dashboard/MatchUp';
+import {Padding} from '../GlobalStyles';
 
 const PlayerDashboard = () => {
   // const navigation = useNavigation();
@@ -37,19 +39,20 @@ const PlayerDashboard = () => {
         <UpcomingGames />
         <StatisticOverview />
         <LastGameSection />
-        <StatsContainer />
+        {/* <StatsContainer /> */}
         {/* <MyChallenges /> */}
       </View>
-      <View>
+      <View style={styles.compareButtonContainer}>
         <Button
-          label={'Add Player Match Up'}
-          backgroundColor={customTheme.colors.light.blue20}
+          label={'Compare Teams'}
+          backgroundColor={customTheme.colors.darkYellow}
           style={{
             width: Dimensions.get('window').width * 0.9,
             marginBottom: 20,
           }}
         />
       </View>
+      <MatchUp />
     </ScrollView>
   );
 };
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     flex: 1,
-    backgroundColor: customTheme.colors.light.background,
+    backgroundColor: customTheme.colors.base,
   },
   playerDashScrollViewContent: {
     flexDirection: 'column',
@@ -76,6 +79,9 @@ const styles = StyleSheet.create({
   frameParentSpaceBlock1: {
     paddingHorizontal: customTheme.spacings.spacing_16,
     paddingVertical: 0,
+  },
+  compareButtonContainer: {
+    marginVertical: Padding.p_base,
   },
 });
 

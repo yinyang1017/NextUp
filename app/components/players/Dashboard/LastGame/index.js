@@ -1,20 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  SafeAreaView,
-  Image,
-  key,
-  KeyboardAvoidingView,
-  FlatList,
-  Platform,
-  StyleSheet,
-  Modal,
-  ScrollView,
-} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {Layout, Colors} from './../../../../constants';
 import styles from './styles';
@@ -54,6 +40,16 @@ function LastGameSection() {
             marginTop: wide * 0.04,
           }}>
           <PlayerSummary />
+          <View
+            style={{
+              width: '90%',
+              backgroundColor: Colors.light,
+              opacity: 0.2,
+              height: 1.5,
+              marginTop: wide * 0.07,
+              alignSelf: 'center',
+            }}
+          />
           <TeamSummary />
         </View>
       </View>
