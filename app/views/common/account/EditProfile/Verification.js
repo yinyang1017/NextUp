@@ -8,14 +8,15 @@ import {
   Alert,
   PERMISSION_TYPE,
 } from 'react-native';
+import {showAppPermissionAlert} from '../../../../utils/info';
 import {Layout, Colors, Fonts} from '../../../../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 const wide = Layout.width;
 function Verification() {
   const [idProofUrl, setIdProofUrl] = React.useState(undefined);
-  const [isIdApproved, setApproved ] = React.useState(false);
-  const [isCoachCertiApproved, ] = true;
+  const [isIdApproved, setApproved] = React.useState(false);
+  const [isCoachCertiApproved, setCoachCertiApproved] = React.useState(true);
   const userData = {
     typeOfUser: 'COACH',
   };
