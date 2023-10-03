@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from './useAuth';
 import { OnBoardingContext } from '../context/OnBoardingProviider';
 import { appImages } from '../constants/appImages';
+import { useGetPlayerStyle } from '../api/onboarding.api';
 const tellUsMore = {
   typeOfUser: 'PLAYER',
   personalInfo: {
@@ -17,6 +18,13 @@ const tellUsMore = {
     classOff: '',
   },
 };
+
+
+export const useOnBoarding = () => {
+  return useContext(OnBoardingContext);
+};
+
+
 export const useTellUsMore = () => {
   const navigation = useNavigation();
   const {
@@ -34,6 +42,8 @@ export const useTellUsMore = () => {
     male: appImages.player_male,
     female: appImages.player_female,
   };
+  const isPlayer = watch('typeOfUser') === 'PLAYER';
+  const isCoach = watch('typeOfUser') === 'COACH';
   const handleNavigation = screen => {
     navigation.navigate(screen);
   };
@@ -41,6 +51,8 @@ export const useTellUsMore = () => {
     control,
     errors,
     playerImg,
+    isCoach,
+    isPlayer,
     playerPosition,
     handleNavigation,
     handleSubmit,
@@ -66,6 +78,12 @@ export const useEnterPorfileDetails = () => {
 };
 
 export const usePlayerStyle = () => {
+
+  const { onBoarding } = useOnBoarding();
+  const queryFilter = useMemo(() => ({
+    gender: onBoarding?.gender === 'male' ? 'POSITIONS_BOYS' : 'POSITIONS_GIRLS'
+  }), [onBoarding])
+  const { data: playerStylesList, isLoading: isLoadingStyleList } = useGetPlayerStyle({ queryFilter });
   const {
     control,
     handleSubmit,
@@ -77,15 +95,11 @@ export const usePlayerStyle = () => {
     },
   });
   const playingPositionDescription = watch('playingPosition');
-
   return {
     control,
     errors,
+    playerStylesList,
     playingPositionDescription,
     handleSubmit,
   };
-};
-
-export const useOnBoarding = () => {
-  return useContext(OnBoardingContext);
 };

@@ -8,11 +8,13 @@ import { faAngleRight, faUser, faUserAlt, faUserAltSlash, faTicketSimple, faTras
 import { ConfirmationDialog } from "../../../components/common/confirmationDialog";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function MyAccount() {
     const [dialog, setDialog] = useState({
         logout: false
     })
+    const { logout } = useAuth()
     const navigation = useNavigation()
     const profileMenuOptions = [
         {
@@ -140,7 +142,7 @@ export default function MyAccount() {
             cancelText="No, stay here"
             onClose={() => setDialog({ ...dialog, logout: false })}
             onConfirm={() => {
-                navigation.navigate('Welcome')
+                logout()
                 setDialog({ ...dialog, logout: false })
             }}
         />

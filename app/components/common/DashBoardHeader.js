@@ -22,7 +22,7 @@ export const DashBoardHeader = ({
                     <Text style={styles.welcomeHand}>👋</Text>
                 </Text>
                 <Text style={[styles.vaibhavChibbar1, styles.vamTypo1]}>
-                    Vaibhav Chibbar
+                    {name ?? ''}
                 </Text>
             </View>
         </View>

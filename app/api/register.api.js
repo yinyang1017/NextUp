@@ -17,19 +17,3 @@ export function useUserRegister({ onSuccess }) {
     )
 }
 
-export function useUserOnBoardingRegister({ onSuccess }) {
-    const client = useClient()
-    return useMutation(
-        ({ data, id }) => {
-            return client(`user/onBoarding/${id}`, {
-                method: 'POST',
-                data,
-            })
-        },
-        {
-            onSuccess: data => {
-                onSuccess(data)
-            },
-        }
-    )
-}

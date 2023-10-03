@@ -1,4 +1,8 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext, useEffect, useMemo } from 'react';
+import auth from '@react-native-firebase/auth';
+import { useUserRegister } from '../api/register.api';
+import AppLoader from '../utils/Apploader';
+import { successToast } from '../utils/toast';
 
 // Define the initial state
 const initialState = {
@@ -28,6 +32,7 @@ const authReducer = (state, action) => {
                 ...state,
                 user: {
                     ...state.user,
+                    ...action.payload.user,
                     onBoardingDone: action.payload.onBoardingDone,
                 },
             }
@@ -41,6 +46,21 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
     const [state, dispatch] = useReducer(authReducer, initialState);
+    const [isAuthentication, setIsAuthentication] = React.useState(false);
+    const { mutate, isLoading } = useUserRegister({
+        onSuccess: data => {
+            login(data);
+            setIsAuthentication(false);
+        },
+    });
+
+    const isPlayer = useMemo(() => {
+        return state.user?.typeOfUser === 'PLAYER';
+    }, [state])
+    const isCoach = useMemo(() => {
+        return state.user?.typeOfUser === 'COACH';
+    }, [state])
+
 
     // Define login and logout functions that dispatch actions
     const login = (user) => {
@@ -48,18 +68,54 @@ export default function AuthProvider({ children }) {
     };
 
     const logout = () => {
-        dispatch({ type: 'LOGOUT' });
+        auth().signOut().then(() => {
+            dispatch({ type: 'LOGOUT' });
+            successToast({
+                title: 'Success',
+                body: 'Logged out successfully'
+            })
+        })
+
     };
-    const updateOnBoarding = () => {
-        dispatch({ type: 'UPDATE_ONBOARDING', payload: { onBoardingDone: true } })
+    const updateOnBoarding = (user) => {
+        dispatch({
+            type: 'UPDATE_ONBOARDING', payload: {
+                onBoardingDone: true,
+                user
+            }
+        })
 
     }
+
+    function onAuthStateChanged(user) {
+        // console.log(user, 'in auth state')
+        if (user) {
+            const dataToSend = {
+                email: user.email,
+                firebaseAuthTokenId: user.uid,
+                loginWith: 'GOOGLE',
+                roles: ['ROLE_COACH', 'ROLE_PLAYER'],
+            };
+            mutate(dataToSend);
+        }
+        // setUser(user);
+        // if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        setIsAuthentication(true);
+        const subscribe = auth().onAuthStateChanged(onAuthStateChanged)
+        return subscribe
+    }, [])
 
     // Create the 'value' prop to share data and functions with consumer components
     const authContextValue = {
         user: state?.user,
         isAuthenticated: state?.isAuthenticated,
         onBoardingDone: state?.user?.onBoardingDone,
+        isCoach,
+        isPlayer,
         login,
         logout,
         updateOnBoarding
@@ -67,7 +123,10 @@ export default function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider value={authContextValue}>
-            {children}
+            {
+                isAuthentication ? <AppLoader /> : children
+            }
+            {/* {children} */}
         </AuthContext.Provider>
     );
 }

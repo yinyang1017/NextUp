@@ -37,13 +37,13 @@ export default function PlayerDetails() {
     <>
       <KeyboardAwareScrollView>
         <ViewContainer>
-          <ScreenHeader title={'Enter Details'} backButtonAction={() => {}} />
+          <ScreenHeader title={'Enter Details'} backButtonAction={() => { }} />
           <ProgressBar
             progress={onBoardingCount}
             progressColor={customTheme.colors.blue20}
           />
           <View useSafeArea marginT-12 flex>
-            <View row spread>
+            <View row >
               <Controller
                 name="personalInfo.firstName"
                 control={control}

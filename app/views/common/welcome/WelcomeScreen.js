@@ -18,11 +18,11 @@ const loginOptions = [
     text: 'Continue with Google',
     logo: appImages.google_logo,
   },
-  {
-    id: 0,
-    text: 'Continue with Meta',
-    logo: appImages.fb_logo,
-  },
+  // {
+  //   id: 0,
+  //   text: 'Continue with Meta',
+  //   logo: appImages.fb_logo,
+  // },
 ];
 export default function WelcomeScreen() {
   const { handleImperativeLogin } = useBackend();

@@ -187,6 +187,7 @@ export function FormInputField({ label, value, ...props }) {
           borderBottomColor: customTheme.colors.tertiary,
           borderBottomWidth: 1,
           marginRight: customTheme.spacings.spacing_16,
+          flex: 1,
         },
         props.containerStyle,
       ]}

@@ -20,6 +20,7 @@ export default function PlayerStyle() {
     const {
         control,
         playingPositionDescription,
+        playerStylesList,
         handleSubmit
     } = usePlayerStyle()
     const onSubmit = (data) => {
@@ -39,8 +40,8 @@ export default function PlayerStyle() {
                         flexWrap: 'wrap',
                     }}>
                         {
-                            _.map(player_styles.playing_styles, (item, index) => {
-                                const isSelected = value?.value === item?.value
+                            _.map(playerStylesList?.data, (item, index) => {
+                                const isSelected = value?.name === item?.name
                                 return <TouchableOpacity key={index} onPress={() => onChange(item)}>
                                     <View margin-8 center style={{
                                         borderColor: isSelected ? customTheme.colors.secondary : customTheme.colors.light,
@@ -53,7 +54,7 @@ export default function PlayerStyle() {
                                             resizeMode="cover"
                                             resizeMethod="scale"
                                             source={{
-                                                uri: item?.image_source ?? null
+                                                uri: item?.imageUrl ?? 'https://unsplash.com/photos/G38HyRyx3Cw/download?force=true'
                                             }}
                                             width={100}
                                             height={120}
