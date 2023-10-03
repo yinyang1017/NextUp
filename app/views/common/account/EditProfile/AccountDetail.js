@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
+import PrimaryButton from '../../../../components/common/PrimaryButton';
 import ImageUpload from '../../../../components/common/ImageUpload';
-import {hp} from '../../../../utils/responsive';
+import {hp, wp} from '../../../../utils/responsive';
 import {Fonts, Colors, Layout} from '../../../../constants';
 import EditAnimatedInput from '../../../../Helpers/react-native-animated-input/src/AnimatedInput/EditInput';
 import AnimatedInput from '../../../../Helpers/react-native-animated-input';
@@ -9,7 +10,7 @@ import AnimatedInput from '../../../../Helpers/react-native-animated-input';
 const wide = Layout.width;
 function AccountDetail() {
   return (
-    <View>
+    <View style={styles.container}>
       <ImageUpload
         source={{
           uri: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
@@ -108,13 +109,20 @@ function AccountDetail() {
           }}
           keyboardType={'email-address'}
         />
-        <TextInput value='123'/>
+        <TextInput value="123" />
       </View>
+      <PrimaryButton title={'Save'} style={styles.saveButton} />
     </View>
   );
 }
 export default AccountDetail;
 
 const styles = StyleSheet.create({
+  container: {flex: 1},
   imageUploadContainer: {alignSelf: 'center', marginTop: hp(5)},
+  saveButton: {
+    marginHorizontal: wp(8),
+    marginTop: 'auto',
+    marginBottom: hp(2),
+  },
 });

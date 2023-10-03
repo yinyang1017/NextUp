@@ -4,25 +4,40 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Permission,
   Alert,
-  PERMISSION_TYPE,
+  StyleSheet,
 } from 'react-native';
+import {wp, hp} from '../../../../../utils/responsive';
+import {
+  Permission,
+  PERMISSION_TYPE,
+} from '../../../../../utils/permissionCheck';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import PrimaryButton from '../../../../../components/common/PrimaryButton';
 import DeviceInfo from 'react-native-device-info';
-import {showAppPermissionAlert} from '../../../../utils/info';
-import {Layout, Colors, Fonts} from '../../../../constants';
+import {showAppPermissionAlert} from '../../../../../utils/info';
+import {Layout, Colors, Fonts} from '../../../../../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
+import passportImg from '../../../../../assets/images/passport.png';
+import tickSelectedIcon from '../../../../../assets/images/tick_selected.png';
+import newUncheckIcon from '../../../../../assets/images/new_uncheck_icon.png';
+import rejectDocIcon from '../../../../../assets/images/doc_reject_icon.png';
+import dottedLine from '../../../../../assets/images/seperator_dash.png';
+import placeholder from '../../../../../assets/images/Placeholder_PhotoId.png';
+import placeholderBorder from '../../../../../assets/images/placeHolder_photoid_border.png';
+import InfoIcon from '../../../../../assets/images/info_icon.png';
+import CoachCertPlaceholder from '../../../../../assets/images/CochingCerti.png';
 const wide = Layout.width;
 function Verification() {
-    const systemName = DeviceInfo.getSystemName();
-  const [idProofUrl, setIdProofUrl] = React.useState(undefined);
-  const [isIdApproved, setApproved] = React.useState(false);
-  const [isCoachCertiApproved, setCoachCertiApproved] = React.useState(true);
+  const systemName = DeviceInfo.getSystemName();
+  const [idProofUrl, setIdProofUrl] = React.useState(passportImg);
+  const [isIdApproved, setApproved] = React.useState(true);
+  const [isCoachCertiApproved, setCoachCertiApproved] = React.useState(false);
   const userData = {
     typeOfUser: 'COACH',
   };
-  const [certificateIdUrl, setCertificateUrl] = React.useState(undefined);
+  const [certificateIdUrl, setCertificateUrl] = React.useState(passportImg);
   function pickIdSingle(cropit, circular = false, isFrom) {
     Alert.alert(
       isFrom === 'ava' ? 'PHOTO ID' : 'COACHING CERTIFICATE',
@@ -89,9 +104,9 @@ function Verification() {
                 mediaType: 'photo',
               }).then(image => {
                 if (isFrom === 'ava') {
-                  this.setState({idProofUrl: image.path});
+                  setIdProofUrl(image.path);
                 } else {
-                  this.setState({certificateIdUrl: image.path});
+                  setIdProofUrl(image.path);
                 }
               });
             } else {
@@ -114,22 +129,12 @@ function Verification() {
     );
   }
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        marginTop: wide * 0.1,
-        // backgroundColor: 'red',
-      }}>
-      <View
-        style={{
-          width: '90%',
-          alignItems: 'center',
-          alignSelf: 'center',
-        }}>
+    <SafeAreaView style={styles.fullScreen}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={() => pickIdSingle(true, false, 'ava')}>
           {idProofUrl === '' || idProofUrl === undefined ? (
             <Image
-              source={require('../../../../assets/images/Placeholder_PhotoId.png')}
+              source={placeholder}
               resizeMode="cover"
               style={{tintColor: Colors.photIdRactangle}}
             />
@@ -146,12 +151,12 @@ function Verification() {
                   width: wide * 0.46,
                   borderRadius: 5,
                 }}
-                source={{idProofUrl}}
+                source={idProofUrl}
                 resizeMode="cover"
               />
 
               <Image
-                source={require('../../../../assets/images/placeHolder_photoid_border.png')}
+                source={placeholderBorder}
                 style={{
                   position: 'absolute',
                   tintColor: Colors.photIdRactangle,
@@ -159,7 +164,7 @@ function Verification() {
               />
             </View>
           )}
-          {idProofUrl == null ? (
+          {idProofUrl === undefined ? (
             <Text
               style={{
                 paddingTop: 10,
@@ -183,7 +188,7 @@ function Verification() {
               }}>
               {isIdApproved === false ? (
                 <Image
-                  source={require('../../../../assets/images/info_icon.png')}
+                  source={InfoIcon}
                   style={{
                     width: 15,
                     height: 15,
@@ -225,7 +230,7 @@ function Verification() {
                   </Text>
                   <TouchableOpacity
                     activeOpacity={1}
-                    onPress={() => this.pickIdSingle(true, false, 'ava')}>
+                    onPress={() => pickIdSingle(true, false, 'ava')}>
                     <Text
                       style={{
                         color: Colors.btnBg,
@@ -246,7 +251,7 @@ function Verification() {
             </View>
           )}
         </TouchableOpacity>
-        {/* <View
+        <View
           style={{
             position: 'absolute',
             top: wide * 0.18,
@@ -256,90 +261,60 @@ function Verification() {
             justifyContent: 'center',
           }}>
           {idProofUrl === '' || idProofUrl === null ? (
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-              }}
-              source={require('../../../../assets/images/new_uncheck_icon.png')}
-            />
+            <Image style={styles.icon} source={newUncheckIcon} />
           ) : isIdApproved == null ? (
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-              }}
-              source={require('../../../../assets/images/tick_selected.png')}
-            />
+            <Image style={styles.icon} source={tickSelectedIcon} />
           ) : isIdApproved === true ? (
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-              }}
-              source={require('../../../../assets/images/tick_selected.png')}
-            />
+            <Image style={styles.icon} source={tickSelectedIcon} />
           ) : (
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-              }}
-              source={require('../../../../assets/images/doc_reject_icon.png')}
-            />
+            <Image style={styles.icon} source={rejectDocIcon} />
           )}
 
-          {userData?.typeOfUser == 'COACH' ? (
-            <Image
-              style={{
-                flex: 1,
-                tintColor: Colors.photIdRactangle,
-              }}
-              source={require('../../../../assets/images/seperator_dash.png')}
-              resizeMode="stretch"
-            />
-          ) : null}
-          {userData?.typeOfUser == 'COACH' ? (
-            certificateIdUrl === '' || certificateIdUrl === null ? (
+          {userData?.typeOfUser === 'COACH' && (
+            <>
               <Image
                 style={{
-                  width: 40,
-                  height: 40,
+                  flex: 1,
+                  tintColor: Colors.photIdRactangle,
                 }}
-                source={require('../../../../assets/images/new_uncheck_icon.png')}
+                source={dottedLine}
+                resizeMode="stretch"
               />
-            ) : isCoachCertiApproved == null ? (
-              <Image
-                style={{
-                  width: 40,
-                  height: 40,
-                }}
-                source={require('../../../../assets/images/tick_selected.png')}
-              />
-            ) : isCoachCertiApproved == true ? (
-              <Image
-                style={{
-                  width: 40,
-                  height: 40,
-                }}
-                source={require('../../../../assets/images/tick_selected.png')}
-              />
-            ) : (
-              <Image
-                style={{
-                  width: 40,
-                  height: 40,
-                }}
-                source={require('../../../../assets/images/doc_reject_icon.png')}
-              />
-            )
-          ) : null}
-        </View> */}
-        {/* {userData?.typeOfUser == 'COACH' ? (
+              {certificateIdUrl === '' || certificateIdUrl === null ? (
+                <Image style={styles.icon} source={newUncheckIcon} />
+              ) : isCoachCertiApproved == null ? (
+                <Image
+                  style={{
+                    width: 40,
+                    height: 40,
+                  }}
+                  source={tickSelectedIcon}
+                />
+              ) : isCoachCertiApproved === true ? (
+                <Image
+                  style={{
+                    width: 40,
+                    height: 40,
+                  }}
+                  source={tickSelectedIcon}
+                />
+              ) : (
+                <Image
+                  style={{
+                    width: 40,
+                    height: 40,
+                  }}
+                  source={rejectDocIcon}
+                />
+              )}
+            </>
+          )}
+        </View>
+        {userData?.typeOfUser === 'COACH' && (
           <TouchableOpacity
             style={{marginTop: wide * 0.1}}
-            onPress={() => this.pickIdSingle(true, false, 'certi')}>
-            {certificateIdUrl == '' || certificateIdUrl == null ? (
+            onPress={() => pickIdSingle(true, false, 'certi')}>
+            {certificateIdUrl === '' || certificateIdUrl === null ? (
               <View
                 style={{
                   justifyContent: 'center',
@@ -347,13 +322,13 @@ function Verification() {
                   paddingVertical: 10,
                 }}>
                 <Image
-                  source={require('../../../../assets/images/CochingCerti.png')}
+                  source={CoachCertPlaceholder}
                   resizeMode="cover"
                   style={{tintColor: Colors.photIdRactangle}}
                 />
                 <View
                   style={{
-                    position: 'absolute',
+                    //   position: 'absolute',
                     alignItems: 'center',
                     paddingVertical: 10,
                   }}>
@@ -390,12 +365,12 @@ function Verification() {
                     width: wide * 0.46,
                     borderRadius: 5,
                   }}
-                  source={{uri: certificateIdUrl}}
+                  source={certificateIdUrl}
                   resizeMode="cover"
                 />
 
                 <Image
-                  source={require('../../../../assets/images/placeHolder_photoid_border.png')}
+                  source={placeholderBorder}
                   style={{
                     position: 'absolute',
                     tintColor: Colors.photIdRactangle,
@@ -403,7 +378,7 @@ function Verification() {
                 />
               </View>
             )}
-            {certificateIdUrl == '' || certificateIdUrl == undefined ? (
+            {certificateIdUrl === '' || certificateIdUrl === undefined ? (
               <></>
             ) : (
               <View
@@ -413,19 +388,17 @@ function Verification() {
                   justifyContent: 'center',
                   marginTop: wide * 0.015,
                 }}>
-                {this.state.isCoachCertiApproved == null ? (
+                {isCoachCertiApproved === false && (
                   <Image
-                    source={require('../../../../assets/images/info_icon.png')}
+                    source={InfoIcon}
                     style={{
                       width: 15,
                       height: 15,
                       tintColor: Colors.photIdRactangle,
                     }}
                   />
-                ) : (
-                  <></>
                 )}
-                {isCoachCertiApproved == null ? (
+                {isCoachCertiApproved === true ? (
                   <Text
                     style={{
                       marginTop: 16,
@@ -440,7 +413,7 @@ function Verification() {
                     Your document is under verification, We will notify once
                     verified.
                   </Text>
-                ) : isCoachCertiApproved == false ? (
+                ) : isCoachCertiApproved === false ? (
                   <View>
                     <Text
                       style={{
@@ -457,7 +430,7 @@ function Verification() {
                     </Text>
                     <TouchableOpacity
                       activeOpacity={1}
-                      onPress={() => this.pickIdSingle(true, false, 'certi')}>
+                      onPress={() => pickIdSingle(true, false, 'certi')}>
                       <Text
                         style={{
                           color: Colors.btnBg,
@@ -468,7 +441,7 @@ function Verification() {
                           textAlign: 'center',
                         }}>
                         {' '}
-                        Reupload
+                        Upload New Documents
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -478,9 +451,33 @@ function Verification() {
               </View>
             )}
           </TouchableOpacity>
-        ) : null} */}
+        )}
       </View>
-    </View>
+      <PrimaryButton title={'Save'} style={styles.saveButton} />
+    </SafeAreaView>
   );
 }
 export default Verification;
+
+const styles = StyleSheet.create({
+  fullScreen: {flex: 1},
+  container: {
+    alignItems: 'center',
+    marginTop: wide * 0.1,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  icon: {
+    width: 40,
+    height: 40,
+  },
+  underlined: {
+    color: Colors.lightBlue,
+    textDecorationLine: 'underline',
+  },
+  saveButton: {
+    marginHorizontal: wp(8),
+    marginTop: 'auto',
+    marginBottom: hp(2),
+  },
+});
