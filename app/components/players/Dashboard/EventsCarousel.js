@@ -8,6 +8,7 @@ import {
   Color,
   Border,
 } from '../../../views/GlobalStyles';
+import {Colors} from '../../../constants';
 export const UpcomingGames = ({title = 'Upcoming Games'}) => {
   return (
     <>
@@ -47,23 +48,23 @@ export const UpcomingGames = ({title = 'Upcoming Games'}) => {
               <Image
                 style={[styles.frameItem, styles.frameLayout]}
                 resizeMode="cover"
-                source={require('../../../assets/ellipse-6891.png')}
+                source={require('../../../assets/ellipse-703.png')}
               />
               <Image
                 style={[styles.frameInner, styles.frameLayout]}
                 resizeMode="cover"
-                source={require('../../../assets/ellipse-6891.png')}
+                source={require('../../../assets/ellipse-703.png')}
               />
-              <Image
+              {/* <Image
                 style={[styles.ellipseIcon, styles.ellipseIconLayout]}
                 resizeMode="cover"
                 source={require('../../../assets/ellipse-6901.png')}
-              />
-              <Image
+              /> */}
+              {/* <Image
                 style={[styles.frameChild1, styles.ellipseIconLayout]}
                 resizeMode="cover"
                 source={require('../../../assets/ellipse-6901.png')}
-              />
+              /> */}
               <Text style={[styles.text1, styles.text1Position]}>
                 22 Aug 2022, 18:00
               </Text>
@@ -551,6 +552,7 @@ const styles = StyleSheet.create({
   frameInner: {
     left: 110,
     height: 50,
+    // backgroundColor: Colors.white_08
   },
   ellipseIcon: {
     left: 25,
