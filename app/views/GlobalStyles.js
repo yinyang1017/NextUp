@@ -34,15 +34,8 @@ export const FontSize = {
   size_mid: 17,
   size_lgi_4: 19,
   size_5xl: 24,
-  size_smi: 13,
-  size_xs: 12,
-  size_mini: 15,
-  size_mid: 17,
-  bodyMediumSemibold_size: 14,
   size_base: 16,
-  size_2xs: 11,
-  size_3xs: 10,
-  size_3xl: 22,
+ 
 };
 /* Colors */
 export const Color = {

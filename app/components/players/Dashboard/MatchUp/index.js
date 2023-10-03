@@ -3,10 +3,10 @@ import {TouchableOpacity, View, Text, FlatList, Image} from 'react-native';
 
 import {Layout, Colors, Fonts} from '../../../../constants';
 import MatchUpBoard from './MatchUpBoard';
-import { FontSize } from '../../../../views/GlobalStyles';
+import {FontSize} from '../../../../views/GlobalStyles';
 import {hp} from '../../../../utils/responsive';
 import {FontFamily} from '../../../../views/GlobalStyles';
-import { MyColors } from '../../../../constants/colors';
+import {MyColors} from '../../../../constants/colors';
 
 import _img1 from '../../../../assets/images/dummyPlayer.png';
 import _img2 from '../../../../assets/images/dummy2.png';
