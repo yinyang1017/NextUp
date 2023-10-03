@@ -26,13 +26,8 @@ function LastGameSection() {
     coachDashTeamData.lastGameInfo.recentGamesInfo !== undefined
   ) {
     return (
-      <View
-        style={{
-          marginTop: wide * 0.08,
-          width: '100%',
-        }}>
+      <View>
         <Text style={styles.title}>Last Game</Text>
-
         <View
           style={{
             width: '100%',
