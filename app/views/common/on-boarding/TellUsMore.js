@@ -1,29 +1,11 @@
 import React from 'react';
-import {
-  ProgressBar,
-  View,
-  Text,
-  Checkbox,
-  RadioGroup,
-  RadioButton,
-  Picker,
-  TextField,
-  Button,
-} from 'react-native-ui-lib';
-import { ViewContainer } from '../../../components/common/ViewConatiner';
-import { ScrollView } from 'react-native-gesture-handler';
-
-import { CommonStyles, customTheme, SafeContainer } from '../../../constants';
+import { ProgressBar, View, Text } from 'react-native-ui-lib';
+import { customTheme } from '../../../constants';
 import { ScreenHeader } from '../../../components/common/ScreenHeader';
-import TextComponent from '../../../components/common/TextComponent';
-import { useState } from 'react';
-import { SelectableCard } from '../../../components/common/SelectableCard';
-import { width } from '../../../constants/dimensions';
 import { useOnBoarding, useTellUsMore } from '../../../hooks/useOnBoarding';
 import { appImages } from '../../../constants/appImages';
 import * as cities from '../../../utils/data/cities.json';
 import * as states from '../../../utils/data/states.json';
-
 import {
   FormButton,
   FormInputPicker,
@@ -32,21 +14,18 @@ import {
 } from '../../../components/common/FormInputs';
 import { ScrollViewContainer } from '../../../components/common/SrollViewContainer';
 import { Controller } from 'react-hook-form';
-import { useNavigation } from '@react-navigation/native';
+
 export default function TellUsMore() {
   const { onBoardingCount, handleOnBoarding, handleNavigation } =
     useOnBoarding();
-  const {
-    control,
-    playerPosition,
-    playerImg,
 
-    handleSubmit,
-  } = useTellUsMore();
+  const { control, playerPosition, playerImg, handleSubmit } = useTellUsMore();
+
   const onSubmit = data => {
     handleOnBoarding(data);
     handleNavigation('PlayerDetails');
   };
+
   return (
     <>
       <ScrollViewContainer>

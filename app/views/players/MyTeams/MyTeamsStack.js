@@ -16,6 +16,7 @@ import AdvanceStats from './AdvanceStats';
 import Roles from './Roles';
 import Lineup from './Lineup';
 import { Challenges } from './Challenges';
+import Schedule from './Schedule';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -91,7 +92,7 @@ export default function MyTeamsStack() {
         <TopTab.Screen name="Stats" component={PlayerStats} />
         <TopTab.Screen name="Lineup" component={Lineup} />
         <TopTab.Screen name="Staff" component={Roles} />
-        <TopTab.Screen name="Schedule" component={Roles} />
+        <TopTab.Screen name="Schedule" component={Schedule} />
         <TopTab.Screen name="Challenges" component={Challenges} />
       </TopTab.Navigator>
     </SafeAreaView>

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { FormInputField } from '../../../components/common/FormInputs';
-import HeaderGreyComponent from '../../../components/common/HeaderGreyComponet';
+import HeaderGreyComponent from '../../../components/common/HeaderGreyComponent';
 import { times } from 'lodash';
 import AvatarItem from '../../../components/common/AvatarItem';
 import { Text } from 'react-native-ui-lib';

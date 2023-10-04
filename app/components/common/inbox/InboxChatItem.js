@@ -1,20 +1,22 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { Image } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
 import { Colors, customTheme } from '../../../constants';
 import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 import { MyColors } from '../../../constants/colors';
+import FastImage from 'react-native-fast-image';
 
-const InboxChatItem = ({ index }) => {
+const InboxChatItem = ({ index, chatInfo }) => {
   const isAudio = index;
   const showUnread = index !== 2;
 
   const navigation = useNavigation();
 
   const onPressChatHandler = () => {
-    navigation.navigate('ChatScreen');
+    navigation.navigate('ChatScreen', {
+      channelId: chatInfo?.groupChats[0]?.channelId,
+    });
   };
 
   return (
@@ -23,12 +25,13 @@ const InboxChatItem = ({ index }) => {
         activeOpacity={0.7}
         style={styles.container}
         onPress={onPressChatHandler}>
-        <Image
+        <FastImage
           style={styles.profileImage}
-          source={require('../../../assets/avatar-without-online-badge.png')}
+          source={{ uri: chatInfo?.teamLogoUrl }}
+          defaultSource={require('../../../assets/images/AvatarImage.png')}
         />
         <View style={styles.messagesContainer}>
-          <Text style={styles.name}>Entire Team</Text>
+          <Text style={styles.name}>{chatInfo?.teamName}</Text>
           {isAudio ? (
             <Text style={[styles.message, { color: MyColors.btnBg }]}>
               Audio

@@ -1,35 +1,36 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useClient } from '../hooks/useClient'
+import { useMutation } from 'react-query';
+import { useClient } from '../hooks/useClient';
+
 export function useUserRegister({ onSuccess }) {
-    const client = useClient()
-    return useMutation(
-        data => {
-            return client(`user/register`, {
-                method: 'POST',
-                data,
-            })
-        },
-        {
-            onSuccess: data => {
-                onSuccess(data)
-            },
-        }
-    )
+  const client = useClient();
+  return useMutation(
+    data => {
+      return client(`user/register`, {
+        method: 'POST',
+        data,
+      });
+    },
+    {
+      onSuccess: data => {
+        onSuccess(data);
+      },
+    },
+  );
 }
 
 export function useUserOnBoardingRegister({ onSuccess }) {
-    const client = useClient()
-    return useMutation(
-        ({ data, id }) => {
-            return client(`user/onBoarding/${id}`, {
-                method: 'POST',
-                data,
-            })
-        },
-        {
-            onSuccess: data => {
-                onSuccess(data)
-            },
-        }
-    )
+  const client = useClient();
+  return useMutation(
+    ({ data, id }) => {
+      return client(`user/onBoarding/${id}`, {
+        method: 'POST',
+        data,
+      });
+    },
+    {
+      onSuccess: data => {
+        onSuccess(data);
+      },
+    },
+  );
 }

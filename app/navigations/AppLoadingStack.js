@@ -20,10 +20,7 @@ export default function AppLoadignStack() {
   return (
     <Stack.Navigator
       initialRouteName="OnboadingStack"
-      screenOptions={{
-        headerShown: false,
-        cardStyle: { padding: 20 },
-      }}>
+      screenOptions={{ headerShown: false, cardStyle: { padding: 20 } }}>
       {!isAuthenticated && (
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
       )}

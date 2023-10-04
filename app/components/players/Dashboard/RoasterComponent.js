@@ -13,7 +13,7 @@ import { hp, wp } from '../../../utils/responsive';
 import { MyColors } from '../../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import { customTheme } from '../../../constants';
-import HeaderGreyComponent from '../../common/HeaderGreyComponet';
+import HeaderGreyComponent from '../../common/HeaderGreyComponent';
 import AddButtonWithIcon from '../../common/AddButtonWithIcon';
 
 const varsityData = [
@@ -82,7 +82,7 @@ const newPlayersData = [
   },
 ];
 
-export const RoasterComponet = () => {
+export const RoasterComponent = () => {
   const navigation = useNavigation();
 
   return (
@@ -102,7 +102,7 @@ export const RoasterComponet = () => {
       />
       <HeaderGreyComponent
         containerStyle={styles.headerGrey}
-        title="NewPlayers"
+        title="New Players"
         rightContent={() => (
           <AddButtonWithIcon
             onPress={() => navigation.navigate('SearchPlayers')}

@@ -16,10 +16,22 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_12,
     fontFamily: customTheme.fontFamily.robotoRegular,
   },
+  'small-500': {
+    color: customTheme.colors.light,
+    fontWeight: '500',
+    fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+  },
   'small-600': {
     color: customTheme.colors.light,
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+  },
+  'small-x-500': {
+    color: customTheme.colors.light,
+    fontWeight: '500',
+    fontSize: customTheme.fontSizes.size_13,
     fontFamily: customTheme.fontFamily.robotoRegular,
   },
   'small-x-600': {

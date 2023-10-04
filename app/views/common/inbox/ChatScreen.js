@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ChatHeader from '../../../components/common/inbox/chat/ChatHeader';
 import ChatChallengeAccepted from '../../../components/common/inbox/chat/ChatChallengeAccepted';
@@ -9,6 +9,11 @@ import ChatInput from '../../../components/common/inbox/chat/ChatInput';
 import ChatMessage from '../../../components/common/inbox/chat/ChatMessage';
 import ChatVideoMessage from '../../../components/common/inbox/chat/ChatVideoMessage';
 import ChatImageMessage from '../../../components/common/inbox/chat/ChatImageMessage';
+import { useIsFocused, useRoute } from '@react-navigation/native';
+import {
+  useGetChatMessagesByChannelId,
+  useSendChatMessage,
+} from '../../../api/chat.api';
 
 const loginUserInfo = {
   _id: 1,
@@ -79,9 +84,37 @@ const initialData = [
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState(initialData);
+  const screenParams = useRoute().params;
+
+  const { mutate: sendChatMessageMutation } = useSendChatMessage();
+
+  const { mutate: getChatMessagesByChannelId } =
+    useGetChatMessagesByChannelId();
+
+  const isFocus = useIsFocused();
 
   const onSend = newMessages => {
     setMessages(GiftedChat.append(messages, newMessages));
+
+    const newChatMessageInfo = {
+      senderId: 1013,
+      messageType: 'TEXT',
+      content: newMessages[0]?.text,
+      channelId: screenParams?.channelId,
+      status: 'SENT',
+      senderName: 'OCHAI AGBAJI',
+      senderProfilePictureUrl:
+        'https://cdn.nba.com/headshots/nba/latest/1040x760/1630534.png',
+    };
+
+    sendChatMessageMutation(newChatMessageInfo, {
+      onSuccess: res => {
+        console.log('🚀 ~ file: ChatScreen.js:112 ~ onSend ~ res:', res);
+      },
+      onError: err => {
+        console.log('🚀 ~ file: ChatScreen.js:115 ~ onSend ~ err:', err);
+      },
+    });
   };
 
   const renderInputToolbar = useCallback(props => <ChatInput {...props} />, []);
@@ -102,6 +135,24 @@ const ChatScreen = () => {
     }
     return <ChatMessage {...props} />;
   }, []);
+
+  const onGetChatMessagesHandler = res => {
+    console.log(
+      '🚀 ~ file: ChatScreen.js:114 ~ onGetChatMessagesHandler ~ res:',
+      res,
+    );
+  };
+
+  useEffect(() => {
+    if (isFocus) {
+      getChatMessagesByChannelId(
+        { channelId: screenParams?.channelId },
+        { onSuccess: onGetChatMessagesHandler },
+        {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocus]);
 
   return (
     <View style={[styles.container, extraContainerStyle]}>
@@ -135,8 +186,5 @@ export default ChatScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  chatChallengeContainer: {
-    paddingHorizontal: wp(5),
-    marginVertical: hp(2),
-  },
+  chatChallengeContainer: { paddingHorizontal: wp(5), marginVertical: hp(2) },
 });

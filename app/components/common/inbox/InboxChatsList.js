@@ -2,13 +2,23 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import React from 'react';
 import InboxChatItem from './InboxChatItem';
 import { hp } from '../../../utils/responsive';
+import AppLoader from '../../../utils/Apploader';
 
-const InboxChatsList = ({ containerStyle = {} }) => {
+const InboxChatsList = ({
+  containerStyle = {},
+  channelData = [],
+  isLoading = false,
+}) => {
+  if (isLoading) {
+    return <AppLoader />;
+  }
   return (
     <View style={[styles.container, containerStyle]}>
       <FlatList
-        data={[1, 2, 3, 4]}
-        renderItem={({ item, index }) => <InboxChatItem index={index} />}
+        data={channelData}
+        renderItem={({ item, index }) => (
+          <InboxChatItem index={index} chatInfo={item} />
+        )}
       />
     </View>
   );

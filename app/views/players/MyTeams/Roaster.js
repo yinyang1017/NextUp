@@ -1,6 +1,6 @@
 import React from 'react';
-import { RoasterComponet } from '../../../components/players/Dashboard/RoasterComponet';
+import { RoasterComponent } from '../../../components/players/Dashboard/RoasterComponent';
 
 export default function Roaster() {
-  return <RoasterComponet />;
+  return <RoasterComponent />;
 }

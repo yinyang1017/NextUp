@@ -1,27 +1,14 @@
 import * as React from 'react';
-import {
-  ScrollView,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  ImageBackground,
-  Dimensions,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import { ScrollView, StyleSheet, View, Dimensions } from 'react-native';
 import DashBoardHeader from '../../components/common/DashBoardHeader';
-import { MyTeams, TeamsBar } from '../../components/players/Dashboard/MyTeams';
+import { TeamsBar } from '../../components/players/Dashboard/MyTeams';
 import { EventCarousel } from '../../components/players/Dashboard/EventsCarousel';
 import StatsContainer from '../../components/players/Dashboard/StatsContainer';
 import { MyChallenges } from '../../components/players/Dashboard/Challenges';
-import { Button, Colors } from 'react-native-ui-lib';
+import { Button } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 
 const PlayerDashboard = () => {
-  //   const navigation = useNavigation();
-
   return (
     <ScrollView
       style={styles.playerDash}

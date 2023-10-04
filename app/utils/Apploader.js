@@ -20,7 +20,11 @@ class AppLoader extends React.Component {
         onRequestClose={onRequestClose}
         {...this.props}>
         <View style={styles.container}>
-          <ActivityIndicator animating size={30} color={customTheme.colors.light} />
+          <ActivityIndicator
+            animating
+            size={30}
+            color={customTheme.colors.light}
+          />
         </View>
       </Modal>
     );
@@ -41,7 +45,7 @@ AppLoader.propTypes = {
 };
 
 AppLoader.defaultProps = {
-  onRequestClose: () => { },
+  onRequestClose: () => {},
 };
 
 export default AppLoader;

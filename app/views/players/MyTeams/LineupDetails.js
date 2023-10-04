@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
-import HeaderGreyComponent from '../../../components/common/HeaderGreyComponet';
+import HeaderGreyComponent from '../../../components/common/HeaderGreyComponent';
 import AvatarItem from '../../../components/common/AvatarItem';
 import { indexOf, times } from 'lodash';
 import { customTheme } from '../../../constants';
