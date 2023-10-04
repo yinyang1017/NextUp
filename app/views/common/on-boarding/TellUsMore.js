@@ -52,7 +52,7 @@ export default function TellUsMore() {
       <ScrollViewContainer>
         <ScreenHeader backButtonAction={() => {}} />
         <ProgressBar
-          progress={onBoardingCount}
+          progress={10}
           progressColor={customTheme.colors.blue20}
         />
         <View
@@ -128,8 +128,8 @@ export default function TellUsMore() {
               <FormInputPicker
                 value={value}
                 data={states?.states}
-                label={'States'}
-                title="Search for staets.."
+                label={'Schools'}
+                title="Search for schools.."
                 onValueChange={value => onChange(value)}
               />
             )}
@@ -148,8 +148,10 @@ export default function TellUsMore() {
               />
             )}
           />
-
-          <FormButton onPress={handleSubmit(onSubmit)} />
+          <FormButton
+            onPress={handleSubmit(onSubmit)}
+            label={'Continue'}
+          />
         </View>
       </ScrollViewContainer>
     </>
