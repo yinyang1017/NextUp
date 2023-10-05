@@ -46,6 +46,7 @@ export default function CoachDashboard() {
         record={'18-8'}
         coachImg={coachImg}
       />
+      
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen name="About" component={AboutTab} />
         <Tab.Screen name="Roster" component={RosterTab} />
