@@ -15,8 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SelectableCard } from './SelectableCard';
 import { ActivityIndicator, Pressable } from 'react-native';
+import { wp } from '../../utils/responsive';
 const dropdownIcon = (
-  <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+  <FontAwesomeIcon
+    icon={faChevronDown}
+    color={customTheme.colors.light}
+    size={wp(2.5)}
+  />
 );
 /**
  * Renders a form input picker component.
@@ -27,9 +32,17 @@ const dropdownIcon = (
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
-export function FormInputPicker({ data, value, onValueChange, label, title }) {
+export function FormInputPicker({
+  data,
+  value,
+  onValueChange,
+  label,
+  title,
+  containerStyle = {},
+  rootContainerStyle = {},
+}) {
   return (
-    <View marginV-12 flex marginR-16>
+    <View marginV-12 flex marginR-16 style={rootContainerStyle}>
       <Picker
         topBarProps={{ title: title }}
         showSearch
@@ -56,6 +69,7 @@ export function FormInputPicker({ data, value, onValueChange, label, title }) {
                 containerStyle={{
                   borderBottomColor: customTheme.colors.tertiary,
                   borderBottomWidth: 1,
+                  ...containerStyle,
                 }}
                 trailingAccessory={dropdownIcon}
               />

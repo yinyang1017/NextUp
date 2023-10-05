@@ -1,13 +1,6 @@
 import { useMutation } from 'react-query';
 import { useClient } from '../hooks/useClient';
 
-export const useGetChatMessagesByChannelId = () => {
-  const client = useClient();
-  return useMutation(data =>
-    client(`message/stream/${data.channelId}`, { method: 'GET' }),
-  );
-};
-
 export const useGetAllChatChannels = () => {
   const client = useClient();
   return useMutation(data =>

@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Color, FontSize } from '../../../views/GlobalStyles';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { hp, wp } from '../../../utils/responsive';
-import { MyColors } from '../../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
-import { customTheme } from '../../../constants';
 import HeaderGreyComponent from '../../common/HeaderGreyComponent';
 import AddButtonWithIcon from '../../common/AddButtonWithIcon';
+import { Text } from 'react-native-ui-lib';
+import AvatarItem from '../../common/AvatarItem';
+import { customTheme } from '../../../constants';
 
 const varsityData = [
   {
@@ -62,175 +54,105 @@ const newPlayersData = [
     id: '1',
     name: 'A.McCoy',
     source: require('../../../assets/ellipse-691.png'),
-    Button: 'Reject',
-    Button2: 'Confirm',
+    button: 'Reject',
+    button2: 'Confirm',
   },
   {
     id: '2',
     name: 'R.Fox',
     source: require('../../../assets/avatar4.png'),
-    Button: 'Reject',
-    Button2: 'Confirm',
+    button: 'Reject',
+    button2: 'Confirm',
   },
 
   {
     id: '3',
     name: 'Cooper',
     source: require('../../../assets/ellipse-7566.png'),
-    Button: 'VARSITY',
-    Button2: 'JUNIOR V',
+    button: 'VARSITY',
+    button2: 'JUNIOR V',
   },
 ];
 
 export const RoasterComponent = () => {
   const navigation = useNavigation();
 
-  return (
-    <ScrollView contentContainerStyle={{ paddingBottom: hp(4) }}>
-      <HeaderGreyComponent title="Varsity" containerStyle={styles.headerGrey} />
-      <FlatList
-        data={varsityData}
-        numColumns={5}
-        bounces={false}
-        renderItem={({ item }) => (
-          <View style={styles.varsityIconsView}>
-            <Image style={styles.iconList} source={item.source} />
-            <Text style={styles.iconListText}>{item.name}</Text>
+  const renderRightAddButton = () => (
+    <AddButtonWithIcon onPress={() => navigation.navigate('SearchPlayers')} />
+  );
+
+  const renderVarsityItem = (item, index) => (
+    <AvatarItem
+      key={index}
+      title={item.name}
+      image={item.source}
+      containerStyle={styles.varsityAvatar}
+    />
+  );
+
+  const renderNewPlayerItem = (item, index) => {
+    return (
+      <View style={styles.newPlayerItem} key={index}>
+        <AvatarItem title={item.name} image={item.source} />
+        {item.id === '3' ? (
+          <View style={styles.rowCenter}>
+            <TouchableOpacity style={styles.varsityButton}>
+              <Text small-x-500>{item.button}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.juniorVButton}>
+              <Text small-x-500>{item.button2}</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.newPlayerItemButtonRow}>
+            <TouchableOpacity style={styles.rejectButtonView}>
+              <Text medium-500>{item.button}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.confirmButtonView}>
+              <Text medium-500>{item.button2}</Text>
+            </TouchableOpacity>
           </View>
         )}
-        contentContainerStyle={{ alignItems: 'center' }}
-      />
+      </View>
+    );
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContent}>
+      <HeaderGreyComponent title="Varsity" containerStyle={styles.headerGrey} />
+      <View style={styles.varsityListContainer}>
+        {varsityData.map(renderVarsityItem)}
+      </View>
       <HeaderGreyComponent
         containerStyle={styles.headerGrey}
         title="New Players"
-        rightContent={() => (
-          <AddButtonWithIcon
-            onPress={() => navigation.navigate('SearchPlayers')}
-          />
-        )}
+        rightContent={renderRightAddButton}
       />
-      <FlatList
-        data={newPlayersData}
-        bounces={false}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.newPlayersRow}>
-              <View style={styles.newPlayerChildView}>
-                <Image style={styles.userIcon} source={item.source} />
-                <Text style={styles.userIconText}>{item.name}</Text>
-              </View>
-              {item.id === '3' ? (
-                <>
-                  <TouchableOpacity style={styles.varsityButtonView}>
-                    <Text style={styles.varsityButtonText}>{item.Button}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.juniorVButtonView}>
-                    <Text style={styles.juniorVButtonText}>{item.Button2}</Text>
-                  </TouchableOpacity>
-                </>
-              ) : (
-                <>
-                  <TouchableOpacity style={styles.rejectButtonView}>
-                    <Text style={styles.rejectButtonText}>{item.Button}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.confirmButtonView}>
-                    <Text style={styles.confirmButtonText}>{item.Button2}</Text>
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-          );
-        }}
-      />
+      <View style={styles.newPlayersListContainer}>
+        {newPlayersData.map(renderNewPlayerItem)}
+      </View>
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
-  iconList: {
-    marginTop: hp(2.3),
-    width: wp(12),
-    height: wp(12),
-    marginHorizontal: wp(2),
-  },
-  varsityIconsView: { alignItems: 'center' },
-  iconListText: {
-    color: MyColors.light,
-    paddingHorizontal: wp(4),
-    marginTop: hp(0.5),
-    fontSize: FontSize.size_3xs,
-    fontWeight: '600',
-  },
-  newPlayerView: {
-    marginTop: wp(4),
-    marginHorizontal: wp(7.5),
-    backgroundColor: Color.gray_500,
-    borderRadius: wp(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  newPlayerText: {
-    color: MyColors.light,
-    fontSize: FontSize.size_mini,
-    fontWeight: '600',
-    paddingVertical: wp(2.5),
-    marginRight: wp(39),
-  },
-  plusIcon: { width: wp(3.5), height: wp(3.5) },
-  addPlusIconParentView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: wp(4),
-  },
-  plusIconChildView: {
-    borderWidth: 1.5,
-    borderColor: customTheme.colors.btnBg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp(5.3),
-    height: wp(5.3),
-    borderRadius: wp(4),
-    marginRight: wp(1.5),
-  },
-  plusIconAddText: {
-    color: customTheme.colors.btnBg,
-    fontSize: FontSize.size_smi,
-    fontWeight: '600',
-  },
-  newPlayersRow: {
+  newPlayerItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: wp(9.7),
   },
-  newPlayerChildView: { alignItems: 'center' },
-  userIcon: {
-    marginTop: hp(1),
-    width: wp(12),
-    height: wp(12),
-  },
-  userIconText: {
-    color: MyColors.light,
-    marginTop: hp(0.4),
-    fontSize: FontSize.size_3xs,
-  },
-  varsityButtonView: {
+  varsityButton: {
     borderTopLeftRadius: wp(1),
     borderBottomLeftRadius: wp(1),
     paddingHorizontal: wp(4),
-    backgroundColor: Color.royalblue,
+    backgroundColor: customTheme.colors.btnBg,
     padding: wp(1.5),
     marginLeft: wp(28),
   },
-  varsityButtonText: { color: MyColors.light, fontSize: FontSize.size_xs },
-  juniorVButtonText: {
-    color: MyColors.light,
-    fontSize: FontSize.size_xs,
-  },
-  juniorVButtonView: {
+  juniorVButton: {
     borderTopRightRadius: wp(1),
     borderBottomRightRadius: wp(1),
-    backgroundColor: Color.gray_400,
+    backgroundColor: customTheme.colors.gray_400,
     padding: wp(1.5),
     paddingHorizontal: wp(4),
   },
@@ -240,15 +162,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#C30000',
     paddingBottom: wp(0.4),
   },
-  rejectButtonText: { color: MyColors.light },
-  confirmButtonText: {
-    color: MyColors.light,
-  },
   confirmButtonView: {
     borderRadius: wp(1.5),
     backgroundColor: '#287504',
-    paddingBottom: wp(0.3),
+    paddingBottom: wp(0.4),
     paddingHorizontal: wp(3),
   },
-  headerGrey: { marginTop: wp(7), marginHorizontal: wp(7) },
+  headerGrey: { marginTop: hp(3), marginBottom: hp(1.5) },
+  varsityAvatar: { width: '20%' },
+  varsityListContainer: {
+    alignItems: 'center',
+    rowGap: hp(2.5),
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  scrollContent: { paddingBottom: hp(4), marginHorizontal: wp(7) },
+  newPlayersListContainer: { rowGap: hp(1.5) },
+  newPlayerItemButtonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '70%',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp(2),
+  },
+  rowCenter: { flexDirection: 'row', alignItems: 'center' },
 });

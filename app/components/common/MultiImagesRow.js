@@ -12,6 +12,7 @@ const MultiImagesRow = ({
     <View style={styles.container}>
       {images.map((item, index) => (
         <Image
+          key={index}
           source={require('../../assets/avatar-without-online-badge.png')}
           style={styles.avatar(index, imageSize, borderColor)}
         />

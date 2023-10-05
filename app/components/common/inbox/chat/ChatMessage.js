@@ -6,10 +6,11 @@ import { hp, wp } from '../../../../utils/responsive';
 import commonChatStyles from './commonChatStyles';
 import { MyColors } from '../../../../constants/colors';
 import { customTheme } from '../../../../constants';
+import { useAuth } from '../../../../hooks/useAuth';
 
 const ChatMessage = props => {
-  const userId = 1;
-
+  const { user } = useAuth();
+  const userId = user?.id || 1013;
   const isSameUserMessage = props.currentMessage?.user?._id === userId;
 
   const isNextMessageFromSameUser =

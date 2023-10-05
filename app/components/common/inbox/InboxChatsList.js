@@ -2,16 +2,8 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import React from 'react';
 import InboxChatItem from './InboxChatItem';
 import { hp } from '../../../utils/responsive';
-import AppLoader from '../../../utils/Apploader';
 
-const InboxChatsList = ({
-  containerStyle = {},
-  channelData = [],
-  isLoading = false,
-}) => {
-  if (isLoading) {
-    return <AppLoader />;
-  }
+const InboxChatsList = ({ containerStyle = {}, channelData = [] }) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <FlatList

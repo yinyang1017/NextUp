@@ -21,6 +21,7 @@ export const customTheme = {
     tangaroa: '#041639',
     gray_500: '#22252e',
     gray_200: '#8a8a8a',
+    gray_400: '#24262d',
   },
   statusBarStyle: 'light-content',
   fontSizes: {
@@ -30,6 +31,7 @@ export const customTheme = {
     size_12: 12,
     size_13: 13,
     size_16: 16,
+    size_17: 17,
     size_18: 18,
     size_20: 20,
     size_22: 22,

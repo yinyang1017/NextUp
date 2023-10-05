@@ -19,7 +19,6 @@ const Inbox = () => {
     isLoading: isLoadingGetAllChannels,
     data: channelData,
   } = useGetAllChatChannels();
-  console.log('🚀 ~ file: Inbox.js:22 ~ Inbox ~ channelData:', channelData);
 
   const { user } = useAuth();
 
@@ -37,7 +36,7 @@ const Inbox = () => {
 
   useEffect(() => {
     if (isFocus) {
-      getAllChatChannels({ userId: user?.id || '1013' });
+      getAllChatChannels({ userId: user?.id || 1013 });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocus]);

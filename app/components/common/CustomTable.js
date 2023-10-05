@@ -50,7 +50,7 @@ export const CustomTable = ({
           {headerData.slice(1).map((headerTitle, index) => (
             <Text
               regular-400
-              key={index}
+              key={'header' + index}
               style={[
                 styles.cellHeader,
                 { width: headerWidthArray[index + 1] },
@@ -92,7 +92,7 @@ export const CustomTable = ({
           {item.slice(1).map((column, _index) => (
             <Text
               small-600
-              key={_index}
+              key={'row' + index + _index}
               style={[styles.cell, { width: headerWidthArray[_index + 1] }]}>
               {column}
             </Text>
@@ -112,7 +112,7 @@ export const CustomTable = ({
         data={data}
         ListHeaderComponent={renderHeader}
         renderItem={renderRowItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={tableContainerStyle}
       />
     </View>

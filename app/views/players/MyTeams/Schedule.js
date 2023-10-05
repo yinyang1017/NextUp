@@ -6,8 +6,15 @@ import { SectionHeader } from '../../../components/common/SectionHeader';
 import { times } from 'lodash';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import PracticeScheduleItem from '../../../components/common/PracticeScheduleItem';
+import { useNavigation } from '@react-navigation/native';
 
 const Schedule = () => {
+  const navigation = useNavigation();
+
+  const onPressCreatePracticeHandler = () => {
+    navigation.navigate('CreatePractice');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
       <SectionHeader title={'Upcoming Games'} />
@@ -24,7 +31,11 @@ const Schedule = () => {
         containerStyle={{ marginTop: hp(3.5) }}
       />
       <PracticeScheduleItem />
-      <PrimaryButton title={'Create Practice'} style={{ marginTop: hp(6) }} />
+      <PrimaryButton
+        onPress={onPressCreatePracticeHandler}
+        title={'Create Practice'}
+        style={{ marginTop: hp(6) }}
+      />
     </ScrollView>
   );
 };
