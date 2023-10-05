@@ -1,7 +1,7 @@
 import React from 'react';
 import {customTheme} from '../constants';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import PlayerDashboard from '../views/players/DashBoard.js';
+import Dashboard from '../views/players/Dashboard';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faCalendar,
@@ -39,7 +39,7 @@ export function PlayerStack() {
       }}>
       <Tab.Screen
         name="DashBoard"
-        component={PlayerDashboard}
+        component={Dashboard}
         options={{
           tabBarLabel: ({focused}) => {
             return <Text style={tabBarLabel(focused)}>DashBoard</Text>;
