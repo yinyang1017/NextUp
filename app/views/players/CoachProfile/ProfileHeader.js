@@ -8,7 +8,7 @@ import bgImg from '../../../assets/images/coachPublicProfileTop.png';
 const wide = Layout.width;
 export function ProfileHeader({name, position, experience, record, coachImg}) {
   return (
-    <View>
+    <View style={styles.container}>
       <Image source={bgImg} style={styles.bgImg} />
       <View style={styles.box}>
         <FastImage source={coachImg} style={styles.coachImg} />
@@ -34,6 +34,7 @@ export function ProfileHeader({name, position, experience, record, coachImg}) {
 }
 
 const styles = StyleSheet.create({
+  container: {marginBottom: 50},
   bgImg: {height: wide * 0.6, width: '100%'},
   subDetail: {flexDirection: 'row', marginTop: 6},
   subDetailText: {
