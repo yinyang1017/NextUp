@@ -20,18 +20,13 @@ export default function CoachDashboard() {
     tabBarActiveTintColor: '#e91e63',
     tabBarStyle: {
       elevation: 0,
-      // shadowColor: '#000000',
-      // shadowOffset: {width: 0, height: 10}, // change this for more shadow
-      // shadowOpacity: 0.4,
-      // shadowRadius: 6,
       backgroundColor: Colors.base,
-      // height: 34,
     },
     tabBarLabelStyle: {
       textTransform: 'capitalize',
       fontSize: FontSize.bodyMediumSemibold_size,
       fontWeight: '400',
-      color: Color.darkgray_100,
+      color: Colors.light,
     },
   };
   return (

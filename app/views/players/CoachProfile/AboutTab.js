@@ -40,7 +40,7 @@ export default function AboutTab() {
         title="Total Years"
         headerData={['Career', '5 Year', '26', '18', '8', '.667']}
         data={[]}
-        headerWidthArray={['20%', '40%', ...times(3).fill('9%')]}
+        headerWidthArray={['20%', '40%', ...times(3).fill('8%'), '16%']}
         titleStyle={styles.tableTitle}
         tableContainerStyle={styles.tableContainer}
       />
@@ -48,7 +48,7 @@ export default function AboutTab() {
         title="Career Record"
         headerData={['Year', 'Team', 'G', 'W', 'L', 'PTS']}
         data={_data}
-        headerWidthArray={['20%', '40%', ...times(3).fill('9%')]}
+        headerWidthArray={['20%', '40%', ...times(3).fill('8%'), '16%']}
         titleStyle={styles.tableTitle}
         tableContainerStyle={styles.tableContainer}
       />

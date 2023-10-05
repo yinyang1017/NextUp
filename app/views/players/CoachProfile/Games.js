@@ -8,7 +8,6 @@ import {
   Color,
   Border,
 } from '../../../views/GlobalStyles';
-import {Colors} from '../../../constants';
 export const RecentGames = ({title = 'Recent Games'}) => {
   return (
     <>
