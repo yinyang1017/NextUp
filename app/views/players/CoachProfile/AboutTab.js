@@ -7,13 +7,19 @@ import {wp, hp} from '../../../utils/responsive';
 import {AlternativeTable} from '../../../components/common/AlternativeTable';
 // import {FontSize} from '../../GlobalStyles';
 const wide = Layout.width;
+
+const _data = [
+  [2022, 'Milwaukee Bucks', 5, 5, 0, '1.000'],
+  [2021, 'Milwaukee Bucks', 4, 3, 1, '0.750'],
+  [2020, 'Milwaukee Bucks', 5, 3, 2, '0.600'],
+  [2019, 'Milwaukee Bucks', 2, 2, 0, '1.000'],
+  [2018, 'Milwaukee Bucks', 1, 0, 1, '0.000'],
+  [2017, 'Milwaukee Bucks', 2, 1, 1, '0.500'],
+  [2016, 'Milwaukee Bucks', 3, 1, 2, '0.333'],
+  [2015, 'Milwaukee Bucks', 1, 1, 0, '1.000'],
+  [2014, 'Milwaukee Bucks', 3, 2, 1, '0.667'],
+];
 export default function AboutTab() {
-  const [data, setData] = useState([1, 2, 3]);
-
-  const addData = () => {
-    setData([...data, data.length + 1]);
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.aboutContainer}>
@@ -31,18 +37,18 @@ export default function AboutTab() {
       </View>
 
       <AlternativeTable
-        title="Player stats"
-        headerData={['Starters', 'Min', 'FG', '3PT', 'AST', 'PF', 'PTS']}
-        data={times(9).fill(['D. Green', '42', '5-10', '2-5', '8', '1', '12'])}
-        headerWidthArray={['28%', ...times(6).fill('12%')]}
+        title="Total Years"
+        headerData={['Career', '5 Year', '26', '18', '8', '.667']}
+        data={[]}
+        headerWidthArray={['20%', '40%', ...times(3).fill('9%')]}
         titleStyle={styles.tableTitle}
         tableContainerStyle={styles.tableContainer}
       />
       <AlternativeTable
-        title="Player stats"
-        headerData={['Starters', 'Min', 'FG', '3PT', 'AST', 'PF', 'PTS']}
-        data={times(9).fill(['D. Green', '42', '5-10', '2-5', '8', '1', '12'])}
-        headerWidthArray={['28%', ...times(6).fill('12%')]}
+        title="Career Record"
+        headerData={['Year', 'Team', 'G', 'W', 'L', 'PTS']}
+        data={_data}
+        headerWidthArray={['20%', '40%', ...times(3).fill('9%')]}
         titleStyle={styles.tableTitle}
         tableContainerStyle={styles.tableContainer}
       />
