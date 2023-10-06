@@ -10,14 +10,22 @@ import {MyColors} from '../../../../constants/colors';
 
 import _img1 from '../../../../assets/images/dummyPlayer.png';
 import _img2 from '../../../../assets/images/dummy2.png';
+import {useNavigation} from '@react-navigation/native';
 const wide = Layout.width;
 function MatchUp() {
+  const navigation = useNavigation();
   const data = [
     {
-      secondPlayerName: 'Player B',
-      firstPlayerName: 'Player A',
-      firstPlayerImg: _img1,
-      secondPlayerImg: _img2,
+      homePlayer: {
+        id: 0,
+        imgUrl: _img1,
+        name: 'Player A',
+      },
+      secondPlayer: {
+        id: 1,
+        imgUrl: _img2,
+        name: 'Player B',
+      },
     },
   ];
   return (
@@ -83,10 +91,24 @@ function MatchUp() {
             overflow: 'visible',
           }}
           horizontal
-          pagingEnabled={true}
+          // pagingEnabled={true}
           legacyImplementation={false}
           keyExtractor={item => item.index}
-          renderItem={item => <MatchUpBoard item={item} />}
+          renderItem={({item}) => (
+            <MatchUpBoard
+              onPress={() => {
+                navigation.navigate('Home', {
+                  screen: 'PlayerCompare',
+                  params: {
+                    homePlayer: item.homePlayer,
+                    secondPlayer: item.secondPlayer,
+                    isSingle: false,
+                  },
+                });
+              }}
+              item={item}
+            />
+          )}
         />
       </View>
     </View>

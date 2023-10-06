@@ -57,6 +57,7 @@ export const AlternativeTable = ({
     return (
       <ScrollView
         horizontal
+        key={index}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.rowScrollView}
         bounces={false}>

@@ -23,6 +23,7 @@ function EditProfile() {
       height: 2,
     },
     tabBarStyle: {
+      elevator: 0,
       backgroundColor: MyColors.base,
       // height: 34,
     },
