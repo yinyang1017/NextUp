@@ -3,7 +3,7 @@ import React from 'react';
 import { Composer, InputToolbar, Send } from 'react-native-gifted-chat';
 import { hp, wp } from '../../../../utils/responsive';
 import { FontFamily } from '../../../../views/GlobalStyles';
-import { Colors } from '../../../../constants';
+import { Colors, customTheme } from '../../../../constants';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const ChatInput = props => {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginHorizontal: wp(4),
     marginBottom: hp(0.5),
-    backgroundColor: '#272930',
+    backgroundColor: customTheme.colors.ractangelCardColor,
     borderTopWidth: 0,
     borderRadius: wp(12),
     paddingHorizontal: wp(4),

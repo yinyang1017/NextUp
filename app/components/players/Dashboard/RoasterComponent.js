@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
   rejectButtonView: {
     borderRadius: wp(1.5),
     paddingHorizontal: wp(5),
-    backgroundColor: '#C30000',
+    backgroundColor: customTheme.colors.darkRed2,
     paddingBottom: wp(0.4),
   },
   confirmButtonView: {
     borderRadius: wp(1.5),
-    backgroundColor: '#287504',
+    backgroundColor: customTheme.colors.darkGreen,
     paddingBottom: wp(0.4),
     paddingHorizontal: wp(3),
   },

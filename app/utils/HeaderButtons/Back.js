@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { wp } from '../responsive';
-import { Colors } from '../../constants';
+import { Colors, customTheme } from '../../constants';
 import { FontFamily, FontSize } from '../../views/GlobalStyles';
 
 const Back = ({ onPress, containerStyle = {}, title = '' }) => (
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#373A44',
+    borderColor: customTheme.colors.borderColor,
   },
   backImage: { height: wp(3.5), width: wp(3.5) },
   title: {

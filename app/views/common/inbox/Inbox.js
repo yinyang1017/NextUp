@@ -13,6 +13,41 @@ import { useGetAllChatChannels } from '../../../api/chat.api';
 
 const InboxTopTabs = createMaterialTopTabNavigator();
 
+const staticData = {
+  teamDetails: [
+    {
+      teamId: 2001,
+      teamName: 'Hardcoded TeamName',
+      teamLogoUrl: 'https://example.com/hardcoded-logo.png',
+      groupChats: [
+        {
+          channelId: 169633689373204,
+          recentMessage: null,
+          groupName: 'Hardcoded GroupName',
+          groupLogoUrl: 'https://example.com/hardcoded-group-logo.png',
+        },
+      ],
+      oneOnOneChats: [],
+    },
+  ],
+  coachDetails: [
+    {
+      teamId: 2001,
+      teamName: 'Hardcoded CoachName',
+      teamLogoUrl: 'https://example.com/hardcoded-coach-logo.png',
+      groupChats: [
+        {
+          channelId: 169633686729003,
+          recentMessage: null,
+          groupName: 'Hardcoded CoachGroupName',
+          groupLogoUrl: 'https://example.com/hardcoded-coach-group-logo.png',
+        },
+      ],
+      oneOnOneChats: [],
+    },
+  ],
+};
+
 const Inbox = () => {
   const {
     mutate: getAllChatChannels,
@@ -45,7 +80,7 @@ const Inbox = () => {
     () => () =>
       (
         <InboxChatsList
-          channelData={channelData?.data?.teamDetails || []}
+          channelData={channelData?.data?.teamDetails || staticData.teamDetails}
           isLoading={isLoadingGetAllChannels}
         />
       ),
@@ -56,7 +91,9 @@ const Inbox = () => {
     () => () =>
       (
         <InboxChatsList
-          channelData={channelData?.data?.coachDetails || []}
+          channelData={
+            channelData?.data?.coachDetails || staticData.coachDetails
+          }
           isLoading={isLoadingGetAllChannels}
         />
       ),

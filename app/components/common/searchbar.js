@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   searchInputContainer: {
     borderWidth: 1,
-    borderColor: '#ffffff24',
+    borderColor: customTheme.colors.light + '24',
     borderRadius: wp(1.5),
     flexDirection: 'row',
     alignItems: 'center',

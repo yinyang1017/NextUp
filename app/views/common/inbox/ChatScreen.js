@@ -15,6 +15,8 @@ import EventSource from 'react-native-sse';
 import { baseUrl } from '../../../utils/api-client';
 import { uniqueId } from 'lodash';
 import { useAuth } from '../../../hooks/useAuth';
+import { getUniqueId } from '../../../utils/helper';
+import moment from 'moment';
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -42,6 +44,8 @@ const ChatScreen = () => {
       senderName: 'OCHAI AGBAJI',
       senderProfilePictureUrl:
         'https://cdn.nba.com/headshots/nba/latest/1040x760/1630534.png',
+      id: getUniqueId(screenParams?.channelId?.toString()),
+      createdAt: moment().toISOString(),
     };
 
     sendChatMessageMutation(newChatMessageInfo, {
@@ -76,9 +80,9 @@ const ChatScreen = () => {
   const onNewMessageReceivedHandler = newMessage => {
     if (newMessage.content) {
       const newMessageInfo = {
-        _id: newMessage?.objectId || uniqueId('chat-'),
+        _id: newMessage?.id || uniqueId('chat-'),
         text: newMessage?.content,
-        createdAt: new Date(),
+        createdAt: newMessage?.createdAt || new Date(),
         user: { _id: newMessage.senderId || null },
       };
       setMessages(prevMessages => [newMessageInfo, ...prevMessages]);

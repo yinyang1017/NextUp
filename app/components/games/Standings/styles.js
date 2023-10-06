@@ -1,3 +1,4 @@
+import { customTheme } from '../../../constants';
 import { MyColors } from '../../../constants/colors';
 import { hp, wp } from '../../../utils/responsive';
 import { FontFamily, FontSize } from '../../../views/GlobalStyles';
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: hp(2),
     marginBottom: hp(1),
-    borderBottomColor: '#2B2B3D',
+    borderBottomColor: customTheme.colors.midnight_blue,
     borderBottomWidth: 1,
     paddingBottom: hp(1),
     paddingHorizontal: wp(1),
@@ -60,7 +61,11 @@ const styles = StyleSheet.create({
   tableBody: { gap: hp(1) },
   tableBodyRow: index => ({
     backgroundColor:
-      index >= 5 ? '#181829' : index >= 3 ? '#441818' : '#14274D',
+      index >= 5
+        ? customTheme.colors.midnight_black
+        : index >= 3
+        ? customTheme.colors.maroon_brown
+        : customTheme.colors.navy_blue,
     borderRadius: wp(2.5),
     paddingVertical: hp(1.5),
     flexDirection: 'row',

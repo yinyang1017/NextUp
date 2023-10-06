@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { hp, wp } from '../../utils/responsive';
 import { FontFamily, FontSize } from '../../views/GlobalStyles';
-import { Colors } from '../../constants';
+import { Colors, customTheme } from '../../constants';
 import { MyColors } from '../../constants/colors';
 
 const SelectionDropdown = ({ title, value, containerStyle = {} }) => {
@@ -29,7 +29,7 @@ export default SelectionDropdown;
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    borderBottomColor: '#252933',
+    borderBottomColor: customTheme.colors.aboutTxtBorder,
   },
   selectionRow: {
     flexDirection: 'row',

@@ -1,5 +1,11 @@
-import { StyleSheet, View } from 'react-native';
-import React, { useCallback, useMemo } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Dash, Dialog, Text } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 import { hp, wp } from '../../utils/responsive';
@@ -8,7 +14,7 @@ import { times } from 'lodash';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import PrimaryButton from './PrimaryButton';
 
-const getStaticTimeData = () => {
+export const getStaticTimeData = () => {
   return {
     hours: times(12).map(item => String(item + 1).padStart(2, '0')),
     minutes: times(60).map(item => String(item).padStart(2, '0')),
@@ -17,16 +23,45 @@ const getStaticTimeData = () => {
   };
 };
 
-const SetTimeModal = ({ isVisible = false }) => {
+const SetTimeModal = ({
+  isVisible = false,
+  setIsVisible = () => {},
+  onConfirmTime = () => {},
+  initialData = {},
+}) => {
   const { bottom } = useSafeAreaInsets();
-
+  const [selectedTimeData, setSelectedTimeData] = useState(initialData);
   const timeData = useMemo(() => getStaticTimeData(), []);
 
-  const renderItem = useCallback((data, index, isSelected) => {
+  const hoursScrollRef = useRef(null);
+  const minutesScrollRef = useRef(null);
+  const secondsScrollRef = useRef(null);
+  const timeTypeScrollRef = useRef(null);
+
+  const onPressTimeItem = (key, data, index) => {
+    onTimeValueChangeHandler(key, data, index);
+
+    if (key === 'selectedHour') {
+      hoursScrollRef?.current?.scrollToTargetIndex(index);
+    }
+    if (key === 'selectedMinute') {
+      minutesScrollRef?.current?.scrollToTargetIndex(index);
+    }
+    if (key === 'selectedSecond') {
+      secondsScrollRef?.current?.scrollToTargetIndex(index);
+    }
+    if (key === 'selectedTimeType') {
+      timeTypeScrollRef?.current?.scrollToTargetIndex(index);
+    }
+  };
+
+  const renderItem = useCallback((type, data, index, isSelected) => {
     return (
-      <Text large-x-600 style={styles.timeItem(isSelected)}>
-        {data}
-      </Text>
+      <TouchableOpacity onPress={() => onPressTimeItem(type, data, index)}>
+        <Text large-x-600 style={styles.timeItem(isSelected)}>
+          {data}
+        </Text>
+      </TouchableOpacity>
     );
   }, []);
 
@@ -36,10 +71,29 @@ const SetTimeModal = ({ isVisible = false }) => {
       wrapperHeight: hp(21),
       highlightColor: customTheme.colors.light,
       itemHeight: hp(7),
-      renderItem: renderItem,
     }),
-    [renderItem],
+    [],
   );
+
+  useEffect(() => {
+    setSelectedTimeData(initialData);
+  }, [initialData]);
+
+  const onTimeValueChangeHandler = (key, data, selectedIndex) => {
+    setSelectedTimeData(prevValue => ({
+      ...prevValue,
+      [key]: { data, index: selectedIndex },
+    }));
+  };
+
+  const onPressCancelHandler = () => {
+    setIsVisible(false);
+  };
+
+  const onPressSaveHandler = () => {
+    setIsVisible(false);
+    onConfirmTime(selectedTimeData);
+  };
 
   return (
     <Dialog
@@ -47,7 +101,7 @@ const SetTimeModal = ({ isVisible = false }) => {
       visible={isVisible}
       overlayBackgroundColor={customTheme.colors.black + '70'}
       bottom
-      onDismiss={() => console.log('dismissed')}
+      onDismiss={() => setIsVisible(false)}
       panDirection={null}>
       <View style={styles.container(bottom)}>
         <Text medium-x-400 style={styles.title}>
@@ -60,39 +114,64 @@ const SetTimeModal = ({ isVisible = false }) => {
         />
         <View style={styles.timeSelectionContainer}>
           <ScrollPicker
+            ref={hoursScrollRef}
             {...commonScrollProps}
             dataSource={timeData.hours}
-            selectedIndex={2}
-            onValueChange={(data, selectedIndex) => {}}
+            selectedIndex={initialData.selectedHour.index}
+            onValueChange={onTimeValueChangeHandler.bind(this, 'selectedHour')}
+            renderItem={renderItem.bind(this, 'selectedHour')}
           />
           <Text large-x-500 style={styles.timeSeparator(wp(18.5))}>
             :
           </Text>
           <ScrollPicker
+            ref={minutesScrollRef}
             {...commonScrollProps}
             dataSource={timeData.minutes}
-            selectedIndex={1}
-            onValueChange={(data, selectedIndex) => {}}
+            selectedIndex={initialData.selectedMinute.index}
+            onValueChange={onTimeValueChangeHandler.bind(
+              this,
+              'selectedMinute',
+            )}
+            renderItem={renderItem.bind(this, 'selectedMinute')}
           />
           <Text large-x-500 style={styles.timeSeparator(wp(37))}>
             :
           </Text>
           <ScrollPicker
+            ref={secondsScrollRef}
             {...commonScrollProps}
             dataSource={timeData.seconds}
-            selectedIndex={1}
-            onValueChange={(data, selectedIndex) => {}}
+            selectedIndex={initialData.selectedSecond.index}
+            onValueChange={onTimeValueChangeHandler.bind(
+              this,
+              'selectedSecond',
+            )}
+            renderItem={renderItem.bind(this, 'selectedSecond')}
           />
           <ScrollPicker
+            ref={timeTypeScrollRef}
             {...commonScrollProps}
             dataSource={timeData.timeTypes}
-            selectedIndex={1}
-            onValueChange={(data, selectedIndex) => {}}
+            selectedIndex={initialData.selectedTimeType.index}
+            onValueChange={onTimeValueChangeHandler.bind(
+              this,
+              'selectedTimeType',
+            )}
+            renderItem={renderItem.bind(this, 'selectedTimeType')}
           />
         </View>
         <View style={styles.footerButtonsContainer}>
-          <PrimaryButton title="Cancel" style={styles.cancelButton} />
-          <PrimaryButton title="Save" style={styles.saveButton} />
+          <PrimaryButton
+            title="Cancel"
+            style={styles.cancelButton}
+            onPress={onPressCancelHandler}
+          />
+          <PrimaryButton
+            title="Save"
+            style={styles.saveButton}
+            onPress={onPressSaveHandler}
+          />
         </View>
       </View>
     </Dialog>
@@ -116,7 +195,9 @@ const styles = StyleSheet.create({
     color: customTheme.colors.txtFieldPlaceHolder,
   },
   timeItem: isSelected => ({
-    color: isSelected ? customTheme.colors.light : '#4E4E4E',
+    color: isSelected
+      ? customTheme.colors.light
+      : customTheme.colors.charcoal_gray,
   }),
   timeSelectionContainer: {
     flexDirection: 'row',
@@ -133,7 +214,7 @@ const styles = StyleSheet.create({
   cancelButton: {
     width: wp(40),
     borderRadius: wp(10),
-    borderColor: '#77797E',
+    borderColor: customTheme.colors.steel_gray,
     backgroundColor: 'transparent',
     borderWidth: 1,
   },
