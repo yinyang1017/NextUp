@@ -26,10 +26,10 @@ export default function AppLoadignStack() {
           headerShown: false,
           cardStyle: { padding: 20 },
         }}>
-        {!isAuthenticated && (
+        {isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
-        {isAuthenticated && !onBoardingDone && (
+        {!isAuthenticated && !onBoardingDone && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
         )}
         {isAuthenticated && onBoardingDone && isCoach && (
