@@ -1,6 +1,5 @@
 import { View, Text, ProgressBar, TouchableOpacity } from "react-native-ui-lib"
-import { ScreenHeader } from "../../../components/common/ScreenHeader"
-import { ViewContainer } from "../../../components/common/ViewConatiner"
+import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper"
 import { customTheme } from "../../../constants"
 import { appImages } from "../../../constants/appImages"
 import { Dimensions, ImageBackground } from "react-native"
@@ -10,19 +9,31 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons"
 import { useNavigation } from "@react-navigation/native"
 import { useUpload } from "../../../hooks/useUpload"
 import { useOnBoarding } from "../../../hooks/useOnBoarding"
-export default function PhotoUpload() {
+import AppLoader from "../../../utils/Apploader"
 
-    const { handleUserOnboardingRegistration } = useOnBoarding()
+export default function PhotoUpload() {
+    const navigation = useNavigation()
+    const { isMale, isPlayer, isCoach, handleUserOnboardingRegistration } = useOnBoarding()
     const {
         isUploading,
         uploadProgress,
         pickDocument,
+        uploadedDocument,
+
         scanDocument
     } = useUpload()
-    return <ViewContainer>
-        <ScreenHeader />
-        <ProgressBar progress={55} progressColor={customTheme.colors.blue20} />
-        <View flex marginV-12>
+    const imageUrl = uploadedDocument?.imageUrl ? ({ uri: uploadedDocument?.imageUrl }) : isMale ? appImages.player_male : appImages.player_female
+    const handlePress = () => {
+        // if (isPlayer) {
+        //     handleUserOnboardingRegistration()
+        // }
+        // if (isCoach) {
+        //     // navigation.navigate('DocumentVerification')
+        // }
+    }
+    return <OnBoardingWrapper title='Upload Photo' handleForm={handlePress}>
+
+        <View marginV-24 flex >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
                 fontFamily: customTheme.fontFamily.robotoLight,
@@ -33,39 +44,36 @@ export default function PhotoUpload() {
                 fontFamily: customTheme.fontFamily.robotoLight,
                 fontWeight: '700',
             }}>Photo </Text>
-            <TouchableOpacity onPress={scanDocument} center centerV flex>
-                <>
-                    <ImageBackground
-                        source={appImages.player_male}
-                        style={{
+            { }
+            <View centerH centerV flex>
+                <TouchableOpacity onPress={pickDocument} center centerV>
+                    <>
+                        <ImageBackground
+                            source={imageUrl}
+                            style={{
 
-                            width: Dimensions.get('window').width / 2,
-                            height: Dimensions.get('window').width / 2,
-                            borderRadius: Dimensions.get('window').width,
-                            overflow: 'hidden',
+                                width: Dimensions.get('window').width / 2,
+                                height: Dimensions.get('window').width / 2,
+                                borderRadius: Dimensions.get('window').width,
+                                overflow: 'hidden',
 
 
-                        }}>
-                        <View center centerH centerV flex backgroundColor={customTheme.colors.blue20} style={
-                            {
-                                opacity: 0.8
-                            }
-                        }>
-                            <FontAwesomeIcon icon={faCamera} size={customTheme.spacings.spacing_24} color={customTheme.colors.light} />
-                        </View>
+                            }}>
+                            <View center centerH centerV flex backgroundColor={!uploadedDocument?.imageUrl ? customTheme.colors.blue20 : ''} style={
+                                {
+                                    opacity: 0.8
+                                }
+                            }>
+                                <FontAwesomeIcon icon={faCamera} size={customTheme.spacings.spacing_24} color={customTheme.colors.light} />
+                            </View>
 
-                    </ImageBackground>
+                        </ImageBackground>
 
-                </>
-            </TouchableOpacity>
+                    </>
+                </TouchableOpacity>
+            </View>
 
-            <FormButton label="Finish" onPress={() => handleUserOnboardingRegistration()} />
-            <TouchableOpacity onPress={handleUserOnboardingRegistration}>
-                <Text center white marginB-20
-                >Skip</Text>
-            </TouchableOpacity>
-
+            <AppLoader visible={isUploading.loading} loadingMessage={`${uploadProgress} %`} />
         </View>
-
-    </ViewContainer>
+    </OnBoardingWrapper>
 }

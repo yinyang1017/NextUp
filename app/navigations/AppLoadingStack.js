@@ -10,10 +10,14 @@ import SearchPlayers from '../views/players/MyTeams/SearchPlayers';
 import InvitePlayers from '../views/players/MyTeams/InvitePlayers';
 import AllStandings from '../views/players/MyTeams/AllStandings';
 import GameStatistics from '../views/players/MyTeams/GameStatistics';
+import { PlayerStack } from './PlayerStack';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
-  const { user, isAuthenticated, onBoardingDone } = useAuth();
+  const { isAuthenticated, onBoardingDone,
+    isCoach,
+    isPlayer, } = useAuth();
+
   return (
     <>
       <Stack.Navigator
@@ -22,13 +26,13 @@ export default function AppLoadignStack() {
           headerShown: false,
           cardStyle: { padding: 20 },
         }}>
-        {!isAuthenticated && (
+        {isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
-        {isAuthenticated && !onBoardingDone && (
+        {!isAuthenticated && !onBoardingDone && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
         )}
-        {isAuthenticated && onBoardingDone && (
+        {isAuthenticated && onBoardingDone && isCoach && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -37,6 +41,12 @@ export default function AppLoadignStack() {
             <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
             <Stack.Screen name="AllStandings" component={AllStandings} />
             <Stack.Screen name="GameStatistics" component={GameStatistics} />
+          </Stack.Group>
+        )}
+        {isAuthenticated && onBoardingDone && isPlayer && (
+          <Stack.Group>
+            <Stack.Screen name="CoachStack" component={PlayerStack} />
+
           </Stack.Group>
         )}
       </Stack.Navigator>

@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
 import config from '../config';
+import { errorToast } from '../utils/toast';
 
 const useBackend = () => {
   const [user, setUser] = useState(null);
@@ -79,22 +80,14 @@ const useBackend = () => {
         realUserStatus,
       } = appleAuthRequestResponse;
 
-      setUser(newUser);
-
-      const [data, success] = await fetchAndUpdateCredentialState();
-
-      console.log(data);
-
-      if (identityToken) {
-        console.log(nonce, identityToken);
+      if (!appleAuthRequestResponse.identityToken) {
+        errorToast({
+          title: 'Error',
+          body: 'Apple Sign in failed. Please try again.',
+        })
       }
-
-      if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
-        console.log("I'm a real person!");
-      }
-
-      console.warn(`Apple Authentication Completed, ${newUser}, ${email}`);
-      return newUser;
+      const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+      return auth().signInWithCredential(appleCredential);
     } catch (error) {
       if (error.code === appleAuth.Error.CANCELED) {
         console.warn('User canceled Apple Sign in.');

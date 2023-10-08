@@ -18,9 +18,12 @@ import StatsContainer from '../../components/players/Dashboard/StatsContainer';
 import { MyChallenges } from '../../components/players/Dashboard/Challenges';
 import { Button, Colors } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
+import { useAuth } from '../../hooks/useAuth';
 
 const PlayerDashboard = () => {
   //   const navigation = useNavigation();
+  const { user } = useAuth()
+  console.log(user, "player dash")
 
   return (
     <ScrollView
@@ -29,7 +32,7 @@ const PlayerDashboard = () => {
       showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.playerDashScrollViewContent}>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
-        <DashBoardHeader />
+        <DashBoardHeader name={user?.personalInfo?.firstName} />
         <TeamsBar />
         <EventCarousel />
         <StatsContainer />

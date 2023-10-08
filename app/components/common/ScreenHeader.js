@@ -17,7 +17,7 @@ import {
   customTheme
 } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft, faArrowLeftRotate, faBackspace, faBackward, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
 
 let wide = Layout.width;

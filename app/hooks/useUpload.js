@@ -16,6 +16,8 @@ export const useUpload = () => {
         loading: false,
         type: null
     })
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [uploadedDocument, setUploadedDocument] = useState(null);
     /**
      * Make an API request to upload a file using axios.
      *
@@ -44,11 +46,10 @@ export const useUpload = () => {
             }
         })
             .then((res) => {
-                console.log(res);
-                return res;
+                // console.log(res.data, "api res");
+                return res.data;
             })
             .catch((err) => {
-                console.log(err);
                 return err;
             })
     };
@@ -61,10 +62,12 @@ export const useUpload = () => {
      */
     const handleUpload = async (resp) => {
         const file = resp?.assets[0];
+
         setIsUploading({
             loading: true,
-            type: "Adding the document..."
+            type: "Uploading in progress.Please wait..."
         })
+        console.log(file);
         try {
             if (file) {
                 const formData = new FormData();
@@ -74,15 +77,17 @@ export const useUpload = () => {
                     type: file.type,
                 });
                 const resp = await makeUploadApiRequest(formData);
-                if (resp?.error) {
+                console.log(resp, "api resp");
+                if (resp?.data?.error) {
                     throw new Error('Cannot upload file. Please try again.');
                 }
                 if (resp?.data) {
                     successToast({
                         title: 'Success',
-                        body: 'File uploaded successfully'
+                        body: 'Uploaded successfully'
                     })
                     setUploadedDocument(resp?.data)
+                    return resp?.data
                 }
 
             } else {
@@ -91,7 +96,7 @@ export const useUpload = () => {
         } catch (error) {
             errorToast({
                 title: 'Error',
-                body: 'Please select the document to continue'
+                body: 'Cannot upload file. Please try again'
             })
         } finally {
             // Perform any necessary cleanup
@@ -105,7 +110,7 @@ export const useUpload = () => {
     /**
      * Pick a document from the image library and handle the upload.
      */
-    const pickDocument = async () => {
+    const pickDocument = async (cb = null) => {
         const resp = await launchImageLibrary();
         if (resp?.didCancel) {
             errorToast({
@@ -114,7 +119,9 @@ export const useUpload = () => {
             });
             return;
         }
-        handleUpload(resp);
+        handleUpload().then(resp => {
+            cb(uploadedDocument)
+        });
     };
 
     /**
@@ -132,12 +139,14 @@ export const useUpload = () => {
             // });
             return;
         }
-        handleUpload(resp);
+        return handleUpload(resp);
     };
 
     // Return an object with the pickDocument and scanDocument functions
     return {
         isUploading,
+        uploadedDocument,
+        uploadProgress,
         pickDocument,
         scanDocument
     };
