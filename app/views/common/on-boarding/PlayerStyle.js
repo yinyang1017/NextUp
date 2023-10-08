@@ -1,19 +1,12 @@
-import { View, Image, GridView, TouchableOpacity, Text, ProgressBar } from "react-native-ui-lib";
+import { View, Image, TouchableOpacity, Text, SkeletonView, AnimatedImage, ListItem } from "react-native-ui-lib";
 import _ from 'lodash'
-import { ScreenHeader } from "../../../components/common/ScreenHeader";
-import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
-import { FormButton, FormSelectable } from "../../../components/common/FormInputs";
-import { appImages } from "../../../constants/appImages";
-import { width } from "../../../constants/dimensions"
 import { customTheme } from "../../../constants";
-import * as player_styles from "../../../utils/data/playerStyles.json"
+import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper";
 import { useNavigation } from "@react-navigation/native";
 import { useOnBoarding, usePlayerStyle } from "../../../hooks/useOnBoarding";
 import { Controller } from "react-hook-form";
 export default function PlayerStyle() {
-    const navigation = useNavigation()
     const {
-        onBoardingCount,
         handleOnBoarding,
         handleNavigation
     } = useOnBoarding();
@@ -21,16 +14,14 @@ export default function PlayerStyle() {
         control,
         playingPositionDescription,
         playerStylesList,
+        isLoadingStyleList,
         handleSubmit
     } = usePlayerStyle()
     const onSubmit = (data) => {
         handleOnBoarding(data);
         handleNavigation('PhotoUpload');
     }
-    return <ScrollViewContainer>
-        <ScreenHeader title={'Select Player Style'} />
-        <ProgressBar progress={onBoardingCount} progressColor={customTheme.colors.blue20} />
-
+    return <OnBoardingWrapper title='Select Player Style' handleForm={handleSubmit(onSubmit)}>
         <View flex marginT-8>
             <Controller
                 name="playingPosition"
@@ -76,7 +67,7 @@ export default function PlayerStyle() {
                     fontFamily: customTheme.fontFamily.robotoBold,
                     fontWeight: '700',
                 }}>What type of player are you?</Text>
-                <Text white >
+                <Text white animated >
                     {
                         playingPositionDescription?.description ?? 'Select from the 5 player styles. Just like a game each style will come with different challenges including stats in focus'
                     }
@@ -109,12 +100,5 @@ export default function PlayerStyle() {
 
             </View>
         </View>
-
-
-        <FormButton
-            label={'Continue'}
-            onPress={handleSubmit(onSubmit)}
-
-        />
-    </ScrollViewContainer>
+    </OnBoardingWrapper>
 }

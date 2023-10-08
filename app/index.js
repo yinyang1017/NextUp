@@ -7,23 +7,27 @@ import AppProviders from './context/AppProviders';
 import AuthProvider from './context/AuthProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   return (
-    <SafeAreaProvider
-      style={{ backgroundColor: customTheme.colors.background }}>
-      <AppProviders>
-        <AuthProvider>
-          <StatusBar
-            barStyle={customTheme.statusBarStyle}
-            backgroundColor={customTheme.colors.light.background}
-          />
-          <NavigationContainer theme={customTheme}>
-            <AppLoadignStack />
-          </NavigationContainer>
-        </AuthProvider>
-        <Toast />
-      </AppProviders>
-    </SafeAreaProvider>
+    <>
+      <SafeAreaProvider
+        style={{ backgroundColor: customTheme.colors.background }}>
+        <AppProviders>
+          <AuthProvider>
+            <StatusBar
+              barStyle={customTheme.statusBarStyle}
+              backgroundColor={customTheme.colors.light.background}
+            />
+            <NavigationContainer theme={customTheme}>
+              <AppLoadignStack />
+            </NavigationContainer>
+          </AuthProvider>
+          <Toast />
+        </AppProviders>
+      </SafeAreaProvider>
+    </>
+
   );
 }

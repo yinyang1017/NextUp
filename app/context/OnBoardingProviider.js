@@ -2,16 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCoachOnBoardingRegister, usePlayerOnBoardingRegister } from "../api/onboarding.api";
-import { useGetState } from "../api/lookup.api";
+import { useGetCity, useGetState } from "../api/lookup.api";
 
 export const OnBoardingContext = React.createContext();
 
 
 export default function OnBoardingProvider({ children }) {
-
+    const [onBoarding, setOnBoarding] = useState({})
     const navigation = useNavigation()
     const { user, updateOnBoarding } = useAuth()
     const { data: states } = useGetState()
+
     const { mutate, isLoading: isPlayerLoading } = usePlayerOnBoardingRegister({
         onSuccess: data => {
             console.log(data, "data")
@@ -23,8 +24,7 @@ export default function OnBoardingProvider({ children }) {
         }
 
     })
-    const [onBoarding, setOnBoarding] = useState()
-    console.log(states, "onBoarding")
+
     const [onBoardingCount, setOnBoardingCount] = useState(0)
     const isMale = onBoarding?.gender === 'male'
     const isFemale = onBoarding?.gender === 'female'
@@ -104,7 +104,8 @@ export default function OnBoardingProvider({ children }) {
             isCoach,
             isPlayer,
             onBoardingCount,
-            isLoading: isPlayerLoading || isCoachLoading
+            isLoading: isPlayerLoading || isCoachLoading,
+            states: states?.data,
         }}>
             {children}
         </OnBoardingContext.Provider>

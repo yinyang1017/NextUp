@@ -5,6 +5,7 @@ import { useAuth } from './useAuth';
 import { OnBoardingContext } from '../context/OnBoardingProviider';
 import { appImages } from '../constants/appImages';
 import { useGetPlayerStyle } from '../api/onboarding.api';
+import { useGetCity, useGetClassOffYears, useGetSchools } from '../api/lookup.api';
 const tellUsMore = {
   typeOfUser: 'PLAYER',
   personalInfo: {
@@ -27,6 +28,7 @@ export const useOnBoarding = () => {
 
 export const useTellUsMore = () => {
   const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
@@ -37,6 +39,11 @@ export const useTellUsMore = () => {
       ...tellUsMore,
     },
   });
+  const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
+    queryFilter: {
+      state: watch('schoolInfo.state'),
+    }
+  })
   const playerPosition = watch('personalInfo.gender');
   const playerImg = {
     male: appImages.player_male,
@@ -54,12 +61,31 @@ export const useTellUsMore = () => {
     isCoach,
     isPlayer,
     playerPosition,
+    cities: cities?.data,
     handleNavigation,
     handleSubmit,
   };
 };
 
 export const useEnterPorfileDetails = () => {
+  const {
+    onBoarding
+  } = useOnBoarding()
+  const city = onBoarding?.schoolInfo.city
+  const state = onBoarding?.schoolInfo.state
+  const { data: schools, isLoading: isLoadingSchools } = useGetSchools({
+    queryFilter: {
+      city: city, state: state
+    }
+  })
+  const {
+    data: classesOfYears,
+    isLoading: isLoadingClassesOfYears
+  } = useGetClassOffYears({
+    queryFilter: {
+
+    }
+  })
   const {
     control,
     handleSubmit,
@@ -72,7 +98,8 @@ export const useEnterPorfileDetails = () => {
   return {
     control,
     errors,
-
+    schools: schools?.data,
+    classesOfYears: classesOfYears?.data,
     handleSubmit,
   };
 };
@@ -83,7 +110,7 @@ export const usePlayerStyle = () => {
   const queryFilter = useMemo(() => ({
     gender: onBoarding?.gender === 'male' ? 'POSITIONS_BOYS' : 'POSITIONS_GIRLS'
   }), [onBoarding])
-  const { data: playerStylesList, isLoading: isLoadingStyleList } = useGetPlayerStyle({ queryFilter });
+  const { data: playerStylesList, isLoading: isLoadingStyleList, isFetching } = useGetPlayerStyle({ queryFilter });
   const {
     control,
     handleSubmit,
@@ -100,6 +127,7 @@ export const usePlayerStyle = () => {
     errors,
     playerStylesList,
     playingPositionDescription,
+    isLoadingStyleList: isLoadingStyleList || isFetching,
     handleSubmit,
   };
 };
