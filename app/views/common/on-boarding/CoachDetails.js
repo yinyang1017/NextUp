@@ -1,30 +1,20 @@
 import React from 'react';
 import {
-    KeyboardAwareScrollView,
-    ProgressBar,
     View,
 } from 'react-native-ui-lib';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
 import {
     FormButton,
-    FormDatePicker,
     FormInputField,
     FormInputPicker,
-    FormSelectable,
 } from '../../../components/common/FormInputs';
-import { ScreenHeader } from '../../../components/common/ScreenHeader';
-import { customTheme } from '../../../constants';
-import * as cities from '../../../utils/data/cities.json';
 import * as states from '../../../utils/data/states.json';
-import { useNavigation } from '@react-navigation/native';
 import {
     useEnterPorfileDetails,
     useOnBoarding,
 } from '../../../hooks/useOnBoarding';
 import { Controller } from 'react-hook-form';
-import * as schoolsData from '../../../utils/data/schools.json';
-import * as class_years from '../../../utils/data/classYears.json';
-
+import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 export default function CoachDetails() {
     const { onBoardingCount, handleOnBoarding, handleNavigation, isCoach, isPlayer, } =
         useOnBoarding();
@@ -35,76 +25,70 @@ export default function CoachDetails() {
         handleNavigation(screenName);
     };
     return (
-        <>
-            <KeyboardAwareScrollView>
-                <ViewContainer>
-                    <ScreenHeader title={'Enter Coach Details'} backButtonAction={() => { }} />
-                    <ProgressBar
-                        progress={onBoardingCount}
-                        progressColor={customTheme.colors.blue20}
+        <OnBoardingWrapper>
+
+            <View useSafeArea marginT-12 flex>
+                <View row >
+                    <Controller
+                        name="firstName"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <FormInputField
+                                label={'First Name'}
+                                value={value ?? ''}
+                                onChangeText={onChange}
+                            />
+                        )}
                     />
-                    <View useSafeArea marginT-12 flex>
-                        <View row >
-                            <Controller
-                                name="firstName"
-                                control={control}
-                                render={({ field: { onChange, value } }) => (
-                                    <FormInputField
-                                        label={'First Name'}
-                                        value={value ?? ''}
-                                        onChangeText={onChange}
-                                    />
-                                )}
+                    <Controller
+                        name="lastName"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <FormInputField
+                                label={'Last Name'}
+                                value={value ?? ''}
+                                onChangeText={onChange}
                             />
-                            <Controller
-                                name="lastName"
-                                control={control}
-                                render={({ field: { onChange, value } }) => (
-                                    <FormInputField
-                                        label={'Last Name'}
-                                        value={value ?? ''}
-                                        onChangeText={onChange}
-                                    />
-                                )}
+                        )}
+                    />
+                </View>
+                <View row center>
+                    <Controller
+                        control={control}
+                        name="schoolInfo.city"
+                        render={({ field: { onChange, value } }) => (
+                            <FormInputPicker
+                                value={value}
+                                data={states?.states}
+                                label={'City'}
+                                title="Search for city.."
+                                onValueChange={value => onChange(value)}
                             />
-                        </View>
-                        <View row center>
-                            <Controller
-                                control={control}
-                                name="schoolInfo.city"
-                                render={({ field: { onChange, value } }) => (
-                                    <FormInputPicker
-                                        value={value}
-                                        data={states?.states}
-                                        label={'City'}
-                                        title="Search for city.."
-                                        onValueChange={value => onChange(value)}
-                                    />
-                                )}
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="schoolInfo.state"
+                        render={({ field: { onChange, value } }) => (
+                            <FormInputPicker
+                                value={value}
+                                data={states?.states}
+                                label={'State'}
+                                title="Search for state.."
+                                onValueChange={value => onChange(value)}
                             />
-                            <Controller
-                                control={control}
-                                name="schoolInfo.state"
-                                render={({ field: { onChange, value } }) => (
-                                    <FormInputPicker
-                                        value={value}
-                                        data={states?.states}
-                                        label={'State'}
-                                        title="Search for state.."
-                                        onValueChange={value => onChange(value)}
-                                    />
-                                )}
-                            />
+                        )}
+                    />
 
-                        </View>
+                </View>
 
-                    </View>
-                    <View marginT-48>
-                        <FormButton label="Confirm" onPress={handleSubmit(onSubmit)} />
-                    </View>
+            </View>
+            <View marginT-48>
+                <FormButton label="Confirm" onPress={handleSubmit(onSubmit)} />
+            </View>
 
-                </ViewContainer>
-            </KeyboardAwareScrollView>
-        </>
+
+        </OnBoardingWrapper>
+
     );
 }

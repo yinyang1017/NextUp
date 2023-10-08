@@ -1,19 +1,18 @@
 import { View, Text, ProgressBar, TouchableOpacity, Wizard } from "react-native-ui-lib"
 import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
 import { Pressable } from "react-native";
-import StepIndicator from 'react-native-step-indicator';
 import { ScreenHeader } from "../../../components/common/ScreenHeader"
-import { ViewContainer } from "../../../components/common/ViewConatiner"
 import { customTheme } from "../../../constants"
 import { appImages } from "../../../constants/appImages"
-import { Dimensions, ImageBackground } from "react-native"
+import { Dimensions, } from "react-native"
 import { FormButton } from "../../../components/common/FormInputs"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { useNavigation } from "@react-navigation/native"
 import { useUpload } from "../../../hooks/useUpload"
 import { useOnBoarding } from "../../../hooks/useOnBoarding"
-import { useMemo, useState } from "react"
+import { useState } from "react"
+import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper";
 
 const VerticalStepIndicator = (props) => {
     const { labels, currentPosition } = props
@@ -141,9 +140,7 @@ export default function DocumentVerification() {
     const handlePress = () => {
         handleUserOnboardingRegistration()
     }
-    return <ScrollViewContainer>
-        <ScreenHeader />
-        <ProgressBar progress={55} progressColor={customTheme.colors.blue20} />
+    return <OnBoardingWrapper>
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -163,5 +160,5 @@ export default function DocumentVerification() {
             <Text center white marginB-20
             >Skip</Text>
         </TouchableOpacity>
-    </ScrollViewContainer>
+    </OnBoardingWrapper>
 }

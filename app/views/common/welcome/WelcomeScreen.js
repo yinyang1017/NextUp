@@ -34,20 +34,20 @@ export default function WelcomeScreen() {
   });
   const handleSubmit = async type => {
     await handleImperativeLogin(type)
-      .then(res => {
-        const dataToSend = {
-          email: res?.user._user?.email,
-          firebaseAuthTokenId: res?.user._user.uid,
-          loginWith: 'GOOGLE',
-          roles: ['ROLE_COACH', 'ROLE_PLAYER'],
-        };
-        // console.log(dataToSend)s
-        mutate(dataToSend);
-        // alert(JSON.stringify(res, null, 2))
-      })
-      .catch(err => {
-        console.log(err, 'in welcome screen');
-      });
+    // .then(res => {
+    //   const dataToSend = {
+    //     email: res?.user._user?.email,
+    //     firebaseAuthTokenId: res?.user._user.uid,
+    //     loginWith: 'GOOGLE',
+    //     roles: ['ROLE_COACH', 'ROLE_PLAYER'],
+    //   };
+    //   // console.log(dataToSend)s
+    //   mutate(dataToSend);
+    //   // alert(JSON.stringify(res, null, 2))
+    // })
+    // .catch(err => {
+    //   console.log(err, 'in welcome screen');
+    // });
   };
   return (
     <SafeAreaView style={[CommonStyles.appThemeBgContainer]}>

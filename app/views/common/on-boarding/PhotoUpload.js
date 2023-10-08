@@ -1,6 +1,4 @@
-import { View, Text, ProgressBar, TouchableOpacity } from "react-native-ui-lib"
-import { ScreenHeader } from "../../../components/common/ScreenHeader"
-import { ViewContainer } from "../../../components/common/ViewConatiner"
+import { View, Text, TouchableOpacity } from "react-native-ui-lib"
 import { customTheme } from "../../../constants"
 import { appImages } from "../../../constants/appImages"
 import { Dimensions, ImageBackground } from "react-native"
@@ -11,7 +9,7 @@ import { useNavigation } from "@react-navigation/native"
 import { useUpload } from "../../../hooks/useUpload"
 import { useOnBoarding } from "../../../hooks/useOnBoarding"
 import AppLoader from "../../../utils/Apploader"
-import { useMemo } from "react"
+import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper"
 export default function PhotoUpload() {
     const navigation = useNavigation()
     const { isMale, isPlayer, handleUserOnboardingRegistration } = useOnBoarding()
@@ -20,8 +18,6 @@ export default function PhotoUpload() {
         uploadProgress,
         pickDocument,
         uploadedDocument,
-
-        scanDocument
     } = useUpload()
     const imageUrl = uploadedDocument?.imageUrl ? ({ uri: uploadedDocument?.imageUrl }) : isMale ? appImages.player_male : appImages.player_female
     const handlePress = () => {
@@ -31,9 +27,7 @@ export default function PhotoUpload() {
             navigation.navigate('DocumentVerification')
         }
     }
-    return <ViewContainer>
-        <ScreenHeader />
-        <ProgressBar progress={55} progressColor={customTheme.colors.blue20} />
+    return <OnBoardingWrapper>
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -75,9 +69,6 @@ export default function PhotoUpload() {
         </View>
         <View marginT-32></View>
         <FormButton disabled={isUploading.loading} label={isUploading.type ? isUploading?.type : isPlayer ? 'Finish' : 'Continue'} onPress={handlePress} />
-        <TouchableOpacity disabled={isUploading.loading} onPress={handlePress}>
-            <Text center white marginB-20
-            >Skip</Text>
-        </TouchableOpacity>
-    </ViewContainer>
+
+    </OnBoardingWrapper>
 }

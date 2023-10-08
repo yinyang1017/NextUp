@@ -5,7 +5,7 @@ import { View } from 'react-native-ui-lib';
 
 export const ViewContainer = props => {
   const statusBarHeight =
-    StatusBar.currentHeight * customTheme.spacings.spacing_48 ||
+    StatusBar.currentHeight * customTheme.spacings.spacing_8 ||
     (Platform.OS === 'ios'
       ? customTheme.spacings.spacing_48
       : customTheme.spacings.spacing_48); // Default values for iOS and Android

@@ -1,40 +1,24 @@
 import React from 'react';
 import {
-  ProgressBar,
   View,
   Text,
-  Checkbox,
-  RadioGroup,
-  RadioButton,
-  Picker,
-  TextField,
-  Button,
 } from 'react-native-ui-lib';
-import { ViewContainer } from '../../../components/common/ViewConatiner';
-import { ScrollView } from 'react-native-gesture-handler';
-
-import { CommonStyles, customTheme, SafeContainer } from '../../../constants';
-import { ScreenHeader } from '../../../components/common/ScreenHeader';
-import TextComponent from '../../../components/common/TextComponent';
-import { useState } from 'react';
-import { SelectableCard } from '../../../components/common/SelectableCard';
-import { width } from '../../../constants/dimensions';
+import { customTheme } from '../../../constants';
 import { useOnBoarding, useTellUsMore } from '../../../hooks/useOnBoarding';
 import { appImages } from '../../../constants/appImages';
 import * as cities from '../../../utils/data/cities.json';
 import * as states from '../../../utils/data/states.json';
-
+import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 import {
+  FormActionPicker,
   FormButton,
   FormInputPicker,
   FormRadioGroup,
   FormSelectable,
 } from '../../../components/common/FormInputs';
-import { ScrollViewContainer } from '../../../components/common/SrollViewContainer';
 import { Controller } from 'react-hook-form';
-import { useNavigation } from '@react-navigation/native';
 export default function TellUsMore() {
-  const { onBoardingCount, handleOnBoarding, handleNavigation, } =
+  const { onBoardingCount, handleOnBoarding, handleNavigation, states } =
     useOnBoarding();
   const {
     control,
@@ -42,6 +26,7 @@ export default function TellUsMore() {
     playerImg,
     isPlayer,
     isCoach,
+    cities,
     handleSubmit,
   } = useTellUsMore();
   const onSubmit = data => {
@@ -71,7 +56,7 @@ export default function TellUsMore() {
       render={({ field: { onChange, value } }) => (
         <FormInputPicker
           value={value}
-          data={states?.states}
+          data={states ?? []}
           label={'States'}
           title="Search for staets.."
           onValueChange={value => onChange(value)}
@@ -84,7 +69,7 @@ export default function TellUsMore() {
       render={({ field: { onChange, value } }) => (
         <FormInputPicker
           value={value}
-          data={cities?.cities}
+          data={cities ?? []}
           label={'Cities'}
           title="Search for cities.."
           onValueChange={value => onChange(value)}
@@ -142,9 +127,9 @@ export default function TellUsMore() {
       control={control}
       name="coachingType.level"
       render={({ field: { onChange, value } }) => (
-        <FormInputPicker
+        <FormActionPicker
           value={value}
-          data={states?.states}
+          data={['Jr Varsity', 'Varsity', 'Both']}
           label={'Level'}
           title="Search for levels.."
           onValueChange={value => onChange(value)}
@@ -156,73 +141,66 @@ export default function TellUsMore() {
 
   </>)
   return (
-    <>
-      <ScrollViewContainer>
-        <ScreenHeader backButtonAction={() => { }} />
-        <ProgressBar
-          progress={onBoardingCount}
-          progressColor={customTheme.colors.blue20}
+    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)}>
+      <View
+        style={{
+          marginVertical: customTheme.spacings.spacing_16,
+        }}>
+        <Text
+          style={{
+            color: customTheme.colors.light,
+            fontSize: customTheme.fontSizes.size_32,
+
+            fontFamily: customTheme.fontFamily.robotoMedium,
+          }}>
+          Tell us
+        </Text>
+        <Text
+          style={{
+            color: customTheme.colors.light,
+            fontSize: customTheme.fontSizes.size_32,
+            fontWeight: '700',
+            fontFamily: customTheme.fontFamily.robotoBold,
+          }}>
+          more
+        </Text>
+      </View>
+      {/* From here the form content is display */}
+
+      <View
+        style={{
+          marginTop: customTheme.spacings.spacing_20,
+        }}>
+        <Controller
+          control={control}
+          name="typeOfUser"
+          render={({ field: { onChange, value } }) => (
+            <FormSelectable
+              value={value ?? null}
+              onChange={onChange}
+              data={[
+                {
+                  label: 'PLAYER',
+                  value: 'PLAYER',
+                  imgSrc: playerImg[playerPosition],
+                },
+                {
+                  label: 'COACH',
+                  value: 'COACH',
+                  imgSrc: appImages.player_male,
+                },
+              ]}
+            />
+          )}
         />
-        <View
-          style={{
-            marginVertical: customTheme.spacings.spacing_16,
-          }}>
-          <Text
-            style={{
-              color: customTheme.colors.light,
-              fontSize: customTheme.fontSizes.size_32,
-
-              fontFamily: customTheme.fontFamily.robotoMedium,
-            }}>
-            Tell us
-          </Text>
-          <Text
-            style={{
-              color: customTheme.colors.light,
-              fontSize: customTheme.fontSizes.size_32,
-              fontWeight: '700',
-              fontFamily: customTheme.fontFamily.robotoBold,
-            }}>
-            more
-          </Text>
-        </View>
-        {/* From here the form content is display */}
-
-        <View
-          style={{
-            marginTop: customTheme.spacings.spacing_20,
-          }}>
-          <Controller
-            control={control}
-            name="typeOfUser"
-            render={({ field: { onChange, value } }) => (
-              <FormSelectable
-                value={value ?? null}
-                onChange={onChange}
-                data={[
-                  {
-                    label: 'PLAYER',
-                    value: 'PLAYER',
-                    imgSrc: playerImg[playerPosition],
-                  },
-                  {
-                    label: 'COACH',
-                    value: 'COACH',
-                    imgSrc: appImages.player_male,
-                  },
-                ]}
-              />
-            )}
-          />
-          {
-            isPlayer && _renderPlayerInputs()
-          }
-          {
-            isCoach && _renderCaochInputs()
-          }
-          <FormButton onPress={handleSubmit(onSubmit)} />
-        </View>
-      </ScrollViewContainer>
-    </>
+        {
+          isPlayer && _renderPlayerInputs()
+        }
+        {
+          isCoach && _renderCaochInputs()
+        }
+        {/* <FormButton onPress={handleSubmit(onSubmit)} /> */}
+      </View>
+    </OnBoardingWrapper >
   );
 }
