@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { TextInputMask } from 'react-native-masked-text'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
   Picker,
   View,
@@ -13,7 +15,8 @@ import {
   Colors,
   PanningProvider,
   ActionSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  MaskedInput
 } from 'react-native-ui-lib';
 import _ from 'lodash';
 import { ScrollViewContainer } from './SrollViewContainer';
@@ -22,9 +25,9 @@ import { Layout, customTheme } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { SelectableCard } from './SelectableCard';
-import { ActivityIndicator, Dimensions, Pressable } from 'react-native';
-import { ViewContainer } from './ViewConatiner';
-import { Title } from './titleLabel';
+import { ActivityIndicator, Dimensions, Pressable, Modal as NativeModal, FlatList } from 'react-native';
+import { ViewContainer, statusBarHeight } from './ViewConatiner';
+import moment from 'moment';
 const dropdownIcon = (
   <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
 );
@@ -32,9 +35,7 @@ const searchIcon = (
   <FontAwesomeIcon icon={faSearch} color={customTheme.colors.light} />
 )
 const _renderCustomModal = (modalProps) => {
-
-  const { visible, children, toggleModal, onDone, label, onSearchChange, ...rest } = modalProps;
-  console.log(rest, "visible")
+  const { visible, children, toggleModal, onDone, label, onSearchChange, title, ...rest } = modalProps;
   return (
     <Modal
       visible={visible}
@@ -44,7 +45,10 @@ const _renderCustomModal = (modalProps) => {
       animationType='slide'
 
     >
-      <ViewContainer>
+      <View style={{
+        padding: customTheme.spacings.spacing_16,
+        paddingTop: statusBarHeight
+      }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', }}>
           <Pressable
             style={{
@@ -59,7 +63,7 @@ const _renderCustomModal = (modalProps) => {
               marginRight: customTheme.spacings.spacing_12
             }}
             onPress={() => {
-              toggleModal();
+              toggleModal(false);
               onDone();
             }}
           >
@@ -75,12 +79,13 @@ const _renderCustomModal = (modalProps) => {
         </View>
 
         <TextField
-          placeholder={label}
+          placeholder={title}
           paddingH-12
           paddingV-12
           marginT-12
           onChangeText={onSearchChange}
-          placeholderTextColor={customTheme.colors.light}
+          placeholderTextColor={customTheme.colors.white_08}
+
           selectionColor={customTheme.colors.light}
           labelColor={customTheme.colors.light}
 
@@ -97,7 +102,7 @@ const _renderCustomModal = (modalProps) => {
           trailingAccessory={searchIcon}
         />
 
-      </ViewContainer>
+      </View>
 
 
       <ScrollView contentContainerStyle={{
@@ -113,19 +118,13 @@ const _renderCustomModal = (modalProps) => {
   )
 }
 
-const _renderActionSheet = (modalProps) => {
-  const { visible, children, toggleModal, onDone, label, onSearchChange, data, ...rest } = modalProps;
-  return <ActionSheet
-    title={'Title'}
-    message={'Message goes here'}
-    cancelButtonIndex={3}
-    destructiveButtonIndex={0}
-    visible
-    options={[
-      { label: 'Cancel', onPress: () => console.log('cancel') }
-    ]}
-  />
-}
+// const _renderActionSheet = (modalProps) => {
+//   const { visible, children, toggleModal, onDone, label, onSearchChange, data, ...rest } = modalProps;
+//   return (
+
+
+//   )
+// }
 /**
  * Renders a form input picker component.
  *
@@ -135,7 +134,7 @@ const _renderActionSheet = (modalProps) => {
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
-export function FormInputPicker({ data = [], value, onValueChange, label, title }) {
+export function FormInputPicker({ data = [], value, onValueChange, label, title, ...rest }) {
   const [search, setSearch] = useState(null)
   const searchData = search ? data.filter((item) => item.toLowerCase().includes(search.toLowerCase())) : data
   return (
@@ -149,8 +148,22 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title 
         renderPicker={() => {
           return (
             <>
+              <View row spread marginB-8>
+                <Text style={{
+                  opacity: 0.6,
+                  marginBottom: customTheme.spacings.spacing_8,
+                  textTransform: 'uppercase',
+                  color: customTheme.colors.light,
+                  fontSize: customTheme.fontSizes.size_12,
+                  fontWeight: '700',
+                  opacity: 0.6,
+                  fontFamily: customTheme.fontFamily.robotoBold,
+                }}>{label}</Text>
+                <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+              </View>
+
+
               <TextField
-                label={label}
                 labelColor={customTheme.colors.light}
                 labelStyle={{
                   opacity: 0.6,
@@ -164,20 +177,17 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title 
                 }}
                 value={value}
                 color={customTheme.colors.light}
-                fieldStyle={{
-                  marginBottom: customTheme.spacings.spacing_12,
-                }}
+
                 containerStyle={{
                   borderBottomColor: customTheme.colors.tertiary,
                   borderBottomWidth: 1,
                 }}
-                trailingAccessory={dropdownIcon}
               />
             </>
           );
         }}
 
-        renderCustomModal={(props) => _renderCustomModal({ ...props, label, onSearchChange: (text) => setSearch(text) })}
+        renderCustomModal={(props) => _renderCustomModal({ ...props, label, title, onSearchChange: (text) => setSearch(text) })}
         onChange={value => {
           onValueChange(value);
         }}>
@@ -188,11 +198,25 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title 
                 color: customTheme.colors.light,
                 fontSize: customTheme.fontSizes.size_16,
                 fontFamily: customTheme.fontFamily.robotoRegular,
+
+
               }}
-              key={index} label={item?.label || item} value={item?.value || item} />
+
+              key={index} label={item?.label || item} value={item?.value || item}
+              renderItem={(props) => {
+                return (
+                  <Text marginB-8 white marginT-32 style={{
+                    fontFamily: customTheme.fontFamily.robotoMedium,
+                    fontSize: customTheme.fontSizes.size_16
+                  }}>{props}</Text>
+                )
+              }}
+
+            />
           );
         })}
       </Picker>
+      <Text red10 marginT-2>{rest?.error ?? ''}</Text>
     </View>
   );
 }
@@ -205,56 +229,109 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title 
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
-export function FormActionPicker({ data = [], value, onValueChange, label, title }) {
-  const [open, setOpen] = useState(false);
+export function FormActionPicker({ data = [], value, onValueChange, label, title, ...rest }) {
+  const [visible, setVisible] = useState(null)
+  const handleVisible = () => {
+    setVisible(!visible)
+  }
   return (
-    <TouchableOpacity marginV-12 flex marginR-16 onPress={() => setOpen(true)}>
-      <TextField
-        label={label}
-        readonly
-        labelColor={customTheme.colors.light}
-        labelStyle={{
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          opacity: 0.6,
-          fontFamily: customTheme.fontFamily.robotoBorld,
+    <>
+      <TouchableOpacity onPress={handleVisible} marginT-12 flex marginR-16 marginB-8>
+        <View row spread marginB-8>
+          <Text style={{
+            opacity: 0.6,
+            marginBottom: customTheme.spacings.spacing_8,
+            textTransform: 'uppercase',
+            color: customTheme.colors.light,
+            fontSize: customTheme.fontSizes.size_12,
+            fontWeight: '700',
+            opacity: 0.6,
+            fontFamily: customTheme.fontFamily.robotoBold,
+          }}>{label}</Text>
+          <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+        </View>
+        <TextField
+          readonly
+          onKeyPress={() => setVisible(true)}
+          onPress={() => setVisible(true)}
+          labelColor={customTheme.colors.light}
+
+          value={value}
+          color={customTheme.colors.light}
+
+          containerStyle={{
+            borderBottomColor: customTheme.colors.tertiary,
+            borderBottomWidth: 1,
+          }}
+        />
+        {rest?.error && <Text red10>{rest?.error}</Text>}
+      </TouchableOpacity>
+
+      <Incubator.Dialog
+        visible={visible}
+        onDismiss={() => {
+          setVisible(false);
         }}
-        value={value}
-        color={customTheme.colors.light}
-        fieldStyle={{
-          marginBottom: customTheme.spacings.spacing_12,
-        }}
+        panDirection={PanningProvider.Directions.DOWN}
+        bottom
+
+        width={Layout.width}
+
         containerStyle={{
-          borderBottomColor: customTheme.colors.tertiary,
-          borderBottomWidth: 1,
+          backgroundColor: customTheme.colors.primary,
+          borderTopEndRadius: customTheme.spacings.spacing_16,
+          borderTopStartRadius: customTheme.spacings.spacing_16,
+          marginBottom: 0
         }}
-        trailingAccessory={dropdownIcon}
-      />
-      <ActionSheet
-        title={'Title'}
-        message={'Message goes here'}
-        cancelButtonIndex={3}
-        destructiveButtonIndex={3}
-        visible={open}
-        useNativeIOS
-        options={[
-          {
-            label: 'option 1'
-          },
-          {
-            label: 'option 2'
-          },
+      >
+        <>
 
-          { label: 'Cancel', onPress: () => console.log('cancel') }
-        ]}
-      />
+          <FlatList
+            contentContainerStyle={{
+              padding: customTheme.spacings.spacing_16,
+            }}
+            data={data ?? []}
+            ListHeaderComponent={() => (
+              <Text marginB-16 style={{
+                color: customTheme.colors.light,
+                fontSize: customTheme.fontSizes.size_16,
+                fontFamily: customTheme.fontFamily.robotoMedium,
+                textAlign: 'center',
+                opacity: 0.6,
+              }}>{title}</Text>
+            )}
+            ListFooterComponent={() => (
+              <TouchableOpacity onPress={() => setVisible(false)} marginB-16>
+                <Text style={{
+                  color: customTheme.colors.green10,
+                  fontSize: customTheme.fontSizes.size_16,
+                  fontFamily: customTheme.fontFamily.robotoMedium,
+                  textAlign: 'center',
+                }}>Cancel</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity marginB-32 key={index} onPress={() => {
+                onValueChange(item?.value || item);
+                setVisible(false);
+              }}>
+                <Text center green10 style={{
+                  color: customTheme.colors.green10,
+                  fontSize: customTheme.fontSizes.size_16,
+                  fontFamily: customTheme.fontFamily.robotoMedium,
+                }}>{item?.label || item}</Text>
 
-    </TouchableOpacity>
-  );
+              </TouchableOpacity>
+            )}
+          />
+
+        </>
+      </Incubator.Dialog>
+
+    </ >
+
+  )
 }
 
 
@@ -276,6 +353,7 @@ export function FormRadioGroup({
   onValueChange,
   radioValues = [],
   direction = 'row',
+  ...rest
 }) {
   const viewDir = {
     row: true,
@@ -317,6 +395,7 @@ export function FormRadioGroup({
           })}
         </View>
       </RadioGroup>
+      <Text red10>{rest?.error}</Text>
     </View>
   );
 }
@@ -326,7 +405,7 @@ export function FormRadioGroup({
  *
  * @return {JSX.Element} An empty JSX element.
  */
-export function FormSelectable({ data, value, onChange }) {
+export function FormSelectable({ data, value, onChange, ...rest }) {
   return (
     <>
       <View row center spread>
@@ -345,43 +424,45 @@ export function FormSelectable({ data, value, onChange }) {
           );
         })}
       </View>
+      <Text red10>{rest?.error}</Text>
     </>
   );
 }
 
 export function FormInputField({ label, value, ...props }) {
   return (
-    <TextField
-      label={label}
-      marginV-12
-      labelColor={customTheme.colors.light}
-      placeholderTextColor={customTheme.colors.light + '60'}
-      value={value}
-      color={customTheme.colors.light}
-      fieldStyle={{ marginBottom: customTheme.spacings.spacing_12 }}
-      {...props}
-      containerStyle={[
-        {
-          borderBottomColor: customTheme.colors.tertiary,
-          borderBottomWidth: 1,
-          marginRight: customTheme.spacings.spacing_16,
-          flex: 1,
-        },
-        props.containerStyle,
-      ]}
-      labelStyle={[
-        {
+    <View flex marginV-12 >
+      <View row spread marginB-8>
+        <Text style={{
           opacity: 0.6,
           marginBottom: customTheme.spacings.spacing_8,
           textTransform: 'uppercase',
           color: customTheme.colors.light,
           fontSize: customTheme.fontSizes.size_12,
           fontWeight: '700',
+          opacity: 0.6,
           fontFamily: customTheme.fontFamily.robotoBold,
-        },
-        props.labelStyle,
-      ]}
-    />
+        }}>{label}</Text>
+      </View>
+      <TextField
+        labelColor={customTheme.colors.light}
+        placeholderTextColor={customTheme.colors.light}
+        value={value}
+        color={customTheme.colors.light}
+        containerStyle={[
+          {
+            borderBottomColor: customTheme.colors.tertiary,
+            borderBottomWidth: 1,
+            marginRight: customTheme.spacings.spacing_16,
+            flex: 1,
+          },
+        ]}
+
+        onChangeText={props?.onChangeText}
+      />
+      {props.error && <Text red10>{props.error}</Text>}
+    </View>
+
   );
 }
 
@@ -418,7 +499,6 @@ export function FormButton({
               : customTheme.colors.blue20,
           borderRadius: customTheme.spacings.spacing_16,
           paddingVertical: customTheme.spacings.spacing_12,
-          marginBottom: customTheme.spacings.spacing_48,
         }}>
         <View row center spread>
           <ActivityIndicator
@@ -444,20 +524,185 @@ export function FormButton({
 }
 
 export function FormDatePicker({ label, value, onChange, ...props }) {
-  return (
-    <View>
-      <DateTimePicker
-        mode="date"
-        onChange={onChange}
-        renderInput={inputProps => (
-          <FormInputField
-            label={label}
-            value={value}
-            {...props}
-            {...inputProps}
-          />
-        )}
+  const [visible, setVisible] = useState(null)
+  const handleVisible = () => {
+    setVisible(!visible)
+  }
+  return <>
+    <TouchableOpacity onPress={handleVisible} marginV-12 flex marginR-16>
+      <View row spread marginB-8>
+        <Text style={{
+          opacity: 0.6,
+          marginBottom: customTheme.spacings.spacing_8,
+          textTransform: 'uppercase',
+          color: customTheme.colors.light,
+          fontSize: customTheme.fontSizes.size_12,
+          fontWeight: '700',
+          opacity: 0.6,
+          fontFamily: customTheme.fontFamily.robotoBold,
+        }}>{label}</Text>
+        <FontAwesomeIcon icon={faChevronDown} size={customTheme.fontSizes.size_16} color={customTheme.colors.light} />
+      </View>
+      <TextField
+        readonly
+        onKeyPress={() => setVisible(true)}
+        onPress={() => setVisible(true)}
+        labelColor={customTheme.colors.light}
+        labelStyle={{
+          opacity: 0.6,
+          marginBottom: customTheme.spacings.spacing_8,
+          textTransform: 'uppercase',
+          color: customTheme.colors.light,
+          fontSize: customTheme.fontSizes.size_12,
+          fontWeight: '700',
+          opacity: 0.6,
+          fontFamily: customTheme.fontFamily.robotoBold,
+        }}
+        value={value}
+        color={customTheme.colors.light}
+
+        containerStyle={{
+          borderBottomColor: customTheme.colors.tertiary,
+          borderBottomWidth: 1,
+        }}
       />
+
+    </TouchableOpacity>
+    {props?.error && <Text red10>{props?.error}</Text>}
+    <DateTimePickerModal
+      isVisible={visible}
+      mode="date"
+      onConfirm={(date) => {
+        setVisible(false)
+        onChange(moment(date).format('MM/DD/YYYY').toString())
+      }}
+      maximumDate={new Date()}
+
+
+      onCancel={() => handleVisible()}
+    />
+
+  </>
+}
+
+
+export const FormMaskedInput = ({ label,
+  value,
+  onChangeText,
+  data,
+  title, onValueChange,
+  forHeight,
+  ...props }) => {
+  const [visible, setVisible] = useState(false)
+  const splitValue = value.split('-')
+  const inputValue = splitValue[0]
+  const pickerValue = splitValue[1] ?? data[0].value
+  return <View marginV-12 style={{
+    borderBottomColor: customTheme.colors.tertiary,
+    borderBottomWidth: 1,
+    marginRight: customTheme.spacings.spacing_16,
+    flex: 1,
+  }}>
+    <TouchableOpacity onPress={() => setVisible(true)} row spread >
+      <Text style={{
+        opacity: 0.6,
+        marginBottom: customTheme.spacings.spacing_16,
+        textTransform: 'uppercase',
+        color: customTheme.colors.light,
+        fontSize: customTheme.fontSizes.size_12,
+        fontWeight: '700',
+        fontFamily: customTheme.fontFamily.robotoBold,
+      }}>{label}</Text>
+
+      <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+    </TouchableOpacity>
+    <View row style={{
+      alignItems: 'center'
+    }}>
+      <TextInputMask
+        type='custom'
+        value={inputValue}
+        placeholderTextColor={customTheme.colors.light}
+        onChangeText={(txt) => {
+          const pickValue = txt + '-' + pickerValue || data[0].value
+          onChangeText(pickValue);
+        }}
+        options={{
+          mask: forHeight ? pickerValue === 'CM' ? '999' : `9'99''` : '999',
+        }}
+        {...props}
+        style={{
+          color: customTheme.colors.light,
+          flex: 1
+        }}
+      />
+      <Text white>{pickerValue ?? ''}</Text>
     </View>
-  );
+    <Incubator.Dialog
+      visible={visible}
+      onDismiss={() => {
+        setVisible(false);
+      }}
+      panDirection={PanningProvider.Directions.DOWN}
+      bottom
+
+      width={Layout.width}
+
+      containerStyle={{
+        backgroundColor: customTheme.colors.primary,
+        borderTopEndRadius: customTheme.spacings.spacing_16,
+        borderTopStartRadius: customTheme.spacings.spacing_16,
+        marginBottom: 0
+      }}
+    >
+      <>
+
+        <FlatList
+          contentContainerStyle={{
+            padding: customTheme.spacings.spacing_16,
+          }}
+          data={data ?? []}
+          ListHeaderComponent={() => (
+            <Text marginB-16 style={{
+              color: customTheme.colors.light,
+              fontSize: customTheme.fontSizes.size_16,
+              fontFamily: customTheme.fontFamily.robotoMedium,
+              textAlign: 'center',
+              opacity: 0.6,
+            }}>{title}</Text>
+          )}
+          ListFooterComponent={() => (
+            <TouchableOpacity onPress={() => setVisible(false)} marginB-16>
+              <Text style={{
+                color: customTheme.colors.green10,
+                fontSize: customTheme.fontSizes.size_16,
+                fontFamily: customTheme.fontFamily.robotoMedium,
+                textAlign: 'center',
+              }}>Cancel</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity marginB-32 key={index} onPress={() => {
+              const split = value.split('-')
+              const pickValue = split[1] + '-' + item?.value || item
+              onValueChange(pickValue);
+              setVisible(false);
+            }}>
+              <Text center green10 style={{
+                color: customTheme.colors.green10,
+                fontSize: customTheme.fontSizes.size_16,
+                fontFamily: customTheme.fontFamily.robotoMedium,
+              }}>{item?.label || item}</Text>
+
+            </TouchableOpacity>
+          )}
+        />
+
+      </>
+    </Incubator.Dialog>
+    {props?.error && <Text red10>{props?.error}</Text>}
+  </View>
+
+
 }

@@ -10,15 +10,19 @@ import { useUpload } from "../../../hooks/useUpload"
 import { useOnBoarding } from "../../../hooks/useOnBoarding"
 import AppLoader from "../../../utils/Apploader"
 import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper"
+import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog"
+import { useState } from "react"
 export default function PhotoUpload() {
     const navigation = useNavigation()
-    const { isMale, isPlayer, handleUserOnboardingRegistration } = useOnBoarding()
+    const { isMale, isPlayer, handleUserOnboardingRegistration, onBoardingCount } = useOnBoarding()
     const {
         isUploading,
         uploadProgress,
         pickDocument,
+        scanDocument,
         uploadedDocument,
     } = useUpload()
+    const [uploadType, setUploadType] = useState(false)
     const imageUrl = uploadedDocument?.imageUrl ? ({ uri: uploadedDocument?.imageUrl }) : isMale ? appImages.player_male : appImages.player_female
     const handlePress = () => {
         if (isPlayer) {
@@ -27,7 +31,7 @@ export default function PhotoUpload() {
             navigation.navigate('DocumentVerification')
         }
     }
-    return <OnBoardingWrapper>
+    return <OnBoardingWrapper handleForm={handlePress} label={'Finish'} skip progress={onBoardingCount} onSkip={handlePress} >
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -40,7 +44,7 @@ export default function PhotoUpload() {
                 fontWeight: '700',
             }}>Photo </Text>
             { }
-            <TouchableOpacity onPress={pickDocument} center centerV>
+            <TouchableOpacity onPress={() => setUploadType(true)} center centerV>
                 <>
                     <ImageBackground
                         source={imageUrl}
@@ -66,9 +70,12 @@ export default function PhotoUpload() {
                 </>
             </TouchableOpacity>
             <AppLoader visible={isUploading.loading} loadingMessage={`${uploadProgress} %`} />
+            <UpdloadTypeDialog
+                isVisible={uploadType}
+                onClose={() => setUploadType(false)}
+                handlePick={() => pickDocument()}
+                handleScan={() => scanDocument()}
+            />
         </View>
-        <View marginT-32></View>
-        <FormButton disabled={isUploading.loading} label={isUploading.type ? isUploading?.type : isPlayer ? 'Finish' : 'Continue'} onPress={handlePress} />
-
     </OnBoardingWrapper>
-}
+}     

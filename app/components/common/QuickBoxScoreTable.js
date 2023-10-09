@@ -25,7 +25,7 @@ const QuickBoxScoreTable = ({ heading, point, title, rowId, teamId, data }) => {
 
   // useEffect(() => {
   //     // addingPlayerIdToObjects();
-  //     // console.log(defenderKpiWithEachQuarter);
+  //     //// console.log(defenderKpiWithEachQuarter);
   // }, [])
 
   // const addingPlayerIdToObjects = () => {
@@ -47,7 +47,7 @@ const QuickBoxScoreTable = ({ heading, point, title, rowId, teamId, data }) => {
   //             setDefenderWithEachQuarter(newArray)
   //         })
   //         .catch(function (error) {
-  //             console.log('Error', error)
+  //            // console.log('Error', error)
   //         });
   // }
 

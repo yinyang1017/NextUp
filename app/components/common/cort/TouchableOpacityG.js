@@ -96,12 +96,12 @@ const PRESS_RETENTION_OFFSET = { top: 20, left: 20, right: 20, bottom: 30 };
  *             height="50"
  *             fill="red"
  *             onPress={e => {
- *                 console.log('press1', e);
+ *                // console.log('press1', e);
  *             }}
  *         />
  *         <TouchableOpacityG
  *             onPress={e => {
- *                 console.log('press2', e);
+ *                // console.log('press2', e);
  *             }}>
  *             <Rect x="0" y="50" width="100" height="50" fill="blue" />
  *         </TouchableOpacityG>
@@ -173,7 +173,7 @@ const TouchableOpacityG = ((createReactClass({
    * Animate the touchable to a new opacity.
    */
   setOpacityTo: function (value, duration) {
-    console.log('setOpacityTo', value, duration);
+    // console.log('setOpacityTo', value, duration);
     Animated.timing(this.state.anim, {
       toValue: value,
       duration: duration,
@@ -245,12 +245,12 @@ const TouchableOpacityG = ((createReactClass({
   },
 
   _opacityActive: function (duration) {
-    console.log('_opacityActive', duration);
+    // console.log('_opacityActive', duration);
     this.setOpacityTo(this.props.activeOpacity, duration);
   },
 
   _opacityInactive: function (duration) {
-    console.log('_opacityInactive', duration);
+    // console.log('_opacityInactive', duration);
     /* $FlowFixMe(>=0.89.0 site=react_native_fb) This comment suppresses an
      * error found when Flow v0.89 was deployed. To see the error, delete this
      * comment and run Flow. */

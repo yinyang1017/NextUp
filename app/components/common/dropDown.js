@@ -12,7 +12,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 let wide = Layout.width;
 
 export const DropDown = ({ dropData, onSelectionChange }) => {
-    console.log("----->>>", dropData)
+    // console.log("----->>>", dropData)
     return (
         <SelectDropdown
             dropdownStyle={{
@@ -43,7 +43,7 @@ export const DropDown = ({ dropData, onSelectionChange }) => {
             dropdownIconPosition={'right'}
             data={dropData !== undefined ? dropData : []}
             onSelect={(selectedItem, index) => {
-                // console.log(selectedItem, index);
+                //// console.log(selectedItem, index);
                 onSelectionChange(selectedItem);
             }}
             defaultValueByIndex={0}

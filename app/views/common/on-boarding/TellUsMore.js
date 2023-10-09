@@ -38,6 +38,11 @@ export default function TellUsMore() {
     <Controller
       name="personalInfo.gender"
       control={control}
+      rules={{
+        required: true,
+
+
+      }}
       render={({ field: { onChange, value } }) => (
         <FormRadioGroup
           label={'Gender'}
@@ -53,26 +58,40 @@ export default function TellUsMore() {
     <Controller
       control={control}
       name="schoolInfo.state"
-      render={({ field: { onChange, value } }) => (
-        <FormInputPicker
+      rules={{
+        required: true,
+      }}
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
+        // console.log('error', error);
+        return <FormInputPicker
           value={value}
           data={states ?? []}
           label={'States'}
-          title="Search for staets.."
+          title="Search for states"
           onValueChange={value => onChange(value)}
+          error={
+            error && 'Please select a state'
+          }
+
         />
-      )}
+      }}
     />
     <Controller
       control={control}
       name="schoolInfo.city"
-      render={({ field: { onChange, value } }) => (
+      rules={{
+        required: true,
+      }}
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormInputPicker
           value={value}
           data={cities ?? []}
           label={'Cities'}
           title="Search for cities.."
           onValueChange={value => onChange(value)}
+          error={
+            error && 'Please select a city'
+          }
         />
       )}
     />
@@ -82,7 +101,12 @@ export default function TellUsMore() {
     <Controller
       name="coachingType.typeOfCoaching"
       control={control}
-      render={({ field: { onChange, value } }) => (
+      rules={
+        {
+          required: true,
+        }
+      }
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormRadioGroup
           label={'Option'}
           value={value}
@@ -91,6 +115,9 @@ export default function TellUsMore() {
             { label: 'High School', value: 'HIGH_SCHOOL' },
             { label: 'Travel Team', value: 'TRAVEL_TEAM' },
           ]}
+          error={
+            error && 'Please select a option'
+          }
         />
       )}
     />
@@ -98,27 +125,42 @@ export default function TellUsMore() {
       <Controller
         control={control}
         name="onBoardingTeamName"
-        render={({ field: { onChange, value } }) => (
+        rules={
+          {
+            required: true,
+          }
+        }
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
           <FormInputPicker
             value={value}
-            data={states?.states}
+            data={states}
             label={'Select Team'}
             title="Search for teams.."
             onValueChange={value => onChange(value)}
+            error={
+              error && 'Please select a team'
+            }
           />
         )}
       />
       <Controller
         control={control}
         name="schoolInfo.gender"
-        render={({ field: { onChange, value } }) => (
-          <FormInputPicker
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <FormActionPicker
             value={value}
-            data={[{ label: 'Boys', value: 'boys' }, { label: 'Girls', value: 'girls' }]}
+            data={['Boys', 'Girls']}
 
             label={'Gender'}
             title="Search for cities.."
             onValueChange={value => onChange(value)}
+            error={
+              error && 'Please select a gender'
+            }
+
           />
         )}
       />
@@ -126,13 +168,19 @@ export default function TellUsMore() {
     <Controller
       control={control}
       name="coachingType.level"
-      render={({ field: { onChange, value } }) => (
+      rules={{
+        required: true,
+      }}
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormActionPicker
           value={value}
-          data={['Jr Varsity', 'Varsity', 'Both']}
+          data={['Jr & Varsity', 'Varsity', 'Both']}
           label={'Level'}
           title="Search for levels.."
           onValueChange={value => onChange(value)}
+          error={
+            error && 'Please select a level'
+          }
         />
       )}
     />
@@ -141,7 +189,7 @@ export default function TellUsMore() {
 
   </>)
   return (
-    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)}>
+    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} label={'Confirm'} progress={onBoardingCount}>
       <View
         style={{
           marginVertical: customTheme.spacings.spacing_16,

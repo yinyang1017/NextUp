@@ -5,22 +5,24 @@ import { useCoachOnBoardingRegister, usePlayerOnBoardingRegister } from "../api/
 import { useGetCity, useGetState } from "../api/lookup.api";
 
 export const OnBoardingContext = React.createContext();
-
+const COCH_STEP = 4
 
 export default function OnBoardingProvider({ children }) {
     const [onBoarding, setOnBoarding] = useState({})
     const navigation = useNavigation()
     const { user, updateOnBoarding } = useAuth()
     const { data: states } = useGetState()
+    // console.log(user, "states")
 
     const { mutate, isLoading: isPlayerLoading } = usePlayerOnBoardingRegister({
         onSuccess: data => {
-            console.log(data, "data")
+            // console.log(data, "data")
+            navigation.navigate('PhotoUpload')
         }
     })
     const { mutate: coachMutate, isLoading: isCoachLoading } = useCoachOnBoardingRegister({
         onSuccess: data => {
-            console.log(data, "data")
+            // console.log(data, "data")
         }
 
     })
@@ -30,20 +32,6 @@ export default function OnBoardingProvider({ children }) {
     const isFemale = onBoarding?.gender === 'female'
     const isPlayer = onBoarding?.typeOfUser === 'PLAYER'
     const isCoach = onBoarding?.typeOfUser === 'COACH'
-    const trackProgressCount = useCallback(() => {
-        let count = 0;
-
-        Object.keys(onBoarding).forEach((key) => {
-            if (onBoarding[key]) {
-                count += 5;
-            } else {
-                count -= 5;
-            }
-        });
-
-        setOnBoardingCount(count);
-    }, [onBoarding])
-
     const handleOnBoarding = (values) => {
         setOnBoarding(prev => {
             return {
@@ -51,24 +39,29 @@ export default function OnBoardingProvider({ children }) {
                 ...values
             }
         })
-        setOnBoardingCount(prev => prev + 30)
+        setOnBoardingCount(prev => prev + 25)
     }
     const handleNavigation = (screen) => {
         navigation.navigate(screen)
     }
-    function hanldePlayerRegistration() {
+    function hanldePlayerRegistration(data) {
         const dataToSend = {
             ...onBoarding,
-            playingPosition: onBoarding?.playingPosition?.name ?? '',
-            statsOfFocus: 'points',
-            email: user?.email
+            playingPosition: data?.playingPosition?.name ?? '',
+            // statsOfFocus: 'points',
+            email: user?.personalInfo?.email,
+            // id: user?.id,
+            roleList: [
+                "ROLE_PLAYER"
+            ],
         }
-        console.log(user, "data to send")
+        console.log(dataToSend, "data to send")
+        //// console.log(user, "data to send")
         mutate({
             data: dataToSend,
             id: user?.id
         })
-        console.log(dataToSend, "data to send")
+        // 
 
     }
     function handleCoachRegistration() {
@@ -92,12 +85,14 @@ export default function OnBoardingProvider({ children }) {
         // }
         // return handleCoachRegistration()
     }
-    // console.log(onBoarding, "onboarding data")
+    //// console.log(onBoarding, "onboarding data")
     return (
         <OnBoardingContext.Provider value={{
             handleNavigation,
             handleOnBoarding,
             handleUserOnboardingRegistration,
+            handleCoachRegistration,
+            hanldePlayerRegistration,
             onBoarding,
             isFemale,
             isMale,

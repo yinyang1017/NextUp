@@ -11,7 +11,9 @@ export default function PlayerStyle() {
     const {
         onBoardingCount,
         handleOnBoarding,
-        handleNavigation
+        handleNavigation,
+        hanldePlayerRegistration,
+        isLoading
     } = useOnBoarding();
     const {
         control,
@@ -21,43 +23,51 @@ export default function PlayerStyle() {
     } = usePlayerStyle()
     const onSubmit = (data) => {
         handleOnBoarding(data);
-        handleNavigation('PhotoUpload');
+        hanldePlayerRegistration(data);
     }
-    return <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} title='Select Player Style'>
+    return <OnBoardingWrapper loading={isLoading} handleForm={handleSubmit(onSubmit)} title='Select Player Style' label={'Confirm'} progress={onBoardingCount}>
         <Controller
             name="playingPosition"
             control={control}
-            render={({ field: { onChange, value } }) => (
-                <View row center style={{
-                    flexWrap: 'wrap',
-                }}>
-                    {
-                        _.map(playerStylesList?.data, (item, index) => {
-                            const isSelected = value?.name === item?.name
-                            return <TouchableOpacity key={index} onPress={() => onChange(item)}>
-                                <View margin-8 center style={{
-                                    borderColor: isSelected ? customTheme.colors.secondary : customTheme.colors.light,
-                                    borderWidth: isSelected ? 1 : 1,
-                                    opacity: isSelected ? 1 : 0.7,
-                                    overflow: 'hidden',
-                                    borderRadius: customTheme.spacings.spacing_16
-                                }}>
-                                    <Image
-                                        resizeMode="cover"
-                                        resizeMethod="scale"
-                                        source={{
-                                            uri: item?.imageUrl ?? 'https://unsplash.com/photos/G38HyRyx3Cw/download?force=true'
-                                        }}
-                                        width={100}
-                                        height={120}
+            rules={{
+                required: 'Select from the 5 player styles'
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <View>
+                    <View row center style={{
+                        flexWrap: 'wrap',
+                    }}>
+                        {
+                            _.map(playerStylesList?.data, (item, index) => {
+                                // console.log('item', value)
+                                const isSelected = value?.name === item.name
+                                return <TouchableOpacity key={index} onPress={() => onChange(item)}>
+                                    <View margin-8 center style={{
+                                        borderColor: isSelected ? customTheme.colors.secondary : customTheme.colors.light,
+                                        borderWidth: isSelected ? 1 : 1,
+                                        opacity: isSelected ? 1 : 0.7,
+                                        overflow: 'hidden',
+                                        borderRadius: customTheme.spacings.spacing_16
+                                    }}>
+                                        <Image
+                                            resizeMode="cover"
+                                            resizeMethod="scale"
+                                            source={{
+                                                uri: item?.imageUrl ?? 'https://unsplash.com/photos/G38HyRyx3Cw/download?force=true'
+                                            }}
+                                            width={100}
+                                            height={120}
 
-                                    />
-                                </View>
+                                        />
+                                    </View>
 
-                            </TouchableOpacity>
-                        })
-                    }
+                                </TouchableOpacity>
+                            })
+                        }
+                    </View>
+                    {error && <Text red10>{error.message}</Text>}
                 </View>
+
             )}
         />
 

@@ -25,13 +25,7 @@ export const useUpload = () => {
      * @return {Promise} A promise that resolves with the response or rejects with an error.
      */
     const makeUploadApiRequest = async (data) => {
-        // Create a new FormData object and append the required data
-        // let formData = new FormData();
-        // formData.append('ref', data.ref);
-        // formData.append('refId', data.refId);
-        // formData.append('file', data.file.uri);
-
-        // // Make the API request using axios
+        // Create a new FormData object and append the required data    // // Make the API request using axios
         return await axios({
             method: 'POST',
             url: BASE_URL + '/storage/upload/image',
@@ -46,7 +40,7 @@ export const useUpload = () => {
             }
         })
             .then((res) => {
-                // console.log(res.data, "api res");
+                //// console.log(res.data, "api res");
                 return res.data;
             })
             .catch((err) => {
@@ -67,7 +61,7 @@ export const useUpload = () => {
             loading: true,
             type: "Uploading in progress.Please wait..."
         })
-        console.log(file);
+        // console.log(file);
         try {
             if (file) {
                 const formData = new FormData();
@@ -77,7 +71,7 @@ export const useUpload = () => {
                     type: file.type,
                 });
                 const resp = await makeUploadApiRequest(formData);
-                console.log(resp, "api resp");
+                // console.log(resp, "api resp");
                 if (resp?.data?.error) {
                     throw new Error('Cannot upload file. Please try again.');
                 }
@@ -87,7 +81,6 @@ export const useUpload = () => {
                         body: 'Uploaded successfully'
                     })
                     setUploadedDocument(resp?.data)
-                    return resp?.data
                 }
 
             } else {
@@ -119,9 +112,7 @@ export const useUpload = () => {
             });
             return;
         }
-        handleUpload().then(resp => {
-            cb(uploadedDocument)
-        });
+        handleUpload(resp)
     };
 
     /**
@@ -131,15 +122,35 @@ export const useUpload = () => {
         const resp = await launchCamera({
             includeBase64: true
         });
-        console.log(resp, "thtis ");
         if (resp?.didCancel) {
-            // errorToast({
-            //     title: 'SELECT DOC',
-            //     body: 'Please select the document to continue'
-            // });
+            errorToast({
+                title: 'SELECT DOC',
+                body: 'Please select the document to continue'
+            });
             return;
         }
-        return handleUpload(resp);
+        if (resp?.errorCode === 'camera_unavailable') {
+            errorToast({
+                title: 'Camera',
+                body: 'Camera  is not available'
+            });
+            return;
+        }
+        if (resp?.errorCode === 'permission') {
+            errorToast({
+                title: 'Permission',
+                body: 'Camera permission is not available'
+            });
+            return;
+        }
+        if (resp?.errorCode === 'others') {
+            errorToast({
+                title: 'SELECT DOC',
+                body: 'Something went wrong'
+            });
+            return;
+        }
+        handleUpload(resp);
     };
 
     // Return an object with the pickDocument and scanDocument functions

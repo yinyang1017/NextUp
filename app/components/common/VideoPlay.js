@@ -75,7 +75,7 @@ let wide = Layout.width;
 //                     ref={(ref) => (videoPlayer.current = ref)}
 //                     resizeMode="cover"
 //                     source={source}
-//                     onError={(err) => console.log(err)}
+//                     onError={(err) =>// console.log(err)}
 //                     repeat={false}
 //                     style={styles.mediaPlayer}
 //                     volume={1}

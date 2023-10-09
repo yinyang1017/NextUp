@@ -22,52 +22,52 @@ const TeamVsCard = ({ rightTeamCaptain, rightTeamClubName, leftTeamCaptain, left
 
     return <View style={styles.teamDetailCNTR}>
 
-      <TouchableOpacity onPress={() => console.log("Left team pressed")}>
+      <TouchableOpacity onPress={() =>// console.log("Left team pressed")}>
         <View style={{ ...styles.numberContainerCircle, ...styles.circle }}>
           <Text style={styles.circleTxt}>
             {leftTeamCaptain?.charAt(0)}
           </Text>
         </View>
       </TouchableOpacity>
-      {renderCaptainAndTeamName()}
-    </View>
+    { renderCaptainAndTeamName() }
+    </View >
   }
 
-  function renderCaptainAndTeamName() {
+function renderCaptainAndTeamName() {
 
-    return <View style={{ paddingLeft: 5, flex: 1 }}>
-      <TouchableOpacity onPress={() => console.log("Captain team pressed")}>
-        <Text style={styles.captainName}>{leftTeamCaptain}</Text>
+  return <View style={{ paddingLeft: 5, flex: 1 }}>
+    <TouchableOpacity onPress={() =>// console.log("Captain team pressed")}>
+      <Text style={styles.captainName}>{leftTeamCaptain}</Text>
       </TouchableOpacity>
-      {/* <Text style={styles.clubName}>{leftTeamClubName}</Text> */}
-    </View>
+  {/* <Text style={styles.clubName}>{leftTeamClubName}</Text> */ }
+    </View >
   }
 
-  function rightTeamDetail() {
+function rightTeamDetail() {
 
 
-    return <View style={{ ...styles.teamDetailCNTR, ...{ justifyContent: 'flex-end' } }}>
-      {/*Names*/}
-      <View style={{ marginRight: 5, flex: 1, alignItems: 'flex-end' }}>
-        <TouchableOpacity onPress={() => console.log("Right team pressed")}>
-          <Text style={styles.captainName}>{rightTeamCaptain}</Text>
+  return <View style={{ ...styles.teamDetailCNTR, ...{ justifyContent: 'flex-end' } }}>
+    {/*Names*/}
+    <View style={{ marginRight: 5, flex: 1, alignItems: 'flex-end' }}>
+      <TouchableOpacity onPress={() =>// console.log("Right team pressed")}>
+        <Text style={styles.captainName}>{rightTeamCaptain}</Text>
         </ TouchableOpacity>
-        {/* <Text style={styles.clubName}>{rightTeamClubName}</Text> */}
-      </View>
-      {/*Circle*/}
-      <TouchableOpacity onPress={() => console.log("Right team pressed")}>
-        <View style={{
-          ...styles.numberContainerCircle, ...styles.circle,
-          ...{ backgroundColor: Colors.lightRed, }
-        }}>
-          <Text style={styles.circleTxt}>
-            {rightTeamCaptain?.charAt(0)}
-          </Text>
-        </View>
-      </TouchableOpacity>
-
+    {/* <Text style={styles.clubName}>{rightTeamClubName}</Text> */}
+  </View>
+  {/*Circle*/ }
+  <TouchableOpacity onPress={() =>// console.log("Right team pressed")}>
+    <View style={{
+      ...styles.numberContainerCircle, ...styles.circle,
+      ...{ backgroundColor: Colors.lightRed, }
+    }}>
+      <Text style={styles.circleTxt}>
+        {rightTeamCaptain?.charAt(0)}
+      </Text>
     </View>
-  }
+      </ TouchableOpacity>
+
+  </View>
+}
 
 }
 

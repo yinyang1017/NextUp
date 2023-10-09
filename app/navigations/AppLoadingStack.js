@@ -15,9 +15,11 @@ import { PlayerStack } from './PlayerStack';
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
   const { isAuthenticated, onBoardingDone,
+    user,
     isCoach,
     isPlayer, } = useAuth();
 
+  console.log(user, "isAuthenticated")
   return (
     <>
       <Stack.Navigator

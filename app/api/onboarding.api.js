@@ -14,6 +14,7 @@ export function useGetPlayerStyle({ queryFilter, queryConfig = {} }) {
         queryKey: ['player-styles', queryFilter],
         queryFn: () => client(`admin/list/player/category?gender=POSITIONS_BOYS`),
         ...queryConfig,
+
     })
 }
 
@@ -22,7 +23,7 @@ export function usePlayerOnBoardingRegister({ onSuccess }) {
     const client = useClient()
     return useMutation(
         ({ data, id }) => {
-            return client(`user/onBoarding/${id}`, {
+            return client(`user/onboarding/${id}`, {
                 method: 'POST',
                 data,
             })

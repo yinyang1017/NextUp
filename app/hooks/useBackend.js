@@ -102,7 +102,7 @@ const useBackend = () => {
         try {
             // await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
-            // console.log(userInfo, "USER INFO");
+            //// console.log(userInfo, "USER INFO");
             const credential = auth.GoogleAuthProvider.credential(
                 userInfo.idToken,
                 userInfo.accessToken,

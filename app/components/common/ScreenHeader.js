@@ -30,7 +30,6 @@ export const ScreenHeader = ({ title, backButtonAction }) => {
         // height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: customTheme.spacings.spacing_48,
         marginBottom: customTheme.spacings.spacing_20
       }}
     >

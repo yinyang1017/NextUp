@@ -26,7 +26,6 @@ async function client(
     if (data) {
         config.body = JSON.stringify(data);
     }
-
     try {
         const response = await fetch(`${apiURL}/${endpoint}`, config);
 
@@ -41,18 +40,20 @@ async function client(
         }
 
         const responseData = await response.json();
-        // console.log('response in fecth', responseData);
+        //// console.log('response in fecth', responseData);
         if (response.ok) {
-            // console.log('response in fecth', 'ok');
+            //// console.log('response in fecth', 'ok');
             return responseData;
         }
 
         throw responseData;
     } catch (error) {
-        console.log('error in fecth', error);
-        // Handle other err
-        // ˀˀors
-        return Promise.reject(error);
+
+        const obj = {
+            ...error,
+            message: 'Something went wrong.',
+        }
+        return Promise.reject(obj);
     }
 }
 

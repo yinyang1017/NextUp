@@ -23,7 +23,7 @@ import { useAuth } from '../../hooks/useAuth';
 const PlayerDashboard = () => {
   //   const navigation = useNavigation();
   const { user } = useAuth()
-  console.log(user, "player dash")
+  // console.log(user, "player dash")
 
   return (
     <ScrollView

@@ -3,24 +3,29 @@ import { ViewContainer } from "./ViewConatiner";
 import { ScreenHeader } from "./ScreenHeader";
 import { customTheme } from "../../constants";
 import { FormButton } from "./FormInputs";
-
+import { ScrollView } from "react-native-gesture-handler"
 export default function OnBoardingWrapper({
     title = '',
     children,
     label,
     loading,
+    canGoBack = true,
     handleForm = () => null,
     skip = false,
-    onSkip = () => null
+    onSkip = () => null,
+    progress = 10
 }) {
     return <>
-        <KeyboardAwareScrollView >
+        <KeyboardAwareScrollView  >
             <ViewContainer >
-                <ScreenHeader
-                    title={title}
-                />
+                {
+                    canGoBack && <ScreenHeader
+                        title={title}
+                    />
+                }
+
                 <ProgressBar
-                    progress={10}
+                    progress={progress}
                     progressColor={customTheme.colors.blue20}
                     style={{
                         backgroundColor: customTheme.colors.primary,
@@ -32,11 +37,13 @@ export default function OnBoardingWrapper({
                     children
                 }
 
+
             </ViewContainer>
 
 
+
         </KeyboardAwareScrollView>
-        <View marginH-20 >
+        <View paddingH-16 marginB-32 marginT-12 >
             <FormButton
                 onPress={handleForm}
                 loading={loading}
@@ -45,12 +52,11 @@ export default function OnBoardingWrapper({
 
             />
             {
-                skip && <TouchableOpacity marginB-8 onPress={onSkip}>
+                skip && <TouchableOpacity marginT-20 onPress={onSkip}>
                     <Text center white marginB-20
                     >Skip</Text>
                 </TouchableOpacity>
             }
-
         </View>
 
 

@@ -39,17 +39,17 @@ async function insertEvent(data) {
     let task;
     realm.write(() => {
       task = realm.create('game_event', data);
-      console.log('data inserted---', data);
-      // console.log(task._id)
-      // console.log(task.firstPlayerId)
-      // console.log(task.secondPlayerId)
-      // console.log(task.gameAction)
-      // console.log(task.eventTime)
-      // console.log(task.court)
+      // console.log('data inserted---', data);
+      //// console.log(task._id)
+      //// console.log(task.firstPlayerId)
+      //// console.log(task.secondPlayerId)
+      //// console.log(task.gameAction)
+      //// console.log(task.eventTime)
+      //// console.log(task.court)
     });
 
     const res = realm.objects('game_event');
-    console.log('data retrive---', res.length);
+    // console.log('data retrive---', res.length);
     let resData = [];
     res.forEach((obj) => {
       let dataObj = {
@@ -63,13 +63,13 @@ async function insertEvent(data) {
         courtYCoord: obj.courtYCoord,
         quarter: obj.quarter,
       };
-      console.log('data objj---', dataObj);
+      // console.log('data objj---', dataObj);
     });
-    console.log('Data_arrr--', resData);
+    // console.log('Data_arrr--', resData);
     //
     // for (const obj in res) {
     //
-    //   console.log("data objj---", dataObj);
+    //  // console.log("data objj---", dataObj);
     //   resData.push(dataObj);
     // }
     //
@@ -124,9 +124,9 @@ async function insertBluePlayerScore(data) {
     let task;
     realm.write(() => {
       task = realm.create('blue_team_player_score', data, 'modified');
-      console.log('player data inserted---', task);
-      // console.log(task._id)
-      // console.log(task.playerId)
+      // console.log('player data inserted---', task);
+      //// console.log(task._id)
+      //// console.log(task.playerId)
     });
     realm.close();
   }
@@ -168,7 +168,7 @@ async function insertRedPlayerScore(data) {
     let task;
     realm.write(() => {
       task = realm.create('red_team_player_score', data, 'modified');
-      console.log('player data inserted---', task);
+      // console.log('player data inserted---', task);
     });
     realm.close();
   }
@@ -210,9 +210,9 @@ async function insertTeamScore(data) {
     let task;
     realm.write(() => {
       task = realm.create('team_score', data, 'modified');
-      console.log('team score inserted---');
-      console.log(task._id);
-      console.log(task.teamId);
+      // console.log('team score inserted---');
+      // console.log(task._id);
+      // console.log(task.teamId);
     });
     realm.close();
   }
@@ -229,7 +229,7 @@ async function getEventDataFromRealm(cb) {
     let task;
     const res = realm.objects('game_event');
 
-    // console.log("event data retrive---", res)
+    //// console.log("event data retrive---", res)
     let resData = [];
     if (res) {
       res.forEach((obj) => {
@@ -331,8 +331,8 @@ async function insertInitialData(data) {
     let task;
     realm.write(() => {
       task = realm.create('initial_data', data, 'modified');
-      console.log('team score inserted---');
-      console.log(task._id);
+      // console.log('team score inserted---');
+      // console.log(task._id);
     });
     realm.close();
   }
@@ -507,7 +507,7 @@ async function removeInitData(cb) {
     realm.close();
     cb(true);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 

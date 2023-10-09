@@ -186,7 +186,6 @@ const ActiveTeamPlayer = ({
   const [numberList, setNumberList] = useState([]);
   const [bgColor, setBgColor] = useState(Colors.lightBlue);
   useEffect(() => {
-    console.log('user listtt', list);
     setNumberList(list);
     setBgColor(isBlueTeam == false ? Colors.lightBlue : Colors.lightRed);
   }, [list]);

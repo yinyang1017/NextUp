@@ -13,7 +13,7 @@ const SearchPlayers = () => {
   const navigation = useNavigation();
 
   const onSearchPlayers = () => {
-    console.log('API Called');
+    // console.log('API Called');
   };
 
   const onPressShareHandler = () => {
@@ -50,7 +50,7 @@ const SearchPlayers = () => {
     });
     try {
       Share.open(options);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const onPressInviteHandler = () => {

@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { OnBoardingContext } from '../context/OnBoardingProviider';
 import { appImages } from '../constants/appImages';
 import { useGetPlayerStyle } from '../api/onboarding.api';
+import { yupResolver } from "@hookform/resolvers/yup"
+import { tellUsMorePlayer } from '../validations/tellus';
 import { useGetCity, useGetClassOffYears, useGetSchools } from '../api/lookup.api';
 const tellUsMore = {
   typeOfUser: 'PLAYER',
@@ -36,7 +38,9 @@ export const useTellUsMore = () => {
   } = useForm({
     defaultValues: {
       ...tellUsMore,
+
     },
+
   });
   const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
     queryFilter: {

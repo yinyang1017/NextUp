@@ -28,7 +28,7 @@ export const SectionHeader = ({ title }) => {
             value={"Player Stats"}
             fieldType="filter"
             placeholder={'Last 5 games'}
-            onChange={(e) => console.log(e)}
+            onChange={(e) =>// console.log(e)}
             style={{
                 fontSize: FontSize.bodyMediumSemibold_size,
                 color: Color.othersWhite,
