@@ -16,10 +16,10 @@ const StatsContainer = () => {
       id: '12',
       value: 'Player Stats',
     },
-  ];;
+  ];
   const getWidth = width => {
-    return 100 * 0.5;;
-  };;
+    return 100 * 0.5;
+  };
   return (
     <View
       style={{

@@ -13,6 +13,7 @@ import {FontSize, Color} from '../../GlobalStyles';
 import HeaderGreyComponent from '../../../components/common/HeaderGreyComponent';
 import AvatarItem from '../../../components/common/AvatarItem';
 import {hp, wp} from '../../../utils/responsive';
+import {useNavigation} from '@react-navigation/native';
 const pendingPlayers = [
   {
     id: '1',
@@ -90,11 +91,11 @@ const coachData = [
 ];
 
 export default function RosterTab() {
-  const [isExpanded, expand] = useState(false);
+  const navigation = useNavigation();
   const renderSeeAllButton = () => (
     <TouchableOpacity
       style={[styles.seeAllParent, styles.parentFlexBox]}
-      onPress={() => expand(e => !e)}>
+      onPress={() => navigation.navigate('Teams')}>
       <Text style={[styles.seeAll, styles.textTypo1]}>See All</Text>
       <Image
         style={[styles.chevronDownIcon, styles.chevronIconLayout]}
@@ -113,45 +114,6 @@ export default function RosterTab() {
       containerStyle={styles.varsityAvatar}
     />
   );
-
-  const renderNewPlayerItem = (item, index) => {
-    return (
-      <View style={styles.newPlayerItem} key={index}>
-        <AvatarItem
-          title={item.name}
-          image={item.source}
-          titleStyle={styles.whiteText}
-        />
-        {item.id === '1' ? (
-          <View style={styles.rowCenter}>
-            <TouchableOpacity style={styles.varsityButton}>
-              <Text small-x-500 style={styles.whiteText}>
-                {'Varsity'}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.juniorVButton}>
-              <Text small-x-500 style={styles.whiteText}>
-                {'Junior V'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.newPlayerItemButtonRow}>
-            <TouchableOpacity style={styles.rejectButtonView}>
-              <Text medium-500 style={styles.whiteText}>
-                {'Reject'}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.confirmButtonView}>
-              <Text medium-500 style={styles.whiteText}>
-                {'Accept'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-    );
-  };
 
   return (
     <ScrollView containerStyle={styles.container}>
@@ -176,15 +138,10 @@ export default function RosterTab() {
           containerStyle={styles.headerGrey}
           rightContent={renderSeeAllButton}
         />
-        {!isExpanded ? (
-          <View style={styles.varsityListContainer}>
-            {pendingPlayers.map(renderPlayerList)}
-          </View>
-        ) : (
-          <View style={styles.newPlayersListContainer}>
-            {pendingPlayers.map(renderNewPlayerItem)}
-          </View>
-        )}
+
+        <View style={styles.varsityListContainer}>
+          {pendingPlayers.map(renderPlayerList)}
+        </View>
 
         <HeaderGreyComponent
           title="Existing Rosters"

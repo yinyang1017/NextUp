@@ -25,7 +25,9 @@ const SideBySideBarGraph = ({pgsData}) => {
                   })}
                 />
               ) : (
-                <View style={styles.blankBar} />
+                <View
+                  style={rightVal === null ? styles.nullBar : styles.blankBar}
+                />
               )}
             </View>
             <View style={styles.keyContainer}>
@@ -44,7 +46,9 @@ const SideBySideBarGraph = ({pgsData}) => {
                   })}
                 />
               ) : (
-                <View style={styles.blankBar} />
+                <View
+                  style={rightVal === null ? styles.nullBar : styles.blankBar}
+                />
               )}
               {rightVal > 0 ? (
                 <Text style={styles.rightLabel}>{rightVal}</Text>
@@ -71,6 +75,11 @@ const styles = StyleSheet.create({
     color: Colors.compareBar,
     paddingRight: 6,
     fontFamily: Fonts.Bold,
+  },
+  nullBar: {
+    width: '2%',
+    backgroundColor: Colors.emptyBar,
+    height: 12,
   },
   blankBar: {
     width: '90%',
