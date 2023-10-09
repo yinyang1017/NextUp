@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Modal,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  Easing,
-} from 'react-native';
-import { Colors, customTheme } from '../constants';
+import { Text } from 'react-native-ui-lib';
+import { Modal, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { customTheme } from '../constants';
 
 class AppLoader extends React.Component {
   render() {
-    const { onRequestClose, type, visible } = this.props;
+    const { onRequestClose, type, visible, loadingMessage } = this.props;
     return (
       <Modal
         animated
@@ -25,6 +20,7 @@ class AppLoader extends React.Component {
             size={30}
             color={customTheme.colors.light}
           />
+          <Text white>{loadingMessage ?? 'Loading...'} </Text>
         </View>
       </Modal>
     );

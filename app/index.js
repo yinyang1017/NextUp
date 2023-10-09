@@ -13,18 +13,18 @@ export default function App() {
   return (
     <SafeAreaProvider
       style={{ backgroundColor: customTheme.colors.background }}>
-      <AppProviders>
-        <AuthProvider>
-          <StatusBar
-            barStyle={customTheme.statusBarStyle}
-            backgroundColor={customTheme.colors.light.background}
-          />
-          <NavigationContainer theme={customTheme}>
+      <NavigationContainer theme={customTheme}>
+        <AppProviders>
+          <AuthProvider>
+            <StatusBar
+              barStyle={customTheme.statusBarStyle}
+              backgroundColor={customTheme.colors.light.background}
+            />
             <AppLoadignStack />
-          </NavigationContainer>
-        </AuthProvider>
-        <Toast />
-      </AppProviders>
+          </AuthProvider>
+          <Toast />
+        </AppProviders>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

@@ -8,14 +8,22 @@ import {
   RadioGroup,
   RadioButton,
   DateTimePicker,
+  Incubator,
+  ThemeManager,
 } from 'react-native-ui-lib';
 import _ from 'lodash';
 import { customTheme } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SelectableCard } from './SelectableCard';
-import { ActivityIndicator, Pressable } from 'react-native';
 import { wp } from '../../utils/responsive';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Pressable,
+  ScrollView,
+} from 'react-native';
+
 const dropdownIcon = (
   <FontAwesomeIcon
     icon={faChevronDown}
@@ -23,6 +31,33 @@ const dropdownIcon = (
     size={wp(2.5)}
   />
 );
+
+// ThemeManager.setComponentTheme('Picker', {
+//   dropdownIcon,
+// });
+const _renderDialog = modalProps => {
+  const { visible, children, toggleModal, onDone } = modalProps;
+
+  return (
+    <Incubator.Dialog
+      visible={visible}
+      onDismiss={() => {
+        onDone();
+        toggleModal(false);
+      }}
+      useSafeArea
+      height={Dimensions.get('screen').height * 200}
+      width={Dimensions.get('screen').width}
+      spread>
+      <ScrollView
+        style={{
+          backgroundColor: customTheme.colors.background,
+        }}>
+        {children}
+      </ScrollView>
+    </Incubator.Dialog>
+  );
+};
 /**
  * Renders a form input picker component.
  *
@@ -44,8 +79,9 @@ export function FormInputPicker({
   return (
     <View marginV-12 flex marginR-16 style={rootContainerStyle}>
       <Picker
-        topBarProps={{ title: title }}
         showSearch
+        enableModalBlur
+        topBarProps={{ title: title ?? label }}
         renderPicker={() => {
           return (
             <>
@@ -85,7 +121,11 @@ export function FormInputPicker({
         }}>
         {_.map(data, (item, index) => {
           return (
-            <Picker.Item key={index} label={item?.label} value={item?.value} />
+            <Picker.Item
+              key={index}
+              label={item?.label || item}
+              value={item?.value || item}
+            />
           );
         })}
       </Picker>
@@ -197,6 +237,7 @@ export function FormInputField({ label, value, ...props }) {
           borderBottomColor: customTheme.colors.tertiary,
           borderBottomWidth: 1,
           marginRight: customTheme.spacings.spacing_16,
+          flex: 1,
         },
         props.containerStyle,
       ]}
@@ -252,7 +293,9 @@ export function FormButton({
               : customTheme.colors.blue20,
           borderRadius: customTheme.spacings.spacing_16,
           paddingVertical: customTheme.spacings.spacing_12,
-          marginBottom: customTheme.spacings.spacing_48,
+          marginBottom: customTheme.spacings.spacing_32,
+
+          marginTop: 'auto',
         }}>
         <View row center spread>
           <ActivityIndicator

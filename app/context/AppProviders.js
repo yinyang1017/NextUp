@@ -19,10 +19,10 @@ const mutationCache = new MutationCache({
 
 const queryCache = new QueryCache({
   onError(error) {
-    // vmoToast.error(<Toast error message={error.message} />);
+    console.log(error);
+    // vmoToast.error(<Toast error message={error.message} />)
   },
 });
-
 // Create a client
 const queryClient = new QueryClient({
   mutationCache,
