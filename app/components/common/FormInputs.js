@@ -32,9 +32,9 @@ const dropdownIcon = (
   />
 );
 
-// ThemeManager.setComponentTheme('Picker', {
-//   dropdownIcon,
-// });
+ThemeManager.setComponentTheme('Incubator.Picker', {
+  dropdownIcon,
+});
 const _renderDialog = modalProps => {
   const { visible, children, toggleModal, onDone } = modalProps;
 

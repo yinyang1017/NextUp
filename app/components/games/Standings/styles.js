@@ -1,7 +1,5 @@
 import { customTheme } from '../../../constants';
-import { MyColors } from '../../../constants/colors';
 import { hp, wp } from '../../../utils/responsive';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 
 const { StyleSheet } = require('react-native');
 
@@ -17,10 +15,10 @@ const getCellWidthByIndex = index => {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
-    color: MyColors.light,
-    fontSize: FontSize.size_xl,
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_20,
   },
   header: {
     flexDirection: 'row',
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerSeeAllText: {
-    color: MyColors.light + '70',
+    color: customTheme.colors.light + '70',
     textDecorationLine: 'underline',
   },
   dropdownImage: { height: wp(4), width: wp(4), marginLeft: wp(1) },
@@ -50,8 +48,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(1),
   },
   headerText: index => ({
-    color: MyColors.light,
-    fontFamily: FontFamily.robotoRegular,
+    color: customTheme.colors.light,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     width: getCellWidthByIndex(index),
     textAlign: 'center',
     paddingHorizontal: wp(1),
@@ -74,12 +72,12 @@ const styles = StyleSheet.create({
   }),
   tableBodyCellValue: (color, index) => ({
     fontWeight: '700',
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     textAlign: index === 1 ? 'left' : 'center',
     paddingHorizontal: wp(1),
     width: index !== undefined ? getCellWidthByIndex(index) : undefined,
-    color: color || MyColors.light,
-    fontSize: FontSize.size_sm_3,
+    color: color || customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_13,
   }),
   tableBodyCellFlag: {
     height: wp(5),

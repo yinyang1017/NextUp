@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { wp } from '../responsive';
 import { Colors, customTheme } from '../../constants';
-import { FontFamily, FontSize } from '../../views/GlobalStyles';
 
 const Back = ({ onPress, containerStyle = {}, title = '' }) => (
   <View style={[styles.wrapper, containerStyle]}>
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: wp(3),
     color: Colors.light,
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
   },
 });

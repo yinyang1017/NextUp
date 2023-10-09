@@ -5,7 +5,6 @@ import { hp, isAndroid, wp } from '../../../utils/responsive';
 import Back from '../../../utils/HeaderButtons/Back';
 import GameHeader from '../../../components/games/LastGame/GameHeader';
 import LastGameScoreTable from '../../../components/games/LastGame/LastGameScoreTable';
-import { MyColors } from '../../../constants/colors';
 import GameDropdownButton from '../../../components/games/LastGame/GameDropdownButton';
 import QuickBoxScore from '../../../components/games/QuickBoxScore/QuickBoxScore';
 import { useNavigation } from '@react-navigation/native';
@@ -48,7 +47,7 @@ const GameStatistics = () => {
           <GameDropdownButton
             title={'Blue Team'}
             isActive
-            color={MyColors.lightBlue}
+            color={customTheme.colors.lightBlue}
           />
           <GameDropdownButton title={'All Players'} />
         </View>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     marginTop: hp(2),
   },
   gameHeader: {
-    backgroundColor: MyColors.lightDark,
+    backgroundColor: customTheme.colors.lightDark,
     padding: wp(2),
     borderRadius: wp(2),
   },

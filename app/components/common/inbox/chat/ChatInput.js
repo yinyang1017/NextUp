@@ -2,7 +2,6 @@ import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Composer, InputToolbar, Send } from 'react-native-gifted-chat';
 import { hp, wp } from '../../../../utils/responsive';
-import { FontFamily } from '../../../../views/GlobalStyles';
 import { Colors, customTheme } from '../../../../constants';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -63,7 +62,7 @@ export default ChatInput;
 const styles = StyleSheet.create({
   composer: {
     fontSize: 13,
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     color: Colors.light,
   },
   inputContainer: {

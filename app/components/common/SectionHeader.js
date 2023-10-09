@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Color, FontFamily, FontSize } from '../../views/GlobalStyles';
 import { hp } from '../../utils/responsive';
+import { customTheme } from '../../constants';
 
 export const SectionHeader = ({
   title,
@@ -33,17 +33,17 @@ const styles = StyleSheet.create({
     marginVertical: hp(2.5),
   },
   title: {
-    fontSize: FontSize.size_3xl,
-    color: Color.othersWhite,
+    fontSize: customTheme.fontSizes.size_22,
+    color: customTheme.colors.light,
     lineHeight: 22,
     textAlign: 'left',
-    fontFamily: FontFamily.robotoBold,
+    fontFamily: customTheme.fontFamily.robotoBold,
     fontWeight: '600',
   },
   seeAll: {
-    color: Color.royalblue,
+    color: customTheme.colors.royalblue,
     textAlign: 'left',
-    fontSize: FontSize.bodyMediumSemibold_size,
+    fontSize: customTheme.fontSizes.size_14,
   },
   chevronDownIcon: {
     marginLeft: 2,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textTypo1: {
-    fontFamily: FontFamily.robotoMedium,
+    fontFamily: customTheme.fontFamily.robotoMedium,
     fontWeight: '500',
   },
   chevronIconLayout: {

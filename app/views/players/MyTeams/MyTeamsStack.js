@@ -7,8 +7,7 @@ import Roaster from './Roaster';
 import PlayerStats from './Stats';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
-import { Color, FontSize } from '../../GlobalStyles';
-import { MyColors } from '../../../constants/colors';
+import { Color } from '../../GlobalStyles';
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { hp, wp } from '../../../utils/responsive';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -109,9 +108,9 @@ const styles = StyleSheet.create({
   },
   tabItemText: {
     textTransform: 'capitalize',
-    fontSize: FontSize.bodyMediumSemibold_size,
+    fontSize: customTheme.fontSizes.size_14,
     fontWeight: '400',
     color: Color.darkgray_100,
   },
-  activeTabItemtext: { color: MyColors.light, fontWeight: '600' },
+  activeTabItemtext: { color: customTheme.colors.light, fontWeight: '600' },
 });

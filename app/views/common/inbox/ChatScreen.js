@@ -13,10 +13,10 @@ import { useIsFocused, useRoute } from '@react-navigation/native';
 import { useSendChatMessage } from '../../../api/chat.api';
 import EventSource from 'react-native-sse';
 import { baseUrl } from '../../../utils/api-client';
-import { uniqueId } from 'lodash';
 import { useAuth } from '../../../hooks/useAuth';
-import { getUniqueId } from '../../../utils/helper';
 import moment from 'moment';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -44,7 +44,7 @@ const ChatScreen = () => {
       senderName: 'OCHAI AGBAJI',
       senderProfilePictureUrl:
         'https://cdn.nba.com/headshots/nba/latest/1040x760/1630534.png',
-      id: getUniqueId(screenParams?.channelId?.toString()),
+      id: uuidv4(),
       createdAt: moment().toISOString(),
     };
 
@@ -80,7 +80,7 @@ const ChatScreen = () => {
   const onNewMessageReceivedHandler = newMessage => {
     if (newMessage.content) {
       const newMessageInfo = {
-        _id: newMessage?.id || uniqueId('chat-'),
+        _id: newMessage?.id || uuidv4(),
         text: newMessage?.content,
         createdAt: newMessage?.createdAt || new Date(),
         user: { _id: newMessage.senderId || null },

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
-import {
-  FormInputField,
-  FormInputPicker,
-} from '../../../components/common/FormInputs';
+import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +11,7 @@ import SetTimeModal, {
 } from '../../../components/common/SetTimeModal';
 import moment from 'moment';
 import CalendarModal from '../../../components/common/CalendarModal';
+import SelectionDropdown from '../../../components/common/SelectionDropdown';
 
 const getInitialTimeData = () => {
   const timeData = getStaticTimeData();
@@ -119,35 +117,24 @@ export const CreatePractice = () => {
         onPress={gobackHandler}
       />
       <View style={styles.dropdownSelectionBody}>
-        <FormInputPicker
-          label={'Location'}
-          rootContainerStyle={styles.locationDropdown}
-        />
+        <SelectionDropdown title={'Location'} />
         <View style={styles.datTimeRowDropdown}>
-          <View style={styles.dateTimeDropdownContainer}>
-            <TouchableOpacity
-              onPress={openDateCalendarHandler}
-              style={styles.transparentTouchbaleOverlay}
-            />
-            <FormInputPicker
-              label={'date'}
-              rootContainerStyle={styles.locationDropdown}
-              value={dateValue}
-            />
-          </View>
-          <View style={styles.dateTimeDropdownContainer}>
-            <TouchableOpacity
-              onPress={openTimePickerHandler}
-              style={styles.transparentTouchbaleOverlay}
-            />
-            <FormInputPicker
-              label={'Time'}
-              rootContainerStyle={styles.locationDropdown}
-              value={timeValue}
-            />
-          </View>
+          <SelectionDropdown
+            title={'Date'}
+            isPicker={false}
+            onPressValue={openDateCalendarHandler}
+            containerStyle={styles.dateTimeDropdown}
+            value={dateValue}
+          />
+          <SelectionDropdown
+            title={'Time'}
+            isPicker={false}
+            onPressValue={openTimePickerHandler}
+            containerStyle={styles.dateTimeDropdown}
+            value={timeValue}
+          />
         </View>
-        <FormInputField label={'Tag'} />
+        <FormInputField label={'Tag'} containerStyle={styles.tagInput} />
       </View>
       <PrimaryButton style={styles.button} title={'Schedule'} />
       <SetTimeModal
@@ -177,16 +164,17 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   back: { marginTop: hp(2), marginLeft: wp(5) },
   button: { marginHorizontal: wp(8), marginTop: 'auto', marginBottom: hp(4) },
-  dropdownSelectionBody: { marginHorizontal: wp(6), marginTop: wp(7) },
-  locationDropdown: { flex: 0 },
+  dropdownSelectionBody: {
+    marginHorizontal: wp(6),
+    marginTop: hp(5),
+    rowGap: hp(5),
+  },
   datTimeRowDropdown: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    columnGap: wp(4),
   },
-  transparentTouchbaleOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 2,
-  },
-  dateTimeDropdownContainer: { width: '50%' },
+  dateTimeDropdown: { flex: 1 },
+  tagInput: { flex: 0, marginTop: 0, marginRight: 0 },
 });

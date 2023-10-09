@@ -2,10 +2,9 @@ import React from 'react';
 import { View, Text, Image } from 'react-native-ui-lib';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { FontSize, FontFamily, Color } from '../../../views/GlobalStyles';
+import { Color } from '../../../views/GlobalStyles';
 import TeamItem from '../../common/TeamItem';
 import { hp, wp } from '../../../utils/responsive';
-import { MyColors } from '../../../constants/colors';
 import { customTheme } from '../../../constants';
 
 export const TeamsBar = () => {
@@ -53,11 +52,11 @@ export const TeamsBar = () => {
 
 const styles = StyleSheet.create({
   vamTypo1: {
-    fontFamily: FontFamily.robotoBold,
+    fontFamily: customTheme.fontFamily.robotoBold,
     fontWeight: '600',
   },
   myTeams: {
-    fontSize: FontSize.size_3xl,
+    fontSize: customTheme.fontSizes.size_22,
     color: Color.othersWhite,
   },
   plusIconView: {
@@ -83,8 +82,8 @@ const styles = StyleSheet.create({
   },
   plusIconAddText: {
     color: customTheme.colors.btnBg,
-    fontSize: FontSize.bodyMediumSemibold_size,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     paddingBottom: hp(1),
     paddingTop: hp(1.5),
     textAlign: 'center',
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
     width: wp(4),
   },
   yearText: {
-    fontSize: FontSize.size_smi,
-    color: MyColors.light,
+    fontSize: customTheme.fontSizes.size_13,
+    color: customTheme.colors.light,
   },
 });

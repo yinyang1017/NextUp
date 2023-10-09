@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { wp } from '../../utils/responsive';
 import { customTheme } from '../../constants';
-import { FontSize } from '../../views/GlobalStyles';
 
 const AddButtonWithIcon = ({ onPress }) => {
   return (
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
   },
   addText: {
     color: customTheme.colors.btnBg,
-    fontSize: FontSize.size_smi,
+    fontSize: customTheme.fontSizes.size_13,
     fontWeight: '600',
   },
   plusIcon: { width: wp(3.5), height: wp(3.5) },

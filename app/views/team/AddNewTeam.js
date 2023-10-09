@@ -1,21 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../utils/HeaderButtons/Back';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../utils/responsive';
 import ImageUpload from '../../components/common/ImageUpload';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { MyColors } from '../../constants/colors';
-import { FontFamily, FontSize } from '../GlobalStyles';
-import { Colors } from '../../constants';
+import { Colors, customTheme } from '../../constants';
 import SelectionDropdown from '../../components/common/SelectionDropdown';
 import PrimaryButton from '../../components/common/PrimaryButton';
+import {
+  useGetListOfClasses,
+  useGetListOfSchools,
+  useGetListOfStatesAndCities,
+} from '../../api/onboarding.api';
+import { FormInputField } from '../../components/common/FormInputs';
 
 const AddNewTeam = () => {
   const navigation = useNavigation();
+  const isFocus = useIsFocused();
+
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedHighSchoolCoaching, setSelectedHighSchoolCoaching] =
+    useState(' ');
+
+  const { data: schoolsData, mutate: getListOfSchools } = useGetListOfSchools();
+  const { data: classesData, mutate: getListOfClasses } = useGetListOfClasses();
+  const { data: stateAndCitiesData, mutate: getListOfStatesAndCities } =
+    useGetListOfStatesAndCities();
 
   const [selectedOption, setSelectedOption] = useState('highSchool');
+
+  useEffect(() => {
+    if (isFocus) {
+      getListOfSchools();
+      getListOfClasses();
+      getListOfStatesAndCities();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocus]);
 
   const HighSchoolForm = useCallback(() => {
     return (
@@ -23,23 +46,54 @@ const AddNewTeam = () => {
         <SelectionDropdown
           containerStyle={{ marginTop: hp(4) }}
           title={'Select Coaching'}
-          value={'ABC School'}
+          value={selectedHighSchoolCoaching}
+          data={schoolsData?.data || []}
+          renderItem={(item, index) => {
+            return (
+              <TouchableOpacity
+                style={styles.dataItem}
+                onPress={() => {
+                  setSelectedHighSchoolCoaching(item.name);
+                }}>
+                <Text style={styles.dataTitle}>{item.name}</Text>
+              </TouchableOpacity>
+            );
+          }}
         />
         <SelectionDropdown
           containerStyle={{ marginTop: hp(3) }}
           title={'Select Team'}
-          value={'2019'}
+          value={selectedYear}
+          data={classesData?.data || []}
+          onChange={setSelectedYear}
+          renderItem={(item, index) => {
+            return (
+              <TouchableOpacity
+                style={styles.dataItem}
+                onPress={() => {
+                  setSelectedYear(item);
+                }}>
+                <Text style={styles.dataTitle}>{item}</Text>
+              </TouchableOpacity>
+            );
+          }}
         />
       </>
     );
-  }, []);
+  }, [
+    schoolsData,
+    selectedYear,
+    classesData,
+    selectedHighSchoolCoaching,
+    setSelectedYear,
+  ]);
 
   const TravelTeamForm = useCallback(() => {
     return (
       <>
-        <SelectionDropdown
-          containerStyle={{ marginTop: hp(4) }}
-          title={'Name'}
+        <FormInputField
+          containerStyle={{ flex: 0, marginTop: hp(4) }}
+          label={'Name'}
           value={'ABC School'}
         />
         <View style={styles.rowCenterSpaceBetween}>
@@ -85,7 +139,7 @@ const AddNewTeam = () => {
           <RadioButton
             value={'highSchool'}
             label={'High School'}
-            color={MyColors.btnBg}
+            color={customTheme.colors.btnBg}
             size={wp(5)}
             labelStyle={
               selectedOption === 'highSchool'
@@ -96,7 +150,7 @@ const AddNewTeam = () => {
           <RadioButton
             value={'travelTeam'}
             label={'Travel Team'}
-            color={MyColors.btnBg}
+            color={customTheme.colors.btnBg}
             size={wp(5)}
             labelStyle={
               selectedOption === 'travelTeam'
@@ -130,21 +184,21 @@ const styles = StyleSheet.create({
   },
   selectOptionText: {
     marginVertical: hp(1.5),
-    color: MyColors.txtFieldPlaceHolder,
+    color: customTheme.colors.txtFieldPlaceHolder,
     textTransform: 'uppercase',
-    fontSize: FontSize.size_xs,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
   },
   selectedRadioButtonLabel: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
     fontWeight: '600',
     color: Colors.light,
   },
   radioButtonLabel: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
     color: Colors.light + '70',
     fontWeight: '600',
   },
@@ -159,5 +213,15 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(8),
     marginTop: 'auto',
     marginBottom: hp(2),
+  },
+  dataTitle: {
+    marginHorizontal: wp(4),
+    marginVertical: hp(2),
+    fontSize: customTheme.fontSizes.size_16,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+  },
+  dataItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: customTheme.colors.slate_gray,
   },
 });

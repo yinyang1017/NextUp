@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { FontSize } from '../../../../views/GlobalStyles';
 import { wp } from '../../../../utils/responsive';
 import { customTheme } from '../../../../constants';
 
@@ -9,7 +8,7 @@ const commonChatStyles = StyleSheet.create({
     alignItems: 'flex-end',
   }),
   dateTimeText: {
-    fontSize: FontSize.size_sm_3,
+    fontSize: customTheme.fontSizes.size_13,
     fontWeight: '500',
     color: customTheme.colors.Gray98 + '30',
   },

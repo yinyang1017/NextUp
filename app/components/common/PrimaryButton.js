@@ -1,8 +1,7 @@
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
 import { hp, wp } from '../../utils/responsive';
-import { MyColors } from '../../constants/colors';
-import { FontFamily, FontSize } from '../../views/GlobalStyles';
+import { customTheme } from '../../constants';
 
 const PrimaryButton = ({
   title,
@@ -32,16 +31,16 @@ export default PrimaryButton;
 const styles = StyleSheet.create({
   button: {
     paddingVertical: hp(2),
-    backgroundColor: MyColors.btnBg,
+    backgroundColor: customTheme.colors.btnBg,
     borderRadius: wp(20),
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
   title: {
-    fontFamily: FontFamily.robotoRegular,
-    color: MyColors.light,
-    fontSize: FontSize.size_mini,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_15,
     fontWeight: '700',
   },
   pressed: { opacity: 0.7 },
