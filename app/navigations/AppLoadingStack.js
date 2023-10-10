@@ -15,6 +15,7 @@ import AddLineup from '../views/players/MyTeams/AddLineup';
 import LineupDetails from '../views/players/MyTeams/LineupDetails';
 import { CreatePractice } from '../views/players/MyTeams/CreatePractice';
 import { PlayerStack } from './PlayerStack';
+import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -58,6 +59,10 @@ export default function AppLoadignStack() {
           <Stack.Screen name="AddLineup" component={AddLineup} />
           <Stack.Screen name="LineupDetails" component={LineupDetails} />
           <Stack.Screen name="CreatePractice" component={CreatePractice} />
+          <Stack.Screen
+            name="CoachViewPlayerDetails"
+            component={CoachViewPlayerDetails}
+          />
         </Stack.Group>
       )}
     </Stack.Navigator>

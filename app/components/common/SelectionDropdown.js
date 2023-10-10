@@ -11,12 +11,9 @@ const SelectionDropdown = ({
   isPicker = true,
   onPressValue = () => {},
   data = [],
-  onSelectValue = () => {},
+  onSelectItem = () => {},
   renderItem,
-  onChange = () => {},
 }) => {
-  console.log('🚀 ~ file: SelectionDropdown.js:15 ~ data:', data);
-
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.selectionRow}>
@@ -30,22 +27,22 @@ const SelectionDropdown = ({
       </View>
       {isPicker ? (
         <Picker
+          listProps={{ contentContainerStyle: { paddingBottom: hp(5) } }}
           renderPicker={() => (
             <Text numberOfLines={1} style={styles.valueText}>
               {value}
             </Text>
           )}
           searchStyle={{ placeholderTextColor: customTheme.colors.primary }}
-          value={value}
-          onChange={renderItem ? undefined : onChange}>
+          value={value}>
           {renderItem
             ? data.map(renderItem)
             : data.map(item => (
-                <TouchableOpacity
-                  style={styles.dataItem}
-                  onPress={() => onSelectValue(item)}>
-                  <Text style={styles.dataTitle}>{item}</Text>
-                </TouchableOpacity>
+                <Picker.Item
+                  onPress={() => onSelectItem(item)}
+                  label={item}
+                  value={item}
+                />
               ))}
         </Picker>
       ) : (
@@ -87,14 +84,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dropdownIcon: { height: wp(4), width: wp(4) },
-  dataTitle: {
-    marginHorizontal: wp(4),
-    marginVertical: hp(2),
-    fontSize: customTheme.fontSizes.size_16,
-    fontFamily: customTheme.fontFamily.robotoRegular,
-  },
-  dataItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: customTheme.colors.slate_gray,
-  },
 });

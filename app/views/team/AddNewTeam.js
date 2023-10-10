@@ -1,12 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../utils/HeaderButtons/Back';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../utils/responsive';
 import ImageUpload from '../../components/common/ImageUpload';
-import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { Colors, customTheme } from '../../constants';
+import { Picker } from 'react-native-ui-lib';
+import { customTheme } from '../../constants';
 import SelectionDropdown from '../../components/common/SelectionDropdown';
 import PrimaryButton from '../../components/common/PrimaryButton';
 import {
@@ -14,20 +14,32 @@ import {
   useGetListOfSchools,
   useGetListOfStatesAndCities,
 } from '../../api/onboarding.api';
-import { FormInputField } from '../../components/common/FormInputs';
+import {
+  FormInputField,
+  FormRadioGroup,
+} from '../../components/common/FormInputs';
+import { times } from 'lodash';
 
 const AddNewTeam = () => {
   const navigation = useNavigation();
   const isFocus = useIsFocused();
 
-  const [selectedYear, setSelectedYear] = useState('');
+  // High School Option
+  const [selectedTeamYear, setSelectedTeamYear] = useState(' ');
   const [selectedHighSchoolCoaching, setSelectedHighSchoolCoaching] =
     useState(' ');
 
+  // Travel Team Option
+  const [selectedState, setSelectedState] = useState(' ');
+  const [selectedCity, setSelectedCity] = useState(' ');
+  const [citiesData, setCitiesData] = useState([]);
+  const [selectedAge, setSelectedAge] = useState(' ');
+
   const { data: schoolsData, mutate: getListOfSchools } = useGetListOfSchools();
   const { data: classesData, mutate: getListOfClasses } = useGetListOfClasses();
-  const { data: stateAndCitiesData, mutate: getListOfStatesAndCities } =
+  const { data: statesData, mutate: getListOfStates } =
     useGetListOfStatesAndCities();
+  const { mutate: getListOfCities } = useGetListOfStatesAndCities();
 
   const [selectedOption, setSelectedOption] = useState('highSchool');
 
@@ -35,10 +47,23 @@ const AddNewTeam = () => {
     if (isFocus) {
       getListOfSchools();
       getListOfClasses();
-      getListOfStatesAndCities();
+      getListOfStates();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocus]);
+
+  useEffect(() => {
+    if (selectedState) {
+      setSelectedCity(' ');
+      getListOfCities(
+        { state: selectedState },
+        { onSuccess: data => setCitiesData(data.data) },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedState]);
+
+  const ageData = useMemo(() => times(5).map(i => i + 13 + '  Under'), []);
 
   const HighSchoolForm = useCallback(() => {
     return (
@@ -48,51 +73,40 @@ const AddNewTeam = () => {
           title={'Select Coaching'}
           value={selectedHighSchoolCoaching}
           data={schoolsData?.data || []}
-          renderItem={(item, index) => {
+          renderItem={item => {
             return (
-              <TouchableOpacity
-                style={styles.dataItem}
+              <Picker.Item
                 onPress={() => {
                   setSelectedHighSchoolCoaching(item.name);
-                }}>
-                <Text style={styles.dataTitle}>{item.name}</Text>
-              </TouchableOpacity>
+                }}
+                label={item.name}
+                value={item.name}
+              />
             );
           }}
         />
         <SelectionDropdown
           containerStyle={{ marginTop: hp(3) }}
           title={'Select Team'}
-          value={selectedYear}
+          value={selectedTeamYear}
           data={classesData?.data || []}
-          onChange={setSelectedYear}
-          renderItem={(item, index) => {
-            return (
-              <TouchableOpacity
-                style={styles.dataItem}
-                onPress={() => {
-                  setSelectedYear(item);
-                }}>
-                <Text style={styles.dataTitle}>{item}</Text>
-              </TouchableOpacity>
-            );
-          }}
+          onSelectItem={setSelectedTeamYear}
         />
       </>
     );
   }, [
     schoolsData,
-    selectedYear,
+    selectedTeamYear,
     classesData,
     selectedHighSchoolCoaching,
-    setSelectedYear,
+    setSelectedTeamYear,
   ]);
 
   const TravelTeamForm = useCallback(() => {
     return (
       <>
         <FormInputField
-          containerStyle={{ flex: 0, marginTop: hp(4) }}
+          containerStyle={styles.schoolNameInput}
           label={'Name'}
           value={'ABC School'}
         />
@@ -100,22 +114,35 @@ const AddNewTeam = () => {
           <SelectionDropdown
             containerStyle={styles.dropdownWithLimitedWidth}
             title={'State'}
-            value={'ABC School'}
+            value={selectedState}
+            data={statesData?.data || []}
+            onSelectItem={setSelectedState}
           />
           <SelectionDropdown
             containerStyle={styles.dropdownWithLimitedWidth}
             title={'City'}
-            value={'Albemarle School'}
+            value={selectedCity}
+            data={citiesData || []}
+            onSelectItem={setSelectedCity}
           />
         </View>
         <SelectionDropdown
           containerStyle={styles.dropdownWithLimitedWidth}
           title={'Age'}
-          value={'25'}
+          value={selectedAge}
+          data={ageData}
+          onSelectItem={setSelectedAge}
         />
       </>
     );
-  }, []);
+  }, [
+    ageData,
+    citiesData,
+    selectedAge,
+    selectedCity,
+    selectedState,
+    statesData,
+  ]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -131,34 +158,15 @@ const AddNewTeam = () => {
         containerStyle={styles.imageUploadContainer}
       />
       <View style={styles.selectOptionsContainer}>
-        <Text style={styles.selectOptionText}>Option</Text>
-        <RadioGroup
-          style={styles.radioGroup}
-          initialValue={selectedOption}
-          onValueChange={setSelectedOption}>
-          <RadioButton
-            value={'highSchool'}
-            label={'High School'}
-            color={customTheme.colors.btnBg}
-            size={wp(5)}
-            labelStyle={
-              selectedOption === 'highSchool'
-                ? styles.selectedRadioButtonLabel
-                : styles.radioButtonLabel
-            }
-          />
-          <RadioButton
-            value={'travelTeam'}
-            label={'Travel Team'}
-            color={customTheme.colors.btnBg}
-            size={wp(5)}
-            labelStyle={
-              selectedOption === 'travelTeam'
-                ? styles.selectedRadioButtonLabel
-                : styles.radioButtonLabel
-            }
-          />
-        </RadioGroup>
+        <FormRadioGroup
+          label="option"
+          radioValues={[
+            { label: 'High School', value: 'highSchool' },
+            { label: 'Travel Team', value: 'travelTeam' },
+          ]}
+          value={selectedOption}
+          onValueChange={setSelectedOption}
+        />
 
         {selectedOption === 'highSchool' ? (
           <HighSchoolForm />
@@ -182,27 +190,6 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(8),
     marginTop: hp(2),
   },
-  selectOptionText: {
-    marginVertical: hp(1.5),
-    color: customTheme.colors.txtFieldPlaceHolder,
-    textTransform: 'uppercase',
-    fontSize: customTheme.fontSizes.size_12,
-    fontFamily: customTheme.fontFamily.robotoRegular,
-    fontWeight: '700',
-  },
-  selectedRadioButtonLabel: {
-    fontFamily: customTheme.fontFamily.robotoRegular,
-    fontSize: customTheme.fontSizes.size_16,
-    fontWeight: '600',
-    color: Colors.light,
-  },
-  radioButtonLabel: {
-    fontFamily: customTheme.fontFamily.robotoRegular,
-    fontSize: customTheme.fontSizes.size_16,
-    color: Colors.light + '70',
-    fontWeight: '600',
-  },
-  radioGroup: { flexDirection: 'row', gap: wp(7) },
   rowCenterSpaceBetween: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -224,4 +211,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: customTheme.colors.slate_gray,
   },
+  schoolNameInput: { flex: 0, marginTop: hp(4) },
 });

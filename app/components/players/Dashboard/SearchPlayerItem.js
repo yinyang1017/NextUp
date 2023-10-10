@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Checkbox } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
@@ -13,9 +13,9 @@ const PointsInfoItem = ({ title, value }) => {
   );
 };
 
-const SearchPlayerItem = () => {
+const SearchPlayerItem = ({ onPress }) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image
         source={require('../../../assets/avatar2.png')}
         style={styles.image}
@@ -35,7 +35,7 @@ const SearchPlayerItem = () => {
         size={wp(5.5)}
         borderRadius={wp(1)}
       />
-    </View>
+    </Pressable>
   );
 };
 
