@@ -10,6 +10,8 @@ import {
   Color,
   Border,
 } from '../../../views/GlobalStyles';
+import TeamItem from '../../common/TeamItem';
+import {hp} from '../../../utils/responsive';
 
 /**
  * 😎 Anthony Lin Says:
@@ -43,55 +45,14 @@ export const TeamsBar = () => {
     <View style={styles.myTeamsParent}>
       <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
       <View style={styles.teamNamesRow}>
-        {_teams.map(team => (
-          <View style={styles.typenotSeenStoryComponentParent} key={team.id}>
-            <View style={styles.typenotSeenStoryComponent}>
-              <Image
-                style={styles.frameIcon}
-                resizeMode="cover"
-                source={team.img}
-              />
-              <Text style={[styles.name, styles.nameTypo]}>Aubrey</Text>
-            </View>
-            <View style={styles.aauTeamWrapper}>
-              <Text style={[styles.aauTeam, styles.aauTeamTypo]}>
-                {team.name}
-              </Text>
-            </View>
-          </View>
+        {_teams.map(el => (
+          <TeamItem imageSource={el.img} name={el.name} />
         ))}
         {_teams.length < 3 && (
-          <View style={styles.frameContainer}>
-            <View>
-              <Pressable onPress={() => navigation.navigate('CoAddTeam')}>
-                <LinearGradient
-                  style={styles.addButtonChild}
-                  locations={[0, 1]}
-                  colors={['#3f424d', '#323640']}
-                  useAngle={true}
-                  angle={223.47}
-                />
-                <Image
-                  style={styles.addButtonItem}
-                  resizeMode="cover"
-                  source={require('../../../assets/ellipse-685.png')}
-                />
-                <Image
-                  style={[styles.addButtonInner, styles.text1Position]}
-                  resizeMode="cover"
-                  source={require('../../../assets/ellipse-686.png')}
-                />
-                <Image
-                  style={[styles.plusIcon, styles.plusIconPosition]}
-                  resizeMode="cover"
-                  source={require('../../../assets/plus.png')}
-                />
-              </Pressable>
-            </View>
-            <Text style={[styles.highSchoolTeam1, styles.highTypo]}>
-              Add Team
-            </Text>
-          </View>
+          <TeamItem
+            imageSource={require('../../../assets/images/CoachDasAddTeamIcon.png')}
+            name="Add Team"
+          />
         )}
       </View>
     </View>
@@ -460,6 +421,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   typenotSeenStoryComponentParent: {
+    display: 'flex',
     alignItems: 'center',
     alignSelf: 'stretch',
     flex: 1,
@@ -486,13 +448,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   addButtonItem: {
-    top: -5,
-    left: -5,
+    // top: -5,
+    // left: -5,
+    // transform: [{translateY: -50}, {translateX: -50}],
     zIndex: 1,
-    opacity: 0.14,
-    width: 43,
-    position: 'absolute',
-    height: 42,
+    opacity: 1,
+    width: 80,
+    // position: 'absolute',
+    height: 80,
   },
   addButtonInner: {
     width: 45,
@@ -519,11 +482,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   teamNamesRow: {
-    marginTop: 10,
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    marginTop: hp(1.2),
     flexDirection: 'row',
-    alignSelf: 'stretch',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
   },
   myTeamsParent: {
     marginTop: 20,
