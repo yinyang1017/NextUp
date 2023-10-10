@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ScheduleCalendar from '../views/common/calendar/ScheduleCalendar';
 import { Text } from 'react-native-ui-lib';
-import MyAccount from '../views/common/account/PlayerAccount';
+import MyAccountStack from './MyAccountStack';
 import MyTeamsStack from '../views/players/MyTeams/MyTeamsStack';
 import Inbox from '../views/common/inbox/Inbox';
 
@@ -111,7 +111,7 @@ export function PlayerStack() {
       />
       <Tab.Screen
         name="Account"
-        component={MyAccount}
+        component={MyAccountStack}
         options={{
           tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>My Account</Text>;

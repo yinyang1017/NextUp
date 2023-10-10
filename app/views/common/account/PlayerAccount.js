@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../../hooks/useAuth";
 
-export default function MyAccount() {
+export default function PlayerAccount() {
     const [dialog, setDialog] = useState({
         logout: false
     })
@@ -19,7 +19,10 @@ export default function MyAccount() {
     const profileMenuOptions = [
         {
             name: 'My Profile',
-            icon: faUser
+            icon: faUser,
+            onPress: () => {
+                navigation.navigate('PlayerAccountDetails')
+            }
         },
         {
             name: 'Subscriptions',
