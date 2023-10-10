@@ -1,7 +1,7 @@
 import React from 'react';
 import {customTheme} from '../constants';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Dashboard from '../views/players/Dashboard';
+import Dashboard from '../views/players/DashBoard';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faCalendar,
