@@ -1,14 +1,28 @@
-import { Text, View, ScrollView, StyleSheet, ImageBackground, Dimensions } from "react-native"
+import { ScrollView, StyleSheet, ImageBackground, Dimensions, SafeAreaView } from "react-native"
 import { Padding } from "../GlobalStyles"
-import { Colors, Image, TabController } from "react-native-ui-lib"
+import { Colors, Image, View, Text } from "react-native-ui-lib"
 import _ from "lodash"
 import { customTheme } from "../../../constants"
+import { CustomTabView } from "../../../components/common/CustomTabView"
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
+import { ViewContainer } from "../../../components/common/ViewConatiner"
+const tabScreenOptions = { headerShown: true };
+const TopTab = createMaterialTopTabNavigator();
+
+const PlayerAccountStats = () => (
+    <Text>This is stats Component</Text>
+)
+const ReadyToPro = () => {
+    return <Text>This is ReadyToPro Component</Text>
+}
 const PlayerAccountDetails = () => {
     return <ScrollView
         style={styles.playerDash}
         showsVerticalScrollIndicator={true}
         showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.playerDashScrollViewContent}
+        contentContainerStyle={{
+            backgroundColor: customTheme.colors.background
+        }}
     >
         <Image
             source={{
@@ -52,35 +66,23 @@ const PlayerAccountDetails = () => {
                         color: Colors.white,
                         fontFamily: customTheme.fontFamily.robotoBold,
                         fontSize: customTheme.fontSizes.size_16,
-                    }}>Power Forward <Text> | </Text> <Text>Los Angeles Lakers</Text> </Text>
+                    }}>Power Forward <Text white> | </Text> <Text white>Los Angeles Lakers</Text> </Text>
                 </View>
 
 
             </View>
-            {/* Page Tabs */}
-
-            {/* end */}
         </View>
-        <View>
-            <TabController items={[{ label: 'First' }, { label: 'Second' }, { label: 'Third' }]}>
-                <TabController.TabBar enableShadows backgroundColor={Colors.$backgroundDark}
-                    selectedLabelColor="white"
-                    labelStyle={{
-                        color: Colors.white
-                    }} indicatorStyle={{
-                        backgroundColor: Colors.white,
-
-                    }} />
-                <View flex>
-                    <TabController.TabPage index={0} >
-                        <Text>First tab</Text>
-                    </TabController.TabPage>
-                    {/* <TabController.TabPage index={1} lazy>{renderSecondPage()}</TabController.TabPage>
-                    <TabController.TabPage index={2} lazy>{renderThirdPage()}</TabController.TabPage> */}
-                </View>
-            </TabController>
-        </View>
-
+        <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+            <TopTab.Navigator tabBar={props => <CustomTabView {...props} />} >
+                <TopTab.Screen options={{ tabBarLabel: 'Stats' }} name="PlayerAccountStats" component={PlayerAccountStats} />
+                <TopTab.Screen options={{
+                    tabBarLabel: 'Ready to Pro'
+                }} name="PlayerAccountReadyToPro" component={ReadyToPro} />
+                <TopTab.Screen options={{
+                    tabBarLabel: 'Highlights'
+                }} name="PlayerAccountHighlights" component={ReadyToPro} />
+            </TopTab.Navigator>
+        </SafeAreaView>
 
     </ScrollView>
 }
@@ -89,11 +91,11 @@ export default PlayerAccountDetails
 const styles = StyleSheet.create({
     playerDash: {
         flex: 1,
-        backgroundColor: Colors.$backgroundDark
+        backgroundColor: customTheme.colors.background
     },
     frameParentSpaceBlock1: {
         paddingHorizontal: customTheme.spacings.spacing_16,
-        backgroundColor: Colors.$backgroundDark,
+        backgroundColor: customTheme.colors.background,
 
     },
 })
