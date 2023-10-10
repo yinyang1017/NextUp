@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import DashBoardHeader from '../../../components/common/DashBoardHeader';
 import {MyTeams, TeamsBar} from '../../../components/players/Dashboard/MyTeams';
 import {UpcomingGames} from '../../../components/players/Dashboard/EventsCarousel';
@@ -25,7 +25,7 @@ import MatchUp from '../../../components/players/Dashboard/MatchUp';
 import {Padding} from '../../GlobalStyles';
 
 const PlayerDashboard = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <ScrollView
@@ -45,6 +45,11 @@ const PlayerDashboard = () => {
       <View style={styles.compareButtonContainer}>
         <Button
           label={'Compare Teams'}
+          onPress={() => {
+            navigation.navigate('Home', {
+              screen: 'TeamCompare',
+            });
+          }}
           backgroundColor={customTheme.colors.darkYellow}
           style={{
             width: Dimensions.get('window').width * 0.9,
