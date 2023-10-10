@@ -17,7 +17,9 @@ export default function SelectionHeader({
   season,
   allSeason,
   selectSeason,
+  selectPlayer,
   homePlayerData,
+  awayPlayerData,
 }) {
   console.log(homePlayerData);
   const [isExpanded, setExpand] = useState(false);
@@ -148,7 +150,7 @@ export default function SelectionHeader({
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onPress={() => this.setState({openPlayerModal: true})}>
+        onPress={selectPlayer}>
         <Image
           source={require('../../../assets/add.png')}
           style={{
@@ -258,7 +260,9 @@ export default function SelectionHeader({
             resizeMode={'contain'}
           />
         </View>
-        <View style={{width: '40%'}}>{renderRightSide(homePlayerData)}</View>
+        <View style={{width: '40%'}}>
+          {awayPlayerData ? renderRightSide(awayPlayerData) : renderAddIcon()}
+        </View>
       </View>
 
       <Modal animationType="fade" transparent={true} visible={isExpanded}>
@@ -319,8 +323,6 @@ export default function SelectionHeader({
               />
             </View>
           </TouchableOpacity>
-
-          {/* </BlurView> */}
         </TouchableOpacity>
       </Modal>
     </View>

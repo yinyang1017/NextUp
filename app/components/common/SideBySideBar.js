@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Bold,
   },
   nullBar: {
-    width: '2%',
+    width: '5%',
     backgroundColor: Colors.emptyBar,
     height: 12,
   },
