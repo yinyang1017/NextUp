@@ -20,7 +20,7 @@ export default function OnBoardingStack() {
   return (
     <OnBoardingProvider>
       <Stack.Navigator
-        initialRouteName={onBoardingDone ? 'PhotoUpload' : 'TellUsMore'}
+        initialRouteName={!onBoardingDone ? 'PhotoUpload' : 'TellUsMore'}
         screenOptions={{
           headerShown: false,
           cardStyle: {

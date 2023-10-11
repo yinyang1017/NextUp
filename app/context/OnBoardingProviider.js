@@ -11,9 +11,9 @@ const COCH_STEP = 4
 export default function OnBoardingProvider({ children }) {
     const [onBoarding, setOnBoarding] = useState({})
     const navigation = useNavigation()
-    const { user, updateOnBoarding } = useAuth()
+    const { user, updateOnBoarding, onRecheckingAuth } = useAuth()
     const { data: states } = useGetState()
-    const { mutate, isLoading: isPlayerLoading } = usePlayerOnBoardingRegister({
+    const { mutate, isLoading: isPlayerLoading, } = usePlayerOnBoardingRegister({
         onSuccess: data => {
             console.log(data, "data")
             if (data?.success) {
@@ -21,7 +21,12 @@ export default function OnBoardingProvider({ children }) {
                     title: 'Success',
                     body: 'Player On Boarding Successfully'
                 })
-                navigation.navigate('PhotoUpload')
+                navigation.navigate('PhotoUpload', {
+                    isCoach
+                })
+                // if()
+                // onRecheckingAuth()
+
             } else {
                 errorToast({
                     title: 'Error',
@@ -37,7 +42,7 @@ export default function OnBoardingProvider({ children }) {
             if (data?.success) {
                 successToast({
                     title: 'Success',
-                    body: 'Player On Boarding Successfully'
+                    body: 'Coach On Boarding Successfully'
                 })
                 navigation.navigate('PhotoUpload')
             } else {
@@ -107,9 +112,6 @@ export default function OnBoardingProvider({ children }) {
             ],
             onBoardingTeamName: onBoarding?.onBoardingTeamName ?? "",
             typeOfUser: 'COACH',
-            email: user?.personalInfo?.email ?? "",
-            firstName: onBoarding?.firstName ?? "",
-            lastNmame: onBoarding?.lastName ?? "",
             schoolInfo: {
                 city: onBoarding?.schoolInfo?.city ?? '',
                 state: onBoarding?.schoolInfo?.state ?? '',
@@ -123,6 +125,11 @@ export default function OnBoardingProvider({ children }) {
                 state: onBoarding?.coachingType?.state ?? "",
                 city: onBoarding?.coachingType?.city ?? "",
             },
+            personalInfo: {
+                email: user?.personalInfo?.email ?? "",
+                firstName: onBoarding?.firstName ?? "",
+                lastNmame: onBoarding?.lastName ?? "",
+            }
 
         }
         console.log(dataToSend, "data to send")

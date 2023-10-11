@@ -6,7 +6,7 @@ import { appImages } from '../../../constants/appImages';
 import { Dimensions, ImageBackground } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useUpload } from '../../../hooks/useUpload';
 import { useOnBoarding } from '../../../hooks/useOnBoarding';
 import AppLoader from '../../../utils/Apploader';
@@ -15,7 +15,10 @@ import { useAuth } from '../../../hooks/useAuth';
 import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog"
 export default function PhotoUpload() {
     const navigation = useNavigation();
+    const routes = useRoute();
+    console.log(routes.params)
     const { isMale, user, isCoach, onRecheckingAuth } = useAuth();
+
     const { mutate: updateProfilePick, isLoading: isUpdating } = useUserUpdateCertificates(
         {
             onSuccess: data => {
@@ -48,12 +51,13 @@ export default function PhotoUpload() {
 
     };
     const handleSkip = () => {
-        // if (isCoach) {
-        //     navigation.navigate('DocumentVerification')
-        //     return
-        // }
-        // onRecheckingAuth();
-        navigation.navigate('DocumentVerification')
+        console.log('skip', isCoach)
+        if (isCoach || routes.params?.isCoach) {
+            navigation.navigate('DocumentVerification')
+            return
+        }
+        onRecheckingAuth();
+        // navigation.navigate('DocumentVerification')
     }
     return (
         <OnBoardingWrapper progress={80} handleForm={handlePress} skip onSkip={handleSkip}>

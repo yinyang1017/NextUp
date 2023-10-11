@@ -1,23 +1,21 @@
-import { View, Text, ProgressBar, TouchableOpacity, Wizard, Image, Dialog, PanningProvider } from "react-native-ui-lib"
-import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
-import { ImageBackground, Pressable } from "react-native";
-import { ScreenHeader } from "../../../components/common/ScreenHeader"
+import { View, Text, ProgressBar, AnimatedImage, TouchableOpacity, Wizard, Image, Dialog, PanningProvider } from "react-native-ui-lib"
+
+import { ActivityIndicator, ImageBackground, Pressable } from "react-native";
 import { Layout, customTheme } from "../../../constants"
 import { appImages } from "../../../constants/appImages"
 import { Dimensions, } from "react-native"
 import { FormButton } from "../../../components/common/FormInputs"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { faCamera, faCheckCircle, faEye } from "@fortawesome/free-solid-svg-icons"
-import { useNavigation } from "@react-navigation/native"
+import { faCheckCircle, faEye } from "@fortawesome/free-solid-svg-icons"
 import { useUpload } from "../../../hooks/useUpload"
-import { useOnBoarding } from "../../../hooks/useOnBoarding"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper";
 import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog";
 import AppLoader from "../../../utils/Apploader";
+import { hp } from "../../../utils/responsive";
+import { useUserUpdateCertificates } from "../../../api/user.api";
+import { useAuth } from "../../../hooks/useAuth";
 const ImageRender = ({ uri, onPress }) => {
-    console.log('uri', uri)
-
     return <>
         <ImageBackground style={{ justifyContent: 'center', alignContent: 'center' }} resizeMode="contain" source={appImages.placeHolderPhotoIdBorder}>
             <Image
@@ -55,23 +53,15 @@ const ImageRender = ({ uri, onPress }) => {
         </ImageBackground>
     </>
 }
-const VerticalStepIndicator = (props) => {
-    const { doc, setUpload, setVisibleDoc } = props
+const VerticalStepIndicator = ({ doc,
+    handleCertificate,
+    handleIndentity,
+    handleCertificateVisible,
+    handleIndentityVisible
 
-    const handleIndentity = () => {
-        setUpload({
-            idProof: true,
-            value: true
-        })
+}) => {
 
-    }
-    const handleCertificate = () => {
-        setUpload({
-            idProof: false,
-            value: true
-        })
 
-    }
     return (
         <View row marginT-20  >
             <View width={'20%'} marginL-12 center >
@@ -106,13 +96,7 @@ const VerticalStepIndicator = (props) => {
             <View>
 
                 {
-                    doc?.idProofUrl ? <ImageRender uri={doc?.idProofUrl} onPress={() => {
-                        setUpload({
-                            idProof: true,
-                            value: false
-                        })
-                        setVisibleDoc(true)
-                    }} /> : (
+                    doc?.idProofUrl ? <ImageRender uri={doc?.idProofUrl} onPress={handleCertificateVisible} /> : (
                         <TouchableOpacity
 
                             onPress={handleIndentity}
@@ -148,13 +132,7 @@ const VerticalStepIndicator = (props) => {
                 }}>For verification try not to skip this {`\n`} process</Text>
                 {
                     doc?.certificateUrl ? (
-                        <ImageRender uri={doc?.certificateUrl} onPress={() => {
-                            setUpload({
-                                idProof: true,
-                                value: false
-                            })
-                            setVisibleDoc(true)
-                        }} />
+                        <ImageRender uri={doc?.certificateUrl} onPress={handleCertificateVisible} />
                     ) : (
                         <TouchableOpacity
 
@@ -184,12 +162,10 @@ const VerticalStepIndicator = (props) => {
 
 
         </View>
-
-
-
     )
 }
 export default function DocumentVerification() {
+    const { user, onRecheckingAuth } = useAuth()
     const [upload, setUpload] = useState({
         idProof: false,
         value: false
@@ -206,27 +182,13 @@ export default function DocumentVerification() {
         uploadedDocument,
         scanDocument
     } = useUpload()
-    const handlePress = () => {
-
-    }
-    const handleDoc = () => {
-        console.log(upload, uploadedDocument)
-        if (upload.idProof) {
-            setDoc({
-                ...doc,
-                idProofUrl: uploadedDocument?.imageUrl
-            })
-        } else {
-            setDoc({
-                ...doc,
-                certificateUrl: uploadedDocument?.imageUrl
-            })
+    const { mutate: updateProfilePick, isLoading: isUpdating } = useUserUpdateCertificates(
+        {
+            onSuccess: data => {
+                onRecheckingAuth()
+            }
         }
-        setUpload({
-            type: null,
-            value: false
-        })
-    }
+    )
     const progressCount = useMemo(() => {
         if (doc.idProofUrl && doc.certificateUrl) {
             return 100
@@ -235,9 +197,80 @@ export default function DocumentVerification() {
             return 90
         }
         return 80
+    }, [doc])
+    const handleDoc = () => {
+        if (upload?.idProof) {
+            setDoc(prev => ({
+                ...prev,
+                idProofUrl: uploadedDocument?.imageUrl
+            }))
+            setVisibleDoc({
+                idProof: true,
+                value: visibleDoc?.value,
+                url: uploadedDocument?.imageUrl
+            })
+            return
+        }
+        setDoc(prev => ({
+            ...prev,
+            certificateUrl: uploadedDocument?.imageUrl
+        }))
+        setVisibleDoc({
+            idProof: true,
+            value: visibleDoc?.value,
+            url: uploadedDocument?.imageUrl
+        })
+
     }
-        , [doc])
-    return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} loading={isUploading.loading}>
+    const handleCertificate = () => {
+        setUpload({
+            idProof: false,
+            value: true
+        })
+
+    }
+    const handleIndentity = () => {
+        setUpload({
+            idProof: true,
+            value: true
+        })
+    }
+    const handleCertificateVisible = () => {
+        setVisibleDoc({
+            idProof: false,
+            value: true,
+            url: doc?.certificateUrl
+        })
+    }
+    const handleIndentityVisible = () => {
+        setVisibleDoc({
+            idProof: true,
+            value: true,
+            url: doc?.idProofUrl
+        })
+    }
+    const handleChange = () => {
+        console.log(visibleDoc, 'change')
+        // setVisibleDoc(null)
+        if (visibleDoc.idProof) {
+            handleIndentity()
+            return
+        }
+        handleCertificate()
+
+    }
+    const handlePress = () => {
+        updateProfilePick({
+            data: {
+                certificateUrl: doc?.certificateUrl,
+                idProofUrl: doc?.idProofUrl
+            },
+            id: user?.id
+        })
+    }
+
+
+    return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} loading={isUploading.loading || isUpdating}>
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -249,23 +282,29 @@ export default function DocumentVerification() {
                 fontFamily: customTheme.fontFamily.robotoLight,
                 fontWeight: '700',
             }}>Step </Text>
-            <VerticalStepIndicator setUpload={setUpload} setVisibleDoc={setVisibleDoc} doc={doc} />
+            <VerticalStepIndicator
+                doc={doc}
+                handleCertificate={handleCertificate}
+                handleIndentity={handleIndentity}
+                handleCertificateVisible={handleCertificateVisible}
+                handleIndentyVisible={handleIndentityVisible}
+            />
         </View>
         {<AppLoader
             visible={isUploading.loading}
             loadingMessage={`${uploadProgress} %`}
         />}
         <UpdloadTypeDialog
-            isVisible={upload.value}
+            isVisible={upload?.value}
             handlePick={() => pickDocument(handleDoc)}
             handleScan={() => scanDocument(handleDoc)}
             onClose={setUpload.bind(this, {
-                type: 'idProofUrl',
+                idProof: false,
                 value: false
             })}
         />
         <Dialog
-            visible={true}
+            visible={visibleDoc?.value}
             width={Layout.width}
             bottom
 
@@ -284,14 +323,23 @@ export default function DocumentVerification() {
             <Text white center style={{
                 opacity: 0.6,
             }}>View Document</Text>
-            <Image
-                source={{
-                    uri: visibleDoc
+            <AnimatedImage
+                source={{ uri: visibleDoc?.url }}
+                // useBackgroundContainer
+                animationDuration={2000}
+                loader={<ActivityIndicator color={customTheme.colors.white} />}
+
+                style={{
+                    width: Layout.width * 0.8,
+                    height: hp(20),
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginVertical: customTheme.spacings.spacing_16
+
                 }}
-                width={200}
-                height={200}
+
             />
-            <FormButton onPress={handleDoc} label={'Change'} />
+            <FormButton onPress={handleChange} label={'Change'} loading={isUploading?.loading} />
         </Dialog>
     </OnBoardingWrapper>
 }

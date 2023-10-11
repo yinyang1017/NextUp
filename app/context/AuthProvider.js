@@ -66,7 +66,7 @@ export default function AuthProvider({ children }) {
     return state.user?.typeOfUser === 'COACH';
   }, [state])
   const isIdProvider = useMemo(() => {
-    return state.user?.typeOfUser === 'COACH' ? state?.user?.idProofUploaded && state?.user?.certificateUrlUploaded : !state?.user?.idProofUploaded
+    return state.user?.typeOfUser === 'COACH' ? state?.user?.idProofUploaded && state?.user?.certificateUrlUploaded : true
   }, [state])
   const isMale = useMemo(() => {
     return state.user?.gender === 'MALE';
