@@ -6,7 +6,7 @@ import Navigation from '../lib/Navigation';
 axios.defaults.baseURL = Base.API_ROOT;
 
 axios.interceptors.request.use(
-  async (config) => {
+  async config => {
     const auth = await getUserToken();
     if (auth) {
       //
@@ -14,24 +14,24 @@ axios.interceptors.request.use(
       //for token expire test
       // config.headers.common['Authorization'] = `${'Bearer ' + 'klaodndkisoak'}`;
     }
-    console.log(config);
+    // console.log(config);
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axios.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  (error) => {
+  error => {
     if (error.response.status === 404) {
       return axios.request(error.response.config);
     } else if (error.response.status === 403) {
-      console.log('REspppp', error.response);
-      removeAllLocalData().then((res) => {
+      // console.log('REspppp', error.response);
+      removeAllLocalData().then(res => {
         if (res) {
           Navigation.navigate('AuthLoading');
         }
@@ -39,5 +39,5 @@ axios.interceptors.response.use(
     } else {
       return Promise.reject(error);
     }
-  }
+  },
 );

@@ -3,21 +3,21 @@ export const socket = new WebSocket("http://34.134.29.128/ws");
 
 // ws.onopen = () => {
 //   // connection opened
-//   console.log("connection opened");
+//  // console.log("connection opened");
 //   // ws.send("something"); // send a message
 // };
 
 // ws.onmessage = (e) => {
 //   // a message was received
-//   console.log(e.data);
+//  // console.log(e.data);
 // };
 
 // ws.onerror = (e) => {
 //   // an error occurred
-//   console.log(e.message);
+//  // console.log(e.message);
 // };
 
 // ws.onclose = (e) => {
 //   // connection closed
-//   console.log(e.code, e.reason);
+//  // console.log(e.code, e.reason);
 // };

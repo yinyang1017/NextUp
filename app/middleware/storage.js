@@ -15,7 +15,7 @@ export const setUserToken = async (token) => {
 
 export const getUserToken = async () => {
   const value = await AsyncStorage.getItem(USER_TOKEN);
-  // console.log("TKN Value--->>", value)
+  //// console.log("TKN Value--->>", value)
   if (value !== null) {
     return value;
   }

@@ -1,17 +1,41 @@
-import React from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
-import { Layout, Colors } from '../../constants';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-let wide = Layout.width;
-const Back = ({ onPress }) => (
-  <TouchableOpacity
-    activeOpacity={0.5}
-    style={{ paddingHorizontal: wide * 0.02 }}
-    onPress={onPress}>
-    <View
-      style={{ justifyContent: 'center', height: '100%', width: wide * 0.1 }}>
-      <Icon size={22} name={'chevron-left'} color={customTheme.colors.base} />
-    </View>
-  </TouchableOpacity>
+import React, { memo } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { wp } from '../responsive';
+import { Colors, customTheme } from '../../constants';
+
+const Back = ({ onPress, containerStyle = {}, title = '' }) => (
+  <View style={[styles.wrapper, containerStyle]}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={styles.container}
+      onPress={onPress}>
+      <Image
+        source={require('../../assets/leftArrow1.png')}
+        style={styles.backImage}
+      />
+    </TouchableOpacity>
+    {!!title && <Text style={styles.title}>{title}</Text>}
+  </View>
 );
-export default Back;
+
+export default memo(Back);
+
+const styles = StyleSheet.create({
+  wrapper: { flexDirection: 'row', alignItems: 'center' },
+  container: {
+    height: wp(8),
+    width: wp(8),
+    borderRadius: wp(1),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: customTheme.colors.borderColor,
+  },
+  backImage: { height: wp(3.5), width: wp(3.5) },
+  title: {
+    marginLeft: wp(3),
+    color: Colors.light,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
+  },
+});

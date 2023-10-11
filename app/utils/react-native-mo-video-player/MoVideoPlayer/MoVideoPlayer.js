@@ -71,7 +71,7 @@ const MoVideoPlayer = (props) => {
 
   useEffect(() => {
     const appStateSubscriber = AppState.addEventListener('change', (state) => {
-      console.log("APP STATE CHANGE IS ", state)
+      // console.log("APP STATE CHANGE IS ", state)
       if (playInBackground && isPaused == false) {
         setIsPaused(false)
       } else {
@@ -93,12 +93,12 @@ const MoVideoPlayer = (props) => {
         {showFullScreenButton &&
           <TouchableOpacity
             onPress={() => {
-              
+
               if (isVideoFullScreen) {
                 StatusBar.setHidden(false)
                 Orientation.lockToPortrait()
               } else {
-                
+
                 StatusBar.setHidden(true)
                 Orientation.lockToLandscape()
               }
@@ -496,7 +496,7 @@ const MoVideoPlayer = (props) => {
           useNativeDriver
           value={videoSound}
           onSlidingComplete={sliderData => {
-            console.log('TYPE OF', typeof Number(sliderData[0].toFixed(1)))
+            // console.log('TYPE OF', typeof Number(sliderData[0].toFixed(1)))
             setVideoSound(Number(sliderData[0].toFixed(1)))
             if (sliderData[0] == 0) {
               setIsMuted(true)
@@ -534,7 +534,7 @@ const MoVideoPlayer = (props) => {
   )
 
   const videoPlaylistView = () => {
-    console.log("INDEX OF LIST  ", (playlistSelectedVideo && playlistSelectedVideo.index > 0) ? playlistSelectedVideo.index - 1 : 0)
+    // console.log("INDEX OF LIST  ", (playlistSelectedVideo && playlistSelectedVideo.index > 0) ? playlistSelectedVideo.index - 1 : 0)
     return (
       <TouchableWithoutFeedback>
 
@@ -624,7 +624,7 @@ const MoVideoPlayer = (props) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        console.log('TOUCH')
+        // console.log('TOUCH')
         setIsVideoFocused(!isVideoFocused)
       }}
     >
@@ -660,13 +660,13 @@ const MoVideoPlayer = (props) => {
             }
           }}
           onReadyForDisplay={()=>{
-            console.log("onReadyForDisplay")
+           // console.log("onReadyForDisplay")
             setIsVideoSeeked(false)
             setIsVErrorInLoadVideo(false)
           }}*/
           onError={(videoData) => setIsVErrorInLoadVideo(true)}
           onEnd={() => {
-            console.log("on end")
+            // console.log("on end")
             setIsVideoEnd(true)
             setIsPaused(true)
             if (playList.length > 0) {

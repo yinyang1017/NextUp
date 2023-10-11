@@ -1,5 +1,5 @@
-import * as React from "react";
-import Svg, { Path, G, Circle } from "react-native-svg";
+import * as React from 'react';
+import Svg, { Path, G, Circle } from 'react-native-svg';
 
 const EmojiIconSVG = () => {
   return (
@@ -8,8 +8,7 @@ const EmojiIconSVG = () => {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+      xmlns="http://www.w3.org/2000/svg">
       <G opacity="0.37">
         <Path
           fill-rule="evenodd"

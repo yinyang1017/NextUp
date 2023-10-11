@@ -7,15 +7,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAngleRight, faUser, faUserAlt, faUserAltSlash, faTicketSimple, faTrashAlt, faRightFromBracket, faStar, faShare, faShareNodes, faStickyNote, faCheckSquare, faHeadphonesSimple } from '@fortawesome/free-solid-svg-icons'
 import { ConfirmationDialog } from "../../../components/common/confirmationDialog";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../../hooks/useAuth";
 
-export default function MyAccount() {
+export default function PlayerAccount() {
     const [dialog, setDialog] = useState({
         logout: false
     })
+    const { logout } = useAuth()
+    const navigation = useNavigation()
     const profileMenuOptions = [
         {
             name: 'My Profile',
-            icon: faUser
+            icon: faUser,
+            onPress: () => {
+                navigation.navigate('PlayerAccountDetails')
+            }
         },
         {
             name: 'Subscriptions',
@@ -138,7 +145,7 @@ export default function MyAccount() {
             cancelText="No, stay here"
             onClose={() => setDialog({ ...dialog, logout: false })}
             onConfirm={() => {
-                console.log('logout')
+                logout()
                 setDialog({ ...dialog, logout: false })
             }}
         />

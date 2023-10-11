@@ -6,6 +6,7 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  Pressable
 } from 'react-native';
 import {
   CommonStyles,
@@ -16,48 +17,58 @@ import {
   customTheme
 } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation } from '@react-navigation/native';
 
 let wide = Layout.width;
 
 export const ScreenHeader = ({ title, backButtonAction }) => {
+  const navigation = useNavigation()
   return (
     <View
       style={{
         // height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        marginHorizontal: 22,
-        marginBottom: 8,
-        paddingTop: customTheme.spacings.spacing_48
+        marginBottom: customTheme.spacings.spacing_20
       }}
     >
       {
-        backButtonAction && <TouchableOpacity
+        navigation.canGoBack() && <Pressable
           style={{
-            width: wide * 0.1,
-            height: wide * 0.1,
+
+            borderWidth: 1,
+            borderColor: customTheme.colors.tertiary,
+            borderRadius: wide * 0.03,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: customTheme.spacings.spacing_12,
+            paddingVertical: customTheme.spacings.spacing_8,
+            marginRight: customTheme.spacings.spacing_12
           }}
-          onPress={backButtonAction}
+          onPress={() => {
+            navigation.goBack()
+            backButtonAction()
+          }}
         >
           <FontAwesomeIcon
+            color={customTheme.colors.white}
             style={{
-              width: wide * 0.08,
-              height: wide * 0.08,
-              borderRadius: wide * 0.02,
-              borderWidth: 1.5,
-              borderColor: Colors.borderColor,
+              fontSize: customTheme.spacings.spacing_16,
             }}
-            icon={faBackward}
+
+
+
+            icon={faArrowLeft}
           />
-        </TouchableOpacity>
+        </Pressable>
       }
 
       <Text
         style={{
 
           color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_32,
+          fontSize: customTheme.fontSizes.size_16,
           fontWeight: '700',
           fontFamily: customTheme.fontFamily.robotoBold,
         }}

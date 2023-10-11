@@ -8,148 +8,146 @@ let wide = Layout.width;
 const STATUSBAR_HEIGHT = getStatusBarHeight();
 export default StyleSheet.create({
   flex50: {
-    flex: 0.5
+    flex: 0.5,
   },
   flex75: {
-    flex: 0.75
+    flex: 0.75,
   },
   flex1: {
-    flex: 1
+    flex: 1,
   },
   flex2: {
-    flex: 2
+    flex: 2,
   },
   width100: {
-    width: '100%'
+    width: '100%',
   },
   baseBg: {
-    backgroundColor: customTheme.colors.base
+    backgroundColor: customTheme.colors.base,
   },
   m5: {
-    margin: 5
+    margin: 5,
   },
   mt3: {
-    marginTop: 3
+    marginTop: 3,
   },
   mt10: {
-    marginTop: 10
+    marginTop: 10,
   },
   mr10: {
-    marginRight: 10
+    marginRight: 10,
   },
   mt5: {
-    marginTop: 5
+    marginTop: 5,
   },
   mt20: {
-    marginTop: 20
+    marginTop: 20,
   },
   mb3: {
-    marginBottom: 3
+    marginBottom: 3,
   },
   mb5: {
-    marginBottom: 5
+    marginBottom: 5,
   },
   mb10: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   mb15: {
-    marginBottom: 15
+    marginBottom: 15,
   },
   mb50: {
-    marginBottom: 50
+    marginBottom: 50,
   },
   mh5: {
-    marginHorizontal: 5
+    marginHorizontal: 5,
   },
   mh10: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   mh20: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   br15: {
-    borderRadius: 15
+    borderRadius: 15,
   },
   br10: {
-    borderRadius: 10
+    borderRadius: 10,
   },
   br5: {
-    borderRadius: 5
+    borderRadius: 5,
   },
   p10: {
-    padding: 10
+    padding: 10,
   },
   p5: {
-    padding: 5
+    padding: 5,
   },
   p8: {
-    padding: 8
+    padding: 8,
   },
   p15: {
-    padding: 15
+    padding: 15,
   },
   pt10: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   pt5: {
-    paddingTop: 5
+    paddingTop: 5,
   },
   pl10: {
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   pb15: {
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   pb5: {
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   pr5: {
-    paddingRight: 5
+    paddingRight: 5,
   },
   pr10: {
-    paddingRight: 10
+    paddingRight: 10,
   },
   ph2: {
-    paddingHorizontal: 2
+    paddingHorizontal: 2,
   },
   ph5: {
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
   },
   ph10: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   ph15: {
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   ph20: {
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   alignCenter: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   flexRowAlignCenter: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   flexColAlignCenter: {
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   flexDirRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   flexDirCol: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   container: {
     flex: 1,
     padding: wide * 0.04,
-    backgroundColor: customTheme.colors.light,
   },
   appThemeBgContainer: {
     flex: 1,
-
   },
   chatBadge: {
     position: 'absolute',
@@ -159,7 +157,7 @@ export default StyleSheet.create({
   titleFont: {
     color: customTheme.colors.light,
     fontSize: 30,
-    fontFamily: Fonts.Bold
+    fontFamily: Fonts.Bold,
   },
   tabBarItemContainer: {
     flex: 1,
@@ -261,13 +259,13 @@ export default StyleSheet.create({
     borderColor: customTheme.colors.blue20,
   },
   bgGunMetal: {
-    backgroundColor: customTheme.colors.darkGunMetal
+    backgroundColor: customTheme.colors.darkGunMetal,
   },
   socialLoginButton: {
     justifyContent: 'center',
     padding: 10,
     borderRadius: 15,
-    backgroundColor: customTheme.colors.light
+    backgroundColor: customTheme.colors.light,
   },
   btmborder: {
     marginVertical: 0,
@@ -418,11 +416,11 @@ export default StyleSheet.create({
   },
   midSizeLogo: {
     height: 35,
-    width: 35
+    width: 35,
   },
   normalSizeLogo: {
     height: 30,
-    width: 30
+    width: 30,
   },
   container: {
     flex: 1,
@@ -677,14 +675,14 @@ export default StyleSheet.create({
   },
   headerBottomLine: {
     borderBottomWidth: 0.4,
-    borderBottomColor: customTheme.colors.newGrayFontColor
+    borderBottomColor: customTheme.colors.newGrayFontColor,
   },
   midSizeLogo: {
     height: 35,
-    width: 35
+    width: 35,
   },
   normalSizeLogo: {
     height: 30,
-    width: 30
-  }
+    width: 30,
+  },
 });
