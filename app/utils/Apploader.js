@@ -12,6 +12,7 @@ class AppLoader extends React.Component {
         animated
         animationType={'fade'}
         transparent
+        visible={visible}
         onRequestClose={onRequestClose}
         {...this.props}>
         <View style={styles.container}>
@@ -41,7 +42,7 @@ AppLoader.propTypes = {
 };
 
 AppLoader.defaultProps = {
-  onRequestClose: () => {},
+  onRequestClose: () => { },
 };
 
 export default AppLoader;

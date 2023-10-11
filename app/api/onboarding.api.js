@@ -37,7 +37,7 @@ export function useCoachOnBoardingRegister({ onSuccess }) {
   const client = useClient();
   return useMutation(
     ({ data, id }) => {
-      return client(`user/onBoarding/${id}`, {
+      return client(`user/onboarding/${id}`, {
         method: 'POST',
         data,
       });

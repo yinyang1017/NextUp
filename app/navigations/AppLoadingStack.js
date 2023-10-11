@@ -22,7 +22,10 @@ export default function AppLoadignStack() {
   const { isAuthenticated, onBoardingDone,
     user,
     isCoach,
-    isPlayer, } = useAuth();
+    isPlayer,
+    isIdProvider,
+  } = useAuth();
+  console.log('isIdProvider', isIdProvider)
   return (
     <>
       <Stack.Navigator
@@ -34,10 +37,10 @@ export default function AppLoadignStack() {
         {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
-        {isAuthenticated && onBoardingDone && (
+        {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
         )}
-        {isAuthenticated && onBoardingDone && isCoach && (
+        {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -49,10 +52,8 @@ export default function AppLoadignStack() {
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
-          <Stack.Group>
-            <Stack.Screen name="CoachStack" component={PlayerStack} />
 
-          </Stack.Group>
+          <Stack.Screen name="PlayerStack" component={CoachStack} />
         )}
       </Stack.Navigator>
     </>

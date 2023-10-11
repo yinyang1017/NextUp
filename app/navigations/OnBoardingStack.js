@@ -9,12 +9,18 @@ import OnBoardingProvider from '../context/OnBoardingProviider';
 import CoachDetails from '../views/common/on-boarding/CoachDetails';
 import DocumentVerification from '../views/common/on-boarding/DocumentVerification';
 import SelectCoachingLocation from '../views/common/on-boarding/SelectCoachingLocation';
+import { useAuth } from '../hooks/useAuth';
 export default function OnBoardingStack() {
   const Stack = createNativeStackNavigator();
+  const { isAuthenticated, onBoardingDone,
+    user,
+    isCoach,
+    isPlayer,
+  } = useAuth();
   return (
     <OnBoardingProvider>
       <Stack.Navigator
-        initialRouteName="TellUsMore"
+        initialRouteName={onBoardingDone ? 'PhotoUpload' : 'TellUsMore'}
         screenOptions={{
           headerShown: false,
           cardStyle: {

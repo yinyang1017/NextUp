@@ -161,7 +161,7 @@ export default function TellUsMore() {
     <View width={'50%'}>
       <Controller
         control={control}
-        name="coachingType.level"
+        name="coachingType.ageGroup"
         rules={{
           required: 'Please select a level',
         }}
@@ -216,7 +216,7 @@ export default function TellUsMore() {
   const _renderTravelTeamInputs = () => (
     <>
       <Controller
-        name="onBoardingTeamName"
+        name="coachingType.schoolName"
         control={control}
         rules={{
           required: 'Last Name is required',
@@ -298,7 +298,6 @@ export default function TellUsMore() {
             />
           )}
         />
-
       </View>
       <View row spread centerH>
         <Controller
@@ -325,7 +324,7 @@ export default function TellUsMore() {
         />
         <Controller
           control={control}
-          name="schoolInfo.ageGroup"
+          name="coachingType.ageGroup"
           required
           rules={{
             required: 'Please select a age group',

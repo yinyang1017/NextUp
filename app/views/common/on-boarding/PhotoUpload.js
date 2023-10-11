@@ -10,22 +10,25 @@ import { useNavigation } from '@react-navigation/native';
 import { useUpload } from '../../../hooks/useUpload';
 import { useOnBoarding } from '../../../hooks/useOnBoarding';
 import AppLoader from '../../../utils/Apploader';
-
+import { useUserUpdateCertificates } from '../../../api/user.api';
+import { useAuth } from '../../../hooks/useAuth';
+import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog"
 export default function PhotoUpload() {
     const navigation = useNavigation();
-    const { isMale,
-        handleBack,
-        hanldePlayerRegistration,
-        isLoading,
-        onBoardingCount
-    } =
-        useOnBoarding();
+    const { isMale, user, isCoach, onRecheckingAuth } = useAuth();
+    const { mutate: updateProfilePick, isLoading: isUpdating } = useUserUpdateCertificates(
+        {
+            onSuccess: data => {
+                handleSkip();
+            }
+        }
+    )
+
     const {
         isUploading,
         uploadProgress,
         pickDocument,
         uploadedDocument,
-
         scanDocument,
     } = useUpload();
     const imageUrl = uploadedDocument?.imageUrl
@@ -33,16 +36,27 @@ export default function PhotoUpload() {
         : isMale
             ? appImages.player_male
             : appImages.player_female;
+    const [upload, setUpload] = React.useState(false);
     const handlePress = () => {
-        // if (isPlayer) {
-        //     handleUserOnboardingRegistration()
-        // }
-        // if (isCoach) {
-        //     // navigation.navigate('DocumentVerification')
-        // }
+        updateProfilePick({
+            data: {
+                profilePictureUrl: uploadedDocument?.imageUrl,
+
+            },
+            id: user?.id
+        })
+
     };
+    const handleSkip = () => {
+        // if (isCoach) {
+        //     navigation.navigate('DocumentVerification')
+        //     return
+        // }
+        // onRecheckingAuth();
+        navigation.navigate('DocumentVerification')
+    }
     return (
-        <OnBoardingWrapper backButtonAction={handleBack} progress={onBoardingCount} title="Upload Photo" handleForm={handlePress} skip>
+        <OnBoardingWrapper progress={80} handleForm={handlePress} skip onSkip={handleSkip}>
             <View marginV-24 flex>
                 <Text
                     white
@@ -64,7 +78,7 @@ export default function PhotoUpload() {
                 </Text>
                 { }
                 <View center flex>
-                    <TouchableOpacity onPress={pickDocument} center centerV>
+                    <TouchableOpacity onPress={() => setUpload(true)} center centerV>
                         <>
                             <ImageBackground
                                 source={imageUrl}
@@ -101,6 +115,12 @@ export default function PhotoUpload() {
                     loadingMessage={`${uploadProgress} %`}
                 />
             </View>
+            <UpdloadTypeDialog
+                isVisible={upload}
+                handlePick={pickDocument}
+                handleScan={scanDocument}
+                onClose={setUpload.bind(this, false)}
+            />
         </OnBoardingWrapper>
     );
 }

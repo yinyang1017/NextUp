@@ -8,6 +8,7 @@ import { successToast } from '../utils/toast';
 const initialState = {
   user: null, // You can replace 'null' with the actual user data if authenticated
   isAuthenticated: false, // Set to 'true' if the user is authenticated
+  isLoggedIn: false,
 };
 
 // Define actions for the reducer
@@ -19,6 +20,7 @@ const authReducer = (state, action) => {
         ...state,
         user: action.payload.user,
         isAuthenticated: true,
+        isLoggedIn: true
       };
     case 'LOGOUT':
       // Implement your logout logic here and update the state accordingly
@@ -26,6 +28,8 @@ const authReducer = (state, action) => {
         ...state,
         user: null,
         isAuthenticated: false,
+        isLoggedIn: false
+
       };
     case 'UPDATE_ONBOARDING':
       return {
@@ -61,6 +65,18 @@ export default function AuthProvider({ children }) {
   const isCoach = useMemo(() => {
     return state.user?.typeOfUser === 'COACH';
   }, [state])
+  const isIdProvider = useMemo(() => {
+    return state.user?.typeOfUser === 'COACH' ? state?.user?.idProofUploaded && state?.user?.certificateUrlUploaded : !state?.user?.idProofUploaded
+  }, [state])
+  const isMale = useMemo(() => {
+    return state.user?.gender === 'MALE';
+  }, [state])
+
+  const showLoader = useMemo(() => {
+    return (!state.isLoggedIn && isLoading) && !state.user
+  }, [reChecking, state])
+
+
 
 
   // Define login and logout functions that dispatch actions
@@ -112,13 +128,17 @@ export default function AuthProvider({ children }) {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, [reChecking]);
+
+
   // Create the 'value' prop to share data and functions with consumer components
   const authContextValue = {
     user: state?.user,
-    isAuthenticated: state?.isAuthenticated,
-    onBoardingDone: state?.user?.onBoardingDone,
+    isAuthenticated: state?.isAuthenticated ?? false,
+    onBoardingDone: state?.user?.onBoardingDone ?? false,
     isCoach,
     isPlayer,
+    isIdProvider,
+    isMale,
     login,
     logout,
     updateOnBoarding,
@@ -127,7 +147,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      {!state?.isAuthenticated ? <AppLoader /> : children}
+      {showLoader || isLoading ? <AppLoader /> : children}
     </AuthContext.Provider>
   );
 }
