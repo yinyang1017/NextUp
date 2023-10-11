@@ -187,12 +187,37 @@ export default function TellUsMore() {
             error && 'Please select a level'
           }
         />
+        <Controller
+          control={control}
+          name="schoolInfo.gender"
+          render={({ field: { onChange, value } }) => (
+            <FormInputPicker
+              value={value}
+              data={[
+                { label: 'Boys', value: 'boys' },
+                { label: 'Girls', value: 'girls' },
+              ]}
+              label={'Gender'}
+              title="Search for cities.."
+              onValueChange={value => onChange(value)}
+            />
+          )}
+        />
+      </View>
+    <Controller
+      control={control}
+      name="coachingType.level"
+      render={({ field: { onChange, value } }) => (
+        <FormInputPicker
+          value={value}
+          data={states?.states}
+          label={'Level'}
+          title="Search for levels.."
+          onValueChange={value => onChange(value)}
+        />
       )}
     />
-
-
-
-  </>)
+  );
   return (
     <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} backButtonAction={handleBack} label={'Confirm'} progress={onBoardingCount}>
       <View

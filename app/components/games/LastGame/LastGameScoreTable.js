@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { MyColors } from '../../../constants/colors';
 import styles from './styles';
+import { customTheme } from '../../../constants';
 
 const data = [
   {
@@ -11,18 +11,18 @@ const data = [
       { value: 'Q2' },
       { value: 'Q3' },
       { value: 'Q4' },
-      { value: 'F', color: MyColors.btnBg },
+      { value: 'F', color: customTheme.colors.btnBg },
     ],
   },
   {
     title: 'Copper Kings',
-    titleColor: MyColors.lightBlue,
+    titleColor: customTheme.colors.lightBlue,
     quaterData: [
-      { value: '18', color: MyColors.lightBlue },
-      { value: '18', color: MyColors.lightBlue },
-      { value: '19', color: MyColors.lightBlue },
-      { value: '16', color: MyColors.lightBlue },
-      { value: '71', color: MyColors.lightBlue },
+      { value: '18', color: customTheme.colors.lightBlue },
+      { value: '18', color: customTheme.colors.lightBlue },
+      { value: '19', color: customTheme.colors.lightBlue },
+      { value: '16', color: customTheme.colors.lightBlue },
+      { value: '71', color: customTheme.colors.lightBlue },
     ],
   },
   {

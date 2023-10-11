@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native-ui-lib';
 import {
   View,
 } from 'react-native-ui-lib';
@@ -23,7 +24,8 @@ import { errorMessageOnType } from '../../../utils/helper';
 export default function PlayerDetails() {
   const { onBoardingCount, handleOnBoarding, handleNavigation, handleBack } =
     useOnBoarding();
-  const { control, errors, handleSubmit } = useEnterPorfileDetails();
+  const { control, errors, schools, classesOfYears, handleSubmit } =
+    useEnterPorfileDetails();
   const onSubmit = data => {
     handleOnBoarding(data);
     handleNavigation('PlayerStyle');

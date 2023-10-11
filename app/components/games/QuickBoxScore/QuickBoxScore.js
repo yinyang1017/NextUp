@@ -2,8 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { GridView } from 'react-native-ui-lib';
 import { wp } from '../../../utils/responsive';
-import { MyColors } from '../../../constants/colors';
-import { FontFamily } from '../../../views/GlobalStyles';
+import { customTheme } from '../../../constants';
 
 const headerGridData = [
   { title: 'FG' },
@@ -96,7 +95,7 @@ const renderBodyCustomItem = (item, rowIndex) => {
       <Text
         style={[
           styles.headerItemText,
-          rowIndex === 5 && { color: MyColors.btnBg },
+          rowIndex === 5 && { color: customTheme.colors.btnBg },
         ]}>
         {item.title}
       </Text>
@@ -131,7 +130,7 @@ export default QuickBoxScore;
 const styles = StyleSheet.create({
   container: { alignItems: 'flex-end' },
   headerItem: (isFirstItem, isLastItem) => ({
-    backgroundColor: MyColors.lightGray,
+    backgroundColor: customTheme.colors.lightGray,
     width: wp(11),
     height: wp(8.5),
     justifyContent: 'center',
@@ -141,11 +140,13 @@ const styles = StyleSheet.create({
     ...(isLastItem && { borderTopRightRadius: wp(2) }),
   }),
   headerItemText: {
-    color: MyColors.light,
-    fontFamily: FontFamily.robotoRegular,
+    color: customTheme.colors.light,
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
   bodyItem: (isFirstItem, isLastItem, rowIndex) => ({
-    backgroundColor: isFirstItem ? MyColors.lightGray : MyColors.lightDark,
+    backgroundColor: isFirstItem
+      ? customTheme.colors.lightGray
+      : customTheme.colors.lightDark,
     width: wp(11),
     height: wp(8.5),
     justifyContent: 'center',

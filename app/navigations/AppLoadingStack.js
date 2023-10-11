@@ -10,7 +10,12 @@ import SearchPlayers from '../views/players/MyTeams/SearchPlayers';
 import InvitePlayers from '../views/players/MyTeams/InvitePlayers';
 import AllStandings from '../views/players/MyTeams/AllStandings';
 import GameStatistics from '../views/players/MyTeams/GameStatistics';
+import AdvanceStats from '../views/players/MyTeams/AdvanceStats';
+import AddLineup from '../views/players/MyTeams/AddLineup';
+import LineupDetails from '../views/players/MyTeams/LineupDetails';
+import { CreatePractice } from '../views/players/MyTeams/CreatePractice';
 import { PlayerStack } from './PlayerStack';
+import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -18,8 +23,6 @@ export default function AppLoadignStack() {
     user,
     isCoach,
     isPlayer, } = useAuth();
-
-  console.log(user, "isAuthenticated")
   return (
     <>
       <Stack.Navigator

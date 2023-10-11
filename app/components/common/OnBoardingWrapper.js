@@ -3,7 +3,6 @@ import { ViewContainer } from "./ViewConatiner";
 import { ScreenHeader } from "./ScreenHeader";
 import { customTheme } from "../../constants";
 import { FormButton } from "./FormInputs";
-import { ScrollView } from "react-native-gesture-handler"
 export default function OnBoardingWrapper({
     title = '',
     children,

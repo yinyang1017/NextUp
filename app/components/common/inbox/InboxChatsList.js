@@ -3,12 +3,14 @@ import React from 'react';
 import InboxChatItem from './InboxChatItem';
 import { hp } from '../../../utils/responsive';
 
-const InboxChatsList = ({ containerStyle = {} }) => {
+const InboxChatsList = ({ containerStyle = {}, channelData = [] }) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <FlatList
-        data={[1, 2, 3, 4]}
-        renderItem={({ item, index }) => <InboxChatItem index={index} />}
+        data={channelData}
+        renderItem={({ item, index }) => (
+          <InboxChatItem index={index} chatInfo={item} />
+        )}
       />
     </View>
   );

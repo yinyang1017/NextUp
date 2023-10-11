@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TeamItem from '../../../components/common/TeamItem';
 import { hp, wp } from '../../../utils/responsive';
@@ -7,19 +7,97 @@ import { SearchInput } from '../../../components/common/searchbar';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { customTheme } from '../../../constants';
 import InboxChatsList from '../../../components/common/inbox/InboxChatsList';
+import { useIsFocused } from '@react-navigation/native';
+import { useAuth } from '../../../hooks/useAuth';
+import { useGetAllChatChannels } from '../../../api/chat.api';
 
 const InboxTopTabs = createMaterialTopTabNavigator();
 
+const staticData = {
+  teamDetails: [
+    {
+      teamId: 2001,
+      teamName: 'Hardcoded TeamName',
+      teamLogoUrl: 'https://example.com/hardcoded-logo.png',
+      groupChats: [
+        {
+          channelId: 169633689373204,
+          recentMessage: null,
+          groupName: 'Hardcoded GroupName',
+          groupLogoUrl: 'https://example.com/hardcoded-group-logo.png',
+        },
+      ],
+      oneOnOneChats: [],
+    },
+  ],
+  coachDetails: [
+    {
+      teamId: 2001,
+      teamName: 'Hardcoded CoachName',
+      teamLogoUrl: 'https://example.com/hardcoded-coach-logo.png',
+      groupChats: [
+        {
+          channelId: 169633686729003,
+          recentMessage: null,
+          groupName: 'Hardcoded CoachGroupName',
+          groupLogoUrl: 'https://example.com/hardcoded-coach-group-logo.png',
+        },
+      ],
+      oneOnOneChats: [],
+    },
+  ],
+};
+
 const Inbox = () => {
+  const {
+    mutate: getAllChatChannels,
+    isLoading: isLoadingGetAllChannels,
+    data: channelData,
+  } = useGetAllChatChannels();
+
+  const { user } = useAuth();
+
   const tabScreenOptions = useMemo(
     () => ({
       headerShown: true,
       tabBarIndicatorStyle: { backgroundColor: customTheme.colors.light },
       tabBarLabelStyle: styles.tabBarLabel,
       tabBarStyle: styles.tabBar,
-      tabBarIndicatorContainerStyle: { height: hp(5) },
     }),
     [],
+  );
+
+  const isFocus = useIsFocused();
+
+  useEffect(() => {
+    if (isFocus) {
+      getAllChatChannels({ userId: user?.id || 1013 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocus]);
+
+  const teamInbox = useMemo(
+    () => () =>
+      (
+        <InboxChatsList
+          channelData={channelData?.data?.teamDetails || staticData.teamDetails}
+          isLoading={isLoadingGetAllChannels}
+        />
+      ),
+    [channelData, isLoadingGetAllChannels],
+  );
+
+  const coachInbox = useMemo(
+    () => () =>
+      (
+        <InboxChatsList
+          channelData={
+            channelData?.data?.coachDetails || staticData.coachDetails
+          }
+          isLoading={isLoadingGetAllChannels}
+        />
+      ),
+    [channelData, isLoadingGetAllChannels],
   );
 
   return (
@@ -45,8 +123,8 @@ const Inbox = () => {
       />
 
       <InboxTopTabs.Navigator screenOptions={tabScreenOptions}>
-        <InboxTopTabs.Screen name="Team" component={InboxChatsList} />
-        <InboxTopTabs.Screen name="Coaches" component={InboxChatsList} />
+        <InboxTopTabs.Screen name="Team">{teamInbox}</InboxTopTabs.Screen>
+        <InboxTopTabs.Screen name="Coaches">{coachInbox}</InboxTopTabs.Screen>
       </InboxTopTabs.Navigator>
     </SafeAreaView>
   );

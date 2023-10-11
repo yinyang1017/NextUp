@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { wp } from '../responsive';
-import { Colors } from '../../constants';
-import { FontFamily, FontSize } from '../../views/GlobalStyles';
+import { Colors, customTheme } from '../../constants';
 
 const Back = ({ onPress, containerStyle = {}, title = '' }) => (
   <View style={[styles.wrapper, containerStyle]}>
@@ -19,7 +18,7 @@ const Back = ({ onPress, containerStyle = {}, title = '' }) => (
   </View>
 );
 
-export default Back;
+export default memo(Back);
 
 const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row', alignItems: 'center' },
@@ -30,13 +29,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#373A44',
+    borderColor: customTheme.colors.borderColor,
   },
   backImage: { height: wp(3.5), width: wp(3.5) },
   title: {
     marginLeft: wp(3),
     color: Colors.light,
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
   },
 });

@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { TextInputMask } from 'react-native-masked-text'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+=======
+import React from 'react';
+>>>>>>> develop
 import {
   Picker,
   View,
@@ -30,7 +34,11 @@ import { ViewContainer, statusBarHeight } from './ViewConatiner';
 import moment from 'moment';
 import { hp } from '../../utils/responsive';
 const dropdownIcon = (
-  <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+  <FontAwesomeIcon
+    icon={faChevronDown}
+    color={customTheme.colors.light}
+    size={wp(2.5)}
+  />
 );
 const searchIcon = (
   <FontAwesomeIcon icon={faSearch} color={customTheme.colors.light} />
@@ -317,40 +325,33 @@ export function FormRadioGroup({
     row: true,
     column: false,
   };
+
+  const renderRadioButtonItem = (item, index) => {
+    const isSelected = item.value === value;
+    return (
+      <RadioButton
+        size={wp(5)}
+        key={index}
+        value={item?.value ?? ''}
+        label={item?.label ?? ''}
+        containerStyle={styles.formRadioGroupRadioButtonContainer}
+        labelStyle={styles.formRadioGroupRadioButtonLabel(isSelected)}
+        color={customTheme.colors.blue20}
+      />
+    );
+  };
+
   return (
     <View marginV-12>
-      <Text
-        style={{
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          opacity: 0.6,
-          fontFamily: customTheme.fontFamily.robotoBold,
-        }}>
+      <Text small-700 style={styles.formRadioGroupLabel}>
         {label}
       </Text>
-      <RadioGroup initialValue={value} onValueChange={onValueChange}>
+      <RadioGroup
+        initialValue={value}
+        onValueChange={onValueChange}
+        style={{ gap: wp(7) }}>
         <View row={viewDir[direction]} animated>
-          {_.map(radioValues, (item, index) => {
-            return (
-              <RadioButton
-                key={index}
-                value={item?.value ?? ''}
-                label={item?.label ?? ''}
-                containerStyle={{
-                  marginRight: customTheme.spacings.spacing_16,
-                  marginTop: customTheme.spacings.spacing_8,
-                }}
-                labelStyle={{
-                  color: customTheme.colors.light,
-                }}
-                color={customTheme.colors.blue20}
-              />
-            );
-          })}
+          {_.map(radioValues, renderRadioButtonItem)}
         </View>
       </RadioGroup>
       <Text red10>{rest?.error}</Text>

@@ -7,9 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useOnBoarding, usePlayerStyle } from "../../../hooks/useOnBoarding";
 import { Controller } from "react-hook-form";
 export default function PlayerStyle() {
-    const navigation = useNavigation()
     const {
-        onBoardingCount,
         handleOnBoarding,
         handleBack,
         hanldePlayerRegistration,
@@ -19,6 +17,7 @@ export default function PlayerStyle() {
         control,
         playingPositionDescription,
         playerStylesList,
+        isLoadingStyleList,
         handleSubmit
     } = usePlayerStyle()
     const onSubmit = (data) => {

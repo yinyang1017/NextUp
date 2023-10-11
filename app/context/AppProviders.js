@@ -1,11 +1,12 @@
-import { MutationCache, QueryCache, focusManager } from "react-query";
+import React from 'react';
+import { MutationCache, QueryCache, focusManager } from 'react-query';
 import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
-    QueryErrorResetBoundary
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+  QueryErrorResetBoundary
 } from 'react-query'
 import { useAppState } from "../hooks/useAppState";
 import { useOnlineManager } from "../hooks/useOnlineManager";
@@ -16,56 +17,68 @@ import { customTheme } from "../constants";
 import { errorToast } from '../utils/toast'
 
 const mutationCache = new MutationCache({
-    onError(error, variables, context, mutation) {
-        // console.log(error, 'in auth provider')
-    },
+  onError(error, variables, context, mutation) {
+    // console.log(error, 'in auth provider')
+  },
 })
 const queryCache = new QueryCache({
-    onError(error) {
-        // console.log(error, 'in auth provider')
-        errorToast({
-            title: 'Error',
-            body: error?.message
-        })
-    },
+  onError(error) {
+    // console.log(error, 'in auth provider')
+    errorToast({
+      title: 'Error',
+      body: error?.message
+    })
+  },
 })
 // Create a client
 const queryClient = new QueryClient({
-    mutationCache,
-    queryCache,
-    defaultOptions: { queries: { retry: 2 } },
+  mutationCache,
+  queryCache,
+  defaultOptions: { queries: { retry: 2 } },
 });
-const CustomToast = ({ isVisible, onDismiss }) => (
-    <Toast
-        visible={isVisible}
-        position={'top'}
-        autoDismiss={5000}
+
+function onAppStateChange(status) {
+  // React Query already supports in web browser refetch on window focus by default
+  if (Platform.OS !== 'web') {
+    focusManager.setFocused(status === 'active');
+  }
+}
+
+const ErrorFallback = props => (
+  <View
+    center
+    centerV
+    centerH
+    flex
+    backgroundColor={customTheme.colors.background}>
+    <Text white marginV-12>
+      Something happened!
+    </Text>
+    <Text white marginV-12>
+      {props.error.toString()}
+    </Text>
+    <Button
+      onPress={props?.reset}
+      label="Try again"
+      backgroundColor={customTheme.colors.blue20}
     />
-)
-const ErrorFallback = (props) => (
-    <View center centerV centerH flex backgroundColor={customTheme.colors.background}  >
-        <Text white marginV-12 >Something happened!</Text>
-        <Text white marginV-12 >{props.error.toString()}</Text>
-        <Button onPress={props?.reset}
-            label="Try again"
-            backgroundColor={customTheme.colors.blue20}
-        />
-    </View>
-)
+  </View>
+);
 export default function AppProviders({ children }) {
-    useOnlineManager()
-    // useAppState(onAppStateChange)
-    return <QueryClientProvider client={queryClient}>
-        <QueryErrorResetBoundary>
-            {({ reset }) => (
-                <ErrorBoundary FallbackComponent={(props) => <ErrorFallback reset={reset} {...props} />}>
-                    {
-                        children
-                    }
-                </ErrorBoundary>
-            )}
-        </QueryErrorResetBoundary>
-
+  useOnlineManager();
+  // useAppState(onAppStateChange)
+  return (
+    <QueryClientProvider client={queryClient}>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary
+            FallbackComponent={props => (
+              <ErrorFallback reset={reset} {...props} />
+            )}>
+            {children}
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
     </QueryClientProvider>
-
+  );
 }
