@@ -1,19 +1,15 @@
 import React from 'react';
 import {
-  KeyboardAwareScrollView,
-  ProgressBar,
   View,
 } from 'react-native-ui-lib';
-import { ViewContainer } from '../../../components/common/ViewConatiner';
+import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 import {
   FormButton,
   FormInputField,
   FormInputPicker,
 } from '../../../components/common/FormInputs';
-import { ScreenHeader } from '../../../components/common/ScreenHeader';
-import { customTheme } from '../../../constants';
-import * as states from '../../../utils/data/states.json';
 import {
+  useCoachPorfileDetails,
   useEnterPorfileDetails,
   useOnBoarding,
 } from '../../../hooks/useOnBoarding';
@@ -24,86 +20,126 @@ export default function CoachDetails() {
     onBoardingCount,
     handleOnBoarding,
     handleNavigation,
-    isCoach,
-    isPlayer,
+    handleBack,
+    states,
+    handleCoachRegistration
   } = useOnBoarding();
-  const { control, errors, handleSubmit } = useEnterPorfileDetails();
+  const { control, cities, handleSubmit, chekIfStateSelected } = useCoachPorfileDetails();
   const onSubmit = data => {
-    handleOnBoarding(data);
-    const screenName = isPlayer ? 'PlayerStyle' : 'PhotoUpload';
-    handleNavigation(screenName);
+    handleOnBoarding(data, () => handleCoachRegistration());
+    // const screenName = 'PhotoUpload';
+    // handleNavigation(screenName);
   };
   return (
-    <>
-      <KeyboardAwareScrollView>
-        <ViewContainer>
-          <ScreenHeader
-            title={'Enter Coach Details'}
-            backButtonAction={() => { }}
+    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} progress={onBoardingCount} title='Enter Coach Details' backButtonAction={handleBack} >
+
+
+      <View useSafeArea marginT-12 flex>
+        <View row>
+          <Controller
+            name="firstName"
+            control={control}
+            rules={{
+              required: 'First Name is required',
+              maxLength: {
+                value: 50,
+                message: 'First Name must be less than 50 characters',
+              },
+              minLength: {
+                value: 3,
+                message: 'First Name must be more than 3 characters',
+              },
+              pattern: {
+                value: /^[a-zA-Z ]+$/,
+                message: 'First Name must contain only alphabets',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <FormInputField
+                label={'First Name'}
+                value={value ?? ''}
+                onChangeText={onChange}
+                required
+                error={error}
+                placeholder={'Enter First Name'}
+              />
+            )}
           />
-          <ProgressBar
-            progress={onBoardingCount}
-            progressColor={customTheme.colors.blue20}
+          <Controller
+            name="lastName"
+            control={control}
+            rules={{
+              required: 'Last Name is required',
+              maxLength: {
+                value: 50,
+                message: 'Last Name must be less than 50 characters',
+              }
+              ,
+              minLength: {
+                value: 3,
+                message: 'Last Name must be more than 3 characters',
+              },
+              pattern: {
+                value: /^[a-zA-Z ]+$/,
+                message: 'Last Name must contain only alphabets',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <FormInputField
+                label={'Last Name'}
+                value={value ?? ''}
+                onChangeText={onChange}
+                required
+                error={error}
+                placeholder={'Enter Last Name'}
+              />
+            )}
           />
-          <View useSafeArea marginT-12 flex>
-            <View row>
-              <Controller
-                name="firstName"
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <FormInputField
-                    label={'First Name'}
-                    value={value ?? ''}
-                    onChangeText={onChange}
-                  />
-                )}
+        </View>
+        <View row center>
+          <Controller
+            control={control}
+            name="coachingType.state"
+            rules={{
+              required: {
+                value: true,
+                message: 'Please select a state',
+              },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <FormInputPicker
+                value={value}
+                data={states}
+                label={'State'}
+                required
+                title="Search for state.."
+                placeholder="Select State"
+                onValueChange={value => onChange(value)}
               />
-              <Controller
-                name="lastName"
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <FormInputField
-                    label={'Last Name'}
-                    value={value ?? ''}
-                    onChangeText={onChange}
-                  />
-                )}
+            )}
+          />
+          <Controller
+            control={control}
+            name="coachingType.city"
+            render={({ field: { onChange, value } }) => (
+              <FormInputPicker
+                value={value}
+                data={cities}
+                label={'City'}
+                title="Search for city.."
+                required
+                placeholder="Select City"
+                onValueChange={value => {
+                  if (chekIfStateSelected()) {
+                    onChange(value)
+                  }
+                }}
               />
-            </View>
-            <View row center>
-              <Controller
-                control={control}
-                name="schoolInfo.city"
-                render={({ field: { onChange, value } }) => (
-                  <FormInputPicker
-                    value={value}
-                    data={states?.states}
-                    label={'City'}
-                    title="Search for city.."
-                    onValueChange={value => onChange(value)}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="schoolInfo.state"
-                render={({ field: { onChange, value } }) => (
-                  <FormInputPicker
-                    value={value}
-                    data={states?.states}
-                    label={'State'}
-                    title="Search for state.."
-                    onValueChange={value => onChange(value)}
-                  />
-                )}
-              />
-            </View>
-          </View>
-          <View marginT-48>
-            <FormButton label="Confirm" onPress={handleSubmit(onSubmit)} />
-          </View>
-        </ViewContainer>
-      </KeyboardAwareScrollView>
-    </>
+            )}
+          />
+        </View>
+      </View>
+
+    </OnBoardingWrapper>
   );
 }

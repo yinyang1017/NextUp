@@ -46,7 +46,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
-  const [isAuthentication, setIsAuthentication] = React.useState(false);
+  const [reChecking, setReChecking] = React.useState(false);
   const { mutate, isLoading } = useUserRegister({
     onSuccess: data => {
       login(data);
@@ -65,7 +65,6 @@ export default function AuthProvider({ children }) {
 
   // Define login and logout functions that dispatch actions
   const login = (user) => {
-    setIsAuthentication(false);
     dispatch({ type: 'LOGIN', payload: { user } });
   };
 
@@ -90,6 +89,7 @@ export default function AuthProvider({ children }) {
   }
 
 
+
   function onAuthStateChanged(user) {
     // console.log(user, 'in auth state')
     if (user) {
@@ -101,11 +101,17 @@ export default function AuthProvider({ children }) {
       };
       mutate(dataToSend);
     }
-    setIsAuthentication(false);
+    // setIsAuthentication(false);
     // setUser(user);
     // if (initializing) setInitializing(false);
   }
-
+  function onRecheckingAuth() {
+    setReChecking(prev => !prev);
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, [reChecking]);
   // Create the 'value' prop to share data and functions with consumer components
   const authContextValue = {
     user: state?.user,
@@ -116,11 +122,12 @@ export default function AuthProvider({ children }) {
     login,
     logout,
     updateOnBoarding,
+    onRecheckingAuth,
   };
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      {isAuthentication ? <AppLoader /> : children}
+      {!state?.isAuthenticated ? <AppLoader /> : children}
     </AuthContext.Provider>
   );
 }

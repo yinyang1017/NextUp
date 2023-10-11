@@ -13,7 +13,7 @@ export default function OnBoardingProvider({ children }) {
     const navigation = useNavigation()
     const { user, updateOnBoarding } = useAuth()
     const { data: states } = useGetState()
-    // console.log(user, "states")
+    console.log(states, "states")
 
     const { mutate, isLoading: isPlayerLoading } = usePlayerOnBoardingRegister({
         onSuccess: data => {
@@ -45,21 +45,22 @@ export default function OnBoardingProvider({ children }) {
     const isFemale = onBoarding?.gender === 'female'
     const isPlayer = onBoarding?.typeOfUser === 'PLAYER'
     const isCoach = onBoarding?.typeOfUser === 'COACH'
-    const handleOnBoarding = (values) => {
+    const handleOnBoarding = (values, cb = null) => {
         setOnBoarding(prev => {
             return {
                 ...prev,
                 ...values
             }
         })
-        setOnBoardingCount(prev => prev + 25)
+        setOnBoardingCount(prev => prev + 20)
+        cb && cb()
     }
     const handleNavigation = (screen) => {
         navigation.navigate(screen)
     }
     const handleBack = () => {
         if (onBoardingCount > 0) {
-            setOnBoardingCount(prev => prev - 25)
+            setOnBoardingCount(prev => prev - 20)
         }
 
     }
@@ -90,14 +91,27 @@ export default function OnBoardingProvider({ children }) {
         })
     }
     function handleCoachRegistration() {
-        const dataToSend = {
-            ...onBoarding,
+        console.log(onBoarding, "onboarding data")
+        // const dataToSend = {
+        //     roleList: [
+        //         "ROLE_COACH"
+        //     ],
+        //     typeOfUser: 'COACH',
+        //     email: user?.personalInfo?.email,
+        //     schoolInfo: {
+        //         ...onBoarding?.schoolInfo,
+        //         city: onBoarding?.city,
+        //         state: onBoarding?.state,
+        //         name: onBoarding?.schoolInfo?.name,
+        //         gender: onBoarding?.gender
+        //     },
 
-        }
-        coachMutate({
-            data: dataToSend,
-            id: user?.id
-        })
+
+        // }
+        // coachMutate({
+        //     data: dataToSend,
+        //     id: user?.id
+        // })
     }
     const handleUserOnboardingRegistration = async () => {
         updateOnBoarding({

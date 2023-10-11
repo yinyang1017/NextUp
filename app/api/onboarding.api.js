@@ -12,31 +12,11 @@ export function useGetPlayerStyle({ queryFilter, queryConfig = {} }) {
     .join('&')
   return useQuery({
     queryKey: ['player-styles', queryFilter],
-    queryFn: () => client(`admin/list/player/category?gender=POSITIONS_BOYS`),
+    queryFn: () => client(`admin/list/player/category?${qs}`),
     ...queryConfig,
 
   })
 }
-
-export function useGetPlayerStyle({ queryFilter, queryConfig = {} }) {
-  const client = useClient();
-  const qs = Object.keys(queryFilter)
-    .map(key => {
-      if (encodeURIComponent(queryFilter[key])) {
-        return `${encodeURIComponent(key)}=${encodeURIComponent(
-          queryFilter[key],
-        )}`;
-      }
-    })
-    .filter(pair => pair)
-    .join('&');
-  return useQuery({
-    queryKey: ['player-styles', queryFilter],
-    queryFn: () => client(`admin/list/player/category?gender=POSITIONS_BOYS`),
-    ...queryConfig,
-  });
-}
-
 export function usePlayerOnBoardingRegister({ onSuccess }) {
   const client = useClient()
   return useMutation(

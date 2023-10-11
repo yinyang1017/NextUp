@@ -8,6 +8,7 @@ import PhotoUpload from '../views/common/on-boarding/PhotoUpload';
 import OnBoardingProvider from '../context/OnBoardingProviider';
 import CoachDetails from '../views/common/on-boarding/CoachDetails';
 import DocumentVerification from '../views/common/on-boarding/DocumentVerification';
+import SelectCoachingLocation from '../views/common/on-boarding/SelectCoachingLocation';
 export default function OnBoardingStack() {
   const Stack = createNativeStackNavigator();
   return (
@@ -26,6 +27,7 @@ export default function OnBoardingStack() {
         <Stack.Screen name="CoachDetails" component={CoachDetails} />
         <Stack.Screen name="PlayerStyle" component={PlayerStyle} />
         <Stack.Screen name="PhotoUpload" component={PhotoUpload} />
+        <Stack.Screen name="CoachingLocation" component={SelectCoachingLocation} />
         <Stack.Screen name="DocumentVerification" component={DocumentVerification} />
 
       </Stack.Navigator>

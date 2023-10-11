@@ -11,7 +11,8 @@ export default function PlayerStyle() {
         handleOnBoarding,
         handleBack,
         hanldePlayerRegistration,
-        isLoading
+        isLoading,
+        onBoardingCount
     } = useOnBoarding();
     const {
         control,

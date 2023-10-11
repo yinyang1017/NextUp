@@ -30,11 +30,7 @@ import { ViewContainer, statusBarHeight } from './ViewConatiner';
 import moment from 'moment';
 import { hp } from '../../utils/responsive';
 const dropdownIcon = (
-  <FontAwesomeIcon
-    icon={faChevronDown}
-    color={customTheme.colors.light}
-    size={wp(2.5)}
-  />
+  <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
 );
 const searchIcon = (
   <FontAwesomeIcon icon={faSearch} color={customTheme.colors.light} />
@@ -155,11 +151,13 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
             <>
 
               <FormInputField
+                readonly
                 value={value}
                 label={label}
                 picker
                 required={rest?.required}
                 error={rest?.error}
+                placeholder={rest?.placeholder}
 
               />
             </>
@@ -177,8 +175,6 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
                 color: customTheme.colors.light,
                 fontSize: customTheme.fontSizes.size_16,
                 fontFamily: customTheme.fontFamily.robotoRegular,
-
-
               }}
 
               key={index} label={item?.label || item} value={item?.value || item}
@@ -224,6 +220,7 @@ export function FormActionPicker({ data = [], value, onValueChange, label, title
           picker
           error={rest?.error}
           required={rest?.required}
+          placeholder={rest?.placeholder}
 
 
         />
@@ -260,7 +257,7 @@ export function FormActionPicker({ data = [], value, onValueChange, label, title
                 fontFamily: customTheme.fontFamily.robotoMedium,
                 textAlign: 'center',
                 opacity: 0.6,
-              }}>{title}</Text>
+              }}>{'Select an option'}</Text>
             )}
             ListFooterComponent={() => (
               <TouchableOpacity onPress={() => setVisible(false)} marginB-16>
@@ -321,33 +318,40 @@ export function FormRadioGroup({
     row: true,
     column: false,
   };
-
-  const renderRadioButtonItem = (item, index) => {
-    const isSelected = item.value === value;
-    return (
-      <RadioButton
-        size={wp(5)}
-        key={index}
-        value={item?.value ?? ''}
-        label={item?.label ?? ''}
-        containerStyle={styles.formRadioGroupRadioButtonContainer}
-        labelStyle={styles.formRadioGroupRadioButtonLabel(isSelected)}
-        color={customTheme.colors.blue20}
-      />
-    );
-  };
-
   return (
     <View marginV-12>
-      <Text small-700 style={styles.formRadioGroupLabel}>
-        {label}
+      <Text
+        style={{
+          opacity: 0.6,
+          marginBottom: customTheme.spacings.spacing_8,
+          textTransform: 'uppercase',
+          color: customTheme.colors.light,
+          fontSize: customTheme.fontSizes.size_12,
+          fontWeight: '700',
+          opacity: 0.6,
+          fontFamily: customTheme.fontFamily.robotoBold,
+        }}>
+        {label} {rest?.required && <Text red10>*</Text>}
       </Text>
-      <RadioGroup
-        initialValue={value}
-        onValueChange={onValueChange}
-        style={{ gap: wp(7) }}>
+      <RadioGroup initialValue={value} onValueChange={onValueChange}>
         <View row={viewDir[direction]} animated>
-          {_.map(radioValues, renderRadioButtonItem)}
+          {_.map(radioValues, (item, index) => {
+            return (
+              <RadioButton
+                key={index}
+                value={item?.value ?? ''}
+                label={item?.label ?? ''}
+                containerStyle={{
+                  marginRight: customTheme.spacings.spacing_16,
+                  marginTop: customTheme.spacings.spacing_8,
+                }}
+                labelStyle={{
+                  color: customTheme.colors.light,
+                }}
+                color={customTheme.colors.blue20}
+              />
+            );
+          })}
         </View>
       </RadioGroup>
       <Text red10>{rest?.error}</Text>
@@ -397,6 +401,7 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
           fontWeight: '700',
           opacity: 0.6,
           fontFamily: customTheme.fontFamily.robotoBold,
+
         }}>{label} {
             props?.required && <Text red10>*</Text>
           }</Text>
@@ -408,7 +413,7 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
       <TextField
         {...props}
         enablesReturnKeyAutomatically
-        placeholderTextColor={customTheme.colors.light}
+        placeholderTextColor={customTheme.colors.tertiary}
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}
@@ -420,6 +425,7 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
             paddingBottom: customTheme.spacings.spacing_8,
             fontSize: customTheme.fontSizes.size_16,
             fontFamily: customTheme.fontFamily.robotoRegular,
+
           },
         ]}
         onChangeText={onChangeText}
@@ -507,6 +513,7 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
         error={props?.error}
         placeholder={props?.placeholder}
 
+
       />
 
     </TouchableOpacity>
@@ -561,9 +568,10 @@ export const FormMaskedInput = ({ label,
       }>
         <TextInputMask
           {...props}
+          Tra
           type='custom'
           value={inputValue}
-          placeholderTextColor={customTheme.colors.light}
+          placeholderTextColor={customTheme.colors.tertiary}
           onChangeText={(txt) => {
             const pickValue = txt + '-' + pickerValue || data[0].value
             onChangeText(pickValue);

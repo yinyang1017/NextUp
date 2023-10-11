@@ -13,7 +13,12 @@ import AppLoader from '../../../utils/Apploader';
 
 export default function PhotoUpload() {
     const navigation = useNavigation();
-    const { isMale, isPlayer, isCoach, handleUserOnboardingRegistration } =
+    const { isMale,
+        handleBack,
+        hanldePlayerRegistration,
+        isLoading,
+        onBoardingCount
+    } =
         useOnBoarding();
     const {
         isUploading,
@@ -37,7 +42,7 @@ export default function PhotoUpload() {
         // }
     };
     return (
-        <OnBoardingWrapper title="Upload Photo" handleForm={handlePress}>
+        <OnBoardingWrapper backButtonAction={handleBack} progress={onBoardingCount} title="Upload Photo" handleForm={handlePress} skip>
             <View marginV-24 flex>
                 <Text
                     white
@@ -58,7 +63,7 @@ export default function PhotoUpload() {
                     Photo{' '}
                 </Text>
                 { }
-                <View centerH centerV flex>
+                <View center flex>
                     <TouchableOpacity onPress={pickDocument} center centerV>
                         <>
                             <ImageBackground

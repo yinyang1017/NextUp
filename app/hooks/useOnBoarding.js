@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useContext, useMemo, } from 'react';
+import { useContext, useEffect, useMemo, } from 'react';
 import { useForm } from 'react-hook-form';
 import { OnBoardingContext } from '../context/OnBoardingProviider';
 import { appImages } from '../constants/appImages';
@@ -29,9 +29,11 @@ export const useTellUsMore = () => {
 
   const {
     control,
+    setValue,
     handleSubmit,
     watch,
     formState: { errors },
+    setError
   } = useForm({
     defaultValues: {
       ...tellUsMore,
@@ -39,6 +41,9 @@ export const useTellUsMore = () => {
     },
 
   });
+  useEffect(() => {
+    setValue('city', '');
+  }, [watch('state')])
   const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
     queryFilter: {
       state: watch('state'),
@@ -51,9 +56,20 @@ export const useTellUsMore = () => {
   };
   const isPlayer = watch('typeOfUser') === 'PLAYER';
   const isCoach = watch('typeOfUser') === 'COACH';
+  const isTravelTeam = isCoach && watch('coachingType.typeOfCoaching') === 'TRAVEL_TEAM';
   const handleNavigation = screen => {
     navigation.navigate(screen);
   };
+  function chekIfStateSelected() {
+    const stateValue = watch('state');
+    if (stateValue) {
+      return true
+    }
+    setError('city', {
+      type: 'custom',
+      message: 'Select a state first',
+    })
+  }
   return {
     control,
     errors,
@@ -62,6 +78,8 @@ export const useTellUsMore = () => {
     isPlayer,
     playerPosition,
     cities: cities?.data,
+    isTravelTeam,
+    chekIfStateSelected,
     handleNavigation,
     handleSubmit,
   };
@@ -100,6 +118,93 @@ export const useEnterPorfileDetails = () => {
     errors,
     schools: schools?.data,
     classesOfYears: classesOfYears?.data,
+    handleSubmit,
+  };
+};
+export const useCoachPorfileDetails = () => {
+  const {
+    control,
+    handleSubmit,
+    setError,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      ...tellUsMore.personalInfo,
+    },
+  });
+  useEffect(() => {
+    setValue('coachingType.city', '');
+  }, [watch('coachingType.state')])
+  const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
+    queryFilter: {
+      state: watch('coachingType.state'),
+    }
+  })
+  function chekIfStateSelected() {
+    const stateValue = watch('coachingType.state');
+    if (stateValue) {
+      return true
+    }
+    setError('city', {
+      type: 'custom',
+      message: 'Select a state first',
+    })
+  }
+  return {
+    control,
+    errors,
+    cities: cities?.data,
+    chekIfStateSelected,
+    handleSubmit,
+  };
+};
+export const useLocationDetails = () => {
+  const {
+    control,
+    handleSubmit,
+    setError,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+    },
+  });
+  useEffect(() => {
+    setValue('schoolInfo.city', '');
+    setValue('schoolInfo.name', '');
+  }, [watch('schoolInfo.state')])
+  const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
+    queryFilter: {
+      state: watch('schoolInfo.state'),
+    }
+  })
+  const { data: schools, isLoading: isLoadingSchools } = useGetSchools({
+    queryFilter: {
+      city: watch('schoolInfo.city'),
+      state: watch('schoolInfo.state'),
+    }
+  })
+  function chekIfStateSelected() {
+    const stateValue = watch('schoolInfo.state');
+    const cityValue = watch('schoolInfo.city');
+    if (stateValue || cityValue) {
+      return true
+    }
+
+    setError('city', {
+      type: 'custom',
+      message: 'Select a state first and city',
+    })
+  }
+  return {
+    control,
+    errors,
+    cities: cities?.data,
+    schools: schools?.data,
+    chekIfStateSelected,
     handleSubmit,
   };
 };
