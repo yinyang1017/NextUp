@@ -14,7 +14,7 @@ import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog"
 import { useState } from "react"
 export default function PhotoUpload() {
     const navigation = useNavigation()
-    const { isMale, isPlayer, handleUserOnboardingRegistration, onBoardingCount } = useOnBoarding()
+    const { isMale, isPlayer, handleUserOnboardingRegistration, onBoardingCount, handleBack } = useOnBoarding()
     const {
         isUploading,
         uploadProgress,
@@ -31,7 +31,7 @@ export default function PhotoUpload() {
             navigation.navigate('DocumentVerification')
         }
     }
-    return <OnBoardingWrapper handleForm={handlePress} label={'Finish'} skip progress={onBoardingCount} onSkip={handlePress} >
+    return <OnBoardingWrapper backButtonAction={handleBack} handleForm={handlePress} label={'Finish'} skip progress={onBoardingCount} onSkip={handlePress} >
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,

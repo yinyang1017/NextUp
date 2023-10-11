@@ -18,7 +18,7 @@ import {
 } from '../../../components/common/FormInputs';
 import { Controller } from 'react-hook-form';
 export default function TellUsMore() {
-  const { onBoardingCount, handleOnBoarding, handleNavigation, states } =
+  const { onBoardingCount, handleOnBoarding, handleNavigation, states, handleBack } =
     useOnBoarding();
   const {
     control,
@@ -36,7 +36,7 @@ export default function TellUsMore() {
   };
   const _renderPlayerInputs = () => (<>
     <Controller
-      name="personalInfo.gender"
+      name="gender"
       control={control}
       rules={{
         required: true,
@@ -57,7 +57,7 @@ export default function TellUsMore() {
     />
     <Controller
       control={control}
-      name="schoolInfo.state"
+      name="state"
       rules={{
         required: true,
       }}
@@ -66,6 +66,7 @@ export default function TellUsMore() {
         return <FormInputPicker
           value={value}
           data={states ?? []}
+          required
           label={'States'}
           title="Search for states"
           onValueChange={value => onChange(value)}
@@ -78,13 +79,14 @@ export default function TellUsMore() {
     />
     <Controller
       control={control}
-      name="schoolInfo.city"
+      name="city"
       rules={{
         required: true,
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormInputPicker
           value={value}
+          required
           data={cities ?? []}
           label={'Cities'}
           title="Search for cities.."
@@ -121,7 +123,7 @@ export default function TellUsMore() {
         />
       )}
     />
-    <View row>
+    <View row center>
       <Controller
         control={control}
         name="onBoardingTeamName"
@@ -131,16 +133,19 @@ export default function TellUsMore() {
           }
         }
         render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <FormInputPicker
-            value={value}
-            data={states}
-            label={'Select Team'}
-            title="Search for teams.."
-            onValueChange={value => onChange(value)}
-            error={
-              error && 'Please select a team'
-            }
-          />
+          <>
+            <FormInputPicker
+              value={value}
+              data={states}
+              label={'Select Team'}
+              title="Search for teams.."
+              onValueChange={value => onChange(value)}
+              error={
+                error && 'Please select a team'
+              }
+            />
+          </>
+
         )}
       />
       <Controller
@@ -189,7 +194,7 @@ export default function TellUsMore() {
 
   </>)
   return (
-    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} label={'Confirm'} progress={onBoardingCount}>
+    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} backButtonAction={handleBack} label={'Confirm'} progress={onBoardingCount}>
       <View
         style={{
           marginVertical: customTheme.spacings.spacing_16,

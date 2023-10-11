@@ -13,7 +13,9 @@ export default function OnBoardingWrapper({
     handleForm = () => null,
     skip = false,
     onSkip = () => null,
-    progress = 10
+    progress = 0,
+    backButtonAction = () => null
+
 }) {
     return <>
         <KeyboardAwareScrollView  >
@@ -21,6 +23,7 @@ export default function OnBoardingWrapper({
                 {
                     canGoBack && <ScreenHeader
                         title={title}
+                        backButtonAction={backButtonAction}
                     />
                 }
 

@@ -11,7 +11,7 @@ export default function PlayerStyle() {
     const {
         onBoardingCount,
         handleOnBoarding,
-        handleNavigation,
+        handleBack,
         hanldePlayerRegistration,
         isLoading
     } = useOnBoarding();
@@ -25,7 +25,7 @@ export default function PlayerStyle() {
         handleOnBoarding(data);
         hanldePlayerRegistration(data);
     }
-    return <OnBoardingWrapper loading={isLoading} handleForm={handleSubmit(onSubmit)} title='Select Player Style' label={'Confirm'} progress={onBoardingCount}>
+    return <OnBoardingWrapper backButtonAction={handleBack} loading={isLoading} handleForm={handleSubmit(onSubmit)} title='Select Player Style' label={'Confirm'} progress={onBoardingCount}>
         <Controller
             name="playingPosition"
             control={control}

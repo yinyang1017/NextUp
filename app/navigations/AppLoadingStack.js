@@ -31,7 +31,7 @@ export default function AppLoadignStack() {
         {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
-        {isAuthenticated && !onBoardingDone && (
+        {isAuthenticated && onBoardingDone && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
         )}
         {isAuthenticated && onBoardingDone && isCoach && (

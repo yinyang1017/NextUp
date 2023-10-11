@@ -21,17 +21,18 @@ import * as class_years from '../../../utils/data/classYears.json';
 import { errorMessageOnType } from '../../../utils/helper';
 
 export default function PlayerDetails() {
-  const { onBoardingCount, handleOnBoarding, handleNavigation } =
+  const { onBoardingCount, handleOnBoarding, handleNavigation, handleBack } =
     useOnBoarding();
   const { control, errors, handleSubmit } = useEnterPorfileDetails();
   const onSubmit = data => {
     handleOnBoarding(data);
     handleNavigation('PlayerStyle');
   };
+
   return (
-    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} title='Enter Profile Details' label={'Confirm'} progress={onBoardingCount}>
+    <OnBoardingWrapper backButtonAction={handleBack} handleForm={handleSubmit(onSubmit)} title='Enter Profile Details' label={'Confirm'} progress={onBoardingCount}>
       <View useSafeArea marginT-12 flex>
-        <View  >
+        <View row spread center >
           <Controller
             name="personalInfo.firstName"
             control={control}
@@ -160,7 +161,7 @@ export default function PlayerDetails() {
             />
           )}
         />
-        <View row center spread>
+        <View row centerH spread>
           <Controller
             name="personalInfo.height"
             control={control}
@@ -192,17 +193,16 @@ export default function PlayerDetails() {
                 ]}
                 keyboardType="numeric"
               />
-              // <FormInputField
-              //   label={'Height'}
-              //   value={value ?? ''}
-              //   onChangeText={onChange}
-              // />
             )}
           />
           <Controller
             name="personalInfo.weight"
             control={control}
-            render={({ field: { onChange, value } }) => (
+            rules={{
+              required: 'Weight is required',
+
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <FormMaskedInput
                 label={'Weight'}
                 value={value ?? ''}
@@ -220,13 +220,15 @@ export default function PlayerDetails() {
                     value: 'LB',
                   },
                 ]}
+                error={
+                  error && error?.message
+                }
                 keyboardType="numeric"
               />
             )}
           />
         </View>
       </View>
-      {/* <FormButton label="Confirm" onPress={handleSubmit(onSubmit)} /> */}
     </OnBoardingWrapper>
   );
 }

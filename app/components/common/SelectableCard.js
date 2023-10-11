@@ -48,7 +48,21 @@ export const SelectableCard = ({
                             opacity: isSelected ? 1 : 0.8
                         }
                     }>{title}</Text>
-                    <Checkbox value={isSelected} />
+                    {
+                        isSelected &&
+                        <Checkbox
+                            style={{
+                                elevation: 1,
+                                shadowColor: customTheme.colors.tertiary,
+
+                                shadowRadius: 2,
+                                shadowOpacity: 0.9
+
+                            }}
+
+                            iconColor={customTheme.colors.background} color={customTheme.colors.light} borderRadius={customTheme.spacings.spacing_16} value={isSelected} />
+                    }
+
                 </View>
             </ImageBackground>
         </TouchableOpacity>
