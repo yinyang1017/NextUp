@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { TextInputMask } from 'react-native-masked-text'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-=======
-import React from 'react';
->>>>>>> develop
 import {
   Picker,
   View,
