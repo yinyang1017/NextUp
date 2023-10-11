@@ -170,40 +170,44 @@ export default function TellUsMore() {
         )}
       />
     </View>
-    <Controller
-      control={control}
-      name="coachingType.level"
-      rules={{
-        required: true,
-      }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <FormActionPicker
-          value={value}
-          data={['Jr & Varsity', 'Varsity', 'Both']}
-          label={'Level'}
-          title="Search for levels.."
-          onValueChange={value => onChange(value)}
-          error={
-            error && 'Please select a level'
-          }
-        />
-        <Controller
-          control={control}
-          name="schoolInfo.gender"
-          render={({ field: { onChange, value } }) => (
-            <FormInputPicker
-              value={value}
-              data={[
-                { label: 'Boys', value: 'boys' },
-                { label: 'Girls', value: 'girls' },
-              ]}
-              label={'Gender'}
-              title="Search for cities.."
-              onValueChange={value => onChange(value)}
-            />
-          )}
-        />
-      </View>
+    <View>
+      <Controller
+        control={control}
+        name="coachingType.level"
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <FormActionPicker
+            value={value}
+            data={['Jr & Varsity', 'Varsity', 'Both']}
+            label={'Level'}
+            title="Search for levels.."
+            onValueChange={value => onChange(value)}
+            error={
+              error && 'Please select a level'
+            }
+
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="schoolInfo.gender"
+        render={({ field: { onChange, value } }) => (
+          <FormInputPicker
+            value={value}
+            data={[
+              { label: 'Boys', value: 'boys' },
+              { label: 'Girls', value: 'girls' },
+            ]}
+            label={'Gender'}
+            title="Search for cities.."
+            onValueChange={value => onChange(value)}
+          />
+        )}
+      />
+    </View>
     <Controller
       control={control}
       name="coachingType.level"
@@ -217,6 +221,7 @@ export default function TellUsMore() {
         />
       )}
     />
+  </>
   );
   return (
     <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} backButtonAction={handleBack} label={'Confirm'} progress={onBoardingCount}>
