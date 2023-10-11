@@ -12,16 +12,16 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import DashBoardHeader from '../../../components/common/DashBoardHeader';
-import {MyTeams, TeamsBar} from '../../../components/players/Dashboard/MyTeams';
-import {UpcomingGames} from '../../../components/players/Dashboard/EventsCarousel';
-import StatsContainer from '../../../components/players/Dashboard/StatsContainer';
-import {MyChallenges} from '../../../components/players/Dashboard/Challenges';
+import {MyTeams, TeamsBar} from '../../../components/coach/Dashboard/MyTeams';
+import {UpcomingGames} from '../../../components/coach/Dashboard/EventsCarousel';
+import StatsContainer from '../../../components/coach/Dashboard/StatsContainer';
+import {MyChallenges} from '../../../components/coach/Dashboard/Challenges';
 import {Button, Colors} from 'react-native-ui-lib';
 import {customTheme} from '../../../constants';
-import StatisticOverview from '../../../components/players/Dashboard/StatisticOverview';
+import StatisticOverview from '../../../components/coach/Dashboard/StatisticOverview';
 import profileImg from '../../../assets/images/avatar.png';
-import LastGameSection from '../../../components/players/Dashboard/LastGame';
-import MatchUp from '../../../components/players/Dashboard/MatchUp';
+import LastGameSection from '../../../components/coach/Dashboard/LastGame';
+import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import {Padding} from '../../GlobalStyles';
 
 const PlayerDashboard = () => {

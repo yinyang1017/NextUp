@@ -3,7 +3,7 @@ import { Text } from "react-native-ui-lib"
 import { customTheme } from "../../../constants"
 import { ViewContainer } from "../../../components/common/ViewConatiner"
 import Games from "./Games"
-import { TeamsBar } from "../../../components/players/Dashboard/MyTeams"
+import { TeamsBar } from "../../../components/coach/Dashboard/MyTeams"
 import Roaster from "./Roaster"
 import PlayerStats from "./Stats"
 const TopTab = createMaterialTopTabNavigator()
