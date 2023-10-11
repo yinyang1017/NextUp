@@ -43,3 +43,19 @@ export const getUniqueId = dataString => {
   const namespace = uuidv5.URL;
   return uuidv5(dataString, namespace);
 };
+
+
+export const errorMessageOnType = (error) => {
+  switch (error?.type) {
+    case 'required':
+      return 'This field is required';
+    case 'minLength':
+    case 'maxLength':
+      return `This field must be between ${error?.minLength} and ${error?.maxLength} characters`;
+    case 'pattern':
+      return 'Please enter a valid value';
+    case 'notBefore':
+      return 'You must be at least 18 years old';
+
+  }
+}

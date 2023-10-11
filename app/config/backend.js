@@ -79,7 +79,7 @@ class Backend {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+      // console.log('appleAuthRequestResponse', appleAuthRequestResponse);
 
       const {
         user: newUser,
@@ -93,17 +93,17 @@ class Backend {
 
       const data = await this.fetchAndUpdateCredentialState();
 
-      console.log(data);
+      // console.log(data);
 
       if (identityToken) {
         // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
-        console.log(nonce, identityToken);
+        // console.log(nonce, identityToken);
       } else {
         // no token - failed sign-in?
       }
 
       if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
-        console.log("I'm a real person!");
+        // console.log("I'm a real person!");
       }
 
       console.warn(`Apple Authentication Completed, ${user}, ${email}`);
@@ -173,9 +173,9 @@ class Backend {
 
   // checkEmailExist(email, cb) {
   //     auth().signInWithEmailAndPassword(email, '98959685848585').then((e) => {
-  //         console.log(e)
+  //        // console.log(e)
   //     }).catch(error => {
-  //         console.log(error.code)
+  //        // console.log(error.code)
   //         if (error.code !== 'auth/user-not-found') {
   //             cb(true)
   //         } else {
@@ -205,11 +205,11 @@ class Backend {
             });
 
           // cb(true, 'old')
-          // console.log('That email address is already in use!');
+          //// console.log('That email address is already in use!');
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('Invalid email: ', error);
+          // console.log('Invalid email: ', error);
           cb(false, error.userInfo.message);
         }
 
@@ -247,12 +247,12 @@ class Backend {
         auth()
           .currentUser.updatePassword(newPass)
           .then(() => {
-            console.log('PasswordUpdated:');
+            // console.log('PasswordUpdated:');
             cb(true);
           })
           .catch(error => {
             alert(error);
-            console.log('Erorrr', error);
+            // console.log('Erorrr', error);
             cb(false);
           });
       })

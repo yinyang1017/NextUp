@@ -60,7 +60,7 @@ export class GooglePlacePicker extends Component {
 
   handlleSelectedAddress = (data) => {
     this.props.onAddressSelected(data);
-    // console.log("Selected Locccc", data)
+    //// console.log("Selected Locccc", data)
     // this.setState({
     //   selectedLatLong: {
     //     latitude: data.geometry.location.lat,

@@ -14,7 +14,7 @@ axios.interceptors.request.use(
       //for token expire test
       // config.headers.common['Authorization'] = `${'Bearer ' + 'klaodndkisoak'}`;
     }
-    console.log(config);
+    // console.log(config);
     return config;
   },
   error => {
@@ -30,7 +30,7 @@ axios.interceptors.response.use(
     if (error.response.status === 404) {
       return axios.request(error.response.config);
     } else if (error.response.status === 403) {
-      console.log('REspppp', error.response);
+      // console.log('REspppp', error.response);
       removeAllLocalData().then(res => {
         if (res) {
           Navigation.navigate('AuthLoading');

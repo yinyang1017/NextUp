@@ -5,7 +5,7 @@ import { customTheme } from '../../constants';
 
 export const SectionHeader = ({
   title,
-  onPressSeeAll = () => {},
+  onPressSeeAll = () => { },
   containerStyle = {},
 }) => {
   return (

@@ -1,5 +1,6 @@
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message"
 import { getDesiredNumber } from "./helper";
+import { customTheme } from "../constants";
 /*
   1. Create the config
 */
@@ -12,18 +13,18 @@ export const toastConfig = {
         <BaseToast
             {...props}
             style={{
-                borderLeftColor: APP_CONFIG.APP_THEME.colors.secondary,
-                backgroundColor: APP_CONFIG.APP_THEME.colors.primary
+                borderLeftColor: customTheme.colors.blue20,
+                backgroundColor: customTheme.colors.background
             }}
             contentContainerStyle={{ paddingHorizontal: 15 }}
             text1Style={{
                 fontSize: getDesiredNumber(12),
                 fontWeight: '400',
-                color: 'white'
+                color: customTheme.colors.success
             }}
             text2Style={{
                 fontSize: getDesiredNumber(12),
-                color: APP_CONFIG.APP_THEME.colors.secondary
+                color: customTheme.colors.light
 
             }}
         />
@@ -37,18 +38,18 @@ export const toastConfig = {
             {...props}
             style={
                 {
-                    borderLeftColor: APP_CONFIG.APP_THEME.colors.error,
-                    backgroundColor: APP_CONFIG.APP_THEME.colors.primary
+                    borderLeftColor: customTheme.colors.red10,
+                    backgroundColor: customTheme.colors.background
                 }
             }
             text1Style={{
                 fontSize: getDesiredNumber(12),
                 fontWeight: '400',
-                color: 'white'
+                color: customTheme.colors.red10
             }}
             text2Style={{
                 fontSize: 15,
-                color: APP_CONFIG.APP_THEME.colors.error
+                color: customTheme.colors.light
             }}
         />
     ),

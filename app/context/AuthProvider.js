@@ -47,49 +47,51 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
   const [isAuthentication, setIsAuthentication] = React.useState(false);
-  const { mutate } = useUserRegister({
+  const { mutate, isLoading } = useUserRegister({
     onSuccess: data => {
       login(data);
+
     },
   });
 
+
   const isPlayer = useMemo(() => {
     return state.user?.typeOfUser === 'PLAYER';
-  }, [state]);
+  }, [state])
   const isCoach = useMemo(() => {
     return state.user?.typeOfUser === 'COACH';
-  }, [state]);
+  }, [state])
+
 
   // Define login and logout functions that dispatch actions
-  const login = user => {
+  const login = (user) => {
     setIsAuthentication(false);
     dispatch({ type: 'LOGIN', payload: { user } });
   };
 
   const logout = () => {
-    auth()
-      .signOut()
-      .then(() => {
-        dispatch({ type: 'LOGOUT' });
-        successToast({
-          title: 'Success',
-          body: 'Logged out successfully',
-        });
-      });
-  };
+    auth().signOut().then(() => {
+      dispatch({ type: 'LOGOUT' });
+      successToast({
+        title: 'Success',
+        body: 'Logged out successfully'
+      })
+    })
 
-  const updateOnBoarding = user => {
-    dispatch({
-      type: 'UPDATE_ONBOARDING',
-      payload: {
-        onBoardingDone: true,
-        user,
-      },
-    });
   };
+  const updateOnBoarding = (user) => {
+    dispatch({
+      type: 'UPDATE_ONBOARDING', payload: {
+        onBoardingDone: true,
+        user
+      }
+    })
+
+  }
+
 
   function onAuthStateChanged(user) {
-    console.log(user, 'in auth state');
+    // console.log(user, 'in auth state')
     if (user) {
       const dataToSend = {
         email: user.email,
@@ -103,13 +105,6 @@ export default function AuthProvider({ children }) {
     // setUser(user);
     // if (initializing) setInitializing(false);
   }
-
-  useEffect(() => {
-    setIsAuthentication(true);
-    const subscribe = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscribe;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // Create the 'value' prop to share data and functions with consumer components
   const authContextValue = {

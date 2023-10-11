@@ -123,11 +123,11 @@ export default class LocationView extends React.Component {
         const { latitude, longitude } = position.coords;
         this._setRegion({ latitude, longitude });
       },
-      error => console.log(error.message),
+      error =>// console.log(error.message),
       {
         enableHighAccuracy,
-        timeout,
-        maximumAge,
+          timeout,
+          maximumAge,
       }
     );
   };

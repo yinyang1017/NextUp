@@ -30,7 +30,6 @@ export const ScreenHeader = ({ title, backButtonAction }) => {
         // height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: customTheme.spacings.spacing_48,
         marginBottom: customTheme.spacings.spacing_20
       }}
     >
@@ -47,7 +46,10 @@ export const ScreenHeader = ({ title, backButtonAction }) => {
             paddingVertical: customTheme.spacings.spacing_8,
             marginRight: customTheme.spacings.spacing_12
           }}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.goBack()
+            backButtonAction()
+          }}
         >
           <FontAwesomeIcon
             color={customTheme.colors.white}

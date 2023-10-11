@@ -19,52 +19,42 @@ import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
-  const { isAuthenticated, onBoardingDone, isCoach, isPlayer } = useAuth();
-
+  const { isAuthenticated, onBoardingDone,
+    user,
+    isCoach,
+    isPlayer, } = useAuth();
   return (
-    <Stack.Navigator
-      initialRouteName="OnboadingStack"
-      screenOptions={{ headerShown: false, cardStyle: { padding: 20 } }}>
-      {isAuthenticated && (
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      )}
-      {!isAuthenticated && !onBoardingDone && (
-        <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
-      )}
-      {isAuthenticated && onBoardingDone && isCoach && (
-        <Stack.Group>
-          <Stack.Screen name="CoachStack" component={CoachStack} />
-          <Stack.Screen name="ChatScreen" component={ChatScreen} />
-          <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
-          <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
-          <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
-          <Stack.Screen name="AllStandings" component={AllStandings} />
-          <Stack.Screen name="GameStatistics" component={GameStatistics} />
-          <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
-          <Stack.Screen name="AddLineup" component={AddLineup} />
-          <Stack.Screen name="LineupDetails" component={LineupDetails} />
-          <Stack.Screen name="CreatePractice" component={CreatePractice} />
-        </Stack.Group>
-      )}
-      {isAuthenticated && onBoardingDone && isPlayer && (
-        <Stack.Group>
-          <Stack.Screen name="CoachStack" component={PlayerStack} />
-          <Stack.Screen name="ChatScreen" component={ChatScreen} />
-          <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
-          <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
-          <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
-          <Stack.Screen name="AllStandings" component={AllStandings} />
-          <Stack.Screen name="GameStatistics" component={GameStatistics} />
-          <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
-          <Stack.Screen name="AddLineup" component={AddLineup} />
-          <Stack.Screen name="LineupDetails" component={LineupDetails} />
-          <Stack.Screen name="CreatePractice" component={CreatePractice} />
-          <Stack.Screen
-            name="CoachViewPlayerDetails"
-            component={CoachViewPlayerDetails}
-          />
-        </Stack.Group>
-      )}
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator
+        initialRouteName="OnboadingStack"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { padding: 20 },
+        }}>
+        {!isAuthenticated && (
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        )}
+        {isAuthenticated && onBoardingDone && (
+          <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
+        )}
+        {isAuthenticated && onBoardingDone && isCoach && (
+          <Stack.Group>
+            <Stack.Screen name="CoachStack" component={CoachStack} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
+            <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
+            <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
+            <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
+            <Stack.Screen name="AllStandings" component={AllStandings} />
+            <Stack.Screen name="GameStatistics" component={GameStatistics} />
+          </Stack.Group>
+        )}
+        {isAuthenticated && onBoardingDone && isPlayer && (
+          <Stack.Group>
+            <Stack.Screen name="CoachStack" component={PlayerStack} />
+
+          </Stack.Group>
+        )}
+      </Stack.Navigator>
+    </>
   );
 }

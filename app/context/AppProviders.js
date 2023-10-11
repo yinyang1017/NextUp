@@ -1,28 +1,35 @@
 import React from 'react';
 import { MutationCache, QueryCache, focusManager } from 'react-query';
 import {
+  useQuery,
+  useMutation,
+  useQueryClient,
   QueryClient,
   QueryClientProvider,
-  QueryErrorResetBoundary,
-} from 'react-query';
-import { useOnlineManager } from '../hooks/useOnlineManager';
-import { Platform } from 'react-native';
+  QueryErrorResetBoundary
+} from 'react-query'
+import { useAppState } from "../hooks/useAppState";
+import { useOnlineManager } from "../hooks/useOnlineManager";
+import { Alert, Platform } from "react-native";
 import ErrorBoundary from 'react-native-error-boundary';
-import { Button, View, Text } from 'react-native-ui-lib';
-import { customTheme } from '../constants';
+import { Button, View, Text, Toast } from "react-native-ui-lib";
+import { customTheme } from "../constants";
+import { errorToast } from '../utils/toast'
 
 const mutationCache = new MutationCache({
   onError(error, variables, context, mutation) {
-    console.log(error);
+    // console.log(error, 'in auth provider')
   },
-});
-
+})
 const queryCache = new QueryCache({
   onError(error) {
-    console.log(error);
-    // vmoToast.error(<Toast error message={error.message} />)
+    // console.log(error, 'in auth provider')
+    errorToast({
+      title: 'Error',
+      body: error?.message
+    })
   },
-});
+})
 // Create a client
 const queryClient = new QueryClient({
   mutationCache,

@@ -47,7 +47,7 @@ const ChatVideoMessage = props => {
   // const onPressShowFullScreenHandler = () => {
   //   videoRef?.current?.presentFullscreenPlayer();
   // };
-  // console.log(
+  //// console.log(
   //   '🚀 ~ file: ChatVideoMessage.js:56 ~ onPressShowFullScreenHandler ~ videoRef?.current:',
   //   videoRef?.current,
   // );

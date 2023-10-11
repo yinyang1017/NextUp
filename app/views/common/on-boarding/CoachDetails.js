@@ -39,7 +39,7 @@ export default function CoachDetails() {
         <ViewContainer>
           <ScreenHeader
             title={'Enter Coach Details'}
-            backButtonAction={() => {}}
+            backButtonAction={() => { }}
           />
           <ProgressBar
             progress={onBoardingCount}

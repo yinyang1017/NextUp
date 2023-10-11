@@ -1,24 +1,33 @@
-import { KeyboardAwareScrollView, ProgressBar, Keyboard, Constants, Colors, View } from "react-native-ui-lib";
+import { KeyboardAwareScrollView, ProgressBar, TouchableOpacity, View, Text } from "react-native-ui-lib";
 import { ViewContainer } from "./ViewConatiner";
 import { ScreenHeader } from "./ScreenHeader";
 import { customTheme } from "../../constants";
 import { FormButton } from "./FormInputs";
-
 export default function OnBoardingWrapper({
     title = '',
     children,
     label,
     loading,
-    handleForm = () => null
+    canGoBack = true,
+    handleForm = () => null,
+    skip = false,
+    onSkip = () => null,
+    progress = 0,
+    backButtonAction = () => null
+
 }) {
     return <>
-        <KeyboardAwareScrollView >
+        <KeyboardAwareScrollView  >
             <ViewContainer >
-                <ScreenHeader
-                    title={title}
-                />
+                {
+                    canGoBack && <ScreenHeader
+                        title={title}
+                        backButtonAction={backButtonAction}
+                    />
+                }
+
                 <ProgressBar
-                    progress={10}
+                    progress={progress}
                     progressColor={customTheme.colors.blue20}
                     style={{
                         backgroundColor: customTheme.colors.primary,
@@ -30,18 +39,26 @@ export default function OnBoardingWrapper({
                     children
                 }
 
+
             </ViewContainer>
 
 
+
         </KeyboardAwareScrollView>
-        <View marginH-20 marginT-32>
-            {/* <FormButton
+        <View paddingH-16 marginB-32 marginT-12 >
+            <FormButton
                 onPress={handleForm}
                 loading={loading}
                 label={label}
 
 
-            /> */}
+            />
+            {
+                skip && <TouchableOpacity marginT-20 onPress={onSkip}>
+                    <Text center white marginB-20
+                    >Skip</Text>
+                </TouchableOpacity>
+            }
         </View>
 
 

@@ -13,14 +13,14 @@ export default class NotifService {
         // Clear badge number at start
         if (Platform.OS == 'ios') {
             PushNotificationIOS.getApplicationIconBadgeNumber(function (number) {
-                console.log("IOS BADGE NUmber", number);
+                // console.log("IOS BADGE NUmber", number);
                 if (number > 0) {
 
                     // PushNotificationIOS.setApplicationIconBadgeNumber(0);
                 }
             });
             // PushNotificationIOS.getDeliveredNotifications(function (channels) {
-            //     console.log("IOS Channel", channels);
+            //    // console.log("IOS Channel", channels);
             //     // if (number > 0) {
 
             //     // }
@@ -34,7 +34,7 @@ export default class NotifService {
         });
 
         PushNotification.getChannels(function (channels) {
-            console.log(channels);
+            // console.log(channels);
         });
     }
 
@@ -49,12 +49,12 @@ export default class NotifService {
                 importance: 4, // (optional) default: 4. Int value of the Android notification importance
                 vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
             },
-            (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+            (created) =>// console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
         );
     }
 
     popInitialNotification() {
-        PushNotification.popInitialNotification((notification) => console.log('InitialNotication:', notification));
+        PushNotification.popInitialNotification((notification) =>// console.log('InitialNotication:', notification));
     }
 
     localNotif(soundName) {

@@ -17,7 +17,7 @@ const PlayerSideBySideBarGraph = ({ pgsData }) => {
         for (const key in obj) {
           var leftVal = obj[key];
           // var fillWidth = leftVal > 10 ? 35 + parseFloat(leftVal) : 45 - leftVal;
-          // console.log('widthfill', fillWidth);
+          //// console.log('widthfill', fillWidth);
           var rightVal = 0;
           if (rightObj !== null && rightObj !== undefined) {
             rightVal = rightObj[key];

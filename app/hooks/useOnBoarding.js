@@ -1,17 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAuth } from './useAuth';
 import { OnBoardingContext } from '../context/OnBoardingProviider';
 import { appImages } from '../constants/appImages';
 import { useGetPlayerStyle } from '../api/onboarding.api';
+import { yupResolver } from "@hookform/resolvers/yup"
+import { tellUsMorePlayer } from '../validations/tellus';
 import { useGetCity, useGetClassOffYears, useGetSchools } from '../api/lookup.api';
 const tellUsMore = {
   typeOfUser: 'PLAYER',
-  personalInfo: {
-    gender: 'male',
-  },
-
+  gender: 'male',
   schoolInfo: {
     city: '',
     state: '',
@@ -37,14 +35,16 @@ export const useTellUsMore = () => {
   } = useForm({
     defaultValues: {
       ...tellUsMore,
+
     },
+
   });
   const { isIdle, data: cities, isLoading: isLoadingCities } = useGetCity({
     queryFilter: {
-      state: watch('schoolInfo.state'),
+      state: watch('state'),
     }
   })
-  const playerPosition = watch('personalInfo.gender');
+  const playerPosition = watch('gender');
   const playerImg = {
     male: appImages.player_male,
     female: appImages.player_female,
