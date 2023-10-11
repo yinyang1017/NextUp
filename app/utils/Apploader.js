@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native-ui-lib';
-import {
-  Modal,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  Easing,
-} from 'react-native';
-import { Colors, customTheme } from '../constants';
+import { Modal, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { customTheme } from '../constants';
 
 class AppLoader extends React.Component {
   render() {
@@ -21,7 +15,11 @@ class AppLoader extends React.Component {
         onRequestClose={onRequestClose}
         {...this.props}>
         <View style={styles.container}>
-          <ActivityIndicator animating size={30} color={customTheme.colors.light} />
+          <ActivityIndicator
+            animating
+            size={30}
+            color={customTheme.colors.light}
+          />
           <Text white>{loadingMessage ?? 'Loading...'} </Text>
         </View>
       </Modal>
@@ -43,7 +41,7 @@ AppLoader.propTypes = {
 };
 
 AppLoader.defaultProps = {
-  onRequestClose: () => { },
+  onRequestClose: () => {},
 };
 
 export default AppLoader;

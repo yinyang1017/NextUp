@@ -66,7 +66,11 @@ const SearchPlayers = () => {
       <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
       <FlatList
         data={[1, 2, 3]}
-        renderItem={() => <SearchPlayerItem />}
+        renderItem={() => (
+          <SearchPlayerItem
+            onPress={() => navigation.navigate('CoachViewPlayerDetails')}
+          />
+        )}
         contentContainerStyle={styles.listContentContainer}
       />
       <View style={styles.footer}>

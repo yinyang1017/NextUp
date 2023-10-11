@@ -5,9 +5,8 @@ import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
 import { appImages } from '../../../constants/appImages';
-import { MyColors } from '../../../constants/colors';
-import { FontFamily } from '../../GlobalStyles';
 import StandingsTable from '../../../components/games/Standings/StandingsTable';
+import { customTheme } from '../../../constants';
 
 const AllStandings = () => {
   const navigation = useNavigation();
@@ -51,8 +50,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dropdownTitle: {
-    color: MyColors.light,
+    color: customTheme.colors.light,
     fontWeight: '500',
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
 });

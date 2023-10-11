@@ -1,7 +1,7 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import styles from './styles';
-import { MyColors } from '../../../constants/colors';
+import { customTheme } from '../../../constants';
 
 const headerData = ['#', 'Team', 'W', 'L', 'GB', 'GP', '+/-'];
 
@@ -11,7 +11,7 @@ const tableData = [
     image: null,
     title: 'O’Dea HS',
     data: ['9', '1', '0', '10', '38'],
-    dataColor: MyColors.darkYellow,
+    dataColor: customTheme.colors.darkYellow,
   },
   {
     srNo: 2,

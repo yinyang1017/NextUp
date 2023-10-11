@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Colors, Image } from 'react-native-ui-lib';
-import { Color, FontFamily, FontSize, Padding } from '../../views/GlobalStyles';
+import { Color, Padding } from '../../views/GlobalStyles';
 import { wp } from '../../utils/responsive';
+import { customTheme } from '../../constants';
 
 const TeamItem = ({
   imageSource = {},
@@ -33,15 +34,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: Colors.white,
   },
-  imageContainer: {
-    height: wp(22),
-    width: wp(22),
-  },
+  imageContainer: { height: wp(22), width: wp(22) },
   image: { width: '100%', height: '100%' },
   name: {
     lineHeight: 14,
-    fontSize: FontSize.bodyMediumSemibold_size,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     color: Color.othersWhite,
     width: '100%',
     paddingVertical: Padding.p_8xs,

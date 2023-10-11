@@ -51,7 +51,7 @@ class Backend {
 
     // Create a Firebase credential with the AccessToken
     const facebookCredential = auth.FacebookAuthProvider.credential(
-      data.accessToken
+      data.accessToken,
     );
 
     // Sign-in the user with the credential
@@ -122,7 +122,7 @@ class Backend {
     const userInfo = await GoogleSignin.signIn();
     const credential = auth.GoogleAuthProvider.credential(
       userInfo.idToken,
-      userInfo.accessToken
+      userInfo.accessToken,
     );
     // const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
 
@@ -147,7 +147,7 @@ class Backend {
     const { identityToken, nonce } = appleAuthRequestResponse;
     const appleCredential = auth.AppleAuthProvider.credential(
       identityToken,
-      nonce
+      nonce,
     );
 
     // Sign the user in with the credential
@@ -156,15 +156,15 @@ class Backend {
 
   handleImperativeLogin(id, cb) {
     if (id == 0) {
-      this.handleFacebookLogin().then((e) => {
+      this.handleFacebookLogin().then(e => {
         cb(e);
       });
     } else if (id == 1) {
-      this.onAppleButtonPress().then((e) => {
+      this.onAppleButtonPress().then(e => {
         cb(e);
       });
     } else {
-      this.firebaseGoogleLogin().then((e) => {
+      this.firebaseGoogleLogin().then(e => {
         // console.log(e)
         cb(e);
       });
@@ -187,19 +187,19 @@ class Backend {
   handleLoginWithEmailAndPass(email, pass, cb) {
     auth()
       .createUserWithEmailAndPassword(email, pass)
-      .then((e) => {
+      .then(e => {
         console.log('Creating user: ', e);
         cb(true, e);
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           auth()
             .signInWithEmailAndPassword(email, pass)
-            .then((e) => {
+            .then(e => {
               console.log('Logging userr: ', e);
               cb(true, e);
             })
-            .catch((error) => {
+            .catch(error => {
               console.log('Logging error: ', error);
               cb(false, error.userInfo.message);
             });
@@ -220,14 +220,14 @@ class Backend {
   isEmailExist(email, cb) {
     auth()
       .fetchSignInMethodsForEmail(email)
-      .then((e) => {
+      .then(e => {
         if (e.length > 0) {
           cb(true, e);
         } else {
           cb(false, e);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   }
@@ -235,8 +235,8 @@ class Backend {
   updateUserPassword(oldPass, newPass, cb) {
     var user = auth().currentUser;
     const emailCred = auth.EmailAuthProvider.credential(
-      user._user.email,
-      oldPass
+      user?._user.email,
+      oldPass,
     );
 
     auth()
@@ -250,13 +250,13 @@ class Backend {
             console.log('PasswordUpdated:');
             cb(true);
           })
-          .catch((error) => {
+          .catch(error => {
             alert(error);
             console.log('Erorrr', error);
             cb(false);
           });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Password change fail', error);
         cb(false);
       });
@@ -268,7 +268,7 @@ class Backend {
       .then(() => {
         cb(true);
       })
-      .catch((error) => {
+      .catch(error => {
         cb(false);
       });
   }

@@ -1,9 +1,8 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Checkbox } from 'react-native-ui-lib';
-import { MyColors } from '../../../constants/colors';
 import { hp, wp } from '../../../utils/responsive';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
+import { customTheme } from '../../../constants';
 
 const PointsInfoItem = ({ title, value }) => {
   return (
@@ -14,9 +13,9 @@ const PointsInfoItem = ({ title, value }) => {
   );
 };
 
-const SearchPlayerItem = () => {
+const SearchPlayerItem = ({ onPress }) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image
         source={require('../../../assets/avatar2.png')}
         style={styles.image}
@@ -31,12 +30,12 @@ const SearchPlayerItem = () => {
       </View>
       <Checkbox
         style={styles.checkbox}
-        color={true ? MyColors.btnBg : MyColors.lightGray1}
+        color={true ? customTheme.colors.btnBg : customTheme.colors.lightGray1}
         value
         size={wp(5.5)}
         borderRadius={wp(1)}
       />
-    </View>
+    </Pressable>
   );
 };
 
@@ -44,7 +43,7 @@ export default SearchPlayerItem;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: MyColors.lightDark,
+    backgroundColor: customTheme.colors.lightDark,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: wp(2),
@@ -54,10 +53,10 @@ const styles = StyleSheet.create({
   image: { height: wp(12.5), width: wp(12.5), marginRight: wp(3) },
   body: { flex: 1 },
   name: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '600',
-    fontSize: FontSize.bodyLargeBold_size,
-    color: MyColors.light,
+    fontSize: customTheme.fontSizes.size_16,
+    color: customTheme.colors.light,
   },
   pointsInfoContainer: {
     flexDirection: 'row',
@@ -69,14 +68,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pointInfoItemTitle: {
-    fontSize: FontSize.size_2xs,
-    color: MyColors.light + '60',
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_11,
+    color: customTheme.colors.light + '60',
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
   pointInfoItemValue: {
-    color: MyColors.light,
+    color: customTheme.colors.light,
     fontWeight: '500',
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
   checkbox: {
     marginRight: wp(3),

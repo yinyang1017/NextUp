@@ -1,19 +1,18 @@
+import { customTheme } from '../../../constants';
 const { StyleSheet } = require('react-native');
-const { FontFamily, FontSize } = require('../../../views/GlobalStyles');
-const { MyColors } = require('../../../constants/colors');
 const { wp, hp } = require('../../../utils/responsive');
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '600',
-    color: MyColors.light,
-    fontSize: FontSize.size_3xl,
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_22,
   },
   scoreCardContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: MyColors.lightDark,
+    backgroundColor: customTheme.colors.lightDark,
     borderRadius: wp(2),
     paddingHorizontal: wp(6),
     paddingVertical: hp(1.2),
@@ -22,16 +21,16 @@ const styles = StyleSheet.create({
   },
   scoreItemContainer: { alignItems: 'center' },
   scoreItemScoreText: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
-    color: MyColors.light,
-    fontSize: FontSize.size_5xl,
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_24,
     lineHeight: 28,
   },
   scoreItemSubTitle: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
-    color: MyColors.light + '50',
+    color: customTheme.colors.light + '50',
     marginTop: hp(0.5),
   },
   totalGamesContainer: {
@@ -42,16 +41,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   totalGamesCount: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '300',
-    fontSize: FontSize.size_6xl,
-    color: MyColors.light,
+    fontSize: customTheme.fontSizes.size_26,
+    color: customTheme.colors.light,
   },
   totalGamesText: {
     width: wp(10),
-    fontSize: FontSize.size_2xs,
-    fontFamily: FontFamily.robotoRegular,
-    color: MyColors.light,
+    fontSize: customTheme.fontSizes.size_11,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
     fontWeight: '700',
     textAlign: 'center',
   },
@@ -64,15 +63,15 @@ const styles = StyleSheet.create({
   },
   statsItemContainer: { alignItems: 'center' },
   statsItemTitle: {
-    color: MyColors.compareRankColor,
+    color: customTheme.colors.compareRankColor,
     fontWeight: '700',
-    fontSize: FontSize.size_xs,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
   statsItemValue: {
-    fontSize: FontSize.bodyLargeBold_size,
-    fontFamily: FontFamily.robotoRegular,
-    color: MyColors.light,
+    fontSize: customTheme.fontSizes.size_16,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
     fontWeight: '300',
   },
   agendaItemContainer: {
@@ -86,9 +85,9 @@ const styles = StyleSheet.create({
     marginRight: wp(2),
   }),
   agendaItemTitle: color => ({
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
-    fontSize: FontSize.bodyLargeBold_size,
+    fontSize: customTheme.fontSizes.size_16,
     color: color,
   }),
 });

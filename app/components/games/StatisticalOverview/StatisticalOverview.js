@@ -1,7 +1,6 @@
 import { Text, View } from 'react-native';
 import React from 'react';
 import { Dash } from 'react-native-ui-lib';
-import { MyColors } from '../../../constants/colors';
 import { hp, wp } from '../../../utils/responsive';
 import { VictoryPie } from 'victory-native';
 import { Svg } from 'react-native-svg';
@@ -9,6 +8,7 @@ import styles from './styles';
 import ScoreItem from './ScoreItem';
 import StatsItem from './StatsItem';
 import AgendaItem from './AgendaItem';
+import { customTheme } from '../../../constants';
 
 const StatisticalOverview = () => {
   return (
@@ -16,7 +16,11 @@ const StatisticalOverview = () => {
       <Text style={styles.title}>Statistical Overview</Text>
       <View style={styles.scoreCardContainer}>
         <ScoreItem score={'0 - 0'} subTitle={'Home Record'} />
-        <Dash vertical color={MyColors.light + '10'} length={wp(15)} />
+        <Dash
+          vertical
+          color={customTheme.colors.light + '10'}
+          length={wp(15)}
+        />
         <ScoreItem score={'0 - 0'} subTitle={'Away Record'} />
       </View>
       <Svg width={wp(46)} height={wp(46)} style={styles.chartSvg}>
@@ -26,7 +30,7 @@ const StatisticalOverview = () => {
         </View>
         <VictoryPie
           standalone={false}
-          colorScale={[MyColors.darkRed, MyColors.btnBg]}
+          colorScale={[customTheme.colors.darkRed, customTheme.colors.btnBg]}
           data={[
             { x: 'Dogs', y: 30 },
             { x: 'Cats', y: 70 },
@@ -41,8 +45,8 @@ const StatisticalOverview = () => {
         <StatsItem title={'W/L Streak'} value={'-'} />
         <StatsItem title={'Last 10'} value={'-'} />
         <View style={{ gap: hp(0.4) }}>
-          <AgendaItem title={'0 Wins'} color={MyColors.btnBg} />
-          <AgendaItem title={'0 Losses'} color={MyColors.darkRed} />
+          <AgendaItem title={'0 Wins'} color={customTheme.colors.btnBg} />
+          <AgendaItem title={'0 Losses'} color={customTheme.colors.darkRed} />
         </View>
       </View>
     </View>

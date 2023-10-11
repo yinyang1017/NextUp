@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { FontFamily, FontSize } from '../../../../views/GlobalStyles';
 import moment from 'moment/moment';
 import { hp, wp } from '../../../../utils/responsive';
 import commonChatStyles from './commonChatStyles';
-import { MyColors } from '../../../../constants/colors';
 import { customTheme } from '../../../../constants';
+import { useAuth } from '../../../../hooks/useAuth';
 
 const ChatMessage = props => {
-  const userId = 1;
-
+  const { user } = useAuth();
+  const userId = user?.id || 1013;
   const isSameUserMessage = props.currentMessage?.user?._id === userId;
 
   const isNextMessageFromSameUser =
@@ -44,11 +43,13 @@ const styles = StyleSheet.create({
     maxWidth: wp(65),
     marginLeft: isSameCurrentUser ? wp(1.5) : 0,
     marginRight: isSameCurrentUser ? 0 : wp(1.5),
-    backgroundColor: isSameCurrentUser ? MyColors.lightDark : MyColors.btnBg,
+    backgroundColor: isSameCurrentUser
+      ? customTheme.colors.lightDark
+      : customTheme.colors.btnBg,
   }),
   messageText: {
-    fontSize: FontSize.size_mini,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_15,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '500',
     color: customTheme.colors.Gray98,
   },

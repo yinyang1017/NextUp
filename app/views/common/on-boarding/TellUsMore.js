@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-
-  View,
-  Text,
-
-} from 'react-native-ui-lib';
+import { View, Text } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
 import { useOnBoarding, useTellUsMore } from '../../../hooks/useOnBoarding';
 import { appImages } from '../../../constants/appImages';
 import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 import {
-  FormButton,
   FormInputPicker,
   FormRadioGroup,
   FormSelectable,
@@ -33,112 +27,114 @@ export default function TellUsMore() {
     const screenName = isPlayer ? 'PlayerDetails' : 'CoachDetails';
     handleNavigation(screenName);
   };
-  const _renderPlayerInputs = () => (<>
-    <Controller
-      name="personalInfo.gender"
-      control={control}
-      render={({ field: { onChange, value } }) => (
-        <FormRadioGroup
-          label={'Gender'}
-          value={value}
-          onValueChange={value => onChange(value)}
-          radioValues={[
-            { label: 'Male', value: 'male' },
-            { label: 'Female', value: 'female' },
-          ]}
-        />
-      )}
-    />
-    <Controller
-      control={control}
-      name="schoolInfo.state"
-      render={({ field: { onChange, value } }) => (
-        <FormInputPicker
-          value={value}
-          data={states}
-          label={'States'}
-          title="Search for staets.."
-          onValueChange={value => onChange(value)}
-        />
-      )}
-    />
-    <Controller
-      control={control}
-      name="schoolInfo.city"
-      render={({ field: { onChange, value } }) => (
-        <FormInputPicker
-          value={value}
-          data={cities ?? []}
-          label={'Cities'}
-          title="Search for cities.."
-          onValueChange={value => onChange(value)}
-        />
-      )}
-    />
-
-  </>)
-  const _renderCaochInputs = () => (<>
-    <Controller
-      name="coachingType.typeOfCoaching"
-      control={control}
-      render={({ field: { onChange, value } }) => (
-        <FormRadioGroup
-          label={'Option'}
-          value={value}
-          onValueChange={value => onChange(value)}
-          radioValues={[
-            { label: 'High School', value: 'HIGH_SCHOOL' },
-            { label: 'Travel Team', value: 'TRAVEL_TEAM' },
-          ]}
-        />
-      )}
-    />
-    <View row>
+  const _renderPlayerInputs = () => (
+    <>
+      <Controller
+        name="personalInfo.gender"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <FormRadioGroup
+            label={'Gender'}
+            value={value}
+            onValueChange={value => onChange(value)}
+            radioValues={[
+              { label: 'Male', value: 'male' },
+              { label: 'Female', value: 'female' },
+            ]}
+          />
+        )}
+      />
       <Controller
         control={control}
-        name="onBoardingTeamName"
+        name="schoolInfo.state"
         render={({ field: { onChange, value } }) => (
           <FormInputPicker
             value={value}
-            data={states?.states}
-            label={'Select Team'}
-            title="Search for teams.."
+            data={states}
+            label={'States'}
+            title="Search for staets.."
             onValueChange={value => onChange(value)}
           />
         )}
       />
       <Controller
         control={control}
-        name="schoolInfo.gender"
+        name="schoolInfo.city"
         render={({ field: { onChange, value } }) => (
           <FormInputPicker
             value={value}
-            data={[{ label: 'Boys', value: 'boys' }, { label: 'Girls', value: 'girls' }]}
-
-            label={'Gender'}
+            data={cities ?? []}
+            label={'Cities'}
             title="Search for cities.."
             onValueChange={value => onChange(value)}
           />
         )}
       />
-    </View>
-    <Controller
-      control={control}
-      name="coachingType.level"
-      render={({ field: { onChange, value } }) => (
-        <FormInputPicker
-          value={value}
-          data={states?.states}
-          label={'Level'}
-          title="Search for levels.."
-          onValueChange={value => onChange(value)}
+    </>
+  );
+  const _renderCaochInputs = () => (
+    <>
+      <Controller
+        name="coachingType.typeOfCoaching"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <FormRadioGroup
+            label={'Option'}
+            value={value}
+            onValueChange={value => onChange(value)}
+            radioValues={[
+              { label: 'High School', value: 'HIGH_SCHOOL' },
+              { label: 'Travel Team', value: 'TRAVEL_TEAM' },
+            ]}
+          />
+        )}
+      />
+      <View row>
+        <Controller
+          control={control}
+          name="onBoardingTeamName"
+          render={({ field: { onChange, value } }) => (
+            <FormInputPicker
+              value={value}
+              data={states?.states}
+              label={'Select Team'}
+              title="Search for teams.."
+              onValueChange={value => onChange(value)}
+            />
+          )}
         />
-      )}
-    />
-
-
-
-  </>)
+        <Controller
+          control={control}
+          name="schoolInfo.gender"
+          render={({ field: { onChange, value } }) => (
+            <FormInputPicker
+              value={value}
+              data={[
+                { label: 'Boys', value: 'boys' },
+                { label: 'Girls', value: 'girls' },
+              ]}
+              label={'Gender'}
+              title="Search for cities.."
+              onValueChange={value => onChange(value)}
+            />
+          )}
+        />
+      </View>
+      <Controller
+        control={control}
+        name="coachingType.level"
+        render={({ field: { onChange, value } }) => (
+          <FormInputPicker
+            value={value}
+            data={states?.states}
+            label={'Level'}
+            title="Search for levels.."
+            onValueChange={value => onChange(value)}
+          />
+        )}
+      />
+    </>
+  );
   return (
     <>
       <OnBoardingWrapper handleForm={handleSubmit(onSubmit)}>
@@ -193,13 +189,8 @@ export default function TellUsMore() {
               />
             )}
           />
-          {
-            isPlayer && _renderPlayerInputs()
-          }
-          {
-            isCoach && _renderCaochInputs()
-          }
-
+          {isPlayer && _renderPlayerInputs()}
+          {isCoach && _renderCaochInputs()}
         </View>
       </OnBoardingWrapper>
     </>

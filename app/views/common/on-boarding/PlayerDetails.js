@@ -1,45 +1,32 @@
 import React from 'react';
+import { View } from 'react-native-ui-lib';
 import {
-  KeyboardAwareScrollView,
-  ProgressBar,
-  View,
-} from 'react-native-ui-lib';
-import { ViewContainer } from '../../../components/common/ViewConatiner';
-import {
-  FormButton,
   FormDatePicker,
   FormInputField,
   FormInputPicker,
-  FormSelectable,
 } from '../../../components/common/FormInputs';
-import { ScreenHeader } from '../../../components/common/ScreenHeader';
-import { customTheme } from '../../../constants';
-import * as cities from '../../../utils/data/cities.json';
-import * as states from '../../../utils/data/states.json';
-import { useNavigation } from '@react-navigation/native';
 import {
   useEnterPorfileDetails,
   useOnBoarding,
 } from '../../../hooks/useOnBoarding';
 import { Controller } from 'react-hook-form';
-import * as schoolsData from '../../../utils/data/schools.json';
-import * as class_years from '../../../utils/data/classYears.json';
 import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 
 export default function PlayerDetails() {
   const { onBoardingCount, handleOnBoarding, handleNavigation } =
     useOnBoarding();
-  const { control, errors, schools, classesOfYears, handleSubmit } = useEnterPorfileDetails();
+  const { control, errors, schools, classesOfYears, handleSubmit } =
+    useEnterPorfileDetails();
   const onSubmit = data => {
     handleOnBoarding(data);
     handleNavigation('PlayerStyle');
   };
   return (
-
-    <OnBoardingWrapper title='Enter Player Details' handleForm={handleSubmit(onSubmit)}>
-
+    <OnBoardingWrapper
+      title="Enter Player Details"
+      handleForm={handleSubmit(onSubmit)}>
       <View useSafeArea marginT-12 flex>
-        <View row >
+        <View row>
           <Controller
             name="personalInfo.firstName"
             control={control}
@@ -172,6 +159,5 @@ export default function PlayerDetails() {
         </View>
       </View>
     </OnBoardingWrapper>
-
   );
 }

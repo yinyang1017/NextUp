@@ -9,8 +9,6 @@ import Standings from '../../../components/games/Standings/Standings';
 export default function Games() {
   return (
     <ScrollView contentContainerStyle={styles.content}>
-      {/* <CustomTable title="Team History" />
-      <CustomTable title="2021-22 Pacific Standings" /> */}
       <StatisticalOverview />
       <LastGame />
       <Standings />

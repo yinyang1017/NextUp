@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   Picker,
@@ -7,49 +6,24 @@ import {
   Text,
   RadioGroup,
   RadioButton,
-  Button,
   DateTimePicker,
-  Incubator,
-  ThemeManager
 } from 'react-native-ui-lib';
 import _ from 'lodash';
 import { customTheme } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SelectableCard } from './SelectableCard';
-import { ActivityIndicator, Dimensions, Pressable, ScrollView } from 'react-native';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { wp } from '../../utils/responsive';
+import { ActivityIndicator, Pressable, StyleSheet } from 'react-native';
+
 const dropdownIcon = (
-  <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+  <FontAwesomeIcon
+    icon={faChevronDown}
+    color={customTheme.colors.light}
+    size={wp(2.5)}
+  />
 );
 
-ThemeManager.setComponentTheme('Picker', {
-  dropdownIcon
-})
-const _renderDialog = (modalProps) => {
-  const { visible, children, toggleModal, onDone } = modalProps;
-
-  return <Incubator.Dialog
-    visible={visible}
-    onDismiss={() => {
-      onDone();
-      toggleModal(false);
-    }}
-    useSafeArea
-    height={Dimensions.get('screen').height * 200}
-    width={Dimensions.get('screen').width}
-
-    spread
-
-  >
-    <ScrollView style={{
-      backgroundColor: customTheme.colors.background
-    }}>
-      {children}
-    </ScrollView>
-
-  </Incubator.Dialog>
-}
 /**
  * Renders a form input picker component.
  *
@@ -59,59 +33,56 @@ const _renderDialog = (modalProps) => {
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
+export function FormInputPicker({
+  data,
+  value,
+  onValueChange,
+  label,
+  title,
+  containerStyle = {},
+  rootContainerStyle = {},
+}) {
+  const renderPicker = () => {
+    return (
+      <TextField
+        label={label}
+        labelColor={customTheme.colors.light}
+        labelStyle={{
+          ...styles.label,
+          marginBottom: customTheme.spacings.spacing_8,
+        }}
+        value={value}
+        color={customTheme.colors.light}
+        fieldStyle={{ marginBottom: customTheme.spacings.spacing_12 }}
+        containerStyle={{
+          ...styles.formInputPickerfieldContainer,
+          ...containerStyle,
+        }}
+        trailingAccessory={dropdownIcon}
+      />
+    );
+  };
 
+  const renderPickerItem = (item, index) => {
+    return (
+      <Picker.Item
+        key={index}
+        label={item?.label || item}
+        value={item?.value || item}
+      />
+    );
+  };
 
-export function FormInputPicker({ data, value, onValueChange, label, title }) {
   return (
-    <View marginV-12 flex marginR-16>
+    <View marginV-12 flex marginR-16 style={rootContainerStyle}>
       <Picker
         showSearch
         enableModalBlur
-        topBarProps={{
-          title: title ?? label
-        }}
-
-        renderPicker={() => {
-          return (
-            <>
-              <TextField
-                label={label}
-                labelColor={customTheme.colors.light}
-                labelStyle={{
-                  opacity: 0.6,
-                  marginBottom: customTheme.spacings.spacing_8,
-                  textTransform: 'uppercase',
-                  color: customTheme.colors.light,
-                  fontSize: customTheme.fontSizes.size_12,
-                  fontWeight: '700',
-                  opacity: 0.6,
-                  fontFamily: customTheme.fontFamily.robotoBold,
-                }}
-                value={value}
-                color={customTheme.colors.light}
-                fieldStyle={{
-                  marginBottom: customTheme.spacings.spacing_12,
-                }}
-                containerStyle={{
-                  borderBottomColor: customTheme.colors.tertiary,
-                  borderBottomWidth: 1,
-                }}
-                trailingAccessory={dropdownIcon}
-              />
-            </>
-          );
-        }}
-        // renderCustomModal={_modalProps => _renderDialog(_modalProps)}
-        onChange={value => {
-          onValueChange(value);
-        }}>
-        {_.map(data, (item, index) => {
-          return (
-            <Picker.Item key={index} label={item?.label || item} value={item?.value || item} />
-
-
-          );
-        })}
+        topBarProps={{ title: title || label }}
+        renderPicker={renderPicker}
+        searchStyle={styles.formInputPickerSearch}
+        onChange={onValueChange}>
+        {_.map(data, renderPickerItem)}
       </Picker>
     </View>
   );
@@ -139,40 +110,33 @@ export function FormRadioGroup({
     row: true,
     column: false,
   };
+
+  const renderRadioButtonItem = (item, index) => {
+    const isSelected = item.value === value;
+    return (
+      <RadioButton
+        size={wp(5)}
+        key={index}
+        value={item?.value ?? ''}
+        label={item?.label ?? ''}
+        containerStyle={styles.formRadioGroupRadioButtonContainer}
+        labelStyle={styles.formRadioGroupRadioButtonLabel(isSelected)}
+        color={customTheme.colors.blue20}
+      />
+    );
+  };
+
   return (
     <View marginV-12>
-      <Text
-        style={{
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          opacity: 0.6,
-          fontFamily: customTheme.fontFamily.robotoBold,
-        }}>
+      <Text small-700 style={styles.formRadioGroupLabel}>
         {label}
       </Text>
-      <RadioGroup initialValue={value} onValueChange={onValueChange}>
+      <RadioGroup
+        initialValue={value}
+        onValueChange={onValueChange}
+        style={{ gap: wp(7) }}>
         <View row={viewDir[direction]} animated>
-          {_.map(radioValues, (item, index) => {
-            return (
-              <RadioButton
-                key={index}
-                value={item?.value ?? ''}
-                label={item?.label ?? ''}
-                containerStyle={{
-                  marginRight: customTheme.spacings.spacing_16,
-                  marginTop: customTheme.spacings.spacing_8,
-                }}
-                labelStyle={{
-                  color: customTheme.colors.light,
-                }}
-                color={customTheme.colors.blue20}
-              />
-            );
-          })}
+          {_.map(radioValues, renderRadioButtonItem)}
         </View>
       </RadioGroup>
     </View>
@@ -186,24 +150,22 @@ export function FormRadioGroup({
  */
 export function FormSelectable({ data, value, onChange }) {
   return (
-    <>
-      <View row center spread>
-        {_.map(data, (item, index) => {
-          return (
-            <SelectableCard
-              key={index}
-              title={item?.label}
-              imgSrc={item?.imgSrc}
-              isSelected={item?.value === value}
-              onPress={() => onChange(item?.value)}
-              conatinerStyle={{
-                marginHorizontal: customTheme.spacings.spacing_16,
-              }}
-            />
-          );
-        })}
-      </View>
-    </>
+    <View row center spread>
+      {_.map(data, (item, index) => {
+        return (
+          <SelectableCard
+            key={index}
+            title={item?.label}
+            imgSrc={item?.imgSrc}
+            isSelected={item?.value === value}
+            onPress={() => onChange(item?.value)}
+            conatinerStyle={{
+              marginHorizontal: customTheme.spacings.spacing_16,
+            }}
+          />
+        );
+      })}
+    </View>
   );
 }
 
@@ -216,29 +178,10 @@ export function FormInputField({ label, value, ...props }) {
       placeholderTextColor={customTheme.colors.light + '60'}
       value={value}
       color={customTheme.colors.light}
-      fieldStyle={{ marginBottom: customTheme.spacings.spacing_12 }}
       {...props}
-      containerStyle={[
-        {
-          borderBottomColor: customTheme.colors.tertiary,
-          borderBottomWidth: 1,
-          marginRight: customTheme.spacings.spacing_16,
-          flex: 1,
-        },
-        props.containerStyle,
-      ]}
-      labelStyle={[
-        {
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          fontFamily: customTheme.fontFamily.robotoBold,
-        },
-        props.labelStyle,
-      ]}
+      containerStyle={[styles.formInputFieldContainer, props.containerStyle]}
+      style={styles.formInputField}
+      labelStyle={[styles.label, props.labelStyle]}
     />
   );
 }
@@ -265,41 +208,20 @@ export function FormButton({
     onPress();
   };
   return (
-    <>
-      <Pressable
-        onPress={handlePress}
-        disabled={disabled || loading}
-        style={{
-          backgroundColor:
-            disabled || loading
-              ? customTheme.colors.tertiary
-              : customTheme.colors.blue20,
-          borderRadius: customTheme.spacings.spacing_16,
-          paddingVertical: customTheme.spacings.spacing_12,
-          marginBottom: customTheme.spacings.spacing_32,
-
-          marginTop: 'auto'
-        }}>
-        <View row center spread>
-          <ActivityIndicator
-            animating={loading}
-            color={customTheme.colors.white}
-          />
-          <Text
-            animated
-            style={{
-              color: customTheme.colors.white,
-              fontSize: customTheme.fontSizes.size_16,
-              fontWeight: '700',
-              fontFamily: customTheme.fontFamily.robotoBold,
-              textAlign: 'center',
-              opacity: disabled ? 0.4 : 1,
-            }}>
-            {loading ? 'Loading...' : label}
-          </Text>
-        </View>
-      </Pressable>
-    </>
+    <Pressable
+      onPress={handlePress}
+      disabled={disabled || loading}
+      style={styles.formButton(disabled, loading)}>
+      <View row center spread>
+        <ActivityIndicator
+          animating={loading}
+          color={customTheme.colors.white}
+        />
+        <Text medium-700 animated style={styles.formButtonText(disabled)}>
+          {loading ? 'Loading...' : label}
+        </Text>
+      </View>
+    </Pressable>
   );
 }
 
@@ -321,3 +243,62 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    textTransform: 'uppercase',
+    color: customTheme.colors.txtFieldPlaceHolder,
+    fontSize: customTheme.fontSizes.size_12,
+    fontWeight: '700',
+    fontFamily: customTheme.fontFamily.robotoBold,
+  },
+  formInputPickerfieldContainer: {
+    borderBottomColor: customTheme.colors.tertiary,
+    borderBottomWidth: 1,
+  },
+  formInputPickerSearch: {
+    color: customTheme.colors.blue20,
+    placeholderTextColor: customTheme.colors.primary,
+  },
+  formRadioGroupLabel: {
+    marginBottom: customTheme.spacings.spacing_8,
+    textTransform: 'uppercase',
+    color: customTheme.colors.txtFieldPlaceHolder,
+  },
+  formRadioGroupRadioButtonContainer: {
+    marginRight: customTheme.spacings.spacing_24,
+    marginTop: customTheme.spacings.spacing_8,
+  },
+  formRadioGroupRadioButtonLabel: isSelected => ({
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
+    fontWeight: '600',
+    color: isSelected
+      ? customTheme.colors.light
+      : customTheme.colors.light + '70',
+  }),
+  formInputFieldContainer: {
+    borderBottomColor: customTheme.colors.tertiary,
+    borderBottomWidth: 1,
+    marginRight: customTheme.spacings.spacing_16,
+    flex: 1,
+  },
+  formInputField: {
+    paddingTop: customTheme.spacings.spacing_8,
+    paddingBottom: customTheme.spacings.spacing_12,
+  },
+  formButton: (disabled, loading) => ({
+    backgroundColor:
+      disabled || loading
+        ? customTheme.colors.tertiary
+        : customTheme.colors.blue20,
+    borderRadius: customTheme.spacings.spacing_16,
+    paddingVertical: customTheme.spacings.spacing_12,
+    marginBottom: customTheme.spacings.spacing_32,
+    marginTop: 'auto',
+  }),
+  formButtonText: disabled => ({
+    textAlign: 'center',
+    opacity: disabled ? 0.4 : 1,
+  }),
+});

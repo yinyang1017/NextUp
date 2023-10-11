@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
     marginVertical: hp(2),
     marginHorizontal: wp(8),
     marginRight: wp(8),
+    flex: 0,
   },
   emailIdInput: {
     marginVertical: hp(2),
     marginHorizontal: wp(8),
     marginRight: wp(8),
+    flex: 0,
   },
   shareButton: { backgroundColor: 'transparent' },
   footer: {

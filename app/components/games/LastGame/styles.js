@@ -1,17 +1,17 @@
 import { StyleSheet } from 'react-native';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
-import { MyColors } from '../../../constants/colors';
 import { hp, wp } from '../../../utils/responsive';
+import { customTheme } from '../../../constants';
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
-    color: MyColors.light,
-    fontSize: FontSize.bodyLargeBold_size,
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_16,
     marginTop: hp(1),
   },
 
+  // GameHeader
   gameHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
     marginTop: hp(3),
   },
   gameHeaderVSText: {
-    fontFamily: FontFamily.robotoRegular,
-    color: MyColors.light + '60',
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light + '60',
   },
 
+  //GameHeaderTeamItem
   gameHeaderTeamItem: isReverse => ({
     flexDirection: isReverse ? 'row-reverse' : 'row',
     alignItems: 'center',
@@ -37,19 +38,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: wp(5),
   }),
-  gameHeaderTeamItemBadgeText: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
-    color: MyColors.light,
-  },
   gameHeaderTeamItemName: (color, isReverse) => ({
-    fontWeight: '600',
     color: color,
-    fontSize: FontSize.size_sm_3,
     flex: 1,
     textAlign: isReverse ? 'right' : 'left',
   }),
+  gameHeaderTeamItemNameContainer: {
+    justifyContent: 'center',
+  },
+  gameHeaderTeamItemSubTitle: (color, isReverse) => ({
+    color: color,
+    textAlign: isReverse ? 'right' : 'left',
+  }),
 
+  // /LastGameScoreTable
   lastGameScoreTable: {
     gap: hp(1),
     marginTop: hp(2),
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
     width: wp(25),
     textAlign: 'center',
     paddingHorizontal: wp(1),
-    color: color || MyColors.light,
-    fontSize: FontSize.size_xs,
+    color: color || customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_12,
   }),
   lastGameScoreTableRowBody: {
     flexDirection: 'row',
@@ -73,10 +75,10 @@ const styles = StyleSheet.create({
   lastGameScoreTableRowValue: color => ({
     textAlign: 'center',
     width: wp(13.8),
-    color: color || MyColors.light,
-    fontFamily: FontFamily.robotoRegular,
+    color: color || customTheme.colors.light,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '600',
-    fontSize: FontSize.size_xs,
+    fontSize: customTheme.fontSizes.size_12,
   }),
 
   // GameDropdownButton
@@ -84,19 +86,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: wp(1),
-    backgroundColor: isActive ? color : MyColors.lightGray,
+    backgroundColor: isActive ? color : customTheme.colors.lightGray,
     paddingVertical: hp(0.5),
     paddingHorizontal: wp(6),
   }),
   gameDropdownButtonTitle: isActive => ({
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_xs,
-    color: !isActive ? MyColors.light : MyColors.dark,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_12,
+    color: !isActive ? customTheme.colors.light : customTheme.colors.dark,
   }),
   gameDropdownButtonImage: isActive => ({
     height: wp(4),
     width: wp(4),
-    tintColor: !isActive ? MyColors.light : MyColors.dark,
+    tintColor: !isActive ? customTheme.colors.light : customTheme.colors.dark,
     marginHorizontal: wp(2),
   }),
 });

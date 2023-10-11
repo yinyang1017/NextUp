@@ -1,10 +1,10 @@
 import { DefaultTheme } from '@react-navigation/native';
 import { Colors } from 'react-native-ui-lib';
 import { MyColors } from './colors';
-import { PixelRatio } from 'react-native';
-import React from 'react';
+
 const baseFontSize = 4; // Define a base font size for normal screens
 const baseSpacing = 4; // Define a base spacing unit for normal screens
+
 export const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -17,20 +17,48 @@ export const customTheme = {
     tertiary: '#363A41',
     success: '#3EC300',
     Gray98: '#FAFAFA',
+    darkYellow2: '#F4A800',
+    tangaroa: '#041639',
+    gray_500: '#22252e',
+    gray_200: '#8a8a8a',
+    gray_400: '#24262d',
+    storm_gray: '#797B86',
+    steel_blue: '#555A67',
+    darkGreen: '#287504',
+    darkRed2: '#C30000',
+    charcoal_gray: '#4E4E4E',
+    steel_gray: '#77797E',
+    midnight_blue: '#2B2B3D',
+    midnight_black: '#181829',
+    maroon_brown: '#441818',
+    navy_blue: '#14274D',
+    pale_blue: '#E3E9EF',
+    slate_gray: '#ABB0BD',
+    dark_slate_gray: '#45454A',
+    royalblue: '#246bfd',
   },
   statusBarStyle: 'light-content',
   fontSizes: {
     size_4: 4,
-    size_10: 10,
     size_8: 8,
+    size_10: 10,
+    size_11: 11,
     size_12: 12,
+    size_13: 13,
+    size_14: 14,
+    size_15: 15,
     size_16: 16,
+    size_17: 17,
+    size_18: 18,
     size_20: 20,
+    size_22: 22,
     size_24: 24,
+    size_26: 26,
     size_28: 28,
     size_32: 32,
     size_36: 36,
     size_40: 40,
+    size_48: 48,
   },
   fontFamily: {
     robotoBold: 'Roboto-Bold',
@@ -40,12 +68,7 @@ export const customTheme = {
     bodyMediumSemibold: 'Urbanist-SemiBold',
     bodyLargeBold: 'Urbanist-Bold',
     robotoLight: 'Roboto-Light',
-    robotoBold: 'Roboto-Bold',
-    robotoRegular: 'Roboto-Regular',
-    abhayaLibreBold: 'AbhayaLibre-Bold',
-    robotoMedium: 'Roboto-Medium',
     robotoSerifSemiBold: 'RobotoSerif-SemiBold',
-    bodyMediumSemibold: 'Urbanist-SemiBold',
     openSansSemiBold: 'OpenSans-SemiBold',
     metrophobicRegular: 'Metrophobic-Regular',
   },

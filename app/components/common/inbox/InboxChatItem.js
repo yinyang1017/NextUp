@@ -1,20 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { Image } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
 import { Colors, customTheme } from '../../../constants';
-import { FontFamily, FontSize } from '../../../views/GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
-import { MyColors } from '../../../constants/colors';
+import FastImage from 'react-native-fast-image';
 
-const InboxChatItem = ({ index }) => {
+const InboxChatItem = ({ index, chatInfo }) => {
   const isAudio = index;
   const showUnread = index !== 2;
 
   const navigation = useNavigation();
 
   const onPressChatHandler = () => {
-    navigation.navigate('ChatScreen');
+    navigation.navigate('ChatScreen', {
+      channelId: chatInfo?.groupChats[0]?.channelId,
+    });
   };
 
   return (
@@ -23,14 +23,15 @@ const InboxChatItem = ({ index }) => {
         activeOpacity={0.7}
         style={styles.container}
         onPress={onPressChatHandler}>
-        <Image
+        <FastImage
           style={styles.profileImage}
-          source={require('../../../assets/avatar-without-online-badge.png')}
+          source={{ uri: chatInfo?.teamLogoUrl }}
+          defaultSource={require('../../../assets/images/AvatarImage.png')}
         />
         <View style={styles.messagesContainer}>
-          <Text style={styles.name}>Entire Team</Text>
+          <Text style={styles.name}>{chatInfo?.teamName}</Text>
           {isAudio ? (
-            <Text style={[styles.message, { color: MyColors.btnBg }]}>
+            <Text style={[styles.message, { color: customTheme.colors.btnBg }]}>
               Audio
             </Text>
           ) : (
@@ -82,29 +83,29 @@ const styles = StyleSheet.create({
   name: {
     color: customTheme.colors.Gray98,
     lineHeight: 20,
-    fontSize: FontSize.size_lg,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_18,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '600',
   },
   message: {
-    fontSize: FontSize.size_mini,
+    fontSize: customTheme.fontSizes.size_15,
     color: customTheme.colors.Gray98,
     fontWeight: '600',
     lineHeight: 20,
     marginTop: hp(0.5),
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
   },
   timeBadgeContainer: {
     alignItems: 'center',
   },
   timeInfoText: {
-    fontSize: FontSize.size_sm_3,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_13,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '500',
     color: customTheme.colors.Gray98 + '50',
   },
   unreadCountBadge: {
-    backgroundColor: MyColors.btnBg,
+    backgroundColor: customTheme.colors.btnBg,
     height: wp(6),
     width: wp(6),
     justifyContent: 'center',
@@ -112,7 +113,10 @@ const styles = StyleSheet.create({
     borderRadius: wp(6),
     marginTop: hp(0.5),
   },
-  unreadCount: { fontFamily: FontFamily.robotoRegular, color: Colors.light },
+  unreadCount: {
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: Colors.light,
+  },
   bottomDivider: {
     height: 1,
     backgroundColor: customTheme.colors.Gray98 + '15',
