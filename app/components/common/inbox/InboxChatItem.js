@@ -1,21 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { hp, wp } from '../../../utils/responsive';
-import { Colors, customTheme } from '../../../constants';
+import { customTheme } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
+import { appImages } from '../../../constants/appImages';
+import { useAuth } from '../../../hooks/useAuth';
+import moment from 'moment';
 
 const InboxChatItem = ({ index, chatInfo }) => {
   const isAudio = index;
-  const showUnread = index !== 2;
+  const showUnread = false;
 
   const navigation = useNavigation();
 
   const onPressChatHandler = () => {
-    navigation.navigate('ChatScreen', {
-      channelId: chatInfo?.groupChats[0]?.channelId,
-    });
+    navigation.navigate('ChatScreen', { channelId: chatInfo?.channelId });
   };
+  const { user } = useAuth();
+  const userId = user?.id || '1013';
 
   return (
     <>
@@ -25,30 +28,34 @@ const InboxChatItem = ({ index, chatInfo }) => {
         onPress={onPressChatHandler}>
         <FastImage
           style={styles.profileImage}
-          source={{ uri: chatInfo?.teamLogoUrl }}
-          defaultSource={require('../../../assets/images/AvatarImage.png')}
+          source={{ uri: chatInfo?.groupLogoUrl }}
+          defaultSource={appImages.defaultAvatarImage}
         />
         <View style={styles.messagesContainer}>
-          <Text style={styles.name}>{chatInfo?.teamName}</Text>
+          <Text style={styles.name} numberOfLines={1}>
+            {chatInfo?.groupName}
+          </Text>
           {isAudio ? (
             <Text style={[styles.message, { color: customTheme.colors.btnBg }]}>
               Audio
             </Text>
           ) : (
             <Text style={styles.message} numberOfLines={1}>
-              You:{' '}
+              {userId === chatInfo?.recentSenderId ? 'You: ' : ''}
               <Text
                 style={[
                   styles.message,
                   { color: customTheme.colors.Gray98 + '50' },
                 ]}>
-                Okay, I'll tell him
+                {chatInfo?.recentMessage || ''}
               </Text>
             </Text>
           )}
         </View>
         <View style={styles.timeBadgeContainer}>
-          <Text style={styles.timeInfoText}>Friday</Text>
+          <Text style={styles.timeInfoText}>
+            {moment(chatInfo?.createdAt).format('dddd')}
+          </Text>
           {showUnread && (
             <View style={styles.unreadCountBadge}>
               <Text style={styles.unreadCount}>2</Text>
@@ -61,7 +68,7 @@ const InboxChatItem = ({ index, chatInfo }) => {
   );
 };
 
-export default InboxChatItem;
+export default memo(InboxChatItem);
 
 const styles = StyleSheet.create({
   container: {
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
   name: {
     color: customTheme.colors.Gray98,
     lineHeight: 20,
-    fontSize: customTheme.fontSizes.size_18,
+    fontSize: customTheme.fontSizes.size_17,
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '600',
   },
@@ -103,6 +110,7 @@ const styles = StyleSheet.create({
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '500',
     color: customTheme.colors.Gray98 + '50',
+    textAlign: 'center',
   },
   unreadCountBadge: {
     backgroundColor: customTheme.colors.btnBg,
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
   },
   unreadCount: {
     fontFamily: customTheme.fontFamily.robotoRegular,
-    color: Colors.light,
+    color: customTheme.colors.light,
   },
   bottomDivider: {
     height: 1,

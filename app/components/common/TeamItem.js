@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Colors, Image } from 'react-native-ui-lib';
+import { Colors } from 'react-native-ui-lib';
 import { Color, Padding } from '../../views/GlobalStyles';
 import { wp } from '../../utils/responsive';
 import { customTheme } from '../../constants';
+import FastImage from 'react-native-fast-image';
+import { appImages } from '../../constants/appImages';
 
 const TeamItem = ({
   imageSource = {},
@@ -19,7 +21,16 @@ const TeamItem = ({
         containerStyle,
       ]}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} resizeMode="contain" source={imageSource} />
+        <FastImage
+          style={styles.image}
+          resizeMode="contain"
+          source={
+            imageSource.uri
+              ? { uri: imageSource.uri, priority: 'high' }
+              : imageSource
+          }
+          defaultSource={appImages.defaultAvatarImage}
+        />
       </View>
       <Text style={styles.name}>{name}</Text>
     </View>

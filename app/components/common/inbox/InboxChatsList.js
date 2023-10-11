@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import InboxChatItem from './InboxChatItem';
 import { hp } from '../../../utils/responsive';
 
@@ -16,7 +16,7 @@ const InboxChatsList = ({ containerStyle = {}, channelData = [] }) => {
   );
 };
 
-export default InboxChatsList;
+export default memo(InboxChatsList);
 
 const styles = StyleSheet.create({
   container: { paddingTop: hp(1.5), flex: 1 },

@@ -46,7 +46,7 @@ Typography.loadTypographies({
     color: customTheme.colors.light,
     fontWeight: '500',
     fontSize: customTheme.fontSizes.size_13,
-    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoMedium,
   },
   'small-x-600': {
     color: customTheme.colors.light,
@@ -118,6 +118,12 @@ Typography.loadTypographies({
     fontWeight: '400',
     fontSize: customTheme.fontSizes.size_24,
     fontFamily: customTheme.fontFamily.robotoRegular,
+  },
+  'large-3xl-700': {
+    color: customTheme.colors.light,
+    fontWeight: '700',
+    fontSize: customTheme.fontSizes.size_24,
+    fontFamily: customTheme.fontFamily.robotoBold,
   },
   'regular-400': {
     color: customTheme.colors.light,
