@@ -9,11 +9,12 @@ export default function OnBoardingWrapper({
     label,
     loading,
     canGoBack = true,
+    disabled = false,
     handleForm = () => null,
     skip = false,
     onSkip = () => null,
     progress = 0,
-    backButtonAction = () => null
+    backButtonAction = () => null,
 
 }) {
     return <>
@@ -50,6 +51,7 @@ export default function OnBoardingWrapper({
                 onPress={handleForm}
                 loading={loading}
                 label={label}
+                disabled={disabled}
 
 
             />

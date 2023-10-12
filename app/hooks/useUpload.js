@@ -86,6 +86,7 @@ export const useUpload = () => {
             body: 'Uploaded successfully',
           });
           setUploadedDocument(resp?.data);
+          return resp?.data;
         }
       } else {
         throw new Error('No file selected');
@@ -116,8 +117,8 @@ export const useUpload = () => {
       });
       return;
     }
-    await handleUpload(resp).then(() => {
-      cb && cb();
+    await handleUpload(resp).then((res) => {
+      cb && cb(res);
     });
   };
 
@@ -150,8 +151,8 @@ export const useUpload = () => {
       });
       return;
     }
-    await handleUpload(resp).then(() => {
-      cb && cb();
+    await handleUpload(resp).then((res) => {
+      cb && cb(res);
     });
   };
 

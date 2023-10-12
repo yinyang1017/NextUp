@@ -66,7 +66,7 @@ export default function AuthProvider({ children }) {
     return state.user?.typeOfUser === 'COACH';
   }, [state])
   const isIdProvider = useMemo(() => {
-    return state.user?.typeOfUser === 'COACH' ? state?.user?.idProofUploaded && state?.user?.certificateUrlUploaded : true
+    return state.user?.typeOfUser === 'COACH' ? state?.user?.idProofUploaded : true
   }, [state])
   const isMale = useMemo(() => {
     return state.user?.gender === 'MALE';
@@ -76,7 +76,7 @@ export default function AuthProvider({ children }) {
     return (!state.isLoggedIn && isLoading) && !state.user
   }, [reChecking, state])
 
-
+  console.log('isPlayer', state.user)
 
 
   // Define login and logout functions that dispatch actions
