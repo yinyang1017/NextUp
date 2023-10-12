@@ -6,12 +6,10 @@ export default function UpdloadTypeDialog({ isVisible, onClose, handlePick, hand
     return <ActionSheet
         title={'Choose an option'}
         cancelButtonIndex={3}
-
-        destructiveButtonIndex={0}
+        useNativeIOS
+        destructiveButtonIndex={3}
         visible={isVisible}
         onDismiss={onClose}
-        useNativeIOS
-        useSafeArea
         options={[
             { label: 'Scan the Document', onPress: () => handleScan() },
             { label: 'Upload the Document', onPress: () => handlePick() },

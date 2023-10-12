@@ -26,7 +26,7 @@ export default function CoachDetails() {
   } = useOnBoarding();
   const { control, cities, handleSubmit, chekIfStateSelected } = useCoachPorfileDetails();
   const onSubmit = data => {
-    handleOnBoarding(data, () => handleCoachRegistration());
+    handleOnBoarding(data, () => handleCoachRegistration(data));
     // const screenName = 'PhotoUpload';
     // handleNavigation(screenName);
   };

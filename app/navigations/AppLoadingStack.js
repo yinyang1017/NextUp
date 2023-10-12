@@ -19,8 +19,9 @@ import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
-  const { isAuthenticated, onBoardingDone, user, isCoach, isPlayer } =
+  const { isAuthenticated, onBoardingDone, isCoach, isPlayer, isIdProvider } =
     useAuth();
+
   return (
     <>
       <Stack.Navigator
@@ -32,10 +33,10 @@ export default function AppLoadignStack() {
         {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
-        {isAuthenticated && onBoardingDone && (
+        {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
         )}
-        {isAuthenticated && onBoardingDone && isCoach && (
+        {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />

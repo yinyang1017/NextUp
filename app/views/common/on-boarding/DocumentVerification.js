@@ -1,47 +1,75 @@
-import { View, Text, ProgressBar, TouchableOpacity, Wizard } from "react-native-ui-lib"
-import { ScrollViewContainer } from "../../../components/common/SrollViewContainer";
-import { Pressable } from "react-native";
-import { ScreenHeader } from "../../../components/common/ScreenHeader"
-import { customTheme } from "../../../constants"
+import { View, Text, ProgressBar, AnimatedImage, TouchableOpacity, Wizard, Image, Dialog, PanningProvider } from "react-native-ui-lib"
+
+import { ActivityIndicator, ImageBackground, Pressable } from "react-native";
+import { Layout, customTheme } from "../../../constants"
 import { appImages } from "../../../constants/appImages"
 import { Dimensions, } from "react-native"
 import { FormButton } from "../../../components/common/FormInputs"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
-import { useNavigation } from "@react-navigation/native"
+import { faCheckCircle, faEye } from "@fortawesome/free-solid-svg-icons"
 import { useUpload } from "../../../hooks/useUpload"
-import { useOnBoarding } from "../../../hooks/useOnBoarding"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper";
+import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog";
+import AppLoader from "../../../utils/Apploader";
+import { hp } from "../../../utils/responsive";
+import { useUserUpdateCertificates } from "../../../api/user.api";
+import { useAuth } from "../../../hooks/useAuth";
+const ImageRender = ({ uri, onPress }) => {
+    return <>
+        <ImageBackground style={{ justifyContent: 'center', alignContent: 'center' }} resizeMode="contain" source={appImages.placeHolderPhotoIdBorder}>
+            <Image
+                resizeMethod="scale"
+                resizeMode="contain"
+                overlayIntensity="HIGH"
+                customOverlayContent={() => (
+                    <Text red10>eye</Text>
+                )}
+                style={{
+                    alignSelf: 'center',
+                    borderRadius: customTheme.spacings.spacing_16,
+                }}
+                width={
+                    Dimensions.get('window').width / 2} height={Dimensions.get('window').width / 2} source={{
+                        uri: uri
+                    }}
+            />
+            <TouchableOpacity onPress={onPress}
+                style={{
+                    position: 'absolute',
+                    backgroundColor: customTheme.colors.tertiary,
+                    opacity: 0.5,
+                    height: Dimensions.get('window').width / 3,
+                    width: Dimensions.get('window').width / 2,
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                }}
 
-const VerticalStepIndicator = (props) => {
-    const { labels, currentPosition } = props
-    const { pickDocument } = useUpload()
-    const { handleOnBoarding, onBoarding } = useOnBoarding()
-    const handleIndentity = () => {
-        pickDocument((res) => {
-            handleOnBoarding({
-                idProofUrl: res?.imageUrl
-            })
-        })
+            >
+                <FontAwesomeIcon style={{
+                    alignSelf: 'center',
+                }} icon={faEye} size={24} color={customTheme.colors.white} />
+            </TouchableOpacity>
+        </ImageBackground>
+    </>
+}
+const VerticalStepIndicator = ({ doc,
+    handleCertificate,
+    handleIndentity,
+    handleCertificateVisible,
+    handleIndentityVisible
 
-    }
-    const handleCertificate = () => {
-        pickDocument((res) => {
-            handleOnBoarding({
-                certificateUrl: res?.imageUrl
-            })
-        })
+}) => {
 
-    }
+
     return (
         <View row marginT-20  >
             <View width={'20%'} marginL-12 center >
                 <View center>
                     <View row>
                         <FontAwesomeIcon icon={faCheckCircle} size={24} color={
-                            onBoarding?.idProofUrl ? customTheme.colors.green :
-                                customTheme.colors.grey
+                            doc?.idProofUrl ? customTheme.colors.success :
+                                '#70768A'
                         } />
 
 
@@ -50,97 +78,199 @@ const VerticalStepIndicator = (props) => {
                         center
                         style={{
                             height: Dimensions.get('window').height / 6,
-                            backgroundColor: onBoarding?.idProofUrl ? customTheme.colors.green :
+                            backgroundColor: doc?.idProofUrl ? customTheme.colors.green :
                                 customTheme.colors.grey,
-                            borderColor: onBoarding?.idProofUrl ? customTheme.colors.green :
-                                customTheme.colors.grey,
+                            borderColor: '#70768A',
                             borderWidth: 1,
                             width: 1,
-                            borderStyle: 'dotted',
+                            borderStyle: 'dashed',  // Use 'dashed' style
                         }}
                     />
                     <View>
-                        <FontAwesomeIcon icon={faCheckCircle} size={24} color={onBoarding?.certificateUrl ? customTheme.colors.green :
-                            customTheme.colors.grey} />
+                        <FontAwesomeIcon icon={faCheckCircle} size={24} color={doc?.certificateUrl ? customTheme.colors.success :
+                            '#70768A'} />
                     </View>
 
                 </View>
             </View>
             <View>
-                <Pressable
-                    style={{
-                        width: Dimensions.get('window').width / 2,
-                        height: Dimensions.get('window').width / 3,
-                        borderColor: customTheme.colors.lightBlue,
-                        borderWidth: 2,
-                        borderRadius: 16,
-                        marginVertical: 10,
-                        justifyContent: 'center',
-                        alignContent: 'center',
-                        alignSelf: 'center',
-                    }}
-                    onPress={handleIndentity}
-                >
-                    <View center>
-                        <FontAwesomeIcon icon={faCamera} size={24} color={customTheme.colors.blue20} />
-                        <Text lineBreakMode="tail" blue10 marginV-8>Upload the identity</Text>
-                    </View>
 
-                </Pressable>
+                {
+                    doc?.idProofUrl ? <ImageRender uri={doc?.idProofUrl} onPress={handleCertificateVisible} /> : (
+                        <TouchableOpacity
+
+                            onPress={handleIndentity}
+                        >
+
+                            <ImageBackground
+                                resizeMode="contain"
+                                source={appImages.certificateCoaching}
+                                style={{
+                                    width: Dimensions.get('window').width / 2,
+                                    height: Dimensions.get('window').width / 2,
+                                    overflow: 'hidden',
+                                    justifyContent: 'center',
+
+                                }}
+                            >
+                                <Text center uppercase style={{
+                                    color: '#70768A'
+                                }}>Photo Id</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    )
+                }
+
+
+
+
                 <Text white center marginV-12 style={{
                     fontSize: customTheme.fontSizes.size_16,
                     fontFamily: customTheme.fontFamily.robotoRegular,
                     opacity: 0.7
 
                 }}>For verification try not to skip this {`\n`} process</Text>
-                <Pressable
-                    disabled
-                    style={{
-                        width: Dimensions.get('window').width / 2,
-                        height: Dimensions.get('window').width / 3,
-                        borderColor: customTheme.colors.lightBlue,
-                        borderWidth: 2,
-                        borderRadius: 16,
-                        marginVertical: 10,
-                        justifyContent: 'center',
-                        alignContent: 'center',
-                        alignSelf: 'center',
-                    }}
-                    onPress={handleCertificate}
-                >
+                {
+                    doc?.certificateUrl ? (
+                        <ImageRender uri={doc?.certificateUrl} onPress={handleCertificateVisible} />
+                    ) : (
+                        <TouchableOpacity
 
-                    <View center>
-                        <FontAwesomeIcon icon={faCamera} size={24} color={customTheme.colors.blue20} />
-                        <Text lineBreakMode="tail" blue10 marginV-8>Upload the certificate</Text>
-                    </View>
-                </Pressable>
+                            onPress={handleCertificate}
+                        >
+
+                            <ImageBackground
+                                resizeMode="contain"
+                                source={appImages.certificateCoaching}
+                                style={{
+                                    width: Dimensions.get('window').width / 2,
+                                    height: Dimensions.get('window').width / 2,
+                                    overflow: 'hidden',
+                                    justifyContent: 'center',
+
+                                }}
+                            >
+                                <Text center uppercase style={{
+                                    color: '#70768A'
+                                }}>Coaching {`\n`} Certificate</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    )
+                }
 
             </View>
 
 
         </View>
-
-
-
     )
 }
 export default function DocumentVerification() {
-    const [currentPosition, setCurrentPosition] = useState(0)
-    const navigation = useNavigation()
-    const { isMale, isPlayer, handleUserOnboardingRegistration } = useOnBoarding()
+    const { user, onRecheckingAuth } = useAuth()
+    const [upload, setUpload] = useState({
+        idProof: false,
+        value: false
+    })
+    const [doc, setDoc] = useState({
+        idProofUrl: null,
+        certificateUrl: null
+    })
+    const [visibleDoc, setVisibleDoc] = useState(null)
     const {
         isUploading,
         uploadProgress,
         pickDocument,
         uploadedDocument,
-
         scanDocument
     } = useUpload()
-    const imageUrl = uploadedDocument?.imageUrl ? ({ uri: uploadedDocument?.imageUrl }) : isMale ? appImages.player_male : appImages.player_female
-    const handlePress = () => {
-        handleUserOnboardingRegistration()
+    const { mutate: updateProfilePick, isLoading: isUpdating } = useUserUpdateCertificates(
+        {
+            onSuccess: data => {
+                onRecheckingAuth()
+            }
+        }
+    )
+    const progressCount = useMemo(() => {
+        if (doc.idProofUrl && doc.certificateUrl) {
+            return 100
+        }
+        if (doc.idProofUrl || doc.certificateUrl) {
+            return 90
+        }
+        return 80
+    }, [doc])
+    const handleDoc = () => {
+        if (upload?.idProof) {
+            setDoc(prev => ({
+                ...prev,
+                idProofUrl: uploadedDocument?.imageUrl
+            }))
+            setVisibleDoc({
+                idProof: true,
+                value: visibleDoc?.value,
+                url: uploadedDocument?.imageUrl
+            })
+            return
+        }
+        setDoc(prev => ({
+            ...prev,
+            certificateUrl: uploadedDocument?.imageUrl
+        }))
+        setVisibleDoc({
+            idProof: true,
+            value: visibleDoc?.value,
+            url: uploadedDocument?.imageUrl
+        })
+
     }
-    return <OnBoardingWrapper>
+    const handleCertificate = () => {
+        setUpload({
+            idProof: false,
+            value: true
+        })
+
+    }
+    const handleIndentity = () => {
+        setUpload({
+            idProof: true,
+            value: true
+        })
+    }
+    const handleCertificateVisible = () => {
+        setVisibleDoc({
+            idProof: false,
+            value: true,
+            url: doc?.certificateUrl
+        })
+    }
+    const handleIndentityVisible = () => {
+        setVisibleDoc({
+            idProof: true,
+            value: true,
+            url: doc?.idProofUrl
+        })
+    }
+    const handleChange = () => {
+        console.log(visibleDoc, 'change')
+        // setVisibleDoc(null)
+        if (visibleDoc.idProof) {
+            handleIndentity()
+            return
+        }
+        handleCertificate()
+
+    }
+    const handlePress = () => {
+        updateProfilePick({
+            data: {
+                certificateUrl: doc?.certificateUrl,
+                idProofUrl: doc?.idProofUrl
+            },
+            id: user?.id
+        })
+    }
+
+
+    return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} loading={isUploading.loading || isUpdating}>
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -152,13 +282,64 @@ export default function DocumentVerification() {
                 fontFamily: customTheme.fontFamily.robotoLight,
                 fontWeight: '700',
             }}>Step </Text>
-            <VerticalStepIndicator />
+            <VerticalStepIndicator
+                doc={doc}
+                handleCertificate={handleCertificate}
+                handleIndentity={handleIndentity}
+                handleCertificateVisible={handleCertificateVisible}
+                handleIndentyVisible={handleIndentityVisible}
+            />
         </View>
-        <View marginT-32></View>
-        <FormButton disabled={isUploading.loading} label={isUploading.type ? isUploading?.type : 'Finish'} onPress={handlePress} />
-        <TouchableOpacity disabled={isUploading.loading} onPress={handlePress}>
-            <Text center white marginB-20
-            >Skip</Text>
-        </TouchableOpacity>
+        {<AppLoader
+            visible={isUploading.loading}
+            loadingMessage={`${uploadProgress} %`}
+        />}
+        <UpdloadTypeDialog
+            isVisible={upload?.value}
+            handlePick={() => pickDocument(handleDoc)}
+            handleScan={() => scanDocument(handleDoc)}
+            onClose={setUpload.bind(this, {
+                idProof: false,
+                value: false
+            })}
+        />
+        <Dialog
+            visible={visibleDoc?.value}
+            width={Layout.width}
+            bottom
+
+            containerStyle={{
+                backgroundColor: customTheme.colors.primary,
+                marginBottom: 0,
+                paddingTop: customTheme.spacings.spacing_12,
+                paddingBottom: customTheme.spacings.spacing_32,
+                paddingHorizontal: customTheme.spacings.spacing_16,
+                borderTopRightRadius: customTheme.spacings.spacing_16,
+                borderTopLeftRadius: customTheme.spacings.spacing_16,
+            }}
+            onDismiss={() => setVisibleDoc(null)}
+
+        >
+            <Text white center style={{
+                opacity: 0.6,
+            }}>View Document</Text>
+            <AnimatedImage
+                source={{ uri: visibleDoc?.url }}
+                // useBackgroundContainer
+                animationDuration={2000}
+                loader={<ActivityIndicator color={customTheme.colors.white} />}
+
+                style={{
+                    width: Layout.width * 0.8,
+                    height: hp(20),
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    marginVertical: customTheme.spacings.spacing_16
+
+                }}
+
+            />
+            <FormButton onPress={handleChange} label={'Change'} loading={isUploading?.loading} />
+        </Dialog>
     </OnBoardingWrapper>
 }

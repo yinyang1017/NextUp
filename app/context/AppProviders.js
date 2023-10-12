@@ -17,12 +17,15 @@ import { errorToast } from '../utils/toast'
 
 const mutationCache = new MutationCache({
   onError(error, variables, context, mutation) {
-    // console.log(error, 'in auth provider')
+    errorToast({
+      title: 'Error',
+      body: error?.message
+    })
   },
 })
 const queryCache = new QueryCache({
   onError(error) {
-    // console.log(error, 'in auth provider')
+    console.log(error, 'in auth provider')
     errorToast({
       title: 'Error',
       body: error?.message

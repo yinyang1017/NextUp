@@ -89,11 +89,12 @@ export const useEnterPorfileDetails = () => {
   const {
     onBoarding
   } = useOnBoarding()
-  const city = onBoarding?.schoolInfo.city
-  const state = onBoarding?.schoolInfo.state
+  const city = onBoarding?.schoolInfo?.city
+  const state = onBoarding?.schoolInfo?.state
   const { data: schools, isLoading: isLoadingSchools } = useGetSchools({
     queryFilter: {
-      city: city, state: state
+      city: city,
+      state: state
     }
   })
   const {

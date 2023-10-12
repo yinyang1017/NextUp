@@ -67,7 +67,6 @@ export const useUpload = () => {
       loading: true,
       type: 'Uploading in progress.Please wait...',
     });
-    console.log(file);
     try {
       if (file) {
         const formData = new FormData();
@@ -87,7 +86,6 @@ export const useUpload = () => {
             body: 'Uploaded successfully',
           });
           setUploadedDocument(resp?.data);
-          return resp?.data;
         }
       } else {
         throw new Error('No file selected');
@@ -118,15 +116,15 @@ export const useUpload = () => {
       });
       return;
     }
-    handleUpload().then(resp => {
-      cb(uploadedDocument);
+    await handleUpload(resp).then(() => {
+      cb && cb();
     });
   };
 
   /**
    * Scan a document using the camera and handle the upload.
    */
-  const scanDocument = async () => {
+  const scanDocument = async (cb = null) => {
     const resp = await launchCamera({
       includeBase64: true,
     });
@@ -138,7 +136,23 @@ export const useUpload = () => {
       // });
       return;
     }
-    return handleUpload(resp);
+    if (resp?.errorCode == 'camera_unavailable') {
+      errorToast({
+        title: 'Error',
+        body: 'Cannot upload file. Camera is not available',
+      });
+      return;
+    }
+    if (resp?.errorCode == 'permission_denied') {
+      errorToast({
+        title: 'Error',
+        body: 'Cannot upload file. Permission denied',
+      });
+      return;
+    }
+    await handleUpload(resp).then(() => {
+      cb && cb();
+    });
   };
 
   // Return an object with the pickDocument and scanDocument functions

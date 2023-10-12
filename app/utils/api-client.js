@@ -45,12 +45,12 @@ async function client(
       return responseData;
     }
 
-    // throw responseData;
+    throw responseData;
   } catch (error) {
     console.log('error', error);
     const obj = {
       ...error,
-      message: 'Something went wrong.',
+      message: error?.message ?? 'Something went wrong.',
     }
     return Promise.reject(obj);
   }
