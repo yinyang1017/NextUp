@@ -1,426 +1,125 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Layout, Colors, Fonts, customTheme } from '../../constants';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {Colors, Fonts, customTheme} from '../../constants';
 
-const SideBySideBarGraph = ({ pgsData }) => {
-  // let content
-  let content1 = [];
-  // let content2 = [];
-  //
-  if (pgsData !== null) {
-    var midVal = 10;
-    pgsData.map((obj, index) => {
-      //
-      if (index == 0) {
-        //
-        var rightObj = pgsData[1];
-        for (const key in obj) {
-          var leftVal = obj[key];
-          // var fillWidth = leftVal > 10 ? 35 + parseFloat(leftVal) : 45 - leftVal;
-          //// console.log('widthfill', fillWidth);
-          var rightVal = 0;
-          if (rightObj !== null && rightObj !== undefined) {
-            rightVal = rightObj[key];
-          }
-          // ;
-          content1.push(
-            <View
-              style={{
-                width: '100%',
-                height: 20,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                marginTop: 3,
-                // backgroundColor: 'red',
-              }}
-            >
-              <View
-                style={{
-                  width: '40%',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
-                }}
-              >
-                {leftVal !== undefined && leftVal > 0 ? (
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: Colors.compareBar,
-                      paddingRight: 6,
-                      fontFamily: Fonts.Bold,
-                    }}
-                  >
-                    {leftVal}
-                  </Text>
-                ) : null}
-                {leftVal !== undefined && leftVal > 0 ? (
-                  <View
-                    style={{
-                      width:
-                        leftVal >= midVal
-                          ? leftVal > 90
-                            ? `${90}%`
-                            : `${30 + parseFloat(leftVal)}%`
-                          : `${mid + parseFloat(leftVal)}%`,
-                      // width: '100%',
-                      backgroundColor: Colors.compareBar,
-                      height: 12,
-                      maxWidth: '90%',
-                    }}
-                  ></View>
-                ) : (
-                  <View
-                    style={{
-                      width: '90%',
-                      backgroundColor: Colors.emptyBar,
-                      height: 12,
-                    }}
-                  ></View>
-                )}
-              </View>
-              <View
-                style={{
-                  width: '10%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Text
-                  style={{
-                    color: customTheme.colors.light,
-                    fontSize: 12,
-                    fontFamily: Fonts.Bold,
-                  }}
-                >
-                  {key}
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  width: '40%',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
-                {rightVal !== undefined && rightVal > 0 ? (
-                  <View
-                    style={{
-                      width:
-                        rightVal >= midVal
-                          ? rightVal > 90
-                            ? `${90}%`
-                            : `${30 + parseFloat(rightVal)}%`
-                          : `${midVal + parseFloat(rightVal)}%`,
-                      backgroundColor: Colors.compareRightBar,
-                      height: 12,
-                      maxWidth: '90%',
-                    }}
-                  ></View>
-                ) : (
-                  <View
-                    style={{
-                      width: '90%',
-                      backgroundColor: Colors.emptyBar,
-                      height: 12,
-                    }}
-                  ></View>
-                )}
-                {rightVal !== undefined && rightVal > 0 ? (
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: Colors.compareRightBar,
-                      paddingLeft: 8,
-                      fontFamily: Fonts.Bold,
-                    }}
-                  >
-                    {rightVal}
-                  </Text>
-                ) : null}
-              </View>
-            </View>
-          );
-        }
-      } else {
-        //
-        var leftObj = pgsData[0];
-        for (const key in obj) {
-          var leftVal = 0;
-          if (leftObj !== null && leftObj !== undefined) {
-            leftVal = leftObj[key];
-          }
-          //
-          var rightVal = obj[key];
-
-          if (leftObj !== null) {
-            //
-            if (!leftObj.hasOwnProperty(key)) {
-              content1.push(
-                <View
-                  style={{
-                    width: '100%',
-                    height: 20,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-around',
-                    marginTop: 3,
-                    // backgroundColor: 'red'
-                  }}
-                >
-                  <View
-                    style={{
-                      width: '40%',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-end',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {leftVal !== undefined && leftVal > 0 ? (
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          color: Colors.compareBar,
-                          paddingRight: 6,
-                          fontFamily: Fonts.Bold,
-                        }}
-                      >
-                        {leftVal}
-                      </Text>
-                    ) : null}
-                    {leftVal !== undefined && leftVal > 0 ? (
-                      <View
-                        style={{
-                          width:
-                            leftVal >= midVal
-                              ? leftVal > 90
-                                ? `${90}`
-                                : `${30 + parseFloat(leftVal)}%`
-                              : `${midVal + parseFloat(leftVal)}%`,
-                          backgroundColor: Colors.compareBar,
-                          height: 12,
-                          maxWidth: '90%',
-                        }}
-                      ></View>
-                    ) : (
-                      <View
-                        style={{
-                          width: '90%',
-                          backgroundColor: Colors.emptyBar,
-                          height: 12,
-                        }}
-                      ></View>
-                    )}
-                  </View>
-                  <View
-                    style={{
-                      width: '10%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: customTheme.colors.light,
-                        fontSize: 12,
-                        fontFamily: Fonts.Bold,
-                      }}
-                    >
-                      {key}
-                    </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      width: '40%',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {rightVal !== undefined && rightVal > 0 ? (
-                      <View
-                        style={{
-                          width:
-                            rightVal >= midVal
-                              ? rightVal > 90
-                                ? `${90}%`
-                                : `${30 + parseFloat(rightVal)}%`
-                              : `${midVal + parseFloat(rightVal)}%`,
-                          backgroundColor: Colors.compareRightBar,
-                          height: 12,
-                          maxWidth: '90%',
-                        }}
-                      ></View>
-                    ) : (
-                      <View
-                        style={{
-                          width: '90%',
-                          backgroundColor: Colors.emptyBar,
-                          height: 12,
-                        }}
-                      ></View>
-                    )}
-                    {rightVal !== undefined && rightVal > 0 ? (
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          color: Colors.compareRightBar,
-                          paddingLeft: 8,
-                          fontFamily: Fonts.Bold,
-                        }}
-                      >
-                        {rightVal}
-                      </Text>
-                    ) : null}
-                  </View>
-                </View>
-              );
-            }
-          } else {
-            //
-            // if (!leftObj.hasOwnProperty(key)) {
-            content1.push(
-              <View
-                style={{
-                  width: '100%',
-                  height: 20,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  marginTop: 3,
-                  // backgroundColor: 'red'
-                }}
-              >
-                <View
-                  style={{
-                    width: '40%',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                  }}
-                >
-                  {leftVal !== undefined && leftVal > 0 ? (
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        color: Colors.compareBar,
-                        paddingRight: 6,
-                        fontFamily: Fonts.Bold,
-                      }}
-                    >
-                      {leftVal}
-                    </Text>
-                  ) : null}
-                  {leftVal !== undefined && leftVal > 0 ? (
-                    <View
-                      style={{
-                        width:
-                          leftVal >= midVal
-                            ? leftVal > 90
-                              ? `${90}%`
-                              : `${30 + parseFloat(leftVal)}%`
-                            : `${midVal + parseFloat(leftVal)}%`,
-                        backgroundColor: Colors.compareBar,
-                        height: 12,
-                        maxWidth: '90%',
-                      }}
-                    ></View>
-                  ) : (
-                    <View
-                      style={{
-                        width: '90%',
-                        backgroundColor: Colors.emptyBar,
-                        height: 12,
-                      }}
-                    ></View>
-                  )}
-                </View>
-                <View
-                  style={{
-                    width: '10%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: customTheme.colors.light,
-                      fontSize: 12,
-                      fontFamily: Fonts.Bold,
-                    }}
-                  >
-                    {key}
-                  </Text>
-                </View>
-
-                <View
-                  style={{
-                    width: '40%',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                  }}
-                >
-                  {rightVal !== undefined && rightVal > 0 ? (
-                    <View
-                      style={{
-                        width:
-                          rightVal >= midVal
-                            ? rightVal > 90
-                              ? `${90}%`
-                              : `${30 + parseFloat(rightVal)}%`
-                            : `${midVal + parseFloat(rightVal)}%`,
-                        backgroundColor: Colors.compareRightBar,
-                        height: 12,
-                        maxWidth: '90%',
-                      }}
-                    ></View>
-                  ) : (
-                    <View
-                      style={{
-                        width: '90%',
-                        backgroundColor: Colors.emptyBar,
-                        height: 12,
-                      }}
-                    ></View>
-                  )}
-                  {rightVal !== undefined && rightVal > 0 ? (
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        color: Colors.compareRightBar,
-                        paddingLeft: 8,
-                        fontFamily: Fonts.Bold,
-                      }}
-                    >
-                      {rightVal}
-                    </Text>
-                  ) : null}
-                </View>
-              </View>
-            );
-          }
-        }
-      }
-      // return (
-      //     <>
-
-      //     </>
-      //     // content2
-
-      // )
-    });
-  }
+const SideBySideBarGraph = ({pgsData}) => {
+  const maxWidth = Math.max(...pgsData.map(el => Math.max(...el.value)));
   return (
     <>
-      {content1}
-      {/* {content2} */}
+      {pgsData.map(obj => {
+        const key = obj.name;
+        const leftVal = obj.value[0];
+        const rightVal = obj.value[1];
+        return (
+          <View style={styles.container}>
+            <View style={styles.leftContainer}>
+              {leftVal > 0 ? (
+                <Text style={styles.leftLabel}>{leftVal}</Text>
+              ) : null}
+              {leftVal > 0 ? (
+                <View
+                  style={styles.bar({
+                    width: `${80 * Math.pow(leftVal / maxWidth, 2)}%`,
+                    color:
+                      leftVal >= rightVal ? Colors.compareBar : Colors.emptyBar,
+                  })}
+                />
+              ) : (
+                <View
+                  style={rightVal === null ? styles.nullBar : styles.blankBar}
+                />
+              )}
+            </View>
+            <View style={styles.keyContainer}>
+              <Text style={styles.keyText}>{key}</Text>
+            </View>
+
+            <View style={styles.rightContainer}>
+              {rightVal > 0 ? (
+                <View
+                  style={styles.bar({
+                    width: `${80 * Math.pow(rightVal / maxWidth, 2)}%`,
+                    color:
+                      rightVal >= leftVal
+                        ? Colors.compareRightBar
+                        : Colors.emptyBar,
+                  })}
+                />
+              ) : (
+                <View
+                  style={rightVal === null ? styles.nullBar : styles.blankBar}
+                />
+              )}
+              {rightVal > 0 ? (
+                <Text style={styles.rightLabel}>{rightVal}</Text>
+              ) : null}
+            </View>
+          </View>
+        );
+      })}
     </>
   );
 };
 
 export default SideBySideBarGraph;
+
+const styles = StyleSheet.create({
+  rightLabel: {
+    fontSize: 14,
+    color: Colors.compareRightBar,
+    paddingLeft: 8,
+    fontFamily: Fonts.Bold,
+  },
+  leftLabel: {
+    fontSize: 14,
+    color: Colors.compareBar,
+    paddingRight: 6,
+    fontFamily: Fonts.Bold,
+  },
+  nullBar: {
+    width: '5%',
+    backgroundColor: Colors.emptyBar,
+    height: 12,
+  },
+  blankBar: {
+    width: '90%',
+    backgroundColor: Colors.emptyBar,
+    height: 12,
+  },
+  bar: ({color, width}) => ({
+    width,
+    backgroundColor: color,
+    height: 12,
+    maxWidth: '90%',
+  }),
+  rightContainer: {
+    width: '40%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  leftContainer: {
+    width: '40%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  keyContainer: {
+    width: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  keyText: {
+    color: customTheme.colors.light,
+    fontSize: 12,
+    fontFamily: Fonts.Bold,
+  },
+  container: {
+    width: '100%',
+    height: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 3,
+  },
+});
