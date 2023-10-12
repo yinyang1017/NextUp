@@ -9,16 +9,18 @@ import { useAuth } from '../../../hooks/useAuth';
 import moment from 'moment';
 
 const InboxChatItem = ({ index, chatInfo }) => {
-  const isAudio = index;
+  const showMediaType = chatInfo?.recentMessageType === 'IMAGE';
   const showUnread = false;
 
   const navigation = useNavigation();
 
   const onPressChatHandler = () => {
-    navigation.navigate('ChatScreen', { channelId: chatInfo?.channelId });
+    navigation.navigate('ChatScreen', { chatInfo: chatInfo });
   };
   const { user } = useAuth();
-  const userId = user?.id || '1013';
+  const userId = user?.id?.toString();
+
+  const isGroup = chatInfo?.type === 'GROUP';
 
   return (
     <>
@@ -28,16 +30,18 @@ const InboxChatItem = ({ index, chatInfo }) => {
         onPress={onPressChatHandler}>
         <FastImage
           style={styles.profileImage}
-          source={{ uri: chatInfo?.groupLogoUrl }}
+          source={{
+            uri: isGroup ? chatInfo?.groupLogoUrl : chatInfo?.userProfilePicUrl,
+          }}
           defaultSource={appImages.defaultAvatarImage}
         />
         <View style={styles.messagesContainer}>
           <Text style={styles.name} numberOfLines={1}>
-            {chatInfo?.groupName}
+            {isGroup ? chatInfo?.groupName : chatInfo?.otherUserName}
           </Text>
-          {isAudio ? (
+          {showMediaType ? (
             <Text style={[styles.message, { color: customTheme.colors.btnBg }]}>
-              Audio
+              {'Image'}
             </Text>
           ) : (
             <Text style={styles.message} numberOfLines={1}>
@@ -54,7 +58,9 @@ const InboxChatItem = ({ index, chatInfo }) => {
         </View>
         <View style={styles.timeBadgeContainer}>
           <Text style={styles.timeInfoText}>
-            {moment(chatInfo?.createdAt).format('dddd')}
+            {chatInfo?.createdAt
+              ? moment(chatInfo?.createdAt).format('dddd')
+              : ''}
           </Text>
           {showUnread && (
             <View style={styles.unreadCountBadge}>

@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faCalendar,
   faHomeAlt,
-  faMessage,
   faUser,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +14,8 @@ import { Text } from 'react-native-ui-lib';
 import MyAccountStack from './MyAccountStack';
 import MyTeamsStack from '../views/players/MyTeams/MyTeamsStack';
 import Inbox from '../views/common/inbox/Inbox';
+import { wp } from '../utils/responsive';
+import { Image } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 export function PlayerStack() {
@@ -99,10 +100,14 @@ export function PlayerStack() {
           },
           tabBarIcon: ({ focused }) => {
             return (
-              <FontAwesomeIcon
-                icon={faMessage}
-                color={customTheme.colors.light}
-                style={{ opacity: focused ? 1 : 0.4 }}
+              <Image
+                source={require('../assets/chatteardroptext.png')}
+                style={{
+                  height: wp(5.5),
+                  width: wp(5.5),
+                  tintColor: customTheme.colors.light,
+                  opacity: focused ? 1 : 0.4,
+                }}
               />
             );
           },

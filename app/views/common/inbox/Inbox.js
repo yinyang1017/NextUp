@@ -10,49 +10,9 @@ import InboxChatsList from '../../../components/common/inbox/InboxChatsList';
 import { useIsFocused } from '@react-navigation/native';
 import { useAuth } from '../../../hooks/useAuth';
 import { useGetAllChatChannels } from '../../../api/chat.api';
-import { View } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 
 const InboxTopTabs = createMaterialTopTabNavigator();
-
-const staticData = {
-  teamId: 2001,
-  teamName: 'Hardcoded TeamName',
-  teamLogoUrl: 'https://example.com/hardcoded-logo.png',
-  teamDetails: {
-    teamId: 2001,
-    teamName: 'Hardcoded TeamName',
-    teamLogoUrl: 'https://example.com/hardcoded-logo.png',
-    groupChats: [
-      {
-        channelId: 169633689373204,
-        recentMessage: 'Dsdsdsds',
-        groupName: 'Hardcoded GroupName',
-        groupLogoUrl: 'https://example.com/hardcoded-group-logo.png',
-        createdAt: null,
-        recentSenderId: '80f16748-00d8-4bde-be0c-66c17eebb7ea',
-        recentMessageType: null,
-      },
-    ],
-    oneOnOneChats: [],
-  },
-  coachDetails: {
-    teamId: 2001,
-    teamName: 'Hardcoded CoachName',
-    teamLogoUrl: 'https://example.com/hardcoded-coach-logo.png',
-    groupChats: [
-      {
-        channelId: 169633686729003,
-        recentMessage: 'Hello',
-        groupName: 'Hardcoded CoachGroupName',
-        groupLogoUrl: 'https://example.com/hardcoded-coach-group-logo.png',
-        createdAt: null,
-        recentSenderId: '7e0f87b2-fc79-4ba2-bd44-ac11af0fe9af',
-        recentMessageType: null,
-      },
-    ],
-    oneOnOneChats: [],
-  },
-};
 
 const Inbox = () => {
   const { user } = useAuth();
@@ -76,35 +36,34 @@ const Inbox = () => {
 
   const isFocus = useIsFocused();
 
+  const getConcatedChats = (detailsObj = {}) => {
+    return [
+      ...(detailsObj?.groupChats
+        ? detailsObj?.groupChats?.map(item => ({ ...item, type: 'GROUP' }))
+        : []),
+      ...(detailsObj?.oneOnOneChats
+        ? detailsObj?.oneOnOneChats?.map(item => ({
+            ...item,
+            type: 'ONE_TO_ONE',
+          }))
+        : []),
+    ];
+  };
+
+  const onSuccessGetAllChannelData = data => {
+    const firstItem = data.data[0];
+    setSelectedTeamId(firstItem?.teamId);
+    if (firstItem) {
+      setTeamChatList(getConcatedChats(firstItem?.teamDetails));
+      setCoachChatList(getConcatedChats(firstItem?.coachDetails));
+    }
+  };
+
   useEffect(() => {
     if (isFocus) {
       getAllChatChannels(
-        { userId: user?.id || 1013 },
-        {
-          onSuccess: data => {
-            const firstItem = data.data[0];
-            setSelectedTeamId(firstItem?.teamId);
-            if (firstItem) {
-              setTeamChatList([
-                ...(firstItem?.teamDetails?.groupChats || []),
-                ...(firstItem?.teamDetails?.oneOnOneChats || []),
-              ]);
-              setCoachChatList([
-                ...(firstItem?.coachDetails?.groupChats || []),
-                ...(firstItem?.coachDetails?.oneOnOneChats || []),
-              ]);
-            } else {
-              setTeamChatList([
-                ...staticData.teamDetails.groupChats,
-                ...staticData.teamDetails.oneOnOneChats,
-              ]);
-              setCoachChatList([
-                ...staticData.coachDetails.groupChats,
-                ...staticData.coachDetails.oneOnOneChats,
-              ]);
-            }
-          },
-        },
+        { userId: user?.id },
+        { onSuccess: onSuccessGetAllChannelData },
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,14 +86,8 @@ const Inbox = () => {
       cItem => cItem?.teamId === id,
     );
     if (foundTeam) {
-      setTeamChatList([
-        ...(foundTeam?.teamDetails?.groupChats || []),
-        ...(foundTeam?.teamDetails?.oneOnOneChats || []),
-      ]);
-      setCoachChatList([
-        ...(foundTeam?.coachDetails?.groupChats || []),
-        ...(foundTeam?.coachDetails?.oneOnOneChats || []),
-      ]);
+      setTeamChatList(getConcatedChats(foundTeam?.teamDetails));
+      setCoachChatList(getConcatedChats(foundTeam?.coachDetails));
     }
   };
 
@@ -145,32 +98,29 @@ const Inbox = () => {
 
   const onSearchTextChangeHandler = text => {
     const searchText = text?.trim().toLowerCase();
-
     if (searchText) {
       const foundTeamData = allChatChannelsData?.data?.find(
         cItem => cItem?.teamId === selectedTeamId,
       );
       if (activeIndex === 0) {
-        const listdata = [
-          ...(foundTeamData?.teamDetails?.groupChats || []),
-          ...(foundTeamData?.teamDetails?.oneOnOneChats || []),
-        ];
-
-        const filterData = listdata?.filter(cItem =>
-          cItem?.groupName?.toLowerCase()?.includes(searchText),
-        );
-
+        const listdata = getConcatedChats(foundTeamData?.teamDetails);
+        const filterData = listdata?.filter(cItem => {
+          if (cItem?.type === 'GROUP') {
+            return cItem?.groupName?.toLowerCase()?.includes(searchText);
+          } else {
+            return cItem?.otherUserName?.toLowerCase()?.includes(searchText);
+          }
+        });
         setTeamChatList(filterData);
       } else {
-        const listdata = [
-          ...(foundTeamData?.coachDetails?.groupChats || []),
-          ...(foundTeamData?.coachDetails?.oneOnOneChats || []),
-        ];
-
-        const filterData = listdata.filter(cItem =>
-          cItem?.groupName?.toLowerCase()?.includes(searchText),
-        );
-
+        const listdata = getConcatedChats(foundTeamData?.coachDetails);
+        const filterData = listdata.filter(cItem => {
+          if (cItem?.type === 'GROUP') {
+            return cItem?.groupName?.toLowerCase()?.includes(searchText);
+          } else {
+            return cItem?.otherUserName?.toLowerCase()?.includes(searchText);
+          }
+        });
         setCoachChatList(filterData);
       }
     } else {
@@ -180,19 +130,25 @@ const Inbox = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.headerTeamsContainer}>
-        {allChatChannelsData?.data?.map(item => (
-          <TouchableOpacity
-            key={item?.teamId}
-            onPress={() => onChangeTeamHandler(item)}>
-            <TeamItem
-              imageSource={{ uri: item?.teamLogoUrl }}
-              name={item.teamName}
-              isActive={item?.teamId === selectedTeamId}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
+      {allChatChannelsData?.data?.length ? (
+        <View style={styles.headerTeamsContainer}>
+          {allChatChannelsData?.data?.map(item => (
+            <TouchableOpacity
+              key={item?.teamId}
+              onPress={() => onChangeTeamHandler(item)}>
+              <TeamItem
+                imageSource={{ uri: item?.teamLogoUrl }}
+                name={item.teamName}
+                isActive={item?.teamId === selectedTeamId}
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : (
+        <View center height={hp(16)}>
+          <Text large-3xl-700>No Teams Found</Text>
+        </View>
+      )}
       <SearchInput
         style={styles.searchInput}
         placeholder={'Search Players and Coach'}
@@ -201,20 +157,12 @@ const Inbox = () => {
       <InboxTopTabs.Navigator screenOptions={tabScreenOptions}>
         <InboxTopTabs.Screen
           name="Team"
-          listeners={{
-            focus: () => {
-              setActiveIndex(0);
-            },
-          }}>
+          listeners={{ focus: () => setActiveIndex(0) }}>
           {teamInbox}
         </InboxTopTabs.Screen>
         <InboxTopTabs.Screen
           name="Coaches"
-          listeners={{
-            focus: () => {
-              setActiveIndex(1);
-            },
-          }}>
+          listeners={{ focus: () => setActiveIndex(1) }}>
           {coachInbox}
         </InboxTopTabs.Screen>
       </InboxTopTabs.Navigator>

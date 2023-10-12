@@ -1,7 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-const baseUrl = `http://34.134.29.128:8081/v1`
-
-
+export const baseUrl = `http://34.134.29.128:8081/v1`
 
 
 async function client(
