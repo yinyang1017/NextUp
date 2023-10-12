@@ -16,43 +16,41 @@ import { hp } from "../../../utils/responsive";
 import { useUserUpdateCertificates } from "../../../api/user.api";
 import { useAuth } from "../../../hooks/useAuth";
 const ImageRender = ({ uri, onPress }) => {
-    return <>
-        <ImageBackground style={{ justifyContent: 'center', alignContent: 'center' }} resizeMode="contain" source={appImages.placeHolderPhotoIdBorder}>
+    return (
+        <ImageBackground
+            style={{ justifyContent: 'center', alignContent: 'center' }}
+            resizeMode="contain"
+            source={appImages.placeHolderPhotoIdBorder}
+        >
             <Image
-                resizeMethod="scale"
                 resizeMode="contain"
-                overlayIntensity="HIGH"
-                customOverlayContent={() => (
-                    <Text red10>eye</Text>
-                )}
+                customOverlayContent={() => <Text red10>eye</Text>}
                 style={{
                     alignSelf: 'center',
                     borderRadius: customTheme.spacings.spacing_16,
                 }}
-                width={
-                    Dimensions.get('window').width / 2} height={Dimensions.get('window').width / 2} source={{
-                        uri: uri
-                    }}
+                width={Layout.width * 0.3}
+                height={Layout.width * 0.46}
+                source={{ uri }}
             />
-            <TouchableOpacity onPress={onPress}
+            <TouchableOpacity
+                onPress={onPress}
                 style={{
                     position: 'absolute',
                     backgroundColor: customTheme.colors.tertiary,
                     opacity: 0.5,
-                    height: Dimensions.get('window').width / 3,
-                    width: Dimensions.get('window').width / 2,
+                    height: Layout.width * 0.46,
+                    width: Layout.width * 0.3,
                     justifyContent: 'center',
                     alignSelf: 'center',
                 }}
-
             >
-                <FontAwesomeIcon style={{
-                    alignSelf: 'center',
-                }} icon={faEye} size={24} color={customTheme.colors.white} />
+                <FontAwesomeIcon style={{ alignSelf: 'center' }} icon={faEye} size={24} color={customTheme.colors.white} />
             </TouchableOpacity>
         </ImageBackground>
-    </>
-}
+    );
+};
+
 const VerticalStepIndicator = ({ doc,
     handleCertificate,
     handleIndentity,
@@ -77,10 +75,10 @@ const VerticalStepIndicator = ({ doc,
                     <View
                         center
                         style={{
-                            height: Dimensions.get('window').height / 6,
+                            height: Layout.width * 0.46,
                             backgroundColor: doc?.idProofUrl ? customTheme.colors.green :
                                 customTheme.colors.grey,
-                            borderColor: '#70768A',
+                            borderColor: doc?.idProofUrl && doc?.certificateUrl ? customTheme.colors.success : '#70768A',
                             borderWidth: 1,
                             width: 1,
                             borderStyle: 'dashed',  // Use 'dashed' style
@@ -198,28 +196,30 @@ export default function DocumentVerification() {
         }
         return 80
     }, [doc])
-    const handleDoc = () => {
-        if (upload?.idProof) {
-            setDoc(prev => ({
-                ...prev,
-                idProofUrl: uploadedDocument?.imageUrl
-            }))
-            setVisibleDoc({
-                idProof: true,
-                value: visibleDoc?.value,
-                url: uploadedDocument?.imageUrl
+    const handleDoc = (res) => {
+        if (upload.idProof) {
+            setDoc({
+                ...doc,
+                idProofUrl: res?.imageUrl
             })
-            return
+            setVisibleDoc((prev) => ({
+
+                idProof: true,
+                value: prev?.value,
+                url: res?.imageUrl
+
+            }))
+        } else {
+            setDoc({
+                ...doc,
+                certificateUrl: res?.imageUrl
+            })
+            setVisibleDoc((prev) => ({
+                idProof: false,
+                value: prev?.value,
+                url: res?.imageUrl
+            }))
         }
-        setDoc(prev => ({
-            ...prev,
-            certificateUrl: uploadedDocument?.imageUrl
-        }))
-        setVisibleDoc({
-            idProof: true,
-            value: visibleDoc?.value,
-            url: uploadedDocument?.imageUrl
-        })
 
     }
     const handleCertificate = () => {
@@ -250,7 +250,6 @@ export default function DocumentVerification() {
         })
     }
     const handleChange = () => {
-        console.log(visibleDoc, 'change')
         // setVisibleDoc(null)
         if (visibleDoc.idProof) {
             handleIndentity()
@@ -270,7 +269,7 @@ export default function DocumentVerification() {
     }
 
 
-    return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} loading={isUploading.loading || isUpdating}>
+    return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} disabled={!doc?.idProofUrl && !doc?.certificateUrl} loading={isUploading.loading || isUpdating}>
         <View marginV-24 >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
@@ -290,10 +289,10 @@ export default function DocumentVerification() {
                 handleIndentyVisible={handleIndentityVisible}
             />
         </View>
-        {<AppLoader
+        <AppLoader
             visible={isUploading.loading}
             loadingMessage={`${uploadProgress} %`}
-        />}
+        />
         <UpdloadTypeDialog
             isVisible={upload?.value}
             handlePick={() => pickDocument(handleDoc)}
