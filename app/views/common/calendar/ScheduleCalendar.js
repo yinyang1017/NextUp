@@ -7,8 +7,8 @@ import CalendarStrip from 'react-native-calendar-strip';
 import { useState } from "react";
 import styles from "../../../constants/styles";
 import moment from "moment";
-import { EventCarousel } from "../../../components/players/Dashboard/EventsCarousel";
-import { MyChallenges } from "../../../components/players/Dashboard/Challenges";
+import { EventCarousel } from "../../../components/coach/Dashboard/EventsCarousel";
+import { MyChallenges } from "../../../components/coach/Dashboard/Challenges";
 export default function ScheduleCalendar() {
     const navigation = useNavigation()
     const [selected, setSelected] = useState('');

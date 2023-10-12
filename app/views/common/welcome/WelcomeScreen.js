@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, SafeAreaView } from 'react-native';
+import { View, Image, SafeAreaView, Platform } from 'react-native';
 import { appImages } from '../../../constants/appImages';
 import { CommonStyles, customTheme } from '../../../constants';
 import TextComponent from '../../../components/common/TextComponent';
@@ -12,11 +12,13 @@ const loginOptions = [
     id: 1,
     text: 'Continue with Apple',
     logo: appImages.apple_logo,
+    showBtn: Platform.OS === 'ios'
   },
   {
     id: 2,
     text: 'Continue with Google',
     logo: appImages.google_logo,
+    showBtn: Platform.OS === 'ios' || Platform.OS === 'android'
   },
   // {
   //   id: 0,
@@ -63,7 +65,7 @@ export default function WelcomeScreen() {
       </View>
       {loginOptions.map((item, index) => {
         return (
-          <View
+          item.showBtn && (<View
             key={index}
             style={[
               [
@@ -90,7 +92,8 @@ export default function WelcomeScreen() {
               imageStyle={CommonStyles.midSizeLogo}
               onPressButton={() => handleSubmit(item?.id)}
             />
-          </View>
+          </View>)
+
         );
       })}
     </SafeAreaView>

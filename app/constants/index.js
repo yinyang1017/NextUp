@@ -1,9 +1,9 @@
-import { MyColors } from './colors';
-import { Layout } from './dimensions';
-import { Fonts } from './fonts';
+import {MyColors} from './colors';
+import {Layout} from './dimensions';
+import {Fonts} from './fonts';
 import * as Base from './constant';
 import CommonStyles from './styles';
-import { customTheme } from './theme';
+import {customTheme} from './theme';
 
 import SafeContainer from '../components/common/safeContainer';
 const Colors = { ...MyColors };
