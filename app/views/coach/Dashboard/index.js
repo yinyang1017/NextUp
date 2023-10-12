@@ -24,7 +24,7 @@ import LastGameSection from '../../../components/coach/Dashboard/LastGame';
 import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import {Padding} from '../../GlobalStyles';
 
-const PlayerDashboard = () => {
+const CoachDashboard = () => {
   const navigation = useNavigation();
 
   return (
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlayerDashboard;
+export default CoachDashboard;

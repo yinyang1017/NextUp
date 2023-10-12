@@ -7,7 +7,7 @@ import {
   FontFamily,
   Color,
   Border,
-} from '../../../views/GlobalStyles';
+} from '../../GlobalStyles';
 export const RecentGames = ({title = 'Recent Games'}) => {
   return (
     <>
