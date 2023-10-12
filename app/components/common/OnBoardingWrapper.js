@@ -1,4 +1,7 @@
 import { KeyboardAwareScrollView, ProgressBar, TouchableOpacity, View, Text } from "react-native-ui-lib";
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { ScrollView } from "react-native-gesture-handler";
+import { KeyboardAvoidingView } from "react-native"
 import { ViewContainer } from "./ViewConatiner";
 import { ScreenHeader } from "./ScreenHeader";
 import { customTheme } from "../../constants";
@@ -17,8 +20,26 @@ export default function OnBoardingWrapper({
     backButtonAction = () => null,
 
 }) {
+    const CButton = () => (
+        <View paddingH-16 marginB-32 marginT-12 >
+            <FormButton
+                onPress={handleForm}
+                loading={loading}
+                label={label}
+                disabled={disabled}
+
+
+            />
+            {
+                skip && <TouchableOpacity marginT-20 onPress={onSkip}>
+                    <Text center white marginB-20
+                    >Skip</Text>
+                </TouchableOpacity>
+            }
+        </View>
+    )
     return <>
-        <KeyboardAwareScrollView  >
+        <KeyboardAvoidingScrollView stickyFooter={<CButton />} >
             <ViewContainer >
                 {
                     canGoBack && <ScreenHeader
@@ -45,25 +66,7 @@ export default function OnBoardingWrapper({
 
 
 
-        </KeyboardAwareScrollView>
-        <View paddingH-16 marginB-32 marginT-12 >
-            <FormButton
-                onPress={handleForm}
-                loading={loading}
-                label={label}
-                disabled={disabled}
-
-
-            />
-            {
-                skip && <TouchableOpacity marginT-20 onPress={onSkip}>
-                    <Text center white marginB-20
-                    >Skip</Text>
-                </TouchableOpacity>
-            }
-        </View>
-
-
+        </KeyboardAvoidingScrollView>
     </>
 
 
