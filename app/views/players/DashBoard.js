@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, View, Dimensions } from 'react-native';
+import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
 import DashBoardHeader from '../../components/common/DashBoardHeader';
-import { TeamsBar } from '../../components/players/Dashboard/MyTeams';
-import { EventCarousel } from '../../components/players/Dashboard/EventsCarousel';
-import StatsContainer from '../../components/players/Dashboard/StatsContainer';
-import { MyChallenges } from '../../components/players/Dashboard/Challenges';
-import { Button } from 'react-native-ui-lib';
-import { customTheme } from '../../constants';
-import { useAuth } from '../../hooks/useAuth';
+import {TeamsBar} from '../../components/players/Dashboard/MyTeams';
+import {EventCarousel} from '../../components/players/Dashboard/EventsCarousel';
+import StatsContainer from '../../components/players/Dashboard/StatsContainer.js';
+import {MyChallenges} from '../../components/players/Dashboard/Challenges.js';
+import {Button} from 'react-native-ui-lib';
+import {customTheme} from '../../constants';
+import {useAuth} from '../../hooks/useAuth';
 
 const PlayerDashboard = () => {
   //   const navigation = useNavigation();
-  const { user } = useAuth()
+  const {user} = useAuth();
   // console.log(user, "player dash")
 
   return (
