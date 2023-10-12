@@ -1,4 +1,4 @@
-package com.nextup;
+package com.ftc.app.nextup;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
