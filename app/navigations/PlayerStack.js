@@ -25,7 +25,6 @@ export function PlayerStack() {
       ? customTheme.fontSizes.size_8
       : customTheme.fontSizes.size_12,
   });
-
   return (
     <Tab.Navigator
       screenOptions={{

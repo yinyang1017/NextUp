@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoardingStack from './OnBoardingStack';
-import { useAuth } from '../hooks/useAuth';
+import {useAuth} from '../hooks/useAuth';
 import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 import CoachStack from './CoachStack';
 import ChatScreen from '../views/common/inbox/ChatScreen';
@@ -19,6 +19,7 @@ import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
+  
   const { isAuthenticated, onBoardingDone,
     user,
     isCoach,
