@@ -6,22 +6,31 @@ import PlayerDetails from '../views/common/on-boarding/PlayerDetails';
 import PlayerStyle from '../views/common/on-boarding/PlayerStyle';
 import PhotoUpload from '../views/common/on-boarding/PhotoUpload';
 import OnBoardingProvider from '../context/OnBoardingProviider';
+import CoachDetails from '../views/common/on-boarding/CoachDetails';
+import DocumentVerification from '../views/common/on-boarding/DocumentVerification';
+import SelectCoachingLocation from '../views/common/on-boarding/SelectCoachingLocation';
 export default function OnBoardingStack() {
-    const Stack = createNativeStackNavigator();
-    return <OnBoardingProvider>
-        <Stack.Navigator initialRouteName='TellUsMore' screenOptions={{
-            headerShown: false,
-            cardStyle: {
-                padding: 20
-            }
+  const Stack = createNativeStackNavigator();
+  return (
+    <OnBoardingProvider>
+      <Stack.Navigator
+        initialRouteName="TellUsMore"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: {
+            padding: 20,
+          },
         }}>
-            {/* <Stack.Screen name='Welcome' component={WelcomeScreen} /> */}
-            <Stack.Screen name='TellUsMore' component={TellUsMore} />
-            <Stack.Screen name='PlayerDetails' component={PlayerDetails} />
-            <Stack.Screen name='PlayerStyle' component={PlayerStyle} />
-            <Stack.Screen name='PhotoUpload' component={PhotoUpload} />
+        {/* <Stack.Screen name='Welcome' component={WelcomeScreen} /> */}
+        <Stack.Screen name="TellUsMore" component={TellUsMore} />
+        <Stack.Screen name="PlayerDetails" component={PlayerDetails} />
+        <Stack.Screen name="CoachDetails" component={CoachDetails} />
+        <Stack.Screen name="PlayerStyle" component={PlayerStyle} />
+        <Stack.Screen name="PhotoUpload" component={PhotoUpload} />
+        <Stack.Screen name="CoachingLocation" component={SelectCoachingLocation} />
+        <Stack.Screen name="DocumentVerification" component={DocumentVerification} />
 
-
-        </Stack.Navigator>
+      </Stack.Navigator>
     </OnBoardingProvider>
+  );
 }

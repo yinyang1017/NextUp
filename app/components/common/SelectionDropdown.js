@@ -1,11 +1,19 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {hp, wp} from '../../utils/responsive';
-import {FontFamily, FontSize} from '../../views/GlobalStyles';
-import {Colors} from '../../constants';
-import {MyColors} from '../../constants/colors';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { memo } from 'react';
+import { hp, wp } from '../../utils/responsive';
+import { Colors, customTheme } from '../../constants';
+import { Picker } from 'react-native-ui-lib';
 
-const SelectionDropdown = ({title, value, containerStyle = {}}) => {
+const SelectionDropdown = ({
+  title,
+  value,
+  containerStyle = {},
+  isPicker = true,
+  onPressValue = () => {},
+  data = [],
+  onSelectItem = () => {},
+  renderItem,
+}) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.selectionRow}>
@@ -14,22 +22,46 @@ const SelectionDropdown = ({title, value, containerStyle = {}}) => {
         </Text>
         <Image
           source={require('../../assets/chevrondown5.png')}
-          style={{height: wp(4), width: wp(4)}}
+          style={styles.dropdownIcon}
         />
       </View>
-      <Text numberOfLines={1} style={styles.valueText}>
-        {value}
-      </Text>
+      {isPicker ? (
+        <Picker
+          listProps={{ contentContainerStyle: { paddingBottom: hp(5) } }}
+          renderPicker={() => (
+            <Text numberOfLines={1} style={styles.valueText}>
+              {value}
+            </Text>
+          )}
+          searchStyle={{ placeholderTextColor: customTheme.colors.primary }}
+          value={value}>
+          {renderItem
+            ? data.map(renderItem)
+            : data.map(item => (
+                <Picker.Item
+                  onPress={() => onSelectItem(item)}
+                  label={item}
+                  value={item}
+                />
+              ))}
+        </Picker>
+      ) : (
+        <TouchableOpacity onPress={onPressValue}>
+          <Text numberOfLines={1} style={styles.valueText}>
+            {value}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
-export default SelectionDropdown;
+export default memo(SelectionDropdown);
 
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    borderBottomColor: '#252933',
+    borderBottomColor: customTheme.colors.aboutTxtBorder,
   },
   selectionRow: {
     flexDirection: 'row',
@@ -37,18 +69,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   valueText: {
-    fontFamily: FontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     color: Colors.light,
     fontWeight: '600',
     paddingVertical: hp(1.5),
-    fontSize: FontSize.bodyLargeBold_size,
+    fontSize: customTheme.fontSizes.size_16,
   },
   title: {
-    color: MyColors.txtFieldPlaceHolder,
+    color: customTheme.colors.txtFieldPlaceHolder,
     textTransform: 'uppercase',
-    fontSize: FontSize.size_xs,
-    fontFamily: FontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '700',
     flex: 1,
   },
+  dropdownIcon: { height: wp(4), width: wp(4) },
 });

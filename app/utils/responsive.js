@@ -1,6 +1,7 @@
-import {Dimensions, Platform} from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
-const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+const { width: viewportWidth, height: viewportHeight } =
+  Dimensions.get('window');
 
 export const isiPAD = viewportHeight / viewportWidth < 1.6;
 export const isTablet = viewportHeight / viewportWidth < 1.6;

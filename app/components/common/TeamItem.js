@@ -1,9 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {Colors, Image} from 'react-native-ui-lib';
-import {Color, Padding} from '../../views/GlobalStyles';
-import {wp} from '../../utils/responsive';
-import {customTheme} from '../../constants';
+import { Colors, Image } from 'react-native-ui-lib';
+import { Color, Padding } from '../../views/GlobalStyles';
+import { wp } from '../../utils/responsive';
+import { customTheme } from '../../constants';
 
 const TeamItem = ({
   imageSource = {},
@@ -29,13 +29,13 @@ const TeamItem = ({
 export default TeamItem;
 
 const styles = StyleSheet.create({
-  container: {alignItems: 'center'},
+  container: { alignItems: 'center' },
   containerActiveBottomBorder: {
     borderBottomWidth: 2,
     borderBottomColor: Colors.white,
   },
-  imageContainer: {height: wp(22), width: wp(22)},
-  image: {width: '100%', height: '100%'},
+  imageContainer: { height: wp(22), width: wp(22) },
+  image: { width: '100%', height: '100%' },
   name: {
     lineHeight: 14,
     fontSize: customTheme.fontSizes.size_14,

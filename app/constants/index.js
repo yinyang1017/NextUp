@@ -6,5 +6,13 @@ import CommonStyles from './styles';
 import {customTheme} from './theme';
 
 import SafeContainer from '../components/common/safeContainer';
-const Colors = {...MyColors};
-export {Layout, Colors, Fonts, Base, CommonStyles, SafeContainer, customTheme};
+const Colors = { ...MyColors };
+export {
+  Layout,
+  Colors,
+  Fonts,
+  Base,
+  CommonStyles,
+  SafeContainer,
+  customTheme,
+};

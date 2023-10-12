@@ -22,16 +22,21 @@ import {
 import {ConfirmationDialog} from '../../../components/common/confirmationDialog';
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useAuth} from '../../../hooks/useAuth';
 
-export default function MyAccount() {
+export default function PlayerAccount() {
   const [dialog, setDialog] = useState({
     logout: false,
   });
+  const {logout} = useAuth();
   const navigation = useNavigation();
   const profileMenuOptions = [
     {
       name: 'My Profile',
       icon: faUser,
+      onPress: () => {
+        navigation.navigate('PlayerAccountDetails');
+      },
     },
     {
       name: 'Subscriptions',
@@ -101,8 +106,7 @@ export default function MyAccount() {
           }}>
           Michele_99
         </Text>
-        <Pressable
-          onPress={() => navigation.navigate('Home', {screen: 'EditProfile'})}>
+        <Pressable>
           <Text
             style={{
               color: customTheme.colors.white,
@@ -113,6 +117,93 @@ export default function MyAccount() {
           </Text>
         </Pressable>
       </View>
+      <View
+        style={{
+          marginVertical: customTheme.spacings.spacing_40,
+        }}>
+        {_.map(profileMenuOptions, (item, index) => {
+          return (
+            <Pressable
+              onPress={item.onPress}
+              key={index}
+              style={{
+                backgroundColor: customTheme.colors.primary,
+                marginVertical: customTheme.spacings.spacing_4,
+                borderRadius: customTheme.spacings.spacing_8,
+                paddingHorizontal: customTheme.spacings.spacing_16,
+                paddingVertical: customTheme.spacings.spacing_8,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <FontAwesomeIcon
+                  icon={item?.icon}
+                  color={customTheme.colors.white}
+                  size={customTheme.fontSizes.size_28}
+                />
+                <Text
+                  style={{
+                    color: customTheme.colors.white,
+                    marginLeft: customTheme.spacings.spacing_8,
+                  }}>
+                  {item?.name}
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 'auto',
+                  borderLeftWidth: 1,
+                  borderLeftColor: customTheme.colors.white,
+                  opacity: 0.6,
+                  paddingHorizontal: customTheme.spacings.spacing_8,
+                }}>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  color={customTheme.colors.white}
+                />
+              </View>
+            </Pressable>
+          );
+        })}
+      </View>
+      <ConfirmationDialog
+        open={dialog.logout}
+        title="Want to log out?"
+        body="You won’t be able to continue your journey logged out."
+        confirmText="Yes, log me out"
+        cancelText="No, stay here"
+        onClose={() => setDialog({...dialog, logout: false})}
+        onConfirm={() => {
+          logout();
+          setDialog({...dialog, logout: false});
+        }}
+      />
+      <Text
+        style={{
+          color: customTheme.colors.white,
+          marginVertical: customTheme.spacings.spacing_8,
+          fontSize: customTheme.fontSizes.size_20,
+          textAlign: 'center',
+          fontWeight: '700',
+          fontFamily: customTheme.fontFamily.robotoRegular,
+        }}>
+        Michele_99
+      </Text>
+      <Pressable
+        onPress={() => navigation.navigate('Home', {screen: 'EditProfile'})}>
+        <Text
+          style={{
+            color: customTheme.colors.white,
+            textAlign: 'center',
+            fontSize: customTheme.fontSizes.size_16,
+          }}>
+          Edit profile
+        </Text>
+      </Pressable>
       <View
         style={{
           marginVertical: customTheme.spacings.spacing_40,

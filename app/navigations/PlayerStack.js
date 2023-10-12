@@ -1,24 +1,20 @@
 import React from 'react';
-import {customTheme} from '../constants';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Dashboard from '../views/coach/Dashboard';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { customTheme } from '../constants';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import PlayerDashboard from '../views/players/DashBoard.js';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faCalendar,
-  faDashboard,
-  faHome,
   faHomeAlt,
   faMessage,
   faUser,
   faUserFriends,
-  faUserSecret,
-  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import ScheduleCalendar from '../views/common/calendar/ScheduleCalendar';
-import {Text} from 'react-native-ui-lib';
-import {StyleSheet} from 'react-native';
-import MyAccount from '../views/common/account/PlayerAccount';
+import { Text } from 'react-native-ui-lib';
+import MyAccountStack from './MyAccountStack';
 import MyTeamsStack from '../views/players/MyTeams/MyTeamsStack';
+import Inbox from '../views/common/inbox/Inbox';
 
 const Tab = createBottomTabNavigator();
 export function PlayerStack() {
@@ -35,23 +31,22 @@ export function PlayerStack() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: customTheme.colors.background,
+          borderTopWidth: 0,
         },
       }}>
       <Tab.Screen
         name="DashBoard"
-        component={Dashboard}
+        component={PlayerDashboard}
         options={{
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>DashBoard</Text>;
           },
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <FontAwesomeIcon
                 icon={faHomeAlt}
                 color={customTheme.colors.light}
-                style={{
-                  opacity: focused ? 1 : 0.8,
-                }}
+                style={{ opacity: focused ? 1 : 0.8 }}
               />
             );
           },
@@ -61,17 +56,15 @@ export function PlayerStack() {
         name="Calendar"
         component={ScheduleCalendar}
         options={{
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>Calendar</Text>;
           },
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <FontAwesomeIcon
                 icon={faCalendar}
                 color={customTheme.colors.light}
-                style={{
-                  opacity: focused ? 1 : 0.4,
-                }}
+                style={{ opacity: focused ? 1 : 0.4 }}
               />
             );
           },
@@ -81,17 +74,15 @@ export function PlayerStack() {
         name="MyTeam"
         component={MyTeamsStack}
         options={{
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>My Teams</Text>;
           },
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <FontAwesomeIcon
                 icon={faUserFriends}
                 color={customTheme.colors.light}
-                style={{
-                  opacity: focused ? 1 : 0.4,
-                }}
+                style={{ opacity: focused ? 1 : 0.4 }}
               />
             );
           },
@@ -99,19 +90,19 @@ export function PlayerStack() {
       />
       <Tab.Screen
         name="Inbox"
-        component={ScheduleCalendar}
+        component={Inbox}
         options={{
-          tabBarLabel: ({focused}) => {
+          tabBarBadge: 2,
+          tabBarBadgeStyle: { fontSize: 10 },
+          tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>Inbox</Text>;
           },
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <FontAwesomeIcon
                 icon={faMessage}
                 color={customTheme.colors.light}
-                style={{
-                  opacity: focused ? 1 : 0.4,
-                }}
+                style={{ opacity: focused ? 1 : 0.4 }}
               />
             );
           },
@@ -119,19 +110,17 @@ export function PlayerStack() {
       />
       <Tab.Screen
         name="Account"
-        component={MyAccount}
+        component={MyAccountStack}
         options={{
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>My Account</Text>;
           },
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <FontAwesomeIcon
                 icon={faUser}
                 color={customTheme.colors.light}
-                style={{
-                  opacity: focused ? 1 : 0.4,
-                }}
+                style={{ opacity: focused ? 1 : 0.4 }}
               />
             );
           },

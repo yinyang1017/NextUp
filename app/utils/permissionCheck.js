@@ -43,25 +43,41 @@ const PERMISSION_TYPE = {
 };
 
 class AppPermission {
-  checkPermission = async type => {
-    console.log('AppPermission CheckPermission type', type);
-    const permission = REQUEST_PERMISSION_TYPE[type][Platform.OS];
-    console.log('AppPermission Check Permission ', permission);
-    if (!permission) {
-      return true;
+
+    checkPermission = async (type): Promise<boolean> => {
+        // console.log("AppPermission CheckPermission type", type)
+        const permission = REQUEST_PERMISSION_TYPE[type][Platform.OS]
+        // console.log("AppPermission Check Permission ", permission)
+        if (!permission) {
+            return true
+        }
+        try {
+            const result = await check(permission)
+            // console.log("AppPermission CheckPermission result ", result)
+            if (result === RESULTS.GRANTED) {
+                return true
+                // return this.requestPermission(permission)
+            } else {
+                return this.requestPermission(permission)   // here requesting for permission
+            }
+
+        } catch (error) {
+            // console.log("AppPermission CheckPermission error ", error)
+            return false
+        }
     }
-    try {
-      const result = await check(permission);
-      console.log('AppPermission CheckPermission result ', result);
-      if (result === RESULTS.GRANTED) {
-        return true;
-        // return this.requestPermission(permission)
-      } else {
-        return this.requestPermission(permission); // here requesting for permission
-      }
-    } catch (error) {
-      console.log('AppPermission CheckPermission error ', error);
-      return false;
+
+    requestPermission = async (permission): Promise<boolean> => {
+        // console.log("AppPermission requestPermission  ", permission)
+        try {
+            const result = await request(permission)
+            // console.log("AppPermission requestPermission result ", result)
+            return result === RESULTS.GRANTED
+
+        } catch (error) {
+            // console.log("AppPermission requestPermission error ", error)
+            return false
+        }
     }
   };
 
@@ -97,19 +113,19 @@ export {Permission, PERMISSION_TYPE};
 
 // //check camera permission
 // export const CheckCameraPermission = ({ cb }) => {
-//     console.log("check start");
+//    // console.log("check start");
 //     check(PERMISSIONS.IOS.CAMERA).then((result) => {
 //         if (result == RESULTS.GRANTED) {
 //             cb(true);
 //         } else if (result == RESULTS.DENIED || result == RESULTS.BLOCKED) {
 //             requestCameraPermission((res) => {
 //                 if (res) {
-//                     console.log("Camera res", res)
+//                    // console.log("Camera res", res)
 //                 } else {
 
 //                 }
 //             })
-//             console.log("Camera permission result", result);
+//            // console.log("Camera permission result", result);
 //         }
 
 //     })
@@ -117,14 +133,14 @@ export {Permission, PERMISSION_TYPE};
 
 // //check gallery permission
 // export const CheckGalleryPermission = (cb) => {
-//     console.log("1. Gallery permission start ");
+//    // console.log("1. Gallery permission start ");
 //     check(PERMISSIONS.IOS.PHOTO_LIBRARY).then((result) => {
-//         console.log("Gallery permission result", result);
+//        // console.log("Gallery permission result", result);
 //         if (result == RESULTS.GRANTED) {
 //             cb(true);
 //         } else if (result == RESULTS.DENIED || result == RESULTS.BLOCKED) {
 //             requestGalleryPermission();
-//             // console.log("Camera permission result", result);
+//             //// console.log("Camera permission result", result);
 //         }
 //     })
 // }
@@ -137,7 +153,7 @@ export {Permission, PERMISSION_TYPE};
 // }
 
 // async function requestGalleryPermission() {
-//     console.log("2. Gallery permission request start ");
+//    // console.log("2. Gallery permission request start ");
 //     await request(PERMISSIONS.IOS.MEDIA_LIBRARY, gallery_rationale)
 //         .then((result) => {
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {hp, wp} from '../../utils/responsive';
-import {Color} from '../../views/GlobalStyles';
-import {Text} from 'react-native-ui-lib';
+import { StyleSheet, View } from 'react-native';
+import { hp, wp } from '../../utils/responsive';
+import { Color } from '../../views/GlobalStyles';
+import { Text } from 'react-native-ui-lib';
 
 const HeaderGreyComponent = ({
   title = '',

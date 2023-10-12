@@ -1,10 +1,10 @@
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {memo} from 'react';
-import {wp} from '../../utils/responsive';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { memo } from 'react';
+import { wp } from '../../utils/responsive';
 import FastImage from 'react-native-fast-image';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
-const ImageUpload = ({size = wp(24), source = {}, containerStyle = {}}) => {
+const ImageUpload = ({ size = wp(24), source = {}, containerStyle = {} }) => {
   const baseContainerStyle = {
     height: size,
     width: size,
@@ -33,8 +33,8 @@ const ImageUpload = ({size = wp(24), source = {}, containerStyle = {}}) => {
 export default memo(ImageUpload);
 
 const styles = StyleSheet.create({
-  container: {overflow: 'hidden'},
-  image: {height: '100%', width: '100%'},
+  container: { overflow: 'hidden' },
+  image: { height: '100%', width: '100%' },
   addImage: {
     height: wp(5),
     width: wp(5),

@@ -1,17 +1,16 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {wp} from '../responsive';
-import {Colors} from '../../constants';
-import {FontFamily, FontSize} from '../../views/GlobalStyles';
+import React, { memo } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { wp } from '../responsive';
+import { Colors, customTheme } from '../../constants';
 
-const Back = ({onPress, containerStyle = {}, title = ''}) => (
+const Back = ({ onPress, containerStyle = {}, title = '' }) => (
   <View style={[styles.wrapper, containerStyle]}>
     <TouchableOpacity
       activeOpacity={0.5}
       style={styles.container}
       onPress={onPress}>
       <Image
-        source={require('../../assets/leftArrow.png')}
+        source={require('../../assets/leftArrow1.png')}
         style={styles.backImage}
       />
     </TouchableOpacity>
@@ -19,10 +18,10 @@ const Back = ({onPress, containerStyle = {}, title = ''}) => (
   </View>
 );
 
-export default Back;
+export default memo(Back);
 
 const styles = StyleSheet.create({
-  wrapper: {flexDirection: 'row', alignItems: 'center'},
+  wrapper: { flexDirection: 'row', alignItems: 'center' },
   container: {
     height: wp(8),
     width: wp(8),
@@ -30,13 +29,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#373A44',
+    borderColor: customTheme.colors.borderColor,
   },
-  backImage: {height: wp(3.5), width: wp(3.5)},
+  backImage: { height: wp(3.5), width: wp(3.5) },
   title: {
     marginLeft: wp(3),
     color: Colors.light,
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.bodyLargeBold_size,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_16,
   },
 });

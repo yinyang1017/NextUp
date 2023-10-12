@@ -1,10 +1,10 @@
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import {hp, wp} from '../../utils/responsive';
-import {Text} from 'react-native-ui-lib';
-import {Grayscale} from 'react-native-color-matrix-image-filters';
+import { hp, wp } from '../../utils/responsive';
+import { Text } from 'react-native-ui-lib';
+import { Grayscale } from 'react-native-color-matrix-image-filters';
 import FastImage from 'react-native-fast-image';
-import {customTheme} from '../../constants';
+import { customTheme } from '../../constants';
 
 const AvatarItem = ({
   size = wp(12.5),
@@ -42,8 +42,8 @@ const AvatarItem = ({
 export default AvatarItem;
 
 const styles = StyleSheet.create({
-  container: {gap: hp(0.8), alignItems: 'center'},
-  disabledTitle: {color: customTheme.colors.light + '70'},
-  disabledSubTitle: {color: customTheme.colors.light + '40'},
-  image: size => ({height: size, width: size, borderRadius: size / 2}),
+  container: { gap: hp(0.8), alignItems: 'center' },
+  disabledTitle: { color: customTheme.colors.light + '70' },
+  disabledSubTitle: { color: customTheme.colors.light + '40' },
+  image: size => ({ height: size, width: size, borderRadius: size / 2 }),
 });

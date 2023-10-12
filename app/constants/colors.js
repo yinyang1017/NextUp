@@ -52,8 +52,9 @@ export const MyColors = {
   darkRed: '#CE1141',
   lightDark: '#23262F',
   lightGray: '#363A47',
+  lightGray1: '#6E7589',
   darkGray: '#32353E', //used for btn bg on playing screen
-  darkYellow: '#B1831F',
+  darkYellow: '#FDB927',
   lightGreen: '#74C896',
   btnRed: '#FD2727',
   btnGren: '#48C81B',

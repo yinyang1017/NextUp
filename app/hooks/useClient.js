@@ -1,15 +1,16 @@
 import React from 'react';
 import { client } from '../utils/api-client'; // Import your axiosInstance
-// import { useAuth } from '@/context/app/auth-context';
+import { useAuth } from './useAuth';
 
 function useClient() {
-    // const { user } = useAuth();
-    const token = null
+  const user = useAuth()?.user;
 
-    return React.useCallback(
-        async (endpoint, config) => client(endpoint, { ...config, token }),
-        [token]
-    );
+  const token = null;
+
+  return React.useCallback(
+    async (endpoint, config) => client(endpoint, { ...config, token }),
+    [token],
+  );
 }
 
 export { useClient };
