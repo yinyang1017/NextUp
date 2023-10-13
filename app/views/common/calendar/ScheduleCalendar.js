@@ -9,6 +9,7 @@ import styles from "../../../constants/styles";
 import moment from "moment";
 import { EventCarousel } from "../../../components/coach/Dashboard/EventsCarousel";
 import { MyChallenges } from "../../../components/coach/Dashboard/Challenges";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function ScheduleCalendar() {
     const navigation = useNavigation()
     const [selected, setSelected] = useState('');
@@ -24,7 +25,7 @@ export default function ScheduleCalendar() {
         }
     ]
     return (
-        < >
+        <SafeAreaView edges={['top']}>
             <ScrollView
                 showsVerticalScrollIndicator={true}
                 showsHorizontalScrollIndicator={true}
@@ -80,6 +81,6 @@ export default function ScheduleCalendar() {
 
 
             </ScrollView>
-        </>
+        </SafeAreaView>
     )
 }
