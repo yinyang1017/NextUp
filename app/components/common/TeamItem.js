@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { Colors } from 'react-native-ui-lib';
 import { Color, Padding } from '../../views/GlobalStyles';
 import { wp } from '../../utils/responsive';
@@ -37,7 +37,7 @@ const TeamItem = ({
   );
 };
 
-export default TeamItem;
+export default memo(TeamItem);
 
 const styles = StyleSheet.create({
   container: { alignItems: 'center' },

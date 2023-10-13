@@ -16,9 +16,7 @@ const InboxChatsList = ({ containerStyle = {}, channelData = [] }) => {
           </View>
         }
         data={channelData}
-        renderItem={({ item, index }) => (
-          <InboxChatItem index={index} chatInfo={item} />
-        )}
+        renderItem={({ item }) => <InboxChatItem chatInfo={item} />}
       />
     </View>
   );

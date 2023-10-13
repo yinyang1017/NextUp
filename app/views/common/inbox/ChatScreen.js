@@ -23,6 +23,7 @@ import { errorToast } from '../../../utils/toast';
 import { compact } from 'lodash';
 import AppLoader from '../../../utils/Apploader';
 import { CHAT_ENUMS } from '../../../utils/chatEnums';
+import { isJsonString } from '../../../utils/helper';
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -114,7 +115,7 @@ const ChatScreen = () => {
           const messageInfo = {
             ...commonSendMessageParam,
             messageType: CHAT_ENUMS.MESSSAGE_TYPE.IMAGE,
-            content: imageUrlsArray[0],
+            content: JSON.stringify(imageUrlsArray),
             id: uuidv4(),
             createdAt: moment().toISOString(),
           };
@@ -155,14 +156,19 @@ const ChatScreen = () => {
   }, []);
 
   const onNewMessageReceivedHandler = newMessage => {
-    if (newMessage.content) {
+    if (
+      newMessage.content &&
+      newMessage?.messageType !== CHAT_ENUMS.MESSSAGE_TYPE.BANNER
+    ) {
       const newMessageInfo = {
         _id: newMessage?.id || uuidv4(),
         text: newMessage?.content,
         createdAt: newMessage?.createdAt || new Date(),
         user: { _id: newMessage.senderId || null },
         ...(newMessage?.messageType === CHAT_ENUMS.MESSSAGE_TYPE.IMAGE && {
-          image: newMessage?.content,
+          image: isJsonString(newMessage?.content)
+            ? JSON.parse(newMessage?.content)
+            : [],
         }),
       };
       setMessages(prevMessages => [newMessageInfo, ...prevMessages]);
@@ -209,10 +215,13 @@ const ChatScreen = () => {
     <View style={[styles.container, extraContainerStyle]}>
       {isSendingImageMessage && <AppLoader />}
       <ChatHeader name={chatName} image={chatProfileImage} />
-      <ChatChallengeAccepted
-        name={chatName}
-        containerStyle={styles.chatChallengeContainer}
-      />
+      {chatInfo?.recentMessageType === CHAT_ENUMS.MESSSAGE_TYPE.BANNER && (
+        <ChatChallengeAccepted
+          bannerText={chatInfo?.recentMessage}
+          containerStyle={styles.chatChallengeContainer}
+          dateString={moment(chatInfo?.createdAt).format('LL')}
+        />
+      )}
       <GiftedChat
         listViewProps={{
           showsVerticalScrollIndicator: false,

@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import './utils/typographies';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ImagePreviewProvider from './context/ImagePreviewProvider';
 
 export default function App() {
   return (
@@ -18,11 +19,13 @@ export default function App() {
         <NavigationContainer theme={customTheme}>
           <AppProviders>
             <AuthProvider>
-              <StatusBar
-                barStyle={customTheme.statusBarStyle}
-                backgroundColor={customTheme.colors.light.background}
-              />
-              <AppLoadignStack />
+              <ImagePreviewProvider>
+                <StatusBar
+                  barStyle={customTheme.statusBarStyle}
+                  backgroundColor={customTheme.colors.light.background}
+                />
+                <AppLoadignStack />
+              </ImagePreviewProvider>
             </AuthProvider>
             <Toast />
           </AppProviders>

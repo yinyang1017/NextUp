@@ -16,9 +16,9 @@ const InboxTopTabs = createMaterialTopTabNavigator();
 
 const Inbox = () => {
   const { user } = useAuth();
-  const { mutate: getAllChatChannels, data: allChatChannelsData } =
-    useGetAllChatChannels();
+  const { mutate: getAllChatChannels } = useGetAllChatChannels();
 
+  const [allChatChannelsData, setAllChatChannelsData] = useState([]);
   const [selectedTeamId, setSelectedTeamId] = useState(0);
   const [teamChatList, setTeamChatList] = useState([]);
   const [coachChatList, setCoachChatList] = useState([]);
@@ -52,6 +52,7 @@ const Inbox = () => {
 
   const onSuccessGetAllChannelData = data => {
     const firstItem = data.data[0];
+    setAllChatChannelsData(data.data);
     setSelectedTeamId(firstItem?.teamId);
     if (firstItem) {
       setTeamChatList(getConcatedChats(firstItem?.teamDetails));
@@ -82,9 +83,7 @@ const Inbox = () => {
   );
 
   const setChatListData = id => {
-    const foundTeam = allChatChannelsData?.data?.find(
-      cItem => cItem?.teamId === id,
-    );
+    const foundTeam = allChatChannelsData?.find(cItem => cItem?.teamId === id);
     if (foundTeam) {
       setTeamChatList(getConcatedChats(foundTeam?.teamDetails));
       setCoachChatList(getConcatedChats(foundTeam?.coachDetails));
@@ -99,7 +98,7 @@ const Inbox = () => {
   const onSearchTextChangeHandler = text => {
     const searchText = text?.trim().toLowerCase();
     if (searchText) {
-      const foundTeamData = allChatChannelsData?.data?.find(
+      const foundTeamData = allChatChannelsData?.find(
         cItem => cItem?.teamId === selectedTeamId,
       );
       if (activeIndex === 0) {
@@ -130,9 +129,9 @@ const Inbox = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {allChatChannelsData?.data?.length ? (
+      {allChatChannelsData?.length ? (
         <View style={styles.headerTeamsContainer}>
-          {allChatChannelsData?.data?.map(item => (
+          {allChatChannelsData?.map(item => (
             <TouchableOpacity
               key={item?.teamId}
               onPress={() => onChangeTeamHandler(item)}>
