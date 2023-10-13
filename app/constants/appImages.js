@@ -11,6 +11,10 @@ const appImages = {
   moreVertical: require('../assets/images/more-vertical.png'),
   crown: require('../assets/images/crown.png'),
   yellowCheckBadge: require('../assets/images/lineUpPremiumCheck.png'),
+  playerRequestIcon: require('../assets/images/playerprofileIcon.png'),
+  playerCompareIcon: require('../assets/images/playerprofileIcon2.png'),
+  defaultAvatarImage: require('../assets/images/AvatarImage.png'),
+
   placeHolderPhotoIdBorder: require('../assets/images/placeHolder_photoid_border.png'),
   placeholderPhotoId: require('../assets/images/Placeholder_PhotoId.png'),
   certificateCoaching: require('../assets/images/certificate_coaching.png'),

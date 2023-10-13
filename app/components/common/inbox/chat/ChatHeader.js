@@ -2,11 +2,13 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Back from '../../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../../utils/responsive';
-import { Image, Text } from 'react-native-ui-lib';
+import { Text } from 'react-native-ui-lib';
 import { customTheme } from '../../../../constants';
 import { useNavigation } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+import { appImages } from '../../../../constants/appImages';
 
-const ChatHeader = () => {
+const ChatHeader = ({ name, image }) => {
   const navigation = useNavigation();
 
   const gobackHandler = () => {
@@ -18,12 +20,15 @@ const ChatHeader = () => {
       <View style={styles.headerBody}>
         <Back onPress={gobackHandler} />
         <View style={styles.userInfoContainer}>
-          <Image
-            source={require('../../../../assets/avatar3.png')}
+          <FastImage
+            source={{ uri: image, priority: 'high' }}
             style={styles.profileImage}
+            defaultSource={appImages.defaultAvatarImage}
           />
           <View style={styles.usernameInfoContainer}>
-            <Text large-x-600>Kervin</Text>
+            <Text numberOfLines={1} large-x-600>
+              {name}
+            </Text>
             <Text style={styles.onlineText}>online</Text>
           </View>
         </View>
@@ -46,12 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   userInfoContainer: {
-    marginLeft: wp(25),
+    marginLeft: wp(4),
     flexDirection: 'row',
     alignItems: 'center',
   },
   profileImage: { height: wp(12), width: wp(12), borderRadius: wp(12) },
-  usernameInfoContainer: { marginLeft: wp(3) },
+  usernameInfoContainer: { marginHorizontal: wp(3), flex: 1 },
   onlineText: {
     marginTop: hp(0.2),
     color: customTheme.colors.btnBg,

@@ -63,14 +63,14 @@ const AddNewTeam = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedState]);
 
-  const ageData = useMemo(() => times(5).map(i => i + 13 + '  Under'), []);
+  const ageData = useMemo(() => times(5).map(i => i + 13 + '  &  Under'), []);
 
   const HighSchoolForm = useCallback(() => {
     return (
       <>
         <SelectionDropdown
           containerStyle={{ marginTop: hp(4) }}
-          title={'Select Coaching'}
+          title={'Select School'}
           value={selectedHighSchoolCoaching}
           data={schoolsData?.data || []}
           renderItem={item => {
