@@ -107,7 +107,7 @@ export default function AuthProvider({ children }) {
 
 
   function onAuthStateChanged(user) {
-    // console.log(user, 'in auth state')
+    console.log(user, 'in auth state')
     if (user) {
       const dataToSend = {
         email: user.email,

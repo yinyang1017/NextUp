@@ -417,6 +417,7 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}
+
         fieldStyle={[
           {
             borderBottomColor: customTheme.colors.tertiary,

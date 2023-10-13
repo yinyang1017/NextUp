@@ -20,7 +20,7 @@ export default function OnBoardingStack() {
   return (
     <OnBoardingProvider>
       <Stack.Navigator
-        initialRouteName={onBoardingDone ? 'DocumentVerification' : 'TellUsMore'}
+        initialRouteName={'TellUsMore'}
         screenOptions={{
           headerShown: false,
           cardStyle: {

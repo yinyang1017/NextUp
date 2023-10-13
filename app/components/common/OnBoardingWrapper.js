@@ -1,11 +1,13 @@
-import { KeyboardAwareScrollView, ProgressBar, TouchableOpacity, View, Text } from "react-native-ui-lib";
+import { ProgressBar, TouchableOpacity, View, Text } from "react-native-ui-lib";
+import { Keyboard } from "react-native";
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
-import { ScrollView } from "react-native-gesture-handler";
-import { KeyboardAvoidingView } from "react-native"
 import { ViewContainer } from "./ViewConatiner";
 import { ScreenHeader } from "./ScreenHeader";
-import { customTheme } from "../../constants";
+import { Layout, customTheme } from "../../constants";
 import { FormButton } from "./FormInputs";
+import { hp, wp } from "../../utils/responsive";
+import { useEffect, useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 export default function OnBoardingWrapper({
     title = '',
     children,
@@ -20,8 +22,10 @@ export default function OnBoardingWrapper({
     backButtonAction = () => null,
 
 }) {
+    const [keyboardHeight, setKeyboardHeight] = useState(0);
+
     const CButton = () => (
-        <View paddingH-16 marginB-32 marginT-12 >
+        <View>
             <FormButton
                 onPress={handleForm}
                 loading={loading}
@@ -38,8 +42,29 @@ export default function OnBoardingWrapper({
             }
         </View>
     )
-    return <>
-        <KeyboardAvoidingScrollView stickyFooter={<CButton />} >
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+            console.log(event.endCoordinates.height);
+            setKeyboardHeight(event.endCoordinates.height);
+        });
+
+        // Cleanup the listener when the component unmounts
+        return () => {
+            keyboardDidShowListener.remove();
+            setKeyboardHeight(0);
+        };
+    }, []);
+    return <View style={{ flex: 1 }}>
+        <KeyboardAvoidingScrollView contentContainerStyle={{ flexGrow: 1 }} stickyFooter={
+            <View style={{
+                backgroundColor: customTheme.colors.background,
+                paddingHorizontal: wp(4),
+                paddingBottom: hp(4),
+            }}>
+                <CButton></CButton>
+            </View>
+        }>
+
             <ViewContainer >
                 {
                     canGoBack && <ScreenHeader
@@ -67,7 +92,5 @@ export default function OnBoardingWrapper({
 
 
         </KeyboardAvoidingScrollView>
-    </>
-
-
+    </View>
 }

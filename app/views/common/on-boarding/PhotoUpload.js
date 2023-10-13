@@ -51,7 +51,6 @@ export default function PhotoUpload() {
 
     };
     const handleSkip = () => {
-        console.log('skip', isCoach)
         if (isCoach || routes.params?.isCoach) {
             navigation.navigate('DocumentVerification')
             return

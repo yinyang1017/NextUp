@@ -15,7 +15,6 @@ export default function OnBoardingProvider({ children }) {
     const { data: states } = useGetState()
     const { mutate, isLoading: isPlayerLoading, } = usePlayerOnBoardingRegister({
         onSuccess: data => {
-            console.log(data, "data")
             if (data?.success) {
                 successToast({
                     title: 'Success',
@@ -38,7 +37,7 @@ export default function OnBoardingProvider({ children }) {
     })
     const { mutate: coachMutate, isLoading: isCoachLoading } = useCoachOnBoardingRegister({
         onSuccess: data => {
-            console.log(data, "data")
+
             if (data?.success) {
                 successToast({
                     title: 'Success',
@@ -97,9 +96,7 @@ export default function OnBoardingProvider({ children }) {
             ],
             playingPosition: data?.playingPosition?.name ?? '',
             parentApprovalRequired: false
-        }
-        console.log(dataToSend, "data to send")
-        // //// console.log(user, "data to send")
+        }    // //// console.log(user, "data to send")
         mutate({
             data: dataToSend,
             id: user?.id
@@ -132,7 +129,6 @@ export default function OnBoardingProvider({ children }) {
             }
 
         }
-        console.log(dataToSend, "data to send")
         coachMutate({
             data: dataToSend,
             id: user?.id

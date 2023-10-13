@@ -17,7 +17,6 @@ export const ViewContainer = props => {
         marginTop: statusBarHeight,
         // flex: 1,
         paddingHorizontal: customTheme.spacings.spacing_16,
-        paddingBottom: customTheme.spacings.spacing_16,
       }}>
       {props.children}
     </View>

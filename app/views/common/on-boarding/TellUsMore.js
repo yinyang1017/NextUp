@@ -6,18 +6,15 @@ import {
 import { customTheme } from '../../../constants';
 import { useOnBoarding, useTellUsMore } from '../../../hooks/useOnBoarding';
 import { appImages } from '../../../constants/appImages';
-import * as cities from '../../../utils/data/cities.json';
-import * as states from '../../../utils/data/states.json';
 import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 import {
   FormActionPicker,
-  FormButton,
   FormInputField,
   FormInputPicker,
   FormRadioGroup,
   FormSelectable,
 } from '../../../components/common/FormInputs';
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 export default function TellUsMore() {
   const { onBoardingCount, handleOnBoarding, handleNavigation, states, handleBack } =
     useOnBoarding();
@@ -71,8 +68,9 @@ export default function TellUsMore() {
           value={value}
           data={states ?? []}
           required
-          label={'States'}
-          title="Search for states"
+          label={'State'}
+          title="Search for state"
+          placeholder="Select State"
           onValueChange={value => onChange(value)}
           error={
             error && error?.message
@@ -93,8 +91,9 @@ export default function TellUsMore() {
             value={value}
             required
             data={cities ?? []}
-            label={'Cities'}
-            title="Search for cities.."
+            label={'City'}
+            title="Search for city"
+            placeholder="Select City"
             onValueChange={value => {
               if (chekIfStateSelected()) {
                 onChange(value)
@@ -125,7 +124,8 @@ export default function TellUsMore() {
               value={value}
               data={states}
               label={'Select Team'}
-              title="Search for teams.."
+              title="Search for team"
+              placeholder="Select Team"
               required
               onValueChange={value => onChange(value)}
               error={
@@ -139,6 +139,7 @@ export default function TellUsMore() {
       <Controller
         control={control}
         name="schoolInfo.gender"
+
         rules={{
           required: 'Please select a gender',
         }}
@@ -148,7 +149,7 @@ export default function TellUsMore() {
             data={['Boys', 'Girls']}
             required
             label={'Gender'}
-            title="Search for cities.."
+            placeholder="Select Gender"
             onValueChange={value => onChange(value)}
             error={
               error && error?.message
@@ -171,12 +172,11 @@ export default function TellUsMore() {
             required
             data={['Jr & Varsity', 'Varsity', 'Both']}
             label={'Level'}
-            title="Search for levels.."
+            placeholder="Select Level"
             onValueChange={value => onChange(value)}
             error={
               error && error?.message
             }
-
           />
         )}
       />
@@ -396,7 +396,7 @@ export default function TellUsMore() {
                 {
                   label: 'COACH',
                   value: 'COACH',
-                  imgSrc: appImages.player_male,
+                  imgSrc: appImages.coachOnboardingIcon,
                 },
               ]}
             />
