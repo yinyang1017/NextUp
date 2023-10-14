@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCoachOnBoardingRegister, usePlayerOnBoardingRegister } from "../api/onboarding.api";
-import { useGetCity, useGetState } from "../api/lookup.api";
+import { useGetCity, useGetClassOffYears, useGetSchools, useGetState } from "../api/lookup.api";
 import { errorToast, successToast } from "../utils/toast";
 
 export const OnBoardingContext = React.createContext();
@@ -11,25 +11,16 @@ const COCH_STEP = 4
 export default function OnBoardingProvider({ children }) {
     const [onBoarding, setOnBoarding] = useState({})
     const navigation = useNavigation()
-    const { user, updateOnBoarding, onRecheckingAuth } = useAuth()
-    const { data: states } = useGetState()
+    const { user, updateOnBoarding, updateTypeOfUser } = useAuth()
     const { mutate, isLoading: isPlayerLoading, } = usePlayerOnBoardingRegister({
         onSuccess: data => {
             if (data?.success) {
-                successToast({
-                    title: 'Success',
-                    body: 'Player On Boarding Successfully'
-                })
-                navigation.navigate('PhotoUpload', {
-                    isCoach
-                })
-                // if()
-                // onRecheckingAuth()
-
+                updateTypeOfUser(onBoarding?.typeOfUser)
+                navigation.navigate('PhotoUpload')
             } else {
                 errorToast({
                     title: 'Error',
-                    body: 'Player On Boarding Failed'
+                    body: 'Something went wrong'
                 })
             }
             // 
@@ -37,12 +28,8 @@ export default function OnBoardingProvider({ children }) {
     })
     const { mutate: coachMutate, isLoading: isCoachLoading } = useCoachOnBoardingRegister({
         onSuccess: data => {
-
             if (data?.success) {
-                successToast({
-                    title: 'Success',
-                    body: 'Coach On Boarding Successfully'
-                })
+                updateTypeOfUser(onBoarding?.typeOfUser)
                 navigation.navigate('PhotoUpload')
             } else {
                 errorToast({
@@ -51,9 +38,7 @@ export default function OnBoardingProvider({ children }) {
                 })
             }
         }
-
     })
-
     const [onBoardingCount, setOnBoardingCount] = useState(0)
     const isMale = onBoarding?.gender === 'male'
     const isFemale = onBoarding?.gender === 'female'
@@ -79,6 +64,7 @@ export default function OnBoardingProvider({ children }) {
 
     }
     function hanldePlayerRegistration(data) {
+        console.log('onBoarding', onBoarding)
         const dataToSend = {
             typeOfUser: 'PLAYER',
             personalInfo: {
@@ -88,21 +74,20 @@ export default function OnBoardingProvider({ children }) {
             },
             schoolInfo: {
                 ...onBoarding?.schoolInfo,
-                city: onBoarding?.city,
-                state: onBoarding?.state,
             },
             roleList: [
                 "ROLE_PLAYER"
             ],
             playingPosition: data?.playingPosition?.name ?? '',
             parentApprovalRequired: false
-        }    // //// console.log(user, "data to send")
+        }
+
         mutate({
             data: dataToSend,
             id: user?.id
         })
     }
-    function handleCoachRegistration(data) {
+    function handleCoachRegistration() {
         const dataToSend = {
             roleList: [
                 "ROLE_COACH"
@@ -110,25 +95,17 @@ export default function OnBoardingProvider({ children }) {
             onBoardingTeamName: onBoarding?.onBoardingTeamName ?? "",
             typeOfUser: 'COACH',
             schoolInfo: {
-                city: onBoarding?.schoolInfo?.city ?? '',
-                state: onBoarding?.schoolInfo?.state ?? '',
-                name: onBoarding?.schoolInfo?.name ?? "",
-                gender: onBoarding?.gender ?? "",
+                ...onBoarding?.schoolInfo,
             },
             coachingType: {
-                typeOfCoaching: onBoarding?.coachingType?.typeOfCoaching ?? "",
-                schoolName: onBoarding?.schoolInfo?.name ?? "",
-                ageGroup: onBoarding?.coachingType?.ageGroup ?? "",
-                state: onBoarding?.coachingType?.state ?? "",
-                city: onBoarding?.coachingType?.city ?? "",
+                typeOfCoaching: onBoarding?.coachingType?.typeOfCoaching ?? '',
             },
             personalInfo: {
-                email: user?.personalInfo?.email ?? "",
-                firstName: onBoarding?.firstName ?? "",
-                lastNmame: onBoarding?.lastName ?? "",
+                ...onBoarding?.personalInfo,
             }
 
         }
+        console.log('data to send', dataToSend)
         coachMutate({
             data: dataToSend,
             id: user?.id
@@ -153,15 +130,14 @@ export default function OnBoardingProvider({ children }) {
             handleUserOnboardingRegistration,
             handleCoachRegistration,
             hanldePlayerRegistration,
+            handleBack,
             onBoarding,
             isFemale,
             isMale,
             isCoach,
             isPlayer,
-            handleBack,
             onBoardingCount,
             isLoading: isPlayerLoading || isCoachLoading,
-            states: states?.data,
         }}>
             {children}
         </OnBoardingContext.Provider>

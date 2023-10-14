@@ -1,43 +1,37 @@
 import * as React from 'react';
-import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
+import { ScrollView, StyleSheet, View, Dimensions, Alert } from 'react-native';
 import DashBoardHeader from '../../components/common/DashBoardHeader';
-import {TeamsBar} from '../../components/players/Dashboard/MyTeams';
-import {EventCarousel} from '../../components/players/Dashboard/EventsCarousel';
+import { TeamsBar } from '../../components/players/Dashboard/MyTeams';
+import { EventCarousel } from '../../components/players/Dashboard/EventsCarousel';
 import StatsContainer from '../../components/players/Dashboard/StatsContainer.js';
-import {MyChallenges} from '../../components/players/Dashboard/Challenges.js';
-import {Button} from 'react-native-ui-lib';
-import {customTheme} from '../../constants';
-import {useAuth} from '../../hooks/useAuth';
-
+import { MyChallenges } from '../../components/players/Dashboard/Challenges.js';
+import { Button } from 'react-native-ui-lib';
+import { customTheme } from '../../constants';
+import { useAuth } from '../../hooks/useAuth';
+import { ScrollViewContainer } from '../../components/common/SrollViewContainer';
 const PlayerDashboard = () => {
   //   const navigation = useNavigation();
-  const {user} = useAuth();
-  // console.log(user, "player dash")
+  const { user } = useAuth();
+
 
   return (
-    <ScrollView
-      style={styles.playerDash}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.playerDashScrollViewContent}>
-      <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
-        <DashBoardHeader name={user?.personalInfo?.firstName} />
+    <ScrollViewContainer>
+      <>
+        <DashBoardHeader name={user?.personalInfo?.firstName} imgSrc={user?.personalInfo?.profilePictureURL} />
         <TeamsBar />
         <EventCarousel />
         <StatsContainer />
         <MyChallenges />
-      </View>
-      <View>
         <Button
+          centerH
           label={'Add Player Match Up'}
-          backgroundColor={customTheme.colors.light.blue20}
-          style={{
-            width: Dimensions.get('window').width * 0.9,
-            marginBottom: 20,
+          onPress={() => {
+            Alert.alert('player match up');
           }}
+
         />
-      </View>
-    </ScrollView>
+      </>
+    </ScrollViewContainer>
   );
 };
 

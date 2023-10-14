@@ -11,8 +11,8 @@ export default function UpdloadTypeDialog({ isVisible, onClose, handlePick, hand
         visible={isVisible}
         onDismiss={onClose}
         options={[
-            { label: 'Scan the Document', onPress: () => handleScan() },
-            { label: 'Upload the Document', onPress: () => handlePick() },
+            { label: 'Open Camera', onPress: () => handleScan() },
+            { label: 'Open Gallery', onPress: () => handlePick() },
             { label: 'Cancel', onPress: () => console.log('cancel') }
         ]}
     />

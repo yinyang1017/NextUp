@@ -141,4 +141,13 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_32,
     fontFamily: customTheme.fontFamily.robotoRegular,
   },
+  'input-label': {
+    opacity: 0.6,
+    marginBottom: customTheme.spacings.spacing_16,
+    textTransform: 'uppercase',
+    color: customTheme.colors.light,
+    fontSize: customTheme.fontSizes.size_12,
+    fontWeight: '700',
+    fontFamily: customTheme.fontFamily.robotoBold,
+  }
 });

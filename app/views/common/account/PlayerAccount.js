@@ -1,5 +1,5 @@
 import { Avatar, Image, Text, TouchableOpacity, View } from 'react-native-ui-lib';
-import { Pressable } from 'react-native';
+import { Alert, Pressable } from 'react-native';
 import { ScrollViewContainer } from '../../../components/common/SrollViewContainer';
 import { customTheme } from '../../../constants';
 import _ from 'lodash';
@@ -28,7 +28,7 @@ export default function PlayerAccount() {
   const [dialog, setDialog] = useState({
     logout: false,
   });
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigation = useNavigation();
   const profileMenuOptions = [
     {
@@ -76,6 +76,7 @@ export default function PlayerAccount() {
       icon: faTrashAlt,
     },
   ];
+  console.log('user in profile', user);
   return (
     <ScrollViewContainer>
       <View
@@ -92,7 +93,7 @@ export default function PlayerAccount() {
             alignSelf: 'center',
           }}
           source={{
-            uri: 'https://unsplash.com/photos/CREqtqgBFcU/download?force=true',
+            uri: user?.profilePictureURL,
           }}
         />
         <Text
@@ -104,9 +105,9 @@ export default function PlayerAccount() {
             fontWeight: '700',
             fontFamily: customTheme.fontFamily.robotoRegular,
           }}>
-          Michele_99
+          {user?.firstName}
         </Text>
-        <Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} >
           <Text
             style={{
               color: customTheme.colors.white,
@@ -115,7 +116,7 @@ export default function PlayerAccount() {
             }}>
             Edit profile
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View
         style={{

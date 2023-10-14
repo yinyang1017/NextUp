@@ -2,10 +2,12 @@ import { View, Image, TouchableOpacity, Text, } from "react-native-ui-lib";
 import _ from 'lodash'
 import OnBoardingWrapper from "../../../components/common/OnBoardingWrapper";
 import { FormButton } from "../../../components/common/FormInputs";
-import { customTheme } from "../../../constants";
+import { Layout, customTheme } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { useOnBoarding, usePlayerStyle } from "../../../hooks/useOnBoarding";
 import { Controller } from "react-hook-form";
+import { useMemo } from "react";
+import { Pressable } from "react-native";
 export default function PlayerStyle() {
     const {
         handleOnBoarding,
@@ -25,7 +27,8 @@ export default function PlayerStyle() {
         handleOnBoarding(data);
         hanldePlayerRegistration(data);
     }
-    return <OnBoardingWrapper backButtonAction={handleBack} loading={isLoading} handleForm={handleSubmit(onSubmit)} title='Select Player Style' label={'Confirm'} progress={onBoardingCount}>
+    const scrorevalues = useMemo(() => playingPositionDescription?.scoreValues, [playingPositionDescription])
+    return <OnBoardingWrapper backButtonAction={handleBack} loading={isLoading} handleForm={handleSubmit(onSubmit)} title='Select Player Style' label={'Confirm'} progress={70}>
         <Controller
             name="playingPosition"
             control={control}
@@ -39,12 +42,11 @@ export default function PlayerStyle() {
                     }}>
                         {
                             _.map(playerStylesList?.data, (item, index) => {
-                                // console.log('item', value)
                                 const isSelected = value?.name === item.name
-                                return <TouchableOpacity key={index} onPress={() => onChange(item)}>
+                                return <Pressable key={index} onPress={() => onChange(item)}>
                                     <View margin-8 center style={{
                                         borderColor: isSelected ? customTheme.colors.secondary : customTheme.colors.light,
-                                        borderWidth: isSelected ? 1 : 1,
+                                        borderWidth: isSelected ? 2 : 1,
                                         opacity: isSelected ? 1 : 0.7,
                                         overflow: 'hidden',
                                         borderRadius: customTheme.spacings.spacing_16
@@ -61,7 +63,7 @@ export default function PlayerStyle() {
                                         />
                                     </View>
 
-                                </TouchableOpacity>
+                                </Pressable>
                             })
                         }
                     </View>
@@ -92,17 +94,20 @@ export default function PlayerStyle() {
                 render={({ field: { onChange, value } }) => (
                     <View row spread marginV-12>
                         {
-                            _.map([...new Array(4)], (item, index) => {
-                                return <View key={index} flex center marginR-8 backgroundColor={customTheme.colors.tertiary} paddingH-8 paddingV-16 style={{
-                                    borderRadius: customTheme.spacings.spacing_8,
-
-                                }}>
+                            scrorevalues && Object.keys(scrorevalues).map((key, index) => {
+                                return <View key={index} center
+                                    style={{
+                                        borderRadius: customTheme.spacings.spacing_16,
+                                    }}
+                                    backgroundColor={customTheme.colors.primary} marginH-4 flex width={Layout.width / 4} height={Layout.height / 12}>
+                                    <Text white>{scrorevalues[key] ?? 0}</Text>
                                     <Text white style={
                                         {
                                             opacity: 0.6,
                                         }
-                                    }>Points</Text>
+                                    }>{key}</Text>
                                 </View>
+
                             })
                         }
                     </View>

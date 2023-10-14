@@ -54,8 +54,8 @@ export default function OnBoardingWrapper({
             setKeyboardHeight(0);
         };
     }, []);
-    return <View style={{ flex: 1 }}>
-        <KeyboardAvoidingScrollView contentContainerStyle={{ flexGrow: 1 }} stickyFooter={
+    return <>
+        <KeyboardAvoidingScrollView stickyFooter={
             <View style={{
                 backgroundColor: customTheme.colors.background,
                 paddingHorizontal: wp(4),
@@ -80,6 +80,7 @@ export default function OnBoardingWrapper({
                         backgroundColor: customTheme.colors.primary,
                         borderColor: customTheme.colors.blue1,
                         borderWidth: 1,
+                        marginBottom: customTheme.spacings.spacing_40
                     }}
                 />
                 {
@@ -92,5 +93,5 @@ export default function OnBoardingWrapper({
 
 
         </KeyboardAvoidingScrollView>
-    </View>
+    </>
 }

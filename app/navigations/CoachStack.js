@@ -17,6 +17,7 @@ import Inbox from '../views/common/inbox/Inbox';
 import MyAccount from '../views/common/account/PlayerAccount';
 import { wp } from '../utils/responsive';
 import { Image } from 'react-native-ui-lib';
+import MyAccountStack from './MyAccountStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -117,7 +118,7 @@ const CoachStack = () => {
 
       <Tab.Screen
         name="Account"
-        component={MyAccount}
+        component={MyAccountStack}
         options={{
           tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>Account</Text>;
