@@ -12,3 +12,10 @@ ThemeManager.setComponentTheme('Button', (props, context) => {
 
     };
 })
+ThemeManager.setComponentTheme('Text', (props, context) => {
+    return {
+        color: customTheme.colors.light
+
+
+    };
+})

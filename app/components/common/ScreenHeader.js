@@ -1,19 +1,14 @@
 import React from 'react';
 import {
-  Text,
-  View,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-  Image,
+
   Pressable
 } from 'react-native';
 import {
-  CommonStyles,
-  Colors,
+  Text,
+  View,
+} from "react-native-ui-lib"
+import {
   Layout,
-  Container,
-  Fonts,
   customTheme
 } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -22,15 +17,15 @@ import { useNavigation } from '@react-navigation/native';
 
 let wide = Layout.width;
 
-export const ScreenHeader = ({ title, backButtonAction }) => {
+export const ScreenHeader = ({ title, backButtonAction = () => null }) => {
   const navigation = useNavigation()
   return (
     <View
+      row
+      paddingH-16
+      marginB-20
       style={{
-        // height: 50,
-        flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: customTheme.spacings.spacing_20
       }}
     >
       {

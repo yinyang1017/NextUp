@@ -16,11 +16,11 @@ export const ScrollViewContainer = ({ children, headerTilte, showHeader }) => {
     <>
       {
         showHeader &&
-        <View paddingH-16 >
+        < >
           <ScreenHeader
             title={headerTilte ?? ''}
           />
-        </View>
+        </>
       }
       <ScrollView
         contentContainerStyle={{

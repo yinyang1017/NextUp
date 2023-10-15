@@ -13,11 +13,14 @@ export const statusBarHeight =
 export const ViewContainer = ({ headerTilte, ...props }) => {
   // Default values for iOS and Android
   return (
-    <View flex useSafeArea paddingH-16>
+    <>
       {
         headerTilte && <ScreenHeader title={headerTilte ?? ''} />
       }
-      {props.children}
-    </View>
+      <View View flex useSafeArea paddingH-16 {...props}>
+        {props.children}
+      </View>
+
+    </>
   );
 };
