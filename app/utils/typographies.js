@@ -149,5 +149,13 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_12,
     fontWeight: '700',
     fontFamily: customTheme.fontFamily.robotoBold,
+  },
+  'link-text': {
+    color: customTheme.colors.blue10,
+    fontSize: customTheme.fontSizes.size_12,
+    fontFamily: customTheme.fontFamily.robotoBold,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    textDecorationLine: 'underline',
   }
 });

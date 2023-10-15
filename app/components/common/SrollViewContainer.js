@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text } from 'react-native-ui-lib';
 import { Platform, ScrollView, StatusBar, StyleSheet, } from 'react-native';
 import { customTheme } from '../../constants';
+import { ScreenHeader } from './ScreenHeader';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { FormButton } from './FormInputs';
 
-export const ScrollViewContainer = ({ children, headerConternt = null }) => {
+export const ScrollViewContainer = ({ children, headerTilte, showHeader }) => {
   const statusBarHeight =
     StatusBar.currentHeight * customTheme.spacings.spacing_8 ||
     (Platform.OS === 'ios'
@@ -12,14 +15,16 @@ export const ScrollViewContainer = ({ children, headerConternt = null }) => {
   return (
     <>
       {
-        headerConternt && <View></View>
+        showHeader &&
+        <View paddingH-16 >
+          <ScreenHeader
+            title={headerTilte ?? ''}
+          />
+        </View>
       }
-
       <ScrollView
-        style={styles.scrollView}
         contentContainerStyle={{
           ...styles.content,
-          paddingTop: statusBarHeight,
         }}>
         {children}
       </ScrollView>
@@ -28,6 +33,48 @@ export const ScrollViewContainer = ({ children, headerConternt = null }) => {
   );
 };
 
+export const KeyBoardAvoidingView = ({
+  children,
+  headerTilte,
+  showHeader,
+  onPress = () => null,
+  label,
+  loading,
+  disabled,
+}) => {
+  return <>
+    {
+      showHeader &&
+      <View paddingH-16 >
+        <ScreenHeader
+          title={headerTilte ?? ''}
+        />
+      </View>
+    }
+    <KeyboardAvoidingScrollView contentContainerStyle={{
+      ...styles.content,
+    }}
+      stickyFooter={
+        <View paddingB-20 centerV backgroundColor={
+          customTheme.colors.background
+
+        }>
+          <FormButton
+            onPress={onPress}
+            label={label}
+            loading={loading}
+            disabled={disabled}
+          />
+        </View>
+
+      }
+    >
+      {children}
+    </KeyboardAvoidingScrollView>
+  </>
+
+
+}
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: customTheme.spacings.spacing_12,
