@@ -1,12 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {hp, wp} from '../../../../utils/responsive';
-import {RadioButton, RadioGroup} from 'react-native-ui-lib';
-import {MyColors} from '../../../../constants/colors';
-import {FontFamily, FontSize} from '../../../GlobalStyles';
-import {Colors} from '../../../../constants';
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { hp, wp } from '../../../../utils/responsive';
+import { RadioButton, RadioGroup } from 'react-native-ui-lib';
+import { MyColors } from '../../../../constants/colors';
+import { FontFamily, FontSize } from '../../../GlobalStyles';
+import { Colors } from '../../../../constants';
 import SelectionDropdown from '../../../../components/common/SelectionDropdown';
 import PrimaryButton from '../../../../components/common/PrimaryButton';
 
@@ -19,12 +19,12 @@ const OtherDetails = () => {
     return (
       <>
         <SelectionDropdown
-          containerStyle={{marginTop: hp(4)}}
+          containerStyle={{ marginTop: hp(4) }}
           title={'Select Coaching'}
           value={'ABC School'}
         />
         <SelectionDropdown
-          containerStyle={{marginTop: hp(3)}}
+          containerStyle={{ marginTop: hp(3) }}
           title={'Select Team'}
           value={'2019'}
         />
@@ -36,7 +36,7 @@ const OtherDetails = () => {
     return (
       <>
         <SelectionDropdown
-          containerStyle={{marginTop: hp(4)}}
+          containerStyle={{ marginTop: hp(4) }}
           title={'Name'}
           value={'ABC School'}
         />
@@ -108,9 +108,9 @@ const OtherDetails = () => {
 export default OtherDetails;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
-  backButtonContainer: {marginHorizontal: wp(5), marginTop: hp(3)},
-  imageUploadContainer: {alignSelf: 'center', marginTop: hp(5)},
+  container: { flex: 1 },
+  backButtonContainer: { marginHorizontal: wp(5), marginTop: hp(3) },
+  imageUploadContainer: { alignSelf: 'center', marginTop: hp(5) },
   selectOptionsContainer: {
     marginHorizontal: wp(8),
     marginTop: hp(2),
@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     color: Colors.light + '70',
     fontWeight: '600',
   },
-  radioGroup: {flexDirection: 'row', gap: wp(7)},
+  radioGroup: { flexDirection: 'row', gap: wp(7) },
   rowCenterSpaceBetween: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  dropdownWithLimitedWidth: {marginTop: hp(3), width: wp(39)},
+  dropdownWithLimitedWidth: { marginTop: hp(3), width: wp(39) },
   saveButton: {
     marginHorizontal: wp(8),
     marginTop: 'auto',

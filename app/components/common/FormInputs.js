@@ -405,9 +405,9 @@ export function FormSelectable({ data, value, onChange, ...rest }) {
   );
 }
 
-export function FormInputField({ label, value, error, onChangeText, removeSpace, ...props }) {
+export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, ...props }) {
   return (
-    <View marginR-20 height={hp(12)}{...props}>
+    <View marginR-20 height={hp(12)}>
       <View row spread centerH >
         <Text input-label>{label} {
           props?.required && <Text red10>*</Text>
@@ -424,15 +424,14 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}
-
         fieldStyle={[
           {
             borderBottomColor: customTheme.colors.tertiary,
             borderBottomWidth: 1,
-            marginBottom: customTheme.spacings.spacing_8,
             paddingBottom: customTheme.spacings.spacing_8,
             fontSize: customTheme.fontSizes.size_16,
             fontFamily: customTheme.fontFamily.robotoRegular,
+            overflow: 'hidden',
 
           },
         ]}
@@ -440,10 +439,15 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
           const value = removeSpace ? txt.replace(/ /g, '') : txt;
           onChangeText(value);
         }}
-        retainValidationSpace
         enableErrors={error}
         validationMessage={error}
       />
+      {
+        optionBtn && <TouchableOpacity flex right marginT-4 onPress={optionBtn.onPress}>
+          <Text link-text>{optionBtn?.title ?? ''}</Text>
+        </TouchableOpacity>
+      }
+
     </View>
 
   );
@@ -551,16 +555,50 @@ export const FormMaskedInput = ({ label,
   title, onValueChange,
   forHeight,
   tailLabel,
+  celPhoneMaskPattern = 'INTERNATIONAL',
+  type = "custom",
   ...props }) => {
-  // const [visible, setVisible] = useState(false)
-  // const splitValue = value.split('-')
-  // const inputValue = splitValue[0]
-  // const pickerValue = splitValue[1] ?? data[0].value
+  const options = useMemo(() => {
+    switch (type) {
+      case "cel-phone":
+        return {
+          mask: '+9 9999999999',
+        };
+      case "cpf":
+        return {
+          mask: '999.999.999-99',
+          options: {
+            maskType: 'BRL',
+          },
+        };
+      case "cnpj":
+        return {
+          mask: '99.999.999/9999-99',
+          options: {
+            maskType: 'BRL',
+          },
+        };
+      case 'email':
+        return {
+          mask: '999.999.999-99',
+          options: {
+            maskType: 'BRL',
+          },
+        }
+      default:
+        return {
+          mask: forHeight ? `9'99''` : '999',
+        };
+    }
+  }, [type])
   return <View flex marginR-20 height={hp(12)} {...props} >
     < >
       <View row spread centerH>
-        <Text input-label>{label}</Text>
-        <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+        <Text input-label>{label} {props?.required && <Text red10>*</Text>}</Text>
+        {
+          props?.picker && <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
+        }
+
       </View>
       <View row centerH style={{
         borderBottomColor: customTheme.colors.tertiary,
@@ -569,7 +607,7 @@ export const FormMaskedInput = ({ label,
       }>
         <TextInputMask
           {...props}
-          type='custom'
+          type={'custom'}
           value={value}
           placeholderTextColor={customTheme.colors.tertiary}
           onChangeText={(txt) => {
@@ -577,7 +615,7 @@ export const FormMaskedInput = ({ label,
             onChangeText(txt);
           }}
           options={{
-            mask: forHeight ? `9'99''` : '999',
+            ...options
           }}
           selectionColor={customTheme.colors.light}
           style={{

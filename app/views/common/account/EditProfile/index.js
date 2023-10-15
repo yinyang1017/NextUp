@@ -10,41 +10,51 @@ import { Color, FontSize } from '../../../GlobalStyles';
 import { MyColors } from '../../../../constants/colors';
 import OtherDetails from './OtherDetails';
 import Verification from './Verification';
+import { ViewContainer } from '../../../../components/common/ViewConatiner';
+import { CustomTabView } from '../../../../components/common/CustomTabView';
+import { useAuth } from '../../../../hooks/useAuth';
+import PlayerOtherDetails from './PlayerOtherDetails';
+import PlayerAcoountEdit from './PlayerAcoountEdit';
 function EditProfile() {
   const navigation = useNavigation();
   const Tab = createMaterialTopTabNavigator();
-  const screenOptions = {
-    headerShown: true,
-    tabBarScrollEnabled: true,
-    tabBarIndicatorStyle: {
-      backgroundColor: 'white',
-      height: 2,
-    },
-    tabBarStyle: {
-      elevator: 0,
-      backgroundColor: MyColors.base,
-      // height: 34,
-    },
-    tabBarLabelStyle: {
-      textTransform: 'capitalize',
-      fontSize: FontSize.bodyMediumSemibold_size,
-      fontWeight: '400',
-      color: Color.darkgray_100,
-    },
-  };
+  const { isPlayer, isCoach } = useAuth();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Back
-        onPress={() => navigation.goBack()}
-        containerStyle={styles.backButtonContainer}
-        title="Edit Profile"
-      />
-      <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Account Details" component={AccountDetail} />
-        <Tab.Screen name="Verification" component={Verification} />
-        <Tab.Screen name="Other Details" component={OtherDetails} />
+    <ViewContainer headerTilte={'Edit Player Profile'}>
+      <Tab.Navigator tabBar={props => <CustomTabView {...props} />}>
+        <Tab.Group>
+          {
+            isCoach && (<Tab.Screen
+              name="AccountDetails"
+              options={{
+                tabBarLabel: 'Account Details',
+              }}
+              component={AccountDetail} />)
+          }
+          {
+            isPlayer && (<Tab.Screen
+              name="AccountDetails"
+              options={{
+                tabBarLabel: 'Account Details',
+              }}
+              component={PlayerAcoountEdit} />)
+          }
+        </Tab.Group>
+
+        <Tab.Screen name="Verification" options={{ tabBarLabel: 'Verification' }} component={Verification} />
+        <Tab.Group>
+          {
+            isCoach && <Tab.Screen name="OtherDetails" options={{ tabBarLabel: 'Other Details' }} component={OtherDetails} />
+          }
+          {
+            isPlayer && <Tab.Screen name="OtherDetails" options={{ tabBarLabel: 'Other Details' }} component={PlayerOtherDetails} />
+          }
+
+        </Tab.Group>
+
       </Tab.Navigator>
-    </SafeAreaView>
+    </ViewContainer>
   );
 }
 

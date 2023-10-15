@@ -23,7 +23,8 @@ const PlayerDashboard = () => {
         <StatsContainer />
         <MyChallenges />
         <Button
-          centerH
+          center
+          paddingV-24
           label={'Add Player Match Up'}
           onPress={() => {
             Alert.alert('player match up');

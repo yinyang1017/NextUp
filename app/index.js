@@ -21,7 +21,7 @@ export default function App() {
         <NavigationContainer theme={customTheme}>
           <AppProviders>
             <AuthProvider>
-              <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight}></View>
+              <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight + customTheme.spacings.spacing_12}></View>
               <StatusBar
                 barStyle={customTheme.statusBarStyle}
                 backgroundColor={customTheme.colors.light.background}
