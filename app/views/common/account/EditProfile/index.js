@@ -1,15 +1,13 @@
 import * as React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {wp, hp} from '../../../../utils/responsive';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { wp, hp } from '../../../../utils/responsive';
 import Back from '../../../../utils/HeaderButtons/Back';
-import ImageUpload from '../../../../components/common/ImageUpload';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import AccountDetail from './AccountDetail';
-import {Color, FontSize} from '../../../GlobalStyles';
-import CustomTabView from './TopTabView';
-import {MyColors} from '../../../../constants/colors';
+import { Color, FontSize } from '../../../GlobalStyles';
+import { MyColors } from '../../../../constants/colors';
 import OtherDetails from './OtherDetails';
 import Verification from './Verification';
 function EditProfile() {
@@ -53,7 +51,7 @@ function EditProfile() {
 export default EditProfile;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
   backButtonContainer: {
     marginHorizontal: wp(5),
     marginTop: hp(3),

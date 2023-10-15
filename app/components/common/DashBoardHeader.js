@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, Avatar, Button} from 'react-native-ui-lib';
-import {StyleSheet, Text, Image} from 'react-native';
+import { View, Avatar, Button } from 'react-native-ui-lib';
+import { StyleSheet, Text, Image } from 'react-native';
 import {
   Padding,
   FontSize,
@@ -8,13 +8,13 @@ import {
   Color,
   Border,
 } from '../../views/GlobalStyles';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faSearch, faBell} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSearch, faBell } from '@fortawesome/free-solid-svg-icons';
 
 import FastImage from 'react-native-fast-image';
-import {customTheme} from '../../constants';
-import {RoundButtons} from './button';
-export const DashBoardHeader = ({imgSrc = null, name = null}) => {
+import { customTheme } from '../../constants';
+import { RoundButtons } from './button';
+export const DashBoardHeader = ({ imgSrc = null, name = null }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -25,14 +25,14 @@ export const DashBoardHeader = ({imgSrc = null, name = null}) => {
             <Text style={styles.welcomeHand}>👋</Text>
           </Text>
           <Text style={[styles.vaibhavChibbar1, styles.vamTypo1]}>
-            Vaibhav Chibbar
+            {name ?? 'Vaibhav Chibbar'}
           </Text>
         </View>
       </View>
       <View style={styles.trophyParent}>
         <Button
           round
-          style={{width: 44, height: 44, margin: 10}}
+          style={{ width: 44, height: 44, margin: 10 }}
           size={'large'}
           backgroundColor={customTheme.colors.overlay2}>
           <FontAwesomeIcon
@@ -44,8 +44,8 @@ export const DashBoardHeader = ({imgSrc = null, name = null}) => {
         </Button>
         <Button
           round
-          
-          style={{width: 44, height: 44}}
+
+          style={{ width: 44, height: 44 }}
           size={'large'}
           backgroundColor={customTheme.colors.overlay2}>
           <FontAwesomeIcon

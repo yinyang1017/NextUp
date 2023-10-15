@@ -29,7 +29,7 @@ const ImageRender = ({ uri, onPress }) => {
                     alignSelf: 'center',
                     borderRadius: customTheme.spacings.spacing_16,
                 }}
-                width={Layout.width * 0.3}
+                width={'100%'}
                 height={Layout.width * 0.46}
                 source={{ uri }}
             />
@@ -270,7 +270,7 @@ export default function DocumentVerification() {
 
 
     return <OnBoardingWrapper progress={progressCount} handleForm={handlePress} disabled={!doc?.idProofUrl && !doc?.certificateUrl} loading={isUploading.loading || isUpdating}>
-        <View marginV-24 >
+        < >
             <Text white style={{
                 fontSize: customTheme.fontSizes.size_32,
                 fontFamily: customTheme.fontFamily.robotoLight,
@@ -288,7 +288,7 @@ export default function DocumentVerification() {
                 handleCertificateVisible={handleCertificateVisible}
                 handleIndentyVisible={handleIndentityVisible}
             />
-        </View>
+        </>
         <AppLoader
             visible={isUploading.loading}
             loadingMessage={`${uploadProgress} %`}

@@ -3,7 +3,7 @@ import { Platform, StatusBar } from 'react-native';
 import { customTheme } from '../../constants';
 import { View } from 'react-native-ui-lib';
 import { getDesiredNumber } from '../../utils/helper';
-import { isX } from '../../utils/responsive';
+import { isX, wp } from '../../utils/responsive';
 export const statusBarHeight =
   StatusBar.currentHeight * customTheme.spacings.spacing_8 ||
   (Platform.OS === 'ios'
@@ -14,10 +14,8 @@ export const ViewContainer = props => {
   return (
     <View
       style={{
-        marginTop: statusBarHeight,
-        // flex: 1,
-        paddingHorizontal: customTheme.spacings.spacing_16,
-        paddingBottom: customTheme.spacings.spacing_16,
+        flex: 1,
+        paddingHorizontal: wp(customTheme.spacings.spacing_4),
       }}>
       {props.children}
     </View>

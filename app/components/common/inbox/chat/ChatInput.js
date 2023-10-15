@@ -5,13 +5,17 @@ import { hp, wp } from '../../../../utils/responsive';
 import { Colors, customTheme } from '../../../../constants';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-const ChatInput = props => {
+const ChatInput = ({ onSelectImage, ...props }) => {
   const openGalleryHandler = () => {
-    launchImageLibrary();
+    launchImageLibrary({ selectionLimit: 10 })
+      .then(onSelectImage)
+      .catch(e => console.log(e));
   };
 
   const openCameraHandler = () => {
-    launchCamera();
+    launchCamera()
+      .then(onSelectImage)
+      .catch(e => console.log(e));
   };
 
   return (
@@ -19,8 +23,8 @@ const ChatInput = props => {
       {...props}
       containerStyle={styles.inputContainer}
       primaryStyle={{ alignItems: 'center' }}
-      renderComposer={props1 => (
-        <Composer {...props1} textInputStyle={styles.composer} />
+      renderComposer={composerProps => (
+        <Composer {...composerProps} textInputStyle={styles.composer} />
       )}
       renderActions={() => {
         return (

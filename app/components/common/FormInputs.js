@@ -46,11 +46,12 @@ const _renderCustomModal = (modalProps) => {
       animationType='slide'
 
     >
-      <View style={{
-        padding: customTheme.spacings.spacing_16,
-        paddingTop: statusBarHeight
-      }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+      <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight}></View>
+      <View
+        backgroundColor={customTheme.colors.background}
+        paddingH-16
+      >
+        <View row alignItems='center'>
           <Pressable
             style={{
 
@@ -78,8 +79,8 @@ const _renderCustomModal = (modalProps) => {
           </Pressable>
           <Text textAlign='center' white marginL-8>{label}</Text>
         </View>
-
         <TextField
+          marginT-16
           placeholder={title}
           paddingH-12
           paddingV-12
@@ -102,13 +103,21 @@ const _renderCustomModal = (modalProps) => {
           }
           trailingAccessory={searchIcon}
         />
-
+        {
+          rest?.renderFilter && (<>
+            <View row marginT-32>
+              {
+                rest?.renderFilter()
+              }
+            </View>
+          </>)
+        }
       </View>
+
 
 
       <ScrollView contentContainerStyle={{
         paddingHorizontal: customTheme.spacings.spacing_16
-
       }} >
         {
           children
@@ -137,37 +146,39 @@ const _renderCustomModal = (modalProps) => {
  */
 export function FormInputPicker({ data = [], value, onValueChange, label, title, ...rest }) {
   const [search, setSearch] = useState(null)
-  const searchData = search ? data.filter((item) => item.toLowerCase().includes(search.toLowerCase())) : data
+  const searchData = search ? data.filter((item) => item?.value?.toLowerCase().includes(search.toLowerCase())) : data
   return (
-    <View flex >
+    <  >
       <Picker
         topBarProps={{
           title: title,
         }}
-        useSafeAreas
-        showSearch
         renderPicker={() => {
           return (
             <>
 
               <FormInputField
-                readonly
                 value={value}
+                readonly
                 label={label}
                 picker
                 required={rest?.required}
                 error={rest?.error}
                 placeholder={rest?.placeholder}
-
+                {...rest}
               />
             </>
           );
         }}
+        renderCustomModal={(props) => _renderCustomModal({
+          ...props,
+          label,
+          title,
+          onSearchChange: (text) => setSearch(text),
+          renderFilter: rest?.renderFilter,
+        })}
 
-        renderCustomModal={(props) => _renderCustomModal({ ...props, label, title, onSearchChange: (text) => setSearch(text) })}
-        onChange={value => {
-          onValueChange(value);
-        }}>
+      >
         {_.map(searchData, (item, index) => {
           return (
             <Picker.Item
@@ -177,7 +188,12 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
                 fontFamily: customTheme.fontFamily.robotoRegular,
               }}
 
-              key={index} label={item?.label || item} value={item?.value || item}
+              key={index}
+              label={item?.label || item}
+              value={item?.value || item}
+              onPress={() => {
+                return onValueChange(item);
+              }}
               renderItem={(props) => {
                 return (
                   <Text marginB-8 white marginT-32 style={{
@@ -191,7 +207,7 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
           );
         })}
       </Picker>
-    </View>
+    </>
   );
 }
 /**
@@ -221,6 +237,7 @@ export function FormActionPicker({ data = [], value, onValueChange, label, title
           error={rest?.error}
           required={rest?.required}
           placeholder={rest?.placeholder}
+          {...rest}
 
 
         />
@@ -388,23 +405,13 @@ export function FormSelectable({ data, value, onChange, ...rest }) {
   );
 }
 
-export function FormInputField({ label, value, error, onChangeText, ...props }) {
+export function FormInputField({ label, value, error, onChangeText, removeSpace, ...props }) {
   return (
-    <View flex marginV-32 marginR-16 height={customTheme.spacings.spacing_40} >
-      <View row spread centerH marginB-12>
-        <Text style={{
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_8,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          opacity: 0.6,
-          fontFamily: customTheme.fontFamily.robotoBold,
-
-        }}>{label} {
-            props?.required && <Text red10>*</Text>
-          }</Text>
+    <View marginR-20 height={hp(12)}{...props}>
+      <View row spread centerH >
+        <Text input-label>{label} {
+          props?.required && <Text red10>*</Text>
+        }</Text>
 
         {
           props?.picker && <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
@@ -417,6 +424,7 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}
+
         fieldStyle={[
           {
             borderBottomColor: customTheme.colors.tertiary,
@@ -428,7 +436,10 @@ export function FormInputField({ label, value, error, onChangeText, ...props }) 
 
           },
         ]}
-        onChangeText={onChangeText}
+        onChangeText={(txt) => {
+          const value = removeSpace ? txt.replace(/ /g, '') : txt;
+          onChangeText(value);
+        }}
         retainValidationSpace
         enableErrors={error}
         validationMessage={error}
@@ -469,8 +480,8 @@ export function FormButton({
             disabled || loading
               ? customTheme.colors.tertiary
               : customTheme.colors.blue20,
-          borderRadius: customTheme.spacings.spacing_16,
-          paddingVertical: customTheme.spacings.spacing_12,
+          borderRadius: customTheme.spacings.spacing_24,
+          paddingVertical: customTheme.spacings.spacing_20,
         }}>
         <View row center spread>
           <ActivityIndicator
@@ -501,7 +512,7 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
     setVisible(!visible)
   }
   return <>
-    <TouchableOpacity onPress={handleVisible} flex>
+    <TouchableOpacity onPress={handleVisible} >
       <FormInputField
         readonly
         onKeyPress={() => setVisible(true)}
@@ -512,8 +523,7 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
         required={props?.required}
         error={props?.error}
         placeholder={props?.placeholder}
-
-
+        {...props}
       />
 
     </TouchableOpacity>
@@ -540,56 +550,50 @@ export const FormMaskedInput = ({ label,
   data,
   title, onValueChange,
   forHeight,
+  tailLabel,
   ...props }) => {
-  const [visible, setVisible] = useState(false)
-  const splitValue = value.split('-')
-  const inputValue = splitValue[0]
-  const pickerValue = splitValue[1] ?? data[0].value
-  return <View marginV-24 flex marginR-16 >
+  // const [visible, setVisible] = useState(false)
+  // const splitValue = value.split('-')
+  // const inputValue = splitValue[0]
+  // const pickerValue = splitValue[1] ?? data[0].value
+  return <View flex marginR-20 height={hp(12)} {...props} >
     < >
-      <TouchableOpacity onPress={() => setVisible(true)} row spread centerH  >
-        <Text style={{
-          opacity: 0.6,
-          marginBottom: customTheme.spacings.spacing_16,
-          textTransform: 'uppercase',
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_12,
-          fontWeight: '700',
-          fontFamily: customTheme.fontFamily.robotoBold,
-        }}>{label}</Text>
-
+      <View row spread centerH>
+        <Text input-label>{label}</Text>
         <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
-      </TouchableOpacity>
-      <View flex row centerH style={{
+      </View>
+      <View row centerH style={{
         borderBottomColor: customTheme.colors.tertiary,
         borderBottomWidth: 1,
-        marginRight: customTheme.spacings.spacing_16,
       }
       }>
         <TextInputMask
           {...props}
-          Tra
           type='custom'
-          value={inputValue}
+          value={value}
           placeholderTextColor={customTheme.colors.tertiary}
           onChangeText={(txt) => {
-            const pickValue = txt + '-' + pickerValue || data[0].value
-            onChangeText(pickValue);
+            // const pickValue = txt + '-' + pickerValue || data[0].value
+            onChangeText(txt);
           }}
           options={{
-            mask: forHeight ? pickerValue === 'CM' ? '999' : `9'99''` : '999',
+            mask: forHeight ? `9'99''` : '999',
           }}
           selectionColor={customTheme.colors.light}
           style={{
             color: customTheme.colors.light,
             flex: 1,
+            marginTop: 0,
             marginBottom: customTheme.spacings.spacing_8,
             fontSize: customTheme.fontSizes.size_16,
           }}
         />
-        <Text white>{pickerValue ?? ''}</Text>
+        {
+          tailLabel && <Text white small-700 >{tailLabel}</Text>
+        }
+        {/* <Text white>{pickerValue ?? ''}</Text> */}
       </View>
-      <Incubator.Dialog
+      {/* <Incubator.Dialog
         visible={visible}
         onDismiss={() => {
           setVisible(false);
@@ -651,9 +655,8 @@ export const FormMaskedInput = ({ label,
           />
 
         </>
-      </Incubator.Dialog>
+      </Incubator.Dialog> */}
     </>
-
     {props?.error && <Text red10>{props?.error}</Text>}
   </View>
 

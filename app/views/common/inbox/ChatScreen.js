@@ -17,10 +17,28 @@ import { useAuth } from '../../../hooks/useAuth';
 import moment from 'moment';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { BASE_URL } from '../../../hooks/useUpload';
+import { errorToast } from '../../../utils/toast';
+import { compact } from 'lodash';
+import AppLoader from '../../../utils/Apploader';
+import { CHAT_ENUMS } from '../../../utils/chatEnums';
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
   const screenParams = useRoute().params;
+
+  const [isSendingImageMessage, setIsSendingImageMessage] = useState(false);
+
+  const chatInfo = useMemo(() => screenParams?.chatInfo || {}, [screenParams]);
+
+  const isGroup = chatInfo?.type === 'GROUP';
+
+  const chatName = isGroup ? chatInfo?.groupName : chatInfo?.otherUserName;
+
+  const chatProfileImage = isGroup
+    ? chatInfo?.groupLogoUrl
+    : chatInfo?.userProfilePicUrl;
 
   const { mutate: sendChatMessageMutation } = useSendChatMessage();
 
@@ -29,36 +47,95 @@ const ChatScreen = () => {
   const { user } = useAuth();
 
   const loginUserInfo = {
-    _id: user?.id || 1013,
-    name: 'React Native',
-    avatar: 'https://placeimg.com/140/140/any',
+    _id: user?.id,
+    name: chatName,
+    avatar: chatProfileImage,
   };
 
-  const onSend = newMessages => {
-    const newChatMessageInfo = {
-      senderId: user?.id || 1013,
-      messageType: 'TEXT',
-      content: newMessages[0]?.text,
-      channelId: screenParams?.channelId,
+  const commonSendMessageParam = useMemo(
+    () => ({
+      senderId: user?.id,
+      channelId: chatInfo?.channelId,
       status: 'SENT',
       senderName: 'OCHAI AGBAJI',
       senderProfilePictureUrl:
         'https://cdn.nba.com/headshots/nba/latest/1040x760/1630534.png',
+    }),
+    [chatInfo, user],
+  );
+
+  const onSend = newMessages => {
+    const newChatMessageInfo = {
+      ...commonSendMessageParam,
+      messageType: CHAT_ENUMS.MESSSAGE_TYPE.TEXT,
+      content: newMessages[0]?.text,
       id: uuidv4(),
       createdAt: moment().toISOString(),
     };
 
-    sendChatMessageMutation(newChatMessageInfo, {
-      onSuccess: res => {
-        console.log('~ res:', res);
+    sendChatMessageMutation(newChatMessageInfo);
+  };
+
+  const uploadImageAxiosHandler = file => {
+    const formData = new FormData();
+    formData.append('file', {
+      uri: file.uri,
+      name: file.fileName,
+      type: file.type,
+    });
+
+    return axios({
+      method: 'POST',
+      url: BASE_URL + '/storage/upload/image',
+      maxBodyLength: Infinity,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Accept: '*',
       },
-      onError: err => {
-        console.log('~ err:', err);
-      },
+      data: formData,
     });
   };
 
-  const renderInputToolbar = useCallback(props => <ChatInput {...props} />, []);
+  const uploadChatImagesHandler = useCallback(
+    async response => {
+      try {
+        if (response?.assets?.length) {
+          const promiseArray = [];
+          setIsSendingImageMessage(true);
+          response?.assets?.map(imageFile => {
+            promiseArray.push(uploadImageAxiosHandler(imageFile));
+          });
+          const imagesUploadResponses = await Promise.all(promiseArray);
+          const imageUrlsArray = compact(
+            imagesUploadResponses?.map(
+              imageResponse => imageResponse?.data?.data?.imageUrl,
+            ),
+          );
+          const messageInfo = {
+            ...commonSendMessageParam,
+            messageType: CHAT_ENUMS.MESSSAGE_TYPE.IMAGE,
+            content: imageUrlsArray[0],
+            id: uuidv4(),
+            createdAt: moment().toISOString(),
+          };
+          sendChatMessageMutation(messageInfo);
+          setIsSendingImageMessage(false);
+        }
+      } catch (error) {
+        setIsSendingImageMessage(false);
+        errorToast({
+          title: 'Error',
+          body: 'Filed to send images! Please try again',
+        });
+      }
+    },
+    [commonSendMessageParam, sendChatMessageMutation],
+  );
+
+  const renderInputToolbar = useCallback(
+    props => <ChatInput {...props} onSelectImage={uploadChatImagesHandler} />,
+    [uploadChatImagesHandler],
+  );
 
   const { bottom, top } = useSafeAreaInsets();
 
@@ -84,6 +161,9 @@ const ChatScreen = () => {
         text: newMessage?.content,
         createdAt: newMessage?.createdAt || new Date(),
         user: { _id: newMessage.senderId || null },
+        ...(newMessage?.messageType === CHAT_ENUMS.MESSSAGE_TYPE.IMAGE && {
+          image: newMessage?.content,
+        }),
       };
       setMessages(prevMessages => [newMessageInfo, ...prevMessages]);
     }
@@ -91,7 +171,7 @@ const ChatScreen = () => {
 
   const chatEventSource = useMemo(
     () =>
-      new EventSource(baseUrl + '/message/stream/' + screenParams?.channelId, {
+      new EventSource(baseUrl + '/message/stream/' + chatInfo?.channelId, {
         pollingInterval: 3600000,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,8 +207,12 @@ const ChatScreen = () => {
 
   return (
     <View style={[styles.container, extraContainerStyle]}>
-      <ChatHeader />
-      <ChatChallengeAccepted containerStyle={styles.chatChallengeContainer} />
+      {isSendingImageMessage && <AppLoader />}
+      <ChatHeader name={chatName} image={chatProfileImage} />
+      <ChatChallengeAccepted
+        name={chatName}
+        containerStyle={styles.chatChallengeContainer}
+      />
       <GiftedChat
         listViewProps={{
           showsVerticalScrollIndicator: false,

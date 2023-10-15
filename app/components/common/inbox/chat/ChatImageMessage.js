@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import commonChatStyles from './commonChatStyles';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import { hp, wp } from '../../../../utils/responsive';
-import { chunk, isArray, times } from 'lodash';
+import { chunk, isArray } from 'lodash';
 
 const ChatImageMessage = props => {
   const userId = 1;
@@ -18,7 +18,7 @@ const ChatImageMessage = props => {
     props.currentMessage?.user?._id === props.previousMessage?.user?._id;
 
   const RenderImages = useCallback(() => {
-    const images = times(3, () => props.currentMessage.image);
+    const images = [props.image];
 
     const isThreeImagesOrMore = images.length >= 3;
 
@@ -28,7 +28,7 @@ const ChatImageMessage = props => {
 
     return images.length === 1 ? (
       <FastImage
-        source={{ uri: props.currentMessage?.image }}
+        source={{ uri: props.currentMessage?.image, priority: 'high' }}
         style={styles.image}
       />
     ) : (
@@ -49,7 +49,7 @@ const ChatImageMessage = props => {
                           height: hp(12),
                           width: isMoreThanThreeImages ? '100%' : '50%',
                         }}
-                        source={{ uri: nestedChunkItem }}
+                        source={{ uri: nestedChunkItem, priority: 'high' }}
                       />
                     ))}
                   </View>
@@ -59,7 +59,7 @@ const ChatImageMessage = props => {
                   <FastImage
                     key={chunkIndex}
                     style={styles.twoImagesImage}
-                    source={{ uri: chunkItem[0] }}
+                    source={{ uri: chunkItem[0], priority: 'high' }}
                   />
                 );
               }
@@ -69,13 +69,13 @@ const ChatImageMessage = props => {
                 <FastImage
                   key={index}
                   style={styles.twoImagesImage}
-                  source={{ uri: item }}
+                  source={{ uri: item, priority: 'high' }}
                 />
               );
             })}
       </View>
     );
-  }, [props.currentMessage]);
+  }, [props]);
 
   return (
     <View style={commonChatStyles.container(isSameUserMessage)}>
@@ -94,7 +94,7 @@ const ChatImageMessage = props => {
   );
 };
 
-export default ChatImageMessage;
+export default memo(ChatImageMessage);
 
 const styles = StyleSheet.create({
   container: (
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
       isSameUserMessage,
       isNextMessageFromSameUser,
     ),
-    marginTop: isPreviousMessageFromSameUser ? 0 : hp(1),
+    marginTop: isPreviousMessageFromSameUser ? hp(0.5) : hp(1),
     overflow: 'hidden',
     height: hp(24),
     width: wp(60),

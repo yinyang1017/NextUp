@@ -1,37 +1,37 @@
 import React from 'react';
-import { Platform, ScrollView, StatusBar, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native-ui-lib';
+import { Platform, ScrollView, StatusBar, StyleSheet, } from 'react-native';
 import { customTheme } from '../../constants';
 
-export const ScrollViewContainer = props => {
+export const ScrollViewContainer = ({ children, headerConternt = null }) => {
   const statusBarHeight =
     StatusBar.currentHeight * customTheme.spacings.spacing_8 ||
     (Platform.OS === 'ios'
-      ? customTheme.spacings.spacing_48
-      : customTheme.spacings.spacing_48); // Default values for iOS and Android
+      ? customTheme.spacings.spacing_16
+      : customTheme.spacings.spacing_16); // Default values for iOS and Android
   return (
-    <ScrollView
-      style={styles.scrollView}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={{
-        ...styles.content,
-        paddingTop: statusBarHeight,
-      }}>
-      {props.children}
-    </ScrollView>
+    <>
+      {
+        headerConternt && <View></View>
+      }
+
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={{
+          ...styles.content,
+          paddingTop: statusBarHeight,
+        }}>
+        {children}
+      </ScrollView>
+    </>
+
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    maxWidth: '100%',
-    overflow: 'hidden',
-    width: '100%',
-    flex: 1,
-    backgroundColor: customTheme.colors.background,
-  },
   content: {
-    paddingHorizontal: customTheme.spacings.spacing_16,
+    paddingHorizontal: customTheme.spacings.spacing_12,
+    paddingBottom: customTheme.spacings.spacing_16,
     justifyContent: 'flex-start',
   },
 });

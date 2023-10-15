@@ -37,8 +37,9 @@ const SelectionDropdown = ({
           value={value}>
           {renderItem
             ? data.map(renderItem)
-            : data.map(item => (
+            : data.map((item, index) => (
                 <Picker.Item
+                  key={index}
                   onPress={() => onSelectItem(item)}
                   label={item}
                   value={item}

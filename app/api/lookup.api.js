@@ -10,7 +10,7 @@ export function useGetState() {
 
 export function useGetCity({ queryFilter, queryConfig = {} }) {
     const client = useClient()
-    const qs = Object.keys(queryFilter)
+    const qs = queryFilter && Object.keys(queryFilter)
         .map(key => {
             if (encodeURIComponent(queryFilter[key])) {
                 return `${encodeURIComponent(key)}=${encodeURIComponent(queryFilter[key])}`
@@ -19,7 +19,7 @@ export function useGetCity({ queryFilter, queryConfig = {} }) {
         .filter(pair => pair)
         .join('&')
     return useQuery({
-        queryKey: ['states', 'cites', queryFilter],
+        queryKey: ['state', queryFilter],
         queryFn: () => client(`admin/property/list/states?${qs}`),
         enabled: !!qs,
         ...queryConfig
@@ -36,7 +36,7 @@ export function useGetClassOffYears() {
 
 export function useGetSchools({ queryFilter, queryConfig = {} }) {
     const client = useClient()
-    const qs = Object.keys(queryFilter)
+    const qs = queryFilter && Object.keys(queryFilter)
         .map(key => {
             if (encodeURIComponent(queryFilter[key])) {
                 return `${encodeURIComponent(key)}=${encodeURIComponent(queryFilter[key])}`
@@ -45,9 +45,8 @@ export function useGetSchools({ queryFilter, queryConfig = {} }) {
         .filter(pair => pair)
         .join('&')
     return useQuery({
-        queryKey: ['states', 'cites', queryFilter],
-        queryFn: () => client(`admin/property/list/states?${qs}`),
-        enabled: !!qs,
+        queryKey: ['state', 'city', queryFilter],
+        queryFn: () => client(`admin/property/list/onboarding?${qs}`),
         ...queryConfig
     })
 }

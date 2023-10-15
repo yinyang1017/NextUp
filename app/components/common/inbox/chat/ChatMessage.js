@@ -8,7 +8,7 @@ import { useAuth } from '../../../../hooks/useAuth';
 
 const ChatMessage = props => {
   const { user } = useAuth();
-  const userId = user?.id || 1013;
+  const userId = user?.id;
   const isSameUserMessage = props.currentMessage?.user?._id === userId;
 
   const isNextMessageFromSameUser =

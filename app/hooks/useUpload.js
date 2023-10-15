@@ -2,7 +2,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { errorToast, successToast } from '../utils/toast';
 import axios from 'axios';
 import { useState } from 'react';
-const BASE_URL = 'http://34.134.29.128:8081/v1';
+export const BASE_URL = 'http://34.134.29.128:8081/v1';
 // import RNFetchBlob from 'react-native-fetch-blob';
 /**
  * A hook that handles document upload functionality.
@@ -76,7 +76,7 @@ export const useUpload = () => {
           type: file.type,
         });
         const resp = await makeUploadApiRequest(formData);
-        console.log(resp, 'api resp');
+
         if (resp?.data?.error) {
           throw new Error('Cannot upload file. Please try again.');
         }

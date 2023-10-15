@@ -1,5 +1,5 @@
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Platform} from 'react-native';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Platform } from 'react-native';
 
 const PLATFORM_CAMERA_PERMISSIONS = {
   ios: PERMISSIONS.IOS.CAMERA,
@@ -44,58 +44,56 @@ const PERMISSION_TYPE = {
 
 class AppPermission {
 
-    checkPermission = async (type): Promise<boolean> => {
-        // console.log("AppPermission CheckPermission type", type)
-        const permission = REQUEST_PERMISSION_TYPE[type][Platform.OS]
-        // console.log("AppPermission Check Permission ", permission)
-        if (!permission) {
-            return true
-        }
-        try {
-            const result = await check(permission)
-            // console.log("AppPermission CheckPermission result ", result)
-            if (result === RESULTS.GRANTED) {
-                return true
-                // return this.requestPermission(permission)
-            } else {
-                return this.requestPermission(permission)   // here requesting for permission
-            }
-
-        } catch (error) {
-            // console.log("AppPermission CheckPermission error ", error)
-            return false
-        }
+  checkPermission = async (type) => {
+    // console.log("AppPermission CheckPermission type", type)
+    const permission = REQUEST_PERMISSION_TYPE[type][Platform.OS]
+    // console.log("AppPermission Check Permission ", permission)
+    if (!permission) {
+      return true
     }
-
-    requestPermission = async (permission): Promise<boolean> => {
-        // console.log("AppPermission requestPermission  ", permission)
-        try {
-            const result = await request(permission)
-            // console.log("AppPermission requestPermission result ", result)
-            return result === RESULTS.GRANTED
-
-        } catch (error) {
-            // console.log("AppPermission requestPermission error ", error)
-            return false
-        }
-    }
-  };
-
-  requestPermission = async permission => {
-    console.log('AppPermission requestPermission  ', permission);
     try {
-      const result = await request(permission);
-      console.log('AppPermission requestPermission result ', result);
-      return result === RESULTS.GRANTED;
-    } catch (error) {
-      console.log('AppPermission requestPermission error ', error);
-      return false;
-    }
-  };
-}
+      const result = await check(permission)
+      // console.log("AppPermission CheckPermission result ", result)
+      if (result === RESULTS.GRANTED) {
+        return true
+        // return this.requestPermission(permission)
+      } else {
+        return this.requestPermission(permission)   // here requesting for permission
+      }
 
+    } catch (error) {
+      // console.log("AppPermission CheckPermission error ", error)
+      return false
+    }
+  }
+
+  requestPermission = async (permission) => {
+    // console.log("AppPermission requestPermission  ", permission)
+    try {
+      const result = await request(permission)
+      // console.log("AppPermission requestPermission result ", result)
+      return result === RESULTS.GRANTED
+
+    } catch (error) {
+      // console.log("AppPermission requestPermission error ", error)
+      return false
+    }
+  }
+};
+
+requestPermission = async permission => {
+  console.log('AppPermission requestPermission  ', permission);
+  try {
+    const result = await request(permission);
+    console.log('AppPermission requestPermission result ', result);
+    return result === RESULTS.GRANTED;
+  } catch (error) {
+    console.log('AppPermission requestPermission error ', error);
+    return false;
+  }
+};
 const Permission = new AppPermission();
-export {Permission, PERMISSION_TYPE};
+export { Permission, PERMISSION_TYPE };
 
 //Permission message for gallery
 // const gallery_rationale = {

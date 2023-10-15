@@ -5,7 +5,7 @@ import { hp, wp } from '../../../../utils/responsive';
 import { customTheme } from '../../../../constants';
 import { appImages } from '../../../../constants/appImages';
 
-const ChatChallengeAccepted = ({ containerStyle = {} }) => {
+const ChatChallengeAccepted = ({ containerStyle = {}, name = '' }) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.imageContainer}>
@@ -16,7 +16,7 @@ const ChatChallengeAccepted = ({ containerStyle = {} }) => {
           December 18, 2020
         </Text>
         <Text small-x style={styles.acceptedText}>
-          Ray has accepted your request and preparing your challenge.
+          {name} has accepted your request and preparing your challenge.
         </Text>
       </View>
     </View>

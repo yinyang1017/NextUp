@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoardingStack from './OnBoardingStack';
-import {useAuth} from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import WelcomeScreen from '../views/common/welcome/WelcomeScreen';
 import CoachStack from './CoachStack';
 import ChatScreen from '../views/common/inbox/ChatScreen';
@@ -19,14 +19,9 @@ import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
-  
-  const { isAuthenticated, onBoardingDone,
-    user,
-    isCoach,
-    isPlayer,
-    isIdProvider,
-  } = useAuth();
-  console.log('isIdProvider', isIdProvider)
+  const { isAuthenticated, onBoardingDone, isCoach, isPlayer, isIdProvider } =
+    useAuth();
+
   return (
     <>
       <Stack.Navigator
@@ -53,8 +48,23 @@ export default function AppLoadignStack() {
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
-
-          <Stack.Screen name="PlayerStack" component={CoachStack} />
+          <Stack.Group>
+            <Stack.Screen name="CoachStack" component={PlayerStack} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
+            <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
+            <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
+            <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
+            <Stack.Screen name="AllStandings" component={AllStandings} />
+            <Stack.Screen name="GameStatistics" component={GameStatistics} />
+            <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
+            <Stack.Screen name="AddLineup" component={AddLineup} />
+            <Stack.Screen name="LineupDetails" component={LineupDetails} />
+            <Stack.Screen name="CreatePractice" component={CreatePractice} />
+            <Stack.Screen
+              name="CoachViewPlayerDetails"
+              component={CoachViewPlayerDetails}
+            />
+          </Stack.Group>
         )}
       </Stack.Navigator>
     </>
