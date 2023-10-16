@@ -1,7 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { FormInputField } from '../../../components/common/FormInputs';
@@ -31,7 +30,7 @@ const AddLineup = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <View edges={['top']} style={styles.container}>
       <Back
         onPress={gobackHandler}
         title="Create New Lineup"
@@ -43,7 +42,7 @@ const AddLineup = () => {
         <FormInputField
           label={'LINEUP  NAME'}
           placeholder="Enter lineup name"
-          containerStyle={{ marginVertical: hp(4) }}
+          containerStyle={{ marginVertical: hp(4), height: 'auto' }}
         />
         <HeaderGreyComponent title="Forwards" />
         <View style={styles.rowWrap}>{times(5).map(renderAvatarItem)}</View>
@@ -75,7 +74,7 @@ const AddLineup = () => {
           <PrimaryButton title={'Save'} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

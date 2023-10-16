@@ -1,6 +1,5 @@
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
@@ -58,7 +57,7 @@ const SearchPlayers = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Back
         onPress={() => navigation.goBack()}
         containerStyle={styles.backContainer}
@@ -81,7 +80,7 @@ const SearchPlayers = () => {
         />
         <PrimaryButton title={'Invite'} onPress={onPressInviteHandler} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

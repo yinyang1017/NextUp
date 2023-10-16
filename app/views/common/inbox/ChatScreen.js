@@ -58,9 +58,8 @@ const ChatScreen = () => {
       senderId: user?.id,
       channelId: chatInfo?.channelId,
       status: 'SENT',
-      senderName: 'OCHAI AGBAJI',
-      senderProfilePictureUrl:
-        'https://cdn.nba.com/headshots/nba/latest/1040x760/1630534.png',
+      senderName: user?.personalInfo?.firstName || '',
+      senderProfilePictureUrl: user?.personalInfo?.profilePictureURL || '',
     }),
     [chatInfo, user],
   );
@@ -138,14 +137,23 @@ const ChatScreen = () => {
     [uploadChatImagesHandler],
   );
 
-  const { bottom, top } = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   const extraContainerStyle = {
     paddingBottom: bottom ? bottom + hp(0.8) : 0,
-    paddingTop: top,
   };
 
   const renderBubble = useCallback(props => {
+    if (props.currentMessage?.messageType === CHAT_ENUMS.MESSSAGE_TYPE.BANNER) {
+      return (
+        <ChatChallengeAccepted
+          bannerText={chatInfo?.recentMessage}
+          containerStyle={styles.chatChallengeContainer}
+          dateString={moment(chatInfo?.createdAt).format('LL')}
+        />
+      );
+    }
+
     if (props.currentMessage?.video) {
       return <ChatVideoMessage {...props} />;
     }
@@ -153,13 +161,11 @@ const ChatScreen = () => {
       return <ChatImageMessage {...props} />;
     }
     return <ChatMessage {...props} />;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onNewMessageReceivedHandler = newMessage => {
-    if (
-      newMessage.content &&
-      newMessage?.messageType !== CHAT_ENUMS.MESSSAGE_TYPE.BANNER
-    ) {
+    if (newMessage.content) {
       const newMessageInfo = {
         _id: newMessage?.id || uuidv4(),
         text: newMessage?.content,
@@ -170,6 +176,7 @@ const ChatScreen = () => {
             ? JSON.parse(newMessage?.content)
             : [],
         }),
+        messageType: newMessage?.messageType || CHAT_ENUMS.MESSSAGE_TYPE.TEXT,
       };
       setMessages(prevMessages => [newMessageInfo, ...prevMessages]);
     }
@@ -179,6 +186,9 @@ const ChatScreen = () => {
     () =>
       new EventSource(baseUrl + '/message/stream/' + chatInfo?.channelId, {
         pollingInterval: 3600000,
+        debug: true,
+        timeout: 30000,
+        headers: { accept: 'text/event-stream' },
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -186,7 +196,7 @@ const ChatScreen = () => {
 
   useEffect(() => {
     if (isFocus) {
-      chatEventSource.addEventListener('open', event => {
+      chatEventSource.addEventListener('open', () => {
         console.log('Open SSE connection.');
       });
       chatEventSource.addEventListener('message', event => {
@@ -215,13 +225,6 @@ const ChatScreen = () => {
     <View style={[styles.container, extraContainerStyle]}>
       {isSendingImageMessage && <AppLoader />}
       <ChatHeader name={chatName} image={chatProfileImage} />
-      {chatInfo?.recentMessageType === CHAT_ENUMS.MESSSAGE_TYPE.BANNER && (
-        <ChatChallengeAccepted
-          bannerText={chatInfo?.recentMessage}
-          containerStyle={styles.chatChallengeContainer}
-          dateString={moment(chatInfo?.createdAt).format('LL')}
-        />
-      )}
       <GiftedChat
         listViewProps={{
           showsVerticalScrollIndicator: false,
@@ -249,6 +252,9 @@ const ChatScreen = () => {
 export default ChatScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  chatChallengeContainer: { paddingHorizontal: wp(5), marginVertical: hp(2) },
+  container: { flex: 1, marginTop: -hp(2) },
+  chatChallengeContainer: {
+    marginVertical: hp(2),
+    width: '100%',
+  },
 });

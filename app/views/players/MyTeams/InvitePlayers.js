@@ -1,6 +1,5 @@
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
@@ -53,7 +52,7 @@ const InvitePlayers = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Back
         containerStyle={styles.backContainer}
         onPress={() => navigation.goBack()}
@@ -63,7 +62,7 @@ const InvitePlayers = () => {
         keyboardShouldPersistTaps="handled"
         bounces={false}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1 }}>
+        contentContainerStyle={styles.scrollContent}>
         <View>
           <FormInputField
             placeholder={'Enter Full name'}
@@ -95,7 +94,7 @@ const InvitePlayers = () => {
           <PrimaryButton title={'Invite'} onPress={onPressInviteHandler} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -109,13 +108,13 @@ const styles = StyleSheet.create({
     marginVertical: hp(2),
     marginHorizontal: wp(8),
     marginRight: wp(8),
-    flex: 0,
+    height: 'auto',
   },
   emailIdInput: {
     marginVertical: hp(2),
     marginHorizontal: wp(8),
     marginRight: wp(8),
-    flex: 0,
+    height: 'auto',
   },
   shareButton: { backgroundColor: 'transparent' },
   footer: {
@@ -124,4 +123,5 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     gap: hp(2),
   },
+  scrollContent: { flex: 1, paddingBottom: hp(5) },
 });

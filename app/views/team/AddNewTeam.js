@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../utils/HeaderButtons/Back';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../utils/responsive';
@@ -145,7 +144,7 @@ const AddNewTeam = () => {
   ]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Back
         onPress={() => navigation.goBack()}
         containerStyle={styles.backButtonContainer}
@@ -176,7 +175,7 @@ const AddNewTeam = () => {
       </View>
 
       <PrimaryButton title={'Save'} style={styles.saveButton} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -211,5 +210,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: customTheme.colors.slate_gray,
   },
-  schoolNameInput: { flex: 0, marginTop: hp(4) },
+  schoolNameInput: { flex: 0, marginTop: hp(4), height: 'auto' },
 });

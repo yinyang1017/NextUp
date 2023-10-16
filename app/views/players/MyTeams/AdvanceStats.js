@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useCallback } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
@@ -84,7 +83,7 @@ const AdvanceStats = () => {
   );
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <View style={styles.container}>
       <Back
         onPress={gobackHandler}
         title="Advance Statistics"
@@ -129,7 +128,7 @@ const AdvanceStats = () => {
           renderCustomItem={renderAnalyticsCustomItem}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

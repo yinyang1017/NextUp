@@ -146,7 +146,7 @@ Typography.loadTypographies({
     fontWeight: 'bold',
     fontSize: customTheme.fontSizes.size_32,
     fontFamily: customTheme.fontFamily.robotoBold,
-    lineheight: 40
+    lineheight: 40,
   },
   'input-label': {
     opacity: 0.6,
@@ -164,5 +164,5 @@ Typography.loadTypographies({
     fontWeight: '700',
     textTransform: 'uppercase',
     textDecorationLine: 'underline',
-  }
+  },
 });

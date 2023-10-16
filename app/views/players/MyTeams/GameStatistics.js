@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
 import Back from '../../../utils/HeaderButtons/Back';
 import GameHeader from '../../../components/games/LastGame/GameHeader';
@@ -8,9 +7,9 @@ import LastGameScoreTable from '../../../components/games/LastGame/LastGameScore
 import GameDropdownButton from '../../../components/games/LastGame/GameDropdownButton';
 import QuickBoxScore from '../../../components/games/QuickBoxScore/QuickBoxScore';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Text } from 'react-native-ui-lib';
-import { appImages } from '../../../constants/appImages';
+import { Text } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
+import CourtChartSVG from '../../../assets/images/icons-svgs/CourtChartSVG';
 
 const GameStatistics = () => {
   const navigation = useNavigation();
@@ -20,7 +19,7 @@ const GameStatistics = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <View style={styles.container}>
       <Back
         onPress={gobackHandler}
         title="Game Statistics"
@@ -58,9 +57,11 @@ const GameStatistics = () => {
         <Text medium-700 style={styles.quickScoreTitle}>
           Court Chart
         </Text>
-        <Image source={appImages.court} style={styles.courtImage} />
+        <View style={styles.courtChartContainer}>
+          <CourtChartSVG />
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -97,4 +98,5 @@ const styles = StyleSheet.create({
   },
   lastGameInfo: { marginHorizontal: wp(2) },
   scrollView: { paddingBottom: hp(isAndroid ? 3 : 5) },
+  courtChartContainer: { marginTop: hp(2), alignSelf: 'center' },
 });

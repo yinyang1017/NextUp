@@ -405,10 +405,10 @@ export function FormSelectable({ data, value, onChange, ...rest }) {
   );
 }
 
-export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, ...props }) {
+export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, containerStyle, ...props }) {
   return (
-    <View marginR-20 height={hp(12)}>
-      <View row spread centerH >
+    <View marginR-20 height={hp(12)} style={containerStyle}>
+      <View row spread centerH>
         <Text input-label>{label} {
           props?.required && <Text red10>*</Text>
         }</Text>

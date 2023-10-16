@@ -11,7 +11,7 @@ import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ImagePreviewProvider from './context/ImagePreviewProvider';
 import { statusBarHeight } from './components/common/ViewConatiner';
-import "./constants/theme-manager"
+import './constants/theme-manager';
 import './utils/typographies';
 
 export default function App() {
@@ -23,7 +23,11 @@ export default function App() {
           <AppProviders>
             <AuthProvider>
               <ImagePreviewProvider>
-                <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight + customTheme.spacings.spacing_12}></View>
+                <View
+                  backgroundColor={customTheme.colors.light.background}
+                  width={'100%'}
+                  height={statusBarHeight + customTheme.spacings.spacing_12}
+                />
                 <StatusBar
                   barStyle={customTheme.statusBarStyle}
                   backgroundColor={customTheme.colors.light.background}

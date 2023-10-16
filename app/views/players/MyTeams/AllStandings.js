@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
@@ -16,7 +15,7 @@ const AllStandings = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <View edges={['top']} style={styles.container}>
       <View style={styles.header}>
         <Back onPress={gobackHandler} title="Standings" />
         <TouchableOpacity style={styles.dropdown}>
@@ -25,7 +24,7 @@ const AllStandings = () => {
         </TouchableOpacity>
       </View>
       <StandingsTable />
-    </SafeAreaView>
+    </View>
   );
 };
 

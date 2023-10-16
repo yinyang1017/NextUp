@@ -4,7 +4,6 @@ import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import SetTimeModal, {
   getStaticTimeData,
@@ -110,7 +109,7 @@ export const CreatePractice = () => {
     : 'Select date';
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Back
         title="Create Practice"
         containerStyle={styles.back}
@@ -156,7 +155,7 @@ export const CreatePractice = () => {
         }}
         selectedDate={selectedDate ? selectedDate.format('YYYY-MM-DD') : ''}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -176,5 +175,5 @@ const styles = StyleSheet.create({
     columnGap: wp(4),
   },
   dateTimeDropdown: { flex: 1 },
-  tagInput: { flex: 0, marginTop: 0, marginRight: 0 },
+  tagInput: { flex: 0, marginTop: 0, marginRight: 0, height: 'auto' },
 });

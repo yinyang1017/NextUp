@@ -1,6 +1,5 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import TeamItem from '../../../components/common/TeamItem';
 import { hp, wp } from '../../../utils/responsive';
 import { SearchInput } from '../../../components/common/searchbar';
@@ -128,7 +127,7 @@ const Inbox = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {allChatChannelsData?.length ? (
         <View style={styles.headerTeamsContainer}>
           {allChatChannelsData?.map(item => (
@@ -165,7 +164,7 @@ const Inbox = () => {
           {coachInbox}
         </InboxTopTabs.Screen>
       </InboxTopTabs.Navigator>
-    </SafeAreaView>
+    </View>
   );
 };
 
