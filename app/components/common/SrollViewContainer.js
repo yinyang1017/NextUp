@@ -1,37 +1,84 @@
 import React from 'react';
-import { Platform, ScrollView, StatusBar, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native-ui-lib';
+import { Platform, ScrollView, StatusBar, StyleSheet, } from 'react-native';
 import { customTheme } from '../../constants';
+import { ScreenHeader } from './ScreenHeader';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { FormButton } from './FormInputs';
 
-export const ScrollViewContainer = props => {
+export const ScrollViewContainer = ({ children, headerTilte, showHeader }) => {
   const statusBarHeight =
     StatusBar.currentHeight * customTheme.spacings.spacing_8 ||
     (Platform.OS === 'ios'
-      ? customTheme.spacings.spacing_48
-      : customTheme.spacings.spacing_48); // Default values for iOS and Android
+      ? customTheme.spacings.spacing_16
+      : customTheme.spacings.spacing_16); // Default values for iOS and Android
   return (
-    <ScrollView
-      style={styles.scrollView}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={{
-        ...styles.content,
-        paddingTop: statusBarHeight,
-      }}>
-      {props.children}
-    </ScrollView>
+    <>
+      {
+        showHeader &&
+        < >
+          <ScreenHeader
+            title={headerTilte ?? ''}
+          />
+        </>
+      }
+      <ScrollView
+        contentContainerStyle={{
+          ...styles.content,
+        }}>
+        {children}
+      </ScrollView>
+    </>
+
   );
 };
 
+export const KeyBoardAvoidingView = ({
+  children,
+  headerTilte,
+  showHeader,
+  onPress = () => null,
+  label,
+  loading,
+  disabled,
+}) => {
+  return <>
+    {
+      showHeader &&
+      <View paddingH-16 >
+        <ScreenHeader
+          title={headerTilte ?? ''}
+        />
+      </View>
+    }
+    <KeyboardAvoidingScrollView contentContainerStyle={{
+      ...styles.content,
+    }}
+      stickyFooter={
+        <View paddingB-20 centerV backgroundColor={
+          customTheme.colors.background
+
+        }>
+          <FormButton
+            onPress={onPress}
+            label={label}
+            loading={loading}
+            disabled={disabled}
+          />
+        </View>
+
+      }
+    >
+      {children}
+    </KeyboardAvoidingScrollView>
+  </>
+
+
+}
 const styles = StyleSheet.create({
-  scrollView: {
-    maxWidth: '100%',
-    overflow: 'hidden',
-    width: '100%',
-    flex: 1,
-    backgroundColor: customTheme.colors.background,
-  },
   content: {
-    paddingHorizontal: customTheme.spacings.spacing_16,
+    paddingHorizontal: customTheme.spacings.spacing_12,
+    paddingBottom: customTheme.spacings.spacing_16,
     justifyContent: 'flex-start',
   },
 });

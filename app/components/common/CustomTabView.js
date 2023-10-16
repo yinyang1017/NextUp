@@ -1,7 +1,8 @@
 import React from 'react';
-import { Animated, View, TouchableOpacity } from 'react-native';
+import { Animated, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { customTheme } from '../../constants';
 import { hp } from '../../utils/responsive';
+import { Text } from 'react-native-ui-lib';
 
 export function CustomTabView({ state, descriptors, navigation, position }) {
   return (
@@ -17,8 +18,8 @@ export function CustomTabView({ state, descriptors, navigation, position }) {
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-            ? options.title
-            : route.name;
+              ? options.title
+              : route.name;
 
         const isFocused = state.index === index;
 
@@ -62,17 +63,30 @@ export function CustomTabView({ state, descriptors, navigation, position }) {
               paddingBottom: hp(1),
             }}
             key={index}>
-            <Animated.Text
-              style={{
-                color: customTheme.colors.light,
-                opacity: isFocused ? 1 : 0.6,
-                textAlign: 'center',
-              }}>
+            <Text animated
+              style={isFocused ? styles.focusedStyle : styles.unFocusedStyle}>
               {label}
-            </Animated.Text>
+            </Text>
           </TouchableOpacity>
         );
       })}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  focusedStyle: {
+    color: customTheme.colors.light,
+    textAlign: 'center',
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoMedium,
+    fontWeight: '800'
+  },
+  unFocusedStyle: {
+    color: customTheme.colors.white,
+    textAlign: 'center',
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoMedium,
+    opacity: 0.6
+  }
+})

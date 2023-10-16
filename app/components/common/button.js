@@ -46,7 +46,6 @@ export const RoundButtons = ({ action, iconName, style, upload, msgImg }) => (
       },
     ]}
     onPress={action}>
-    {console.log(msgImg)}
     {/* {upload ? (
       <Image
         resizeMode={'cover'}

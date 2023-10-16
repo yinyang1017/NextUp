@@ -14,24 +14,29 @@ import {
 } from '../../../hooks/useOnBoarding';
 import { Controller } from 'react-hook-form';
 import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
-import * as schoolsData from '../../../utils/data/schools.json';
-import * as class_years from '../../../utils/data/classYears.json';
-import { errorMessageOnType } from '../../../utils/helper';
+import { useLookup } from '../../../hooks/useLookup';
 
 export default function PlayerDetails() {
   const { onBoardingCount, handleOnBoarding, handleNavigation, handleBack } =
     useOnBoarding();
-  const { control, errors, schools, classesOfYears, handleSubmit } =
+  const { control, setValue, handleSubmit } =
     useEnterPorfileDetails();
+  const {
+    states,
+    cities,
+    queryFilter
+  } = useLookup()
   const onSubmit = data => {
-    handleOnBoarding(data);
-    handleNavigation('PlayerStyle');
+    handleOnBoarding(data, () => {
+      handleNavigation('PlayerStyle');
+    });
+
   };
 
   return (
-    <OnBoardingWrapper backButtonAction={handleBack} handleForm={handleSubmit(onSubmit)} title='Enter Profile Details' label={'Confirm'} progress={onBoardingCount}>
-      <View useSafeArea marginT-12 flex>
-        <View row spread center >
+    <OnBoardingWrapper backButtonAction={handleBack} handleForm={handleSubmit(onSubmit)} title='Enter Profile Details' label={'Confirm'} progress={40}>
+      <>
+        <View row spread  >
           <Controller
             name="personalInfo.firstName"
             control={control}
@@ -55,7 +60,11 @@ export default function PlayerDetails() {
               <FormInputField
                 label={'First Name'}
                 value={value ?? ''}
+                required
+                removeSpace
+                placeholder="Enter First Name"
                 onChangeText={onChange}
+                width={'40%'}
                 error={
                   error && error?.message
                 }
@@ -84,13 +93,14 @@ export default function PlayerDetails() {
 
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <>
-                {
-                  // console.log('error', error)
-                }
                 <FormInputField
                   label={'Last Name'}
                   value={value ?? ''}
+                  required
+                  removeSpace
+                  placeholder="Enter Last Name"
                   onChangeText={onChange}
+                  width={'40%'}
                   error={
                     error && error?.message
                   }
@@ -114,6 +124,7 @@ export default function PlayerDetails() {
               placeholder="Select date"
               value={value ?? null}
               onChange={onChange}
+              required
               error={
                 error && error?.message
               }
@@ -122,44 +133,66 @@ export default function PlayerDetails() {
           }
           }
         />
-        <Controller
-          name="schoolInfo.name"
-          control={control}
-          rules={{
-            required: 'School is required',
-          }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <FormInputPicker
-              value={value ?? null}
-              data={schoolsData.schools}
-              label={'School'}
-              title="Search for school"
-              onValueChange={value => onChange(value)}
-              error={
-                error && error?.message
-              }
-            />
-          )}
-        />
-        <Controller
-          name="schoolInfo.classOff"
-          control={control}
-          rules={{
-            required: 'Class is required',
-          }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <FormInputPicker
-              value={value ?? null}
-              data={class_years?.class_years}
-              label={'Class'}
-              title="Search for class"
-              onValueChange={value => onChange(value)}
-              error={
-                error && error?.message
-              }
-            />
-          )}
-        />
+        <View row >
+          <Controller
+            name="personalInfo.state"
+            control={control}
+            rules={{
+              required: 'State is required',
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <View width={'50%'}>
+                <FormInputPicker
+                  value={value ?? null}
+                  data={states}
+                  label={'State'}
+                  required
+                  title="Search for state"
+                  placeholder="Select State"
+                  onValueChange={value => {
+                    queryFilter('state', value?.value)
+                    setValue('personalInfo.city', '')
+                    onChange(value.value)
+                  }}
+
+                  error={
+                    error && error?.message
+                  }
+                />
+              </View>
+
+            )}
+          />
+          <Controller
+            name="personalInfo.city"
+            control={control}
+            rules={{
+              required: 'City is required',
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <View width={'50%'}>
+                <FormInputPicker
+                  required
+                  value={value ?? null}
+                  data={cities}
+                  label={'City'}
+                  title="Search for city"
+                  placeholder="Select City"
+                  onValueChange={value => {
+                    onChange(value.value)
+                  }}
+
+                  error={
+                    error && error?.message
+                  }
+                />
+              </View>
+
+            )}
+          />
+
+        </View>
+
         <View row centerH spread>
           <Controller
             name="personalInfo.height"
@@ -172,6 +205,8 @@ export default function PlayerDetails() {
               <FormMaskedInput
                 label={'Height'}
                 value={value ?? ''}
+                tailLabel={'INCH'}
+                placeholder="Enter Height"
                 onChangeText={onChange}
                 forHeight
                 onValueChange={pickvalue => {
@@ -182,13 +217,14 @@ export default function PlayerDetails() {
                 }
                 data={[
                   {
-                    label: 'CM',
-                    value: 'CM',
+                    label: 'INCH',
+                    value: 'INCH',
                   },
                   {
-                    label: 'IN',
-                    value: 'IN',
+                    label: 'FEET',
+                    value: 'FEET',
                   },
+
                 ]}
                 keyboardType="numeric"
               />
@@ -205,29 +241,28 @@ export default function PlayerDetails() {
               <FormMaskedInput
                 label={'Weight'}
                 value={value ?? ''}
+                tailLabel={'KG'}
+                placeholder="Enter Weight"
                 onChangeText={onChange}
                 onValueChange={pickvalue => {
                   onChange(pickvalue);
                 }}
                 data={[
                   {
-                    label: 'KG',
-                    value: 'KG',
-                  },
-                  {
-                    label: 'LB',
-                    value: 'LB',
+                    label: 'LBS',
+                    value: 'LBS',
                   },
                 ]}
                 error={
                   error && error?.message
                 }
+
                 keyboardType="numeric"
               />
             )}
           />
         </View>
-      </View>
+      </>
     </OnBoardingWrapper>
   );
 }

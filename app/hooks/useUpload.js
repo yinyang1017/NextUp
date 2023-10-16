@@ -76,7 +76,7 @@ export const useUpload = () => {
           type: file.type,
         });
         const resp = await makeUploadApiRequest(formData);
-        console.log(resp, 'api resp');
+
         if (resp?.data?.error) {
           throw new Error('Cannot upload file. Please try again.');
         }

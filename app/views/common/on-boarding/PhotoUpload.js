@@ -16,7 +16,6 @@ import UpdloadTypeDialog from "../../../components/common/UploadTypeDialog"
 export default function PhotoUpload() {
     const navigation = useNavigation();
     const routes = useRoute();
-    console.log(routes.params)
     const { isMale, user, isCoach, onRecheckingAuth } = useAuth();
 
     const { mutate: updateProfilePick, isLoading: isUpdating } = useUserUpdateCertificates(
@@ -51,8 +50,8 @@ export default function PhotoUpload() {
 
     };
     const handleSkip = () => {
-        console.log('skip', isCoach)
-        if (isCoach || routes.params?.isCoach) {
+        if (isCoach) {
+            console.log('isCoach', isCoach)
             navigation.navigate('DocumentVerification')
             return
         }
@@ -60,8 +59,8 @@ export default function PhotoUpload() {
         // navigation.navigate('DocumentVerification')
     }
     return (
-        <OnBoardingWrapper progress={80} handleForm={handlePress} skip onSkip={handleSkip}>
-            <View marginV-24 flex>
+        <OnBoardingWrapper progress={80} handleForm={handlePress} skip onSkip={handleSkip} loading={isUpdating} disabled={isUploading?.loading}>
+            <>
                 <Text
                     white
                     style={{
@@ -118,7 +117,7 @@ export default function PhotoUpload() {
                     visible={isUploading.loading}
                     loadingMessage={`${uploadProgress} %`}
                 />
-            </View>
+            </>
             <UpdloadTypeDialog
                 isVisible={upload}
                 handlePick={pickDocument}

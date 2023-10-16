@@ -14,10 +14,11 @@ const appImages = {
   playerRequestIcon: require('../assets/images/playerprofileIcon.png'),
   playerCompareIcon: require('../assets/images/playerprofileIcon2.png'),
   defaultAvatarImage: require('../assets/images/AvatarImage.png'),
-
   placeHolderPhotoIdBorder: require('../assets/images/placeHolder_photoid_border.png'),
   placeholderPhotoId: require('../assets/images/Placeholder_PhotoId.png'),
   certificateCoaching: require('../assets/images/certificate_coaching.png'),
+  coachOnboardingIcon: require('../assets/images/coach_onboard_icon.png'),
+  practiceCardImage: require('../assets/practice_court.png'),
   // backIcon: require('../assets/images/back_ico.png'),
   // maleProfile: require('../assets/images/maleProfile.jpg'),
   // femaleProfile: require('../assets/images/FemalePlayerProfile.jpg'),

@@ -14,67 +14,41 @@ import {
   useOnBoarding,
 } from '../../../hooks/useOnBoarding';
 import { Controller } from 'react-hook-form';
+import { useLookup } from '../../../hooks/useLookup';
 
 export default function CoachDetails() {
   const {
-    onBoardingCount,
     handleOnBoarding,
     handleNavigation,
     handleBack,
-    states,
     handleCoachRegistration
   } = useOnBoarding();
-  const { control, cities, handleSubmit, chekIfStateSelected } = useCoachPorfileDetails();
+  const {
+    resetFilter,
+    queryFilter,
+    states,
+    cities,
+  } = useLookup()
+
+  const { control, handleSubmit, setValue, chekIfStateSelected } = useCoachPorfileDetails();
   const onSubmit = data => {
     handleOnBoarding(data, () => handleCoachRegistration(data));
     // const screenName = 'PhotoUpload';
     // handleNavigation(screenName);
   };
   return (
-    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} progress={onBoardingCount} title='Enter Coach Details' backButtonAction={handleBack} >
-
-
-      <View useSafeArea marginT-12 flex>
-        <View row>
+    <OnBoardingWrapper handleForm={handleSubmit(onSubmit)} label={'Confirm'} progress={60} title='Enter Coach Details' backButtonAction={handleBack} >
+      <>
+        <View row spread  >
           <Controller
-            name="firstName"
-            control={control}
-            rules={{
-              required: 'First Name is required',
-              maxLength: {
-                value: 50,
-                message: 'First Name must be less than 50 characters',
-              },
-              minLength: {
-                value: 3,
-                message: 'First Name must be more than 3 characters',
-              },
-              pattern: {
-                value: /^[a-zA-Z ]+$/,
-                message: 'First Name must contain only alphabets',
-              },
-            }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormInputField
-                label={'First Name'}
-                value={value ?? ''}
-                onChangeText={onChange}
-                required
-                error={error}
-                placeholder={'Enter First Name'}
-              />
-            )}
-          />
-          <Controller
-            name="lastName"
+            name="personalInfo.firstName"
             control={control}
             rules={{
               required: 'Last Name is required',
               maxLength: {
                 value: 50,
                 message: 'Last Name must be less than 50 characters',
-              }
-              ,
+              },
               minLength: {
                 value: 3,
                 message: 'Last Name must be more than 3 characters',
@@ -83,23 +57,66 @@ export default function CoachDetails() {
                 value: /^[a-zA-Z ]+$/,
                 message: 'Last Name must contain only alphabets',
               },
+
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <FormInputField
-                label={'Last Name'}
+                label={'First Name'}
                 value={value ?? ''}
-                onChangeText={onChange}
                 required
-                error={error}
-                placeholder={'Enter Last Name'}
+                removeSpace
+                placeholder="Enter First Name"
+                onChangeText={onChange}
+                width={'50%'}
+                error={
+                  error && error?.message
+                }
               />
             )}
           />
+          <Controller
+            name="personalInfo.lastName"
+            control={control}
+            rules={{
+              required: 'Last Name is required',
+              maxLength: {
+                value: 50,
+                message: 'Last Name must be less than 50 characters',
+              },
+              minLength: {
+                value: 3,
+                message: 'Last Name must be more than 3 characters',
+              },
+              pattern: {
+                value: /^[a-zA-Z ]+$/,
+                message: 'Last Name must contain only alphabets',
+              },
+
+            }}
+
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <FormInputField
+                  label={'Last Name'}
+                  value={value ?? ''}
+                  required
+                  removeSpace
+                  placeholder="Enter Last Name"
+                  onChangeText={onChange}
+                  width={'40%'}
+                  error={
+                    error && error?.message
+                  }
+                />
+              </>
+
+            )}
+          />
         </View>
-        <View row center>
+        <View row >
           <Controller
             control={control}
-            name="coachingType.state"
+            name="personalInfo.state"
             rules={{
               required: {
                 value: true,
@@ -107,38 +124,49 @@ export default function CoachDetails() {
               },
             }}
             render={({ field: { onChange, value } }) => (
-              <FormInputPicker
-                value={value}
-                data={states}
-                label={'State'}
-                required
-                title="Search for state.."
-                placeholder="Select State"
-                onValueChange={value => onChange(value)}
-              />
+              <View width={'50%'}>
+                <FormInputPicker
+                  value={value}
+                  data={states}
+                  label={'State'}
+                  required
+                  title="Search for state.."
+                  placeholder="Select State"
+                  onValueChange={value => {
+                    setValue('personalInfo.city', '')
+                    queryFilter('state', value?.value)
+
+                    onChange(value?.value)
+                  }}
+                />
+              </View>
+
             )}
           />
           <Controller
             control={control}
-            name="coachingType.city"
+            name="personalInfo.city"
             render={({ field: { onChange, value } }) => (
-              <FormInputPicker
-                value={value}
-                data={cities}
-                label={'City'}
-                title="Search for city.."
-                required
-                placeholder="Select City"
-                onValueChange={value => {
-                  if (chekIfStateSelected()) {
-                    onChange(value)
-                  }
-                }}
-              />
+              <View width={'50%'}>
+                <FormInputPicker
+                  value={value}
+                  data={cities}
+                  label={'City'}
+                  title="Search for city.."
+                  required
+                  placeholder="Select City"
+                  onValueChange={value => {
+                    if (chekIfStateSelected()) {
+                      onChange(value.value)
+                    }
+                  }}
+                />
+              </View>
+
             )}
           />
         </View>
-      </View>
+      </>
 
     </OnBoardingWrapper>
   );

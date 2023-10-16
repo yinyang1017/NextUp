@@ -33,7 +33,6 @@ export default function OnBoardingStack() {
         <Stack.Screen name="CoachDetails" component={CoachDetails} />
         <Stack.Screen name="PlayerStyle" component={PlayerStyle} />
         <Stack.Screen name="PhotoUpload" component={PhotoUpload} />
-        <Stack.Screen name="CoachingLocation" component={SelectCoachingLocation} />
         <Stack.Screen name="DocumentVerification" component={DocumentVerification} />
 
       </Stack.Navigator>

@@ -40,6 +40,14 @@ const authReducer = (state, action) => {
           onBoardingDone: action.payload.onBoardingDone,
         },
       };
+    case 'UPDATE_TYPE_OF_USER':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          typeOfUser: action.payload.typeOfUser,
+        },
+      }
     default:
       return state;
   }
@@ -103,11 +111,20 @@ export default function AuthProvider({ children }) {
     })
 
   }
+  const updateTypeOfUser = (type) => {
+    dispatch({
+      type: 'UPDATE_TYPE_OF_USER',
+      payload: {
+        typeOfUser: type
+      }
+    })
+
+  }
 
 
 
   function onAuthStateChanged(user) {
-    // console.log(user, 'in auth state')
+    console.log(user, 'in auth state')
     if (user) {
       const dataToSend = {
         email: user.email,
@@ -143,6 +160,7 @@ export default function AuthProvider({ children }) {
     logout,
     updateOnBoarding,
     onRecheckingAuth,
+    updateTypeOfUser
   };
 
   return (

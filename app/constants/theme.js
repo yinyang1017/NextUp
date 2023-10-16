@@ -2,8 +2,6 @@ import { DefaultTheme } from '@react-navigation/native';
 import { Colors } from 'react-native-ui-lib';
 import { MyColors } from './colors';
 
-const baseFontSize = 4; // Define a base font size for normal screens
-const baseSpacing = 4; // Define a base spacing unit for normal screens
 
 export const customTheme = {
   ...DefaultTheme,
@@ -93,3 +91,4 @@ export const customTheme = {
     paddingTop: 48,
   },
 };
+

@@ -6,20 +6,19 @@ import {
 import { customTheme } from '../../../constants';
 import { useOnBoarding, useTellUsMore } from '../../../hooks/useOnBoarding';
 import { appImages } from '../../../constants/appImages';
-import * as cities from '../../../utils/data/cities.json';
-import * as states from '../../../utils/data/states.json';
 import OnBoardingWrapper from '../../../components/common/OnBoardingWrapper';
 import {
   FormActionPicker,
-  FormButton,
   FormInputField,
   FormInputPicker,
   FormRadioGroup,
   FormSelectable,
 } from '../../../components/common/FormInputs';
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { Alert } from 'react-native';
+import { useLookup } from '../../../hooks/useLookup';
 export default function TellUsMore() {
-  const { onBoardingCount, handleOnBoarding, handleNavigation, states, handleBack } =
+  const { handleOnBoarding, handleNavigation, handleBack } =
     useOnBoarding();
   const {
     control,
@@ -27,18 +26,60 @@ export default function TellUsMore() {
     playerImg,
     isPlayer,
     isCoach,
-    cities,
     isTravelTeam,
+    setValue,
     chekIfStateSelected,
     handleSubmit,
   } = useTellUsMore();
+  const {
+    resetFilter,
+    queryFilter,
+    schools,
+    cities,
+    states,
+    classOfYears,
+    query
+  } = useLookup()
   const onSubmit = data => {
+    console.log('onBoardingCount', data);
     handleOnBoarding(data, () => {
-      const screenName = isPlayer ? 'PlayerDetails' : 'CoachingLocation';
+      const screenName = isPlayer ? 'PlayerDetails' : 'CoachDetails';
       handleNavigation(screenName);
     });
 
   };
+
+  const _renderInputFilter = (value) => {
+    return < >
+      <View width={'50%'} marginR-4>
+        <FormInputPicker
+          data={states ?? []}
+          value={query?.state ?? ''}
+          label={'State'}
+          title="Search for States"
+          placeholder="Select State"
+          onValueChange={value => {
+            queryFilter('state', value?.value)
+          }}
+        />
+      </View>
+      <View width={'50%'}>
+        <FormInputPicker
+          data={cities ?? []}
+          label={'City'}
+          value={query?.city}
+          title="Search for city"
+          placeholder="City"
+          onValueChange={value => {
+            queryFilter('city', value?.value)
+          }}
+        />
+      </View>
+
+
+
+    </>
+  }
   // console.log('onBoardingCount', states);
   const _renderPlayerInputs = () => (<>
     <Controller
@@ -61,81 +102,96 @@ export default function TellUsMore() {
     />
     <Controller
       control={control}
-      name="state"
+      name="schoolInfo"
       rules={{
-        required: 'Please select a state',
+        required: 'Please select a school',
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
-        // console.log('error', error);
+
         return <FormInputPicker
-          value={value}
-          data={states ?? []}
+          value={value?.value || value}
+          data={schools ?? []}
           required
-          label={'States'}
-          title="Search for states"
-          onValueChange={value => onChange(value)}
+          renderFilter={() => {
+            return _renderInputFilter(value);
+          }}
+          label={'School'}
+          title="Search for Schools"
+          placeholder="Select School"
+          onValueChange={value => {
+            resetFilter()
+            onChange(value)
+          }}
           error={
             error && error?.message
           }
+
 
         />
       }}
     />
     <Controller
       control={control}
-      name="city"
+      name="schoolInfo.classOff"
       rules={{
-        required: 'Please select a city',
+        required: 'Please select a class off',
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <>
+        <View width={'50%'}>
           <FormInputPicker
             value={value}
             required
-            data={cities ?? []}
-            label={'Cities'}
-            title="Search for cities.."
+            data={classOfYears ?? []}
+            label={'Class Off'}
+            title="Search for class off"
+            placeholder="Select Class off"
             onValueChange={value => {
-              if (chekIfStateSelected()) {
-                onChange(value)
-              }
+              onChange(value.value)
             }}
             error={
               error && error?.message
             }
           />
-        </>
+        </View>
       )}
     />
 
   </>)
   const _renderCoachSubInputs = () => (<>
-    <View row center>
-      <Controller
-        control={control}
-        name="onBoardingTeamName"
-        rules={
-          {
+    <View row >
+      <View width={'50%'}>
+        <Controller
+          control={control}
+          name="schoolInfo"
+          rules={{
             required: 'Please select a team',
-          }
-        }
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <>
-            <FormActionPicker
-              value={value}
-              data={states}
-              label={'Select Team'}
-              title="Search for teams.."
+          }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => {
+
+            return <FormInputPicker
+              value={value?.value || value}
+              data={schools ?? []}
               required
-              onValueChange={value => onChange(value)}
+              renderFilter={() => {
+                return _renderInputFilter(value);
+              }}
+              label={'Team'}
+              title="Search for team"
+              placeholder="Select Team"
+              onValueChange={value => {
+                resetFilter()
+                onChange(value)
+              }}
               error={
                 error && error?.message
               }
-            />
-          </>
 
-        )}
-      />
+
+            />
+          }}
+        />
+      </View>
+
       <Controller
         control={control}
         name="schoolInfo.gender"
@@ -143,18 +199,20 @@ export default function TellUsMore() {
           required: 'Please select a gender',
         }}
         render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <FormActionPicker
-            value={value}
-            data={['Boys', 'Girls']}
-            required
-            label={'Gender'}
-            title="Search for cities.."
-            onValueChange={value => onChange(value)}
-            error={
-              error && error?.message
-            }
+          <View width={'50%'}>
+            <FormActionPicker
+              value={value}
+              data={['Boy', 'Girl']}
+              required
+              label={'Gender'}
+              placeholder="Select Gender"
+              onValueChange={value => onChange(value)}
+              error={
+                error && error?.message
+              }
+            />
+          </View>
 
-          />
         )}
       />
     </View>
@@ -171,12 +229,11 @@ export default function TellUsMore() {
             required
             data={['Jr & Varsity', 'Varsity', 'Both']}
             label={'Level'}
-            title="Search for levels.."
+            placeholder="Select Level"
             onValueChange={value => onChange(value)}
             error={
               error && error?.message
             }
-
           />
         )}
       />
@@ -216,7 +273,7 @@ export default function TellUsMore() {
   const _renderTravelTeamInputs = () => (
     <>
       <Controller
-        name="coachingType.schoolName"
+        name="onBoardingTeamName"
         control={control}
         rules={{
           required: 'Last Name is required',
@@ -247,55 +304,63 @@ export default function TellUsMore() {
           />
         )}
       />
-      <View row spread centerH>
+      <View row >
         <Controller
           control={control}
-          name="state"
+          name="coachingType.state"
           rules={{
             required: 'Please select a state',
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => {
-            // console.log('error', error);
-            return <FormInputPicker
-              value={value}
-              data={states ?? []}
-              required
-              label={'States'}
-              placeholder="Select State"
-              title="Search for states"
-              onValueChange={value => {
-                onChange(value)
-              }}
-              error={
-                error && error?.message
-              }
 
-            />
+            // console.log('error', error);
+            return <View width={'50%'}>
+              <FormInputPicker
+                value={value}
+                data={states ?? []}
+                required
+                label={'States'}
+                placeholder="Select State"
+                title="Search for states"
+                onValueChange={value => {
+                  queryFilter('state', value?.value)
+                  onChange(value?.value)
+                }}
+                error={
+                  error && error?.message
+                }
+
+              />
+
+            </View>
           }}
         />
         <Controller
           control={control}
-          name="city"
+          name="coachingType.city"
           rules={{
             required: 'Please select a city',
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <FormInputPicker
-              value={value}
-              required
-              data={cities ?? []}
-              label={'Cities'}
-              title="Search for cities.."
-              placeholder="Select City"
-              onValueChange={value => {
-                if (chekIfStateSelected()) {
-                  onChange(value)
+            <View width={'50%'}>
+              <FormInputPicker
+                value={value}
+                required
+                data={cities ?? []}
+                label={'Cities'}
+                title="Search for cities.."
+                placeholder="Select City"
+                onValueChange={value => {
+                  if (chekIfStateSelected()) {
+                    onChange(value?.value)
+                  }
+                }}
+                error={
+                  error && error?.message
                 }
-              }}
-              error={
-                error && error?.message
-              }
-            />
+              />
+            </View>
+
           )}
         />
       </View>
@@ -396,7 +461,7 @@ export default function TellUsMore() {
                 {
                   label: 'COACH',
                   value: 'COACH',
-                  imgSrc: appImages.player_male,
+                  imgSrc: appImages.coachOnboardingIcon,
                 },
               ]}
             />

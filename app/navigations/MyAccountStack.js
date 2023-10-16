@@ -2,8 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../hooks/useAuth';
 import PlayerAccount from '../views/common/account/PlayerAccount';
-import PlayerDetails from '../views/common/on-boarding/PlayerDetails';
+
 import PlayerAccountDetails from '../views/players/PlayerProfile/PlayerAccountDetails';
+import EditProfile from '../views/common/account/EditProfile';
 
 export default function MyAccountStack() {
 
@@ -18,6 +19,7 @@ export default function MyAccountStack() {
         }}>
         <Stack.Screen name='PlayerAccount' component={PlayerAccount} />
         <Stack.Screen name='PlayerAccountDetails' component={PlayerAccountDetails} />
+        <Stack.Screen name='EditProfile' component={EditProfile} />
     </Stack.Navigator>)
     return _renderPlayerStack();
 }
