@@ -29,14 +29,16 @@ import { ActivityIndicator, Dimensions, Pressable, Modal as NativeModal, FlatLis
 import { ViewContainer, statusBarHeight } from './ViewConatiner';
 import moment from 'moment';
 import { hp } from '../../utils/responsive';
+import Back from '../../utils/HeaderButtons/Back';
 const dropdownIcon = (
   <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
 );
 const searchIcon = (
   <FontAwesomeIcon icon={faSearch} color={customTheme.colors.light} />
 )
-const _renderCustomModal = (modalProps) => {
-  const { visible, children, toggleModal, onDone, label, onSearchChange, title, ...rest } = modalProps;
+
+export const _renderCustomModal = (modalProps) => {
+  const { visible, children, toggleModal, onDone, label, onSearchChange, title, scrollViewContentContainer, ...rest } = modalProps;
   return (
     <Modal
       visible={visible}
@@ -51,34 +53,14 @@ const _renderCustomModal = (modalProps) => {
         backgroundColor={customTheme.colors.background}
         paddingH-16
       >
-        <View row alignItems='center'>
-          <Pressable
-            style={{
-
-              borderWidth: 1,
-              borderColor: customTheme.colors.tertiary,
-              borderRadius: Layout.width * 0.03,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingHorizontal: customTheme.spacings.spacing_12,
-              paddingVertical: customTheme.spacings.spacing_8,
-              marginRight: customTheme.spacings.spacing_12
-            }}
-            onPress={() => {
-              toggleModal(false);
-              onDone();
-            }}
-          >
-            <FontAwesomeIcon
-              color={customTheme.colors.white}
-              style={{
-                fontSize: customTheme.spacings.spacing_16,
-              }}
-              icon={faArrowLeft}
-            />
-          </Pressable>
-          <Text textAlign='center' white marginL-8>{label}</Text>
-        </View>
+        <Back
+          title={label}
+          onPress={() => {
+            toggleModal(false);
+            onDone();
+          }}
+          containerStyle={{ marginVertical: hp(1) }}
+        />
         <TextField
           marginT-16
           placeholder={title}

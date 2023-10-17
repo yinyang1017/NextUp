@@ -10,9 +10,11 @@ import { customTheme } from '../../../constants';
 import { Text } from 'react-native-ui-lib';
 import CheckboxItem from '../../../components/common/CheckboxItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
+import { useAuth } from '../../../hooks/useAuth';
 
 const LineupDetails = () => {
   const navigation = useNavigation();
+  const { isCoach } = useAuth();
 
   const gobackHandler = () => {
     navigation.goBack();
@@ -40,6 +42,7 @@ const LineupDetails = () => {
       />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
+        bounces={isCoach}
         showsVerticalScrollIndicator={false}>
         <HeaderGreyComponent title="Selected Player" />
         <View style={styles.rowWrap}>
@@ -52,23 +55,27 @@ const LineupDetails = () => {
         <View style={styles.rowWrap}>
           {times(10).map((item, index) => renderAvatarItem(item, index, true))}
         </View>
-        <Text medium-500 style={styles.selectedPlayersText}>
-          <Text medium-500 color={customTheme.colors.secondary}>
-            5/5
-          </Text>{' '}
-          Players Selected
-        </Text>
-        <CheckboxItem
-          title={'Mark as a Default'}
-          containerStyle={styles.markAsDefaultCheckBox}
-        />
-        <View style={styles.footer}>
-          <PrimaryButton title={'Edit Lineup'} />
-          <PrimaryButton
-            title={'Delete Lineup'}
-            style={styles.deleteLineupButton}
-          />
-        </View>
+        {isCoach && (
+          <>
+            <Text medium-500 style={styles.selectedPlayersText}>
+              <Text medium-500 color={customTheme.colors.secondary}>
+                5/5
+              </Text>{' '}
+              Players Selected
+            </Text>
+            <CheckboxItem
+              title={'Mark as a Default'}
+              containerStyle={styles.markAsDefaultCheckBox}
+            />
+            <View style={styles.footer}>
+              <PrimaryButton title={'Edit Lineup'} />
+              <PrimaryButton
+                title={'Delete Lineup'}
+                style={styles.deleteLineupButton}
+              />
+            </View>
+          </>
+        )}
       </ScrollView>
     </View>
   );

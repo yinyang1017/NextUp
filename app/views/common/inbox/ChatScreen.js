@@ -20,39 +20,32 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { BASE_URL } from '../../../hooks/useUpload';
 import { errorToast } from '../../../utils/toast';
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 import AppLoader from '../../../utils/Apploader';
 import { CHAT_ENUMS } from '../../../utils/chatEnums';
 import { isJsonString } from '../../../utils/helper';
 
 const ChatScreen = () => {
-  const [messages, setMessages] = useState([]);
   const screenParams = useRoute().params;
+  const { bottom } = useSafeAreaInsets();
+  const { mutate: sendChatMessageMutation } = useSendChatMessage();
+  const { user } = useAuth();
+  const isFocus = useIsFocused();
 
+  const [messages, setMessages] = useState([]);
   const [isSendingImageMessage, setIsSendingImageMessage] = useState(false);
 
   const chatInfo = useMemo(() => screenParams?.chatInfo || {}, [screenParams]);
-
   const isGroup = chatInfo?.type === 'GROUP';
-
   const chatName = isGroup ? chatInfo?.groupName : chatInfo?.otherUserName;
-
   const chatProfileImage = isGroup
     ? chatInfo?.groupLogoUrl
     : chatInfo?.userProfilePicUrl;
-
-  const { mutate: sendChatMessageMutation } = useSendChatMessage();
-
-  const isFocus = useIsFocused();
-
-  const { user } = useAuth();
-
   const loginUserInfo = {
     _id: user?.id,
     name: chatName,
     avatar: chatProfileImage,
   };
-
   const commonSendMessageParam = useMemo(
     () => ({
       senderId: user?.id,
@@ -62,6 +55,19 @@ const ChatScreen = () => {
       senderProfilePictureUrl: user?.personalInfo?.profilePictureURL || '',
     }),
     [chatInfo, user],
+  );
+  const extraContainerStyle = {
+    paddingBottom: bottom ? bottom + hp(0.8) : 0,
+  };
+
+  const chatEventSource = useMemo(
+    () =>
+      new EventSource(baseUrl + '/message/stream/' + chatInfo?.channelId, {
+        pollingInterval: 3600000,
+        debug: true,
+        timeout: 30000,
+      }),
+    [chatInfo],
   );
 
   const onSend = newMessages => {
@@ -137,12 +143,6 @@ const ChatScreen = () => {
     [uploadChatImagesHandler],
   );
 
-  const { bottom } = useSafeAreaInsets();
-
-  const extraContainerStyle = {
-    paddingBottom: bottom ? bottom + hp(0.8) : 0,
-  };
-
   const renderBubble = useCallback(props => {
     if (props.currentMessage?.messageType === CHAT_ENUMS.MESSSAGE_TYPE.BANNER) {
       return (
@@ -182,22 +182,10 @@ const ChatScreen = () => {
     }
   };
 
-  const chatEventSource = useMemo(
-    () =>
-      new EventSource(baseUrl + '/message/stream/' + chatInfo?.channelId, {
-        pollingInterval: 3600000,
-        debug: true,
-        timeout: 30000,
-        headers: { accept: 'text/event-stream' },
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
   useEffect(() => {
     if (isFocus) {
-      chatEventSource.addEventListener('open', () => {
-        console.log('Open SSE connection.');
+      chatEventSource.addEventListener('open', e => {
+        console.log('Open SSE connection.', e);
       });
       chatEventSource.addEventListener('message', event => {
         console.log('New message event:', JSON.parse(event.data));
@@ -253,8 +241,5 @@ export default ChatScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, marginTop: -hp(2) },
-  chatChallengeContainer: {
-    marginVertical: hp(2),
-    width: '100%',
-  },
+  chatChallengeContainer: { marginVertical: hp(2), width: '100%' },
 });

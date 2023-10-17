@@ -17,7 +17,7 @@ import {
   FormInputField,
   FormRadioGroup,
 } from '../../components/common/FormInputs';
-import { times } from 'lodash';
+import times from 'lodash/times';
 
 const AddNewTeam = () => {
   const navigation = useNavigation();
@@ -65,6 +65,23 @@ const AddNewTeam = () => {
   const ageData = useMemo(() => times(5).map(i => i + 13 + '  &  Under'), []);
 
   const HighSchoolForm = useCallback(() => {
+    const renderSchoolItem = item => {
+      const name = item.name;
+      const color = customTheme.colors.light;
+
+      return (
+        <Picker.Item
+          onPress={() => {
+            setSelectedHighSchoolCoaching(name);
+          }}
+          label={name}
+          value={name}
+          selectedIconColor={color}
+          labelStyle={{ color }}
+        />
+      );
+    };
+
     return (
       <>
         <SelectionDropdown
@@ -72,17 +89,7 @@ const AddNewTeam = () => {
           title={'Select School'}
           value={selectedHighSchoolCoaching}
           data={schoolsData?.data || []}
-          renderItem={item => {
-            return (
-              <Picker.Item
-                onPress={() => {
-                  setSelectedHighSchoolCoaching(item.name);
-                }}
-                label={item.name}
-                value={item.name}
-              />
-            );
-          }}
+          renderItem={renderSchoolItem}
         />
         <SelectionDropdown
           containerStyle={{ marginTop: hp(3) }}
@@ -90,6 +97,7 @@ const AddNewTeam = () => {
           value={selectedTeamYear}
           data={classesData?.data || []}
           onSelectItem={setSelectedTeamYear}
+          onSearchChange={() => {}}
         />
       </>
     );

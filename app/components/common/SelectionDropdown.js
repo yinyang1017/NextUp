@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { hp, wp } from '../../utils/responsive';
 import { Colors, customTheme } from '../../constants';
 import { Picker } from 'react-native-ui-lib';
+import { _renderCustomModal } from './FormInputs';
 
 const SelectionDropdown = ({
   title,
@@ -13,6 +14,7 @@ const SelectionDropdown = ({
   data = [],
   onSelectItem = () => {},
   renderItem,
+  onSearchChange = () => {},
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -28,6 +30,14 @@ const SelectionDropdown = ({
       {isPicker ? (
         <Picker
           listProps={{ contentContainerStyle: { paddingBottom: hp(5) } }}
+          renderCustomModal={props =>
+            _renderCustomModal({
+              ...props,
+              label: title,
+              title: 'Search',
+              onSearchChange: onSearchChange,
+            })
+          }
           renderPicker={() => (
             <Text numberOfLines={1} style={styles.valueText}>
               {value}
@@ -43,6 +53,8 @@ const SelectionDropdown = ({
                   onPress={() => onSelectItem(item)}
                   label={item}
                   value={item}
+                  selectedIconColor={customTheme.colors.light}
+                  labelStyle={{ color: customTheme.colors.light }}
                 />
               ))}
         </Picker>

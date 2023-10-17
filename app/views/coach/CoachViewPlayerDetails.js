@@ -90,7 +90,7 @@ const CoachViewPlayerDetails = () => {
           component={CoachViewPlayerDetailsStatsTab}
         />
         <TopTab.Screen
-          options={{ tabBarLabel: 'Ready to Pro' }}
+          options={{ tabBarLabel: 'Road to Pro' }}
           name="PlayerAccountReadyToPro"
           component={ReadyToPro}
         />

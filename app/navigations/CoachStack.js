@@ -59,8 +59,8 @@ const CoachStack = () => {
         name="Inbox"
         component={Inbox}
         options={{
-          tabBarBadge: 2,
-          tabBarBadgeStyle: { fontSize: 10 },
+          // tabBarBadge: 2,
+          // tabBarBadgeStyle: { fontSize: 10 },
           tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>Message</Text>;
           },
