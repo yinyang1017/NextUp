@@ -53,11 +53,7 @@ const InvitePlayers = () => {
 
   return (
     <View style={styles.container}>
-      <Back
-        containerStyle={styles.backContainer}
-        onPress={() => navigation.goBack()}
-        title="Invite Player"
-      />
+      <Back containerStyle={styles.backContainer} title="Invite Player" />
       <ScrollView
         keyboardShouldPersistTaps="handled"
         bounces={false}

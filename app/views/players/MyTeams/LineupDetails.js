@@ -1,24 +1,18 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
-import { useNavigation } from '@react-navigation/native';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
 import HeaderGreyComponent from '../../../components/common/HeaderGreyComponent';
 import AvatarItem from '../../../components/common/AvatarItem';
 import { times } from 'lodash';
 import { customTheme } from '../../../constants';
-import { Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import CheckboxItem from '../../../components/common/CheckboxItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { useAuth } from '../../../hooks/useAuth';
 
 const LineupDetails = () => {
-  const navigation = useNavigation();
   const { isCoach } = useAuth();
-
-  const gobackHandler = () => {
-    navigation.goBack();
-  };
 
   const renderAvatarItem = (item, index, isDisable) => {
     return (
@@ -34,25 +28,21 @@ const LineupDetails = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Back
-        onPress={gobackHandler}
-        title="O’Dea High School"
-        containerStyle={styles.backButton}
-      />
+    <View flex style={styles.container}>
+      <Back title="O’Dea High School" containerStyle={styles.backButton} />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         bounces={isCoach}
         showsVerticalScrollIndicator={false}>
         <HeaderGreyComponent title="Selected Player" />
-        <View style={styles.rowWrap}>
+        <View row center style={styles.rowWrap}>
           {times(5).map((item, index) => renderAvatarItem(item, index))}
         </View>
         <HeaderGreyComponent
           title="Bench"
           containerStyle={styles.benchGreyHeader}
         />
-        <View style={styles.rowWrap}>
+        <View row center style={styles.rowWrap}>
           {times(10).map((item, index) => renderAvatarItem(item, index, true))}
         </View>
         {isCoach && (
@@ -84,16 +74,10 @@ const LineupDetails = () => {
 export default LineupDetails;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginHorizontal: wp(5) },
+  container: { marginHorizontal: wp(5) },
   backButton: { marginTop: hp(2), marginBottom: hp(4) },
   scrollContent: { paddingBottom: hp(isAndroid ? 3 : 5) },
-  rowWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: hp(1),
-  },
+  rowWrap: { flexWrap: 'wrap', marginTop: hp(1) },
   avatarItem: { width: '20%', marginBottom: hp(2) },
   benchGreyHeader: { marginTop: hp(2) },
   selectedPlayersText: { alignSelf: 'center', marginTop: hp(3) },

@@ -1,6 +1,6 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { ActionSheet, Avatar, Image, Text } from 'react-native-ui-lib';
+import { ActionSheet, Avatar, Image, Text, View } from 'react-native-ui-lib';
 import { appImages } from '../../constants/appImages';
 import { hp, wp } from '../../utils/responsive';
 import { useAuth } from '../../hooks/useAuth';
@@ -20,7 +20,7 @@ const StaffItem = ({
     useState(false);
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View row centerV style={[styles.container, containerStyle]}>
       <Avatar
         source={require('../../assets/avatar-without-online-badge.png')}
         size={wp(12.5)}
@@ -75,6 +75,7 @@ const StaffItem = ({
         ]}
         renderAction={(option, index) => (
           <TouchableOpacity
+            key={index}
             onPress={option.onPress}
             style={{ paddingVertical: hp(2), alignItems: 'center' }}
             activeOpacity={0.7}>
@@ -93,7 +94,6 @@ const StaffItem = ({
 export default StaffItem;
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', alignItems: 'center' },
   image: { marginRight: wp(3) },
   infoContainer: { gap: hp(0.5), flex: 1, paddingRight: wp(2) },
   moreIcon: { height: wp(6), width: wp(6) },

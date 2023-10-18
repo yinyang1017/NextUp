@@ -61,10 +61,7 @@ const SearchPlayers = () => {
 
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      <Back
-        onPress={() => navigation.goBack()}
-        containerStyle={styles.backContainer}
-      />
+      <Back containerStyle={styles.backContainer} />
       <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
       <FlatList
         data={times(10)}

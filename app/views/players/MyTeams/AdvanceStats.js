@@ -1,11 +1,10 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useCallback } from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
-import { useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
 import GameHeaderTeamItem from '../../../components/games/LastGame/GameHeaderTeamItem';
 import { customTheme } from '../../../constants';
-import { GridView, Text } from 'react-native-ui-lib';
+import { GridView, Text, View } from 'react-native-ui-lib';
 import StatsBoxItem from '../../../components/common/StatsBoxItem';
 
 const boxAveragesData = [
@@ -34,12 +33,6 @@ const advanceAnalyticsData = [
 ];
 
 const AdvanceStats = () => {
-  const navigation = useNavigation();
-
-  const gobackHandler = () => {
-    navigation.goBack();
-  };
-
   const getStatBoxWidth = numOfColumns => {
     const OUTER_SPACE = wp(2.2) * 2;
 
@@ -83,13 +76,9 @@ const AdvanceStats = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <Back
-        onPress={gobackHandler}
-        title="Advance Statistics"
-        containerStyle={styles.backButton}
-      />
-      <View style={styles.gameScoreContainer}>
+    <View flex>
+      <Back title="Advance Statistics" containerStyle={styles.backButton} />
+      <View row centerV spread style={styles.gameScoreContainer}>
         <GameHeaderTeamItem
           name="Copper Kings"
           subTitle="Varsity Team"
@@ -135,18 +124,11 @@ const AdvanceStats = () => {
 export default AdvanceStats;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  backButton: {
-    marginHorizontal: wp(5),
-    marginTop: hp(2),
-  },
+  backButton: { marginHorizontal: wp(5), marginTop: hp(2) },
   gameScoreContainer: {
     backgroundColor: customTheme.colors.primary,
     marginHorizontal: wp(2),
     borderRadius: wp(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingVertical: hp(2),
     paddingLeft: wp(6),
     paddingRight: wp(9),
