@@ -1,12 +1,15 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Text } from 'react-native-ui-lib';
 import { hp, wp } from '../../utils/responsive';
 import { customTheme } from '../../constants';
 
-const PracticeScheduleItem = () => {
+const PracticeScheduleItem = ({ onPress }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.7}
+      onPress={onPress}>
       <Image
         style={styles.practiceImage}
         source={require('../../assets/rectangle-copy.png')}
@@ -18,7 +21,7 @@ const PracticeScheduleItem = () => {
       <Text small-x-500 style={styles.description}>
         #practice #mupractice #basketballpractice
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

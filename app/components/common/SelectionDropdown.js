@@ -74,11 +74,9 @@ const SelectionDropdown = ({
           </TouchableOpacity>
         )}
       </View>
-      {!!error && (
-        <Text small style={styles.errorText}>
-          {error}
-        </Text>
-      )}
+      <Text small style={styles.errorText}>
+        {error || ' '}
+      </Text>
     </View>
   );
 };
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: customTheme.colors.aboutTxtBorder,
   },
-  valueText: { paddingVertical: hp(1.5) },
+  valueText: { paddingVertical: hp(1.5), height: hp(5.5) },
   title: {
     color: customTheme.colors.txtFieldPlaceHolder,
     textTransform: 'uppercase',
@@ -101,5 +99,5 @@ const styles = StyleSheet.create({
     paddingBottom: hp(5),
     backgroundColor: customTheme.colors.background,
   },
-  errorText: { color: customTheme.colors.red10, marginTop: hp(1) },
+  errorText: { color: customTheme.colors.red10, marginTop: hp(0.5) },
 });

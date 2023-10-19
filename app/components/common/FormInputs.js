@@ -414,24 +414,26 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
             fontSize: customTheme.fontSizes.size_16,
             fontFamily: customTheme.fontFamily.robotoRegular,
             overflow: 'hidden',
-
           },
         ]}
-        onChangeText={(txt) => {
+        onChangeText={txt => {
           const value = removeSpace ? txt.replace(/ /g, '') : txt;
           onChangeText(value);
         }}
         enableErrors={error}
         validationMessage={error}
+        retainValidationSpace
+        validationMessageStyle={{
+          color: customTheme.colors.red10,
+          marginTop: hp(0.5),
+        }}
       />
       {
         optionBtn && <TouchableOpacity flex right marginT-4 onPress={optionBtn.onPress}>
           <Text link-text>{optionBtn?.title ?? ''}</Text>
         </TouchableOpacity>
       }
-
     </View>
-
   );
 }
 

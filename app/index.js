@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native-ui-lib';
-import { StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import { customTheme } from './constants';
 import { NavigationContainer } from '@react-navigation/native';
 import AppLoadignStack from './navigations/AppLoadingStack';
@@ -26,7 +26,10 @@ export default function App() {
                 <View
                   backgroundColor={customTheme.colors.light.background}
                   width={'100%'}
-                  height={statusBarHeight + customTheme.spacings.spacing_12}
+                  height={
+                    Platform.select({ default: statusBarHeight, android: 0 }) +
+                    customTheme.spacings.spacing_12
+                  }
                 />
                 <StatusBar
                   barStyle={customTheme.statusBarStyle}
