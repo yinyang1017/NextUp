@@ -1,31 +1,19 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
 import Back from '../../../utils/HeaderButtons/Back';
 import GameHeader from '../../../components/games/LastGame/GameHeader';
 import LastGameScoreTable from '../../../components/games/LastGame/LastGameScoreTable';
 import GameDropdownButton from '../../../components/games/LastGame/GameDropdownButton';
 import QuickBoxScore from '../../../components/games/QuickBoxScore/QuickBoxScore';
-import { useNavigation } from '@react-navigation/native';
-import { Image, Text } from 'react-native-ui-lib';
-import { appImages } from '../../../constants/appImages';
+import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
+import CourtChartSVG from '../../../assets/images/icons-svgs/CourtChartSVG';
 
 const GameStatistics = () => {
-  const navigation = useNavigation();
-
-  const gobackHandler = () => {
-    navigation.goBack();
-  };
-
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
-      <Back
-        onPress={gobackHandler}
-        title="Game Statistics"
-        containerStyle={styles.backButton}
-      />
+    <View flex>
+      <Back title="Game Statistics" containerStyle={styles.backButton} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.lastGameInfo}>
           <GameHeader
@@ -43,7 +31,7 @@ const GameStatistics = () => {
           />
           <LastGameScoreTable />
         </View>
-        <View style={styles.dropdownButtons}>
+        <View row centerV spread style={styles.dropdownButtons}>
           <GameDropdownButton
             title={'Blue Team'}
             isActive
@@ -58,36 +46,25 @@ const GameStatistics = () => {
         <Text medium-700 style={styles.quickScoreTitle}>
           Court Chart
         </Text>
-        <Image source={appImages.court} style={styles.courtImage} />
+        <View style={styles.courtChartContainer}>
+          <CourtChartSVG />
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default GameStatistics;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  backButton: {
-    marginHorizontal: wp(5),
-    marginTop: hp(2),
-  },
+  backButton: { marginHorizontal: wp(5), marginTop: hp(2) },
   gameHeader: {
     backgroundColor: customTheme.colors.lightDark,
     padding: wp(2),
     borderRadius: wp(2),
   },
-  dropdownButtons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: wp(10),
-    marginTop: hp(4),
-  },
-  quickScoreTitle: {
-    marginHorizontal: wp(5),
-    marginTop: hp(3),
-  },
+  dropdownButtons: { marginHorizontal: wp(10), marginTop: hp(4) },
+  quickScoreTitle: { marginHorizontal: wp(5), marginTop: hp(3) },
   quickBoxScore: { alignSelf: 'center', marginTop: hp(3) },
   courtImage: {
     width: wp(90),
@@ -97,4 +74,5 @@ const styles = StyleSheet.create({
   },
   lastGameInfo: { marginHorizontal: wp(2) },
   scrollView: { paddingBottom: hp(isAndroid ? 3 : 5) },
+  courtChartContainer: { marginTop: hp(2), alignSelf: 'center' },
 });

@@ -10,7 +10,7 @@ import { Dash, Dialog, Text } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 import { hp, wp } from '../../utils/responsive';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { times } from 'lodash';
+import times from 'lodash/times';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import PrimaryButton from './PrimaryButton';
 

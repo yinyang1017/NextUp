@@ -1,25 +1,18 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import Back from '../../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../../utils/responsive';
-import { Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../../constants';
-import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import { appImages } from '../../../../constants/appImages';
 
 const ChatHeader = ({ name, image }) => {
-  const navigation = useNavigation();
-
-  const gobackHandler = () => {
-    navigation.goBack();
-  };
-
   return (
     <View style={styles.root}>
-      <View style={styles.headerBody}>
-        <Back onPress={gobackHandler} />
-        <View style={styles.userInfoContainer}>
+      <View row centerV style={styles.headerBody}>
+        <Back />
+        <View row centerV style={styles.userInfoContainer}>
           <FastImage
             source={{ uri: image, priority: 'high' }}
             style={styles.profileImage}
@@ -29,7 +22,9 @@ const ChatHeader = ({ name, image }) => {
             <Text numberOfLines={1} large-x-600>
               {name}
             </Text>
-            <Text style={styles.onlineText}>online</Text>
+            <Text regular-500 style={styles.onlineText}>
+              online
+            </Text>
           </View>
         </View>
       </View>
@@ -45,22 +40,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: hp(3),
   },
-  headerBody: {
-    paddingHorizontal: wp(5),
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  userInfoContainer: {
-    marginLeft: wp(4),
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  headerBody: { paddingHorizontal: wp(5) },
+  userInfoContainer: { marginLeft: wp(4) },
   profileImage: { height: wp(12), width: wp(12), borderRadius: wp(12) },
   usernameInfoContainer: { marginHorizontal: wp(3), flex: 1 },
-  onlineText: {
-    marginTop: hp(0.2),
-    color: customTheme.colors.btnBg,
-    fontWeight: '500',
-    fontFamily: customTheme.fontFamily.robotoRegular,
-  },
+  onlineText: { marginTop: hp(0.2), color: customTheme.colors.btnBg },
 });
