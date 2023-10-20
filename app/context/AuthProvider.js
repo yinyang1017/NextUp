@@ -57,6 +57,7 @@ const authReducer = (state, action) => {
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
+  const [authStart, setAuthStart] = React.useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
   const [reChecking, setReChecking] = React.useState(false);
   const { mutate, isLoading } = useUserRegister({
@@ -124,7 +125,7 @@ export default function AuthProvider({ children }) {
 
 
   function onAuthStateChanged(user) {
-    console.log(user, 'in auth state')
+    setAuthStart(prev => !prev);
     if (user) {
       const dataToSend = {
         email: user.email,
@@ -134,6 +135,7 @@ export default function AuthProvider({ children }) {
       };
       mutate(dataToSend);
     }
+    setAuthStart(prev => !prev);
     // setIsAuthentication(false);
     // setUser(user);
     // if (initializing) setInitializing(false);
@@ -165,7 +167,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      {showLoader || isLoading ? <AppLoader /> : children}
+      {showLoader || isLoading || authStart ? <AppLoader /> : children}
     </AuthContext.Provider>
   );
 }

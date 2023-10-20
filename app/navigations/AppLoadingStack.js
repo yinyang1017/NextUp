@@ -45,6 +45,14 @@ export default function AppLoadignStack() {
             <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
             <Stack.Screen name="AllStandings" component={AllStandings} />
             <Stack.Screen name="GameStatistics" component={GameStatistics} />
+            <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
+            <Stack.Screen name="AddLineup" component={AddLineup} />
+            <Stack.Screen name="LineupDetails" component={LineupDetails} />
+            <Stack.Screen name="CreatePractice" component={CreatePractice} />
+            <Stack.Screen
+              name="CoachViewPlayerDetails"
+              component={CoachViewPlayerDetails}
+            />
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (

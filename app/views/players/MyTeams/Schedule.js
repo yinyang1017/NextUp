@@ -7,9 +7,11 @@ import { times } from 'lodash';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import PracticeScheduleItem from '../../../components/common/PracticeScheduleItem';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../../hooks/useAuth';
 
 const Schedule = () => {
   const navigation = useNavigation();
+  const { isCoach } = useAuth();
 
   const onPressCreatePracticeHandler = () => {
     navigation.navigate('CreatePractice');
@@ -31,11 +33,13 @@ const Schedule = () => {
         containerStyle={{ marginTop: hp(3.5) }}
       />
       <PracticeScheduleItem />
-      <PrimaryButton
-        onPress={onPressCreatePracticeHandler}
-        title={'Create Practice'}
-        style={{ marginTop: hp(6) }}
-      />
+      {isCoach && (
+        <PrimaryButton
+          onPress={onPressCreatePracticeHandler}
+          title={'Create Practice'}
+          style={{ marginTop: hp(6) }}
+        />
+      )}
     </ScrollView>
   );
 };

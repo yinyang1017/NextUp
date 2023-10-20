@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import Back from '../../../utils/HeaderButtons/Back';
-import {useNavigation} from '@react-navigation/native';
-import {hp, wp} from '../../../utils/responsive';
+import { hp, wp } from '../../../utils/responsive';
 import SelectionHeader from './SelectionHeader';
 import GameStats from './GameStats';
 import LastGames from './LastGames';
@@ -30,12 +29,10 @@ const _awayTeamData = {
   profileImg: require('../../../assets/images/dummyTeamLogo1.png'),
 };
 export default function TeamComparison() {
-  const navigation = useNavigation();
   const [season, setSeason] = useState(_seasonList[0]);
   return (
     <SafeAreaView style={styles.container}>
       <Back
-        onPress={() => navigation.goBack()}
         containerStyle={styles.backButtonContainer}
         title="Team Comparison"
       />
@@ -53,7 +50,7 @@ export default function TeamComparison() {
   );
 }
 const styles = StyleSheet.create({
-  container: {flex: 1, marginVertical: hp(2)},
+  container: { flex: 1, marginVertical: hp(2) },
   backButtonContainer: {
     marginHorizontal: wp(5),
     marginTop: hp(3),

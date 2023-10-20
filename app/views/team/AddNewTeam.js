@@ -1,11 +1,10 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../utils/HeaderButtons/Back';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { hp, wp } from '../../utils/responsive';
 import ImageUpload from '../../components/common/ImageUpload';
-import { Picker } from 'react-native-ui-lib';
+import { KeyboardAwareScrollView, Picker, View } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 import SelectionDropdown from '../../components/common/SelectionDropdown';
 import PrimaryButton from '../../components/common/PrimaryButton';
@@ -18,22 +17,30 @@ import {
   FormInputField,
   FormRadioGroup,
 } from '../../components/common/FormInputs';
-import { times } from 'lodash';
+import times from 'lodash/times';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Controller, useForm } from 'react-hook-form';
 
 const AddNewTeam = () => {
-  const navigation = useNavigation();
   const isFocus = useIsFocused();
+  const { bottom } = useSafeAreaInsets();
 
-  // High School Option
-  const [selectedTeamYear, setSelectedTeamYear] = useState(' ');
-  const [selectedHighSchoolCoaching, setSelectedHighSchoolCoaching] =
-    useState(' ');
+  const [profileImage, setProfileImage] = useState(
+    'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+  );
+
+  const highSchoolForm = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  });
+
+  const travelTeamForm = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  });
 
   // Travel Team Option
-  const [selectedState, setSelectedState] = useState(' ');
-  const [selectedCity, setSelectedCity] = useState(' ');
   const [citiesData, setCitiesData] = useState([]);
-  const [selectedAge, setSelectedAge] = useState(' ');
 
   const { data: schoolsData, mutate: getListOfSchools } = useGetListOfSchools();
   const { data: classesData, mutate: getListOfClasses } = useGetListOfClasses();
@@ -52,164 +59,218 @@ const AddNewTeam = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocus]);
 
+  const travelTeamWatchValues = travelTeamForm.watch(['state']);
+
   useEffect(() => {
-    if (selectedState) {
-      setSelectedCity(' ');
+    if (travelTeamWatchValues[0]) {
+      travelTeamForm.setValue('city', ' ');
       getListOfCities(
-        { state: selectedState },
+        { state: travelTeamWatchValues[0] },
         { onSuccess: data => setCitiesData(data.data) },
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedState]);
+  }, [travelTeamWatchValues[0]]);
 
   const ageData = useMemo(() => times(5).map(i => i + 13 + '  &  Under'), []);
+  const isHighSchoolSelected = selectedOption === 'highSchool';
+
+  const _tmpTravelTeamValues = travelTeamForm.watch(['teamName']);
 
   const HighSchoolForm = useCallback(() => {
+    const renderSchoolItem = item => {
+      const name = item.name;
+      const color = customTheme.colors.light;
+
+      return (
+        <Picker.Item
+          key={item.name}
+          onPress={() => highSchoolForm.setValue('school', name)}
+          label={name}
+          value={name}
+          selectedIconColor={color}
+          labelStyle={{ color }}
+        />
+      );
+    };
+
     return (
       <>
-        <SelectionDropdown
-          containerStyle={{ marginTop: hp(4) }}
-          title={'Select School'}
-          value={selectedHighSchoolCoaching}
-          data={schoolsData?.data || []}
-          renderItem={item => {
-            return (
-              <Picker.Item
-                onPress={() => {
-                  setSelectedHighSchoolCoaching(item.name);
-                }}
-                label={item.name}
-                value={item.name}
-              />
-            );
-          }}
+        <Controller
+          name="school"
+          control={highSchoolForm.control}
+          rules={{ required: 'Please select School' }}
+          render={({ field: { value }, fieldState: { error } }) => (
+            <SelectionDropdown
+              containerStyle={styles.highSchoolDropdownContainer}
+              title={'Select School'}
+              value={value}
+              data={schoolsData?.data || []}
+              renderItem={renderSchoolItem}
+              error={error?.message}
+            />
+          )}
         />
-        <SelectionDropdown
-          containerStyle={{ marginTop: hp(3) }}
-          title={'Select Team'}
-          value={selectedTeamYear}
-          data={classesData?.data || []}
-          onSelectItem={setSelectedTeamYear}
+        <Controller
+          name="teamYear"
+          control={highSchoolForm.control}
+          rules={{ required: 'Please select Team' }}
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <SelectionDropdown
+              containerStyle={styles.highSchoolDropdownContainer}
+              title={'Select Team'}
+              value={value}
+              data={classesData?.data || []}
+              onSelectItem={onChange}
+              error={error?.message}
+            />
+          )}
         />
       </>
     );
-  }, [
-    schoolsData,
-    selectedTeamYear,
-    classesData,
-    selectedHighSchoolCoaching,
-    setSelectedTeamYear,
-  ]);
+  }, [schoolsData, classesData, highSchoolForm]);
 
   const TravelTeamForm = useCallback(() => {
     return (
       <>
-        <FormInputField
-          containerStyle={styles.schoolNameInput}
-          label={'Name'}
-          value={'ABC School'}
+        <Controller
+          name="teamName"
+          control={travelTeamForm.control}
+          rules={{ required: 'Please enter team name' }}
+          render={({ field: { value, onChange }, fieldState: { error } }) => {
+            return (
+              <FormInputField
+                containerStyle={styles.schoolNameInput}
+                label={'Name'}
+                // value={_tmpTravelTeamValues[0] || ''}
+                onChangeText={text => travelTeamForm.setValue('teamName', text)}
+                error={error?.message}
+              />
+            );
+          }}
         />
-        <View style={styles.rowCenterSpaceBetween}>
-          <SelectionDropdown
-            containerStyle={styles.dropdownWithLimitedWidth}
-            title={'State'}
-            value={selectedState}
-            data={statesData?.data || []}
-            onSelectItem={setSelectedState}
+        <View row centerV spread>
+          <Controller
+            name="state"
+            control={travelTeamForm.control}
+            rules={{ required: 'Please select state' }}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <SelectionDropdown
+                containerStyle={styles.dropdownWithLimitedWidth}
+                title={'State'}
+                value={value}
+                data={statesData?.data || []}
+                onSelectItem={onChange}
+                error={error?.message}
+              />
+            )}
           />
-          <SelectionDropdown
-            containerStyle={styles.dropdownWithLimitedWidth}
-            title={'City'}
-            value={selectedCity}
-            data={citiesData || []}
-            onSelectItem={setSelectedCity}
+          <Controller
+            name="city"
+            control={travelTeamForm.control}
+            rules={{ required: 'Please select city' }}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <SelectionDropdown
+                containerStyle={styles.dropdownWithLimitedWidth}
+                title={'City'}
+                value={value}
+                data={citiesData || []}
+                onSelectItem={onChange}
+                error={error?.message}
+              />
+            )}
           />
         </View>
-        <SelectionDropdown
-          containerStyle={styles.dropdownWithLimitedWidth}
-          title={'Age'}
-          value={selectedAge}
-          data={ageData}
-          onSelectItem={setSelectedAge}
+        <Controller
+          name="age"
+          control={travelTeamForm.control}
+          rules={{ required: 'Please select age group' }}
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <SelectionDropdown
+              containerStyle={styles.dropdownWithLimitedWidth}
+              title={'Age'}
+              value={value}
+              data={ageData}
+              onSelectItem={onChange}
+              error={error?.message}
+            />
+          )}
         />
       </>
     );
-  }, [
-    ageData,
-    citiesData,
-    selectedAge,
-    selectedCity,
-    selectedState,
-    statesData,
-  ]);
+  }, [ageData, citiesData, statesData, travelTeamForm]);
+
+  const onSelectProfileImageHandler = imageResponse => {
+    const newUri = imageResponse?.assets?.[0]?.uri || '';
+    setProfileImage(newUri);
+  };
+
+  const onSubmitFormHandler = (data, isHighSchool) => {
+    console.log('~ onSubmitFormHandler ~ data:', data);
+    if (isHighSchool) {
+      // ... Add HighSchool Team API
+    } else {
+      // ... Add Travel Team API
+    }
+  };
+
+  const onPressSaveHandler = isHighSchoolSelected
+    ? highSchoolForm.handleSubmit(data => onSubmitFormHandler(data, true))
+    : travelTeamForm.handleSubmit(data => onSubmitFormHandler(data, false));
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Back
-        onPress={() => navigation.goBack()}
-        containerStyle={styles.backButtonContainer}
-        title="Add New Team"
-      />
-      <ImageUpload
-        source={{
-          uri: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
-        }}
-        containerStyle={styles.imageUploadContainer}
-      />
-      <View style={styles.selectOptionsContainer}>
-        <FormRadioGroup
-          label="option"
-          radioValues={[
-            { label: 'High School', value: 'highSchool' },
-            { label: 'Travel Team', value: 'travelTeam' },
-          ]}
-          value={selectedOption}
-          onValueChange={setSelectedOption}
+    <View flex>
+      <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
+      <KeyboardAwareScrollView
+        bounces={false}
+        contentContainerStyle={{ flex: 1, paddingBottom: bottom }}>
+        <ImageUpload
+          source={{ uri: profileImage }}
+          containerStyle={styles.imageUploadContainer}
+          onSelectImage={onSelectProfileImageHandler}
         />
+        <View style={styles.selectOptionsContainer}>
+          <FormRadioGroup
+            label="option"
+            radioValues={[
+              { label: 'High School', value: 'highSchool' },
+              { label: 'Travel Team', value: 'travelTeam' },
+            ]}
+            value={selectedOption}
+            onValueChange={value => {
+              if (value === 'travelTeam') {
+                highSchoolForm.clearErrors();
+              } else {
+                travelTeamForm.clearErrors();
+              }
 
-        {selectedOption === 'highSchool' ? (
-          <HighSchoolForm />
-        ) : (
-          <TravelTeamForm />
-        )}
-      </View>
-
-      <PrimaryButton title={'Save'} style={styles.saveButton} />
-    </SafeAreaView>
+              setSelectedOption(value);
+            }}
+          />
+          {isHighSchoolSelected ? HighSchoolForm() : TravelTeamForm()}
+        </View>
+        <PrimaryButton
+          title={'Save'}
+          style={styles.saveButton}
+          onPress={onPressSaveHandler}
+        />
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 
 export default AddNewTeam;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
   backButtonContainer: { marginHorizontal: wp(5), marginTop: hp(3) },
   imageUploadContainer: { alignSelf: 'center', marginTop: hp(5) },
-  selectOptionsContainer: {
-    marginHorizontal: wp(8),
-    marginTop: hp(2),
-  },
-  rowCenterSpaceBetween: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+  selectOptionsContainer: { marginHorizontal: wp(8), marginTop: hp(2) },
   dropdownWithLimitedWidth: { marginTop: hp(3), width: wp(39) },
   saveButton: {
     marginHorizontal: wp(8),
     marginTop: 'auto',
     marginBottom: hp(2),
   },
-  dataTitle: {
-    marginHorizontal: wp(4),
-    marginVertical: hp(2),
-    fontSize: customTheme.fontSizes.size_16,
-    fontFamily: customTheme.fontFamily.robotoRegular,
-  },
-  dataItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: customTheme.colors.slate_gray,
-  },
-  schoolNameInput: { flex: 0, marginTop: hp(4) },
+  schoolNameInput: { flex: 0, marginTop: hp(3), height: 'auto' },
+  highSchoolDropdownContainer: { marginTop: hp(3) },
 });

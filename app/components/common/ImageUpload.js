@@ -3,8 +3,16 @@ import React, { memo } from 'react';
 import { wp } from '../../utils/responsive';
 import FastImage from 'react-native-fast-image';
 import { launchImageLibrary } from 'react-native-image-picker';
+import LinearGradient from 'react-native-linear-gradient';
+import { customTheme } from '../../constants';
+import { appImages } from '../../constants/appImages';
 
-const ImageUpload = ({ size = wp(24), source = {}, containerStyle = {} }) => {
+const ImageUpload = ({
+  size = wp(24),
+  source = {},
+  containerStyle = {},
+  onSelectImage = () => {},
+}) => {
   const baseContainerStyle = {
     height: size,
     width: size,
@@ -12,7 +20,9 @@ const ImageUpload = ({ size = wp(24), source = {}, containerStyle = {} }) => {
   };
 
   const onPressPickImageHandler = () => {
-    launchImageLibrary();
+    launchImageLibrary({ mediaType: 'photo' })
+      .then(onSelectImage)
+      .catch(e => console.log('ImageUpload Error :====>', e));
   };
 
   return (
@@ -25,7 +35,15 @@ const ImageUpload = ({ size = wp(24), source = {}, containerStyle = {} }) => {
         style={styles.addImage}
         resizeMode="contain"
       />
-      <FastImage source={source} style={styles.image} />
+      <FastImage
+        source={source}
+        style={styles.image}
+        defaultSource={appImages.defaultAvatarImage}
+      />
+      <LinearGradient
+        colors={['#00000001', '#00000080']}
+        style={[styles.blackGradient, { width: size }]}
+      />
     </TouchableOpacity>
   );
 };
@@ -42,7 +60,13 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 0,
     left: wp(9.5),
-    tintColor: 'white',
-    zIndex: 11,
+    tintColor: customTheme.colors.light,
+    zIndex: 2,
+  },
+  blackGradient: {
+    height: wp(12),
+    zIndex: 1,
+    position: 'absolute',
+    bottom: 0,
   },
 });

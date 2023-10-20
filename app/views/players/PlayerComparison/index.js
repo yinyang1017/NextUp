@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {wp, hp} from '../../../utils/responsive';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { wp, hp } from '../../../utils/responsive';
 import Back from '../../../utils/HeaderButtons/Back';
 import SelectionHeader from './SelectionHeader';
 import OverallStats from './OverallStats';
@@ -31,14 +30,12 @@ const _homePlayerData = {
   rank: 5,
 };
 const _awayPlayerData = null;
-export default function PlayerComparison({route}) {
-  const navigation = useNavigation();
+export default function PlayerComparison({ route }) {
   const [isSearchOpen, openSearch] = useState(false);
   const [season, setSeason] = useState(_seasonList[0]);
   return (
     <SafeAreaView style={styles.container}>
       <Back
-        onPress={() => navigation.goBack()}
         containerStyle={styles.backButtonContainer}
         title="Player Comparison"
       />
@@ -65,7 +62,7 @@ export default function PlayerComparison({route}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, marginVertical: hp(2)},
+  container: { flex: 1, marginVertical: hp(2) },
   backButtonContainer: {
     marginHorizontal: wp(5),
     marginTop: hp(3),

@@ -57,18 +57,21 @@ export default function PlayerDetails() {
 
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormInputField
-                label={'First Name'}
-                value={value ?? ''}
-                required
-                removeSpace
-                placeholder="Enter First Name"
-                onChangeText={onChange}
-                width={'40%'}
-                error={
-                  error && error?.message
-                }
-              />
+              <View width={'50%'}>
+                <FormInputField
+                  label={'First Name'}
+                  value={value ?? ''}
+                  required
+                  removeSpace
+                  placeholder="Enter First Name"
+                  onChangeText={onChange}
+                  width={'40%'}
+                  error={
+                    error && error?.message
+                  }
+                />
+              </View>
+
             )}
           />
           <Controller
@@ -92,7 +95,7 @@ export default function PlayerDetails() {
             }}
 
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <>
+              <View width={'50%'}>
                 <FormInputField
                   label={'Last Name'}
                   value={value ?? ''}
@@ -105,7 +108,7 @@ export default function PlayerDetails() {
                     error && error?.message
                   }
                 />
-              </>
+              </View>
 
             )}
           />
@@ -205,10 +208,9 @@ export default function PlayerDetails() {
               <FormMaskedInput
                 label={'Height'}
                 value={value ?? ''}
-                tailLabel={'INCH'}
+                tailLabel={'CM'}
                 placeholder="Enter Height"
                 onChangeText={onChange}
-                forHeight
                 onValueChange={pickvalue => {
                   onChange(pickvalue);
                 }}
@@ -241,7 +243,7 @@ export default function PlayerDetails() {
               <FormMaskedInput
                 label={'Weight'}
                 value={value ?? ''}
-                tailLabel={'KG'}
+                tailLabel={'LBS'}
                 placeholder="Enter Weight"
                 onChangeText={onChange}
                 onValueChange={pickvalue => {

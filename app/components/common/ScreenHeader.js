@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-
-  Pressable
-} from 'react-native';
-import {
+  Image,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native-ui-lib"
 import {
@@ -14,6 +12,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
+import { wp } from '../../utils/responsive';
 
 let wide = Layout.width;
 
@@ -22,51 +21,39 @@ export const ScreenHeader = ({ title, backButtonAction = () => null }) => {
   return (
     <View
       row
-      paddingH-16
       marginB-20
+      marginH-16
       style={{
         alignItems: 'center',
       }}
     >
       {
-        navigation.canGoBack() && <Pressable
+        navigation.canGoBack() && <TouchableOpacity
+          center
+          activeOpacity={0.5}
           style={{
-
-            borderWidth: 1,
-            borderColor: customTheme.colors.tertiary,
-            borderRadius: wide * 0.03,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingHorizontal: customTheme.spacings.spacing_12,
-            paddingVertical: customTheme.spacings.spacing_8,
-            marginRight: customTheme.spacings.spacing_12
+            height: wp(8),
+            width: wp(8),
+            borderRadius: wp(1),
+            borderWidth: 2,
+            borderColor: customTheme.colors.borderColor,
           }}
           onPress={() => {
             navigation.goBack()
             backButtonAction()
           }}
         >
-          <FontAwesomeIcon
-            color={customTheme.colors.white}
-            style={{
-              fontSize: customTheme.spacings.spacing_16,
-            }}
-
-
-
-            icon={faArrowLeft}
+          <Image
+            height={wp(3.5)}
+            width={wp(3.5)}
+            source={require('../../assets/leftArrow1.png')}
           />
-        </Pressable>
+        </TouchableOpacity>
       }
 
       <Text
-        style={{
-
-          color: customTheme.colors.light,
-          fontSize: customTheme.fontSizes.size_16,
-          fontWeight: '700',
-          fontFamily: customTheme.fontFamily.robotoBold,
-        }}
+        medium-500
+        marginL-12
       >
         {title}
       </Text>

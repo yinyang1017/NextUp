@@ -62,7 +62,7 @@ export default function ScheduleCalendar() {
                     <Text header-bold>Calendar</Text>
                     <View row spread centerV>
                         <View marginT-24 marginB-8>
-                            <Text small-x >{selectedDate?.year}</Text>
+                            <Text small-x white>{selectedDate?.year}</Text>
                             <Text header-bold>{selectedDate?.month}</Text>
 
                         </View>

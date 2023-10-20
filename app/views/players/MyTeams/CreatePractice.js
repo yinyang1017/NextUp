@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import SetTimeModal, {
   getStaticTimeData,
 } from '../../../components/common/SetTimeModal';
 import moment from 'moment';
 import CalendarModal from '../../../components/common/CalendarModal';
 import SelectionDropdown from '../../../components/common/SelectionDropdown';
+import { View } from 'react-native-ui-lib';
 
 const getInitialTimeData = () => {
   const timeData = getStaticTimeData();
@@ -64,8 +63,6 @@ const getInitialTimeData = () => {
 };
 
 export const CreatePractice = () => {
-  const navigation = useNavigation();
-
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -76,10 +73,6 @@ export const CreatePractice = () => {
     selectedData: null,
     currentTimeData: getInitialTimeData(),
   });
-
-  const gobackHandler = () => {
-    navigation.goBack();
-  };
 
   const openTimePickerHandler = () => {
     setTimeModalData(prevValue => ({
@@ -110,15 +103,11 @@ export const CreatePractice = () => {
     : 'Select date';
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Back
-        title="Create Practice"
-        containerStyle={styles.back}
-        onPress={gobackHandler}
-      />
+    <View flex>
+      <Back title="Create Practice" containerStyle={styles.back} />
       <View style={styles.dropdownSelectionBody}>
         <SelectionDropdown title={'Location'} />
-        <View style={styles.datTimeRowDropdown}>
+        <View row centerV spread style={styles.datTimeRowDropdown}>
           <SelectionDropdown
             title={'Date'}
             isPicker={false}
@@ -156,12 +145,11 @@ export const CreatePractice = () => {
         }}
         selectedDate={selectedDate ? selectedDate.format('YYYY-MM-DD') : ''}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
   back: { marginTop: hp(2), marginLeft: wp(5) },
   button: { marginHorizontal: wp(8), marginTop: 'auto', marginBottom: hp(4) },
   dropdownSelectionBody: {
@@ -169,12 +157,7 @@ const styles = StyleSheet.create({
     marginTop: hp(5),
     rowGap: hp(5),
   },
-  datTimeRowDropdown: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    columnGap: wp(4),
-  },
+  datTimeRowDropdown: { columnGap: wp(4) },
   dateTimeDropdown: { flex: 1 },
-  tagInput: { flex: 0, marginTop: 0, marginRight: 0 },
+  tagInput: { flex: 0, marginTop: 0, marginRight: 0, height: 'auto' },
 });

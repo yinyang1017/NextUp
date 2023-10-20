@@ -10,12 +10,6 @@ import { useGetCity, useGetClassOffYears, useGetSchools, useGetState } from '../
 const tellUsMore = {
   typeOfUser: 'PLAYER',
   gender: 'male',
-  schoolInfo: {
-    city: '',
-    state: '',
-    name: '',
-    classOff: '',
-  },
 };
 
 
@@ -31,12 +25,14 @@ export const useTellUsMore = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    getValues,
     setValue,
-    setError
+    setError,
+    reset,
+    resetField,
   } = useForm({
     defaultValues: {
       ...tellUsMore,
-
     },
 
   });
@@ -47,7 +43,7 @@ export const useTellUsMore = () => {
   };
   const isPlayer = watch('typeOfUser') === 'PLAYER';
   const isCoach = watch('typeOfUser') === 'COACH';
-  const isTravelTeam = isCoach && watch('coachingType.typeOfCoaching') === 'TRAVEL_TEAM';
+  const isTravelTeam = useMemo(() => isCoach && watch('coachingType.typeOfCoaching') && watch('coachingType.typeOfCoaching') === 'TRAVEL_TEAM', [watch('coachingType.typeOfCoaching')])
   const handleNavigation = screen => {
     navigation.navigate(screen);
   };
@@ -61,6 +57,7 @@ export const useTellUsMore = () => {
       message: 'Select a state first',
     })
   }
+  // console.log('errors', getValues(), watch('coachingType'));
   return {
     control,
     errors,
@@ -69,6 +66,8 @@ export const useTellUsMore = () => {
     isPlayer,
     playerPosition,
     isTravelTeam,
+    resetField,
+    reset,
     setValue,
     chekIfStateSelected,
     handleNavigation,

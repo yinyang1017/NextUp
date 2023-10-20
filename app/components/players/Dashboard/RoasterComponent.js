@@ -7,6 +7,7 @@ import AddButtonWithIcon from '../../common/AddButtonWithIcon';
 import { Text } from 'react-native-ui-lib';
 import AvatarItem from '../../common/AvatarItem';
 import { customTheme } from '../../../constants';
+import { useAuth } from '../../../hooks/useAuth';
 
 const varsityData = [
   {
@@ -76,6 +77,7 @@ const newPlayersData = [
 
 export const RoasterComponent = () => {
   const navigation = useNavigation();
+  const { isCoach } = useAuth();
 
   const renderRightAddButton = () => (
     <AddButtonWithIcon onPress={() => navigation.navigate('SearchPlayers')} />
@@ -126,11 +128,17 @@ export const RoasterComponent = () => {
       <HeaderGreyComponent
         containerStyle={styles.headerGrey}
         title="New Players"
-        rightContent={renderRightAddButton}
+        rightContent={isCoach ? renderRightAddButton : undefined}
       />
-      <View style={styles.newPlayersListContainer}>
-        {newPlayersData.map(renderNewPlayerItem)}
-      </View>
+      {isCoach ? (
+        <View style={styles.newPlayersListContainer}>
+          {newPlayersData.map(renderNewPlayerItem)}
+        </View>
+      ) : (
+        <View style={styles.varsityListContainer}>
+          {newPlayersData.map(renderVarsityItem)}
+        </View>
+      )}
     </ScrollView>
   );
 };

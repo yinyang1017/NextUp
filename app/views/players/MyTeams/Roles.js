@@ -4,14 +4,25 @@ import StaffItem from '../../../components/common/StaffItem';
 import { hp, wp } from '../../../utils/responsive';
 import HeaderGreyComponent from '../../../components/common/HeaderGreyComponent';
 import AddButtonWithIcon from '../../../components/common/AddButtonWithIcon';
+import { useAuth } from '../../../hooks/useAuth';
+import { useNavigation } from '@react-navigation/native';
 
 const Roles = () => {
+  const { isCoach } = useAuth();
+  const navigation = useNavigation();
+
+  const renderRightContent = () => {
+    return isCoach ? (
+      <AddButtonWithIcon onPress={() => navigation.navigate('SearchPlayers')} />
+    ) : null;
+  };
+
   return (
     <View style={{ paddingHorizontal: wp(4.5) }}>
       <HeaderGreyComponent
         title="Coaches"
         containerStyle={{ marginTop: hp(2.5) }}
-        rightContent={() => <AddButtonWithIcon />}
+        rightContent={renderRightContent}
       />
       <StaffItem
         containerStyle={{ marginTop: hp(2) }}
@@ -21,7 +32,7 @@ const Roles = () => {
       <HeaderGreyComponent
         title="Stat Keeper"
         containerStyle={{ marginTop: hp(4) }}
-        rightContent={() => <AddButtonWithIcon />}
+        rightContent={renderRightContent}
       />
       <StaffItem
         containerStyle={{ marginTop: hp(2) }}
@@ -31,7 +42,7 @@ const Roles = () => {
       <HeaderGreyComponent
         title="Trainers"
         containerStyle={{ marginTop: hp(4) }}
-        rightContent={() => <AddButtonWithIcon />}
+        rightContent={renderRightContent}
       />
       <StaffItem
         containerStyle={{ marginTop: hp(2) }}

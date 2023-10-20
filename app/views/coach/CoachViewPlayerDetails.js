@@ -10,7 +10,6 @@ import CoachViewPlayerDetailsStatsTab from '../../components/coach/CoachViewPlay
 import { appImages } from '../../constants/appImages';
 import Back from '../../utils/HeaderButtons/Back';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -22,17 +21,13 @@ const CoachViewPlayerDetails = () => {
   const renderTabBar = props => <CustomTabView {...props} />;
 
   const { top } = useSafeAreaInsets();
-  const navigation = useNavigation();
 
   return (
     <ScrollView
       bounces={false}
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={true}>
-      <Back
-        containerStyle={styles.back(top)}
-        onPress={() => navigation.goBack()}
-      />
+      <Back containerStyle={styles.back(top)} />
       <FastImage
         source={{
           uri: 'https://unsplash.com/photos/CREqtqgBFcU/download?force=true',
@@ -90,7 +85,7 @@ const CoachViewPlayerDetails = () => {
           component={CoachViewPlayerDetailsStatsTab}
         />
         <TopTab.Screen
-          options={{ tabBarLabel: 'Ready to Pro' }}
+          options={{ tabBarLabel: 'Road to Pro' }}
           name="PlayerAccountReadyToPro"
           component={ReadyToPro}
         />
