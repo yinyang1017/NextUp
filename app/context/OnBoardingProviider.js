@@ -105,7 +105,8 @@ export default function OnBoardingProvider({ children }) {
             }
 
         }
-        console.log('data to send', dataToSend)
+        // console.log('onBoarding', onBoarding)
+        // console.log('data to send', dataToSend)
         coachMutate({
             data: dataToSend,
             id: user?.id

@@ -11,8 +11,9 @@ import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ImagePreviewProvider from './context/ImagePreviewProvider';
 import { statusBarHeight } from './components/common/ViewConatiner';
-import './constants/theme-manager';
 import './utils/typographies';
+import './constants/theme-manager';
+
 
 export default function App() {
   return (

@@ -182,10 +182,9 @@ function PlaayerOtherDetails() {
                             <FormMaskedInput
                                 label={'Height'}
                                 value={value ?? ''}
-                                tailLabel={'INCH'}
+                                tailLabel={'CM'}
                                 placeholder="Enter Height"
                                 onChangeText={onChange}
-                                forHeight
                                 required
                                 onValueChange={pickvalue => {
                                     onChange(pickvalue);
@@ -193,17 +192,7 @@ function PlaayerOtherDetails() {
                                 error={
                                     error && error?.message
                                 }
-                                data={[
-                                    {
-                                        label: 'INCH',
-                                        value: 'INCH',
-                                    },
-                                    {
-                                        label: 'FEET',
-                                        value: 'FEET',
-                                    },
 
-                                ]}
                                 keyboardType="numeric"
                             />
                         )}
@@ -219,19 +208,14 @@ function PlaayerOtherDetails() {
                             <FormMaskedInput
                                 label={'Weight'}
                                 value={value ?? ''}
-                                tailLabel={'KG'}
+                                tailLabel={'LBS'}
                                 placeholder="Enter Weight"
                                 onChangeText={onChange}
                                 required
                                 onValueChange={pickvalue => {
                                     onChange(pickvalue);
                                 }}
-                                data={[
-                                    {
-                                        label: 'LBS',
-                                        value: 'LBS',
-                                    },
-                                ]}
+
                                 error={
                                     error && error?.message
                                 }
