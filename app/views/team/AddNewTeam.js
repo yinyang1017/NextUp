@@ -19,7 +19,6 @@ const AddNewTeam = () => {
     selectedTeamOption,
     onTeamOptionChangeHandler,
     isHighSchoolSelected,
-    classesData,
     highSchoolFormik,
     onSelectDropdownValue,
     schoolsData,
@@ -34,23 +33,22 @@ const AddNewTeam = () => {
     <View flex>
       <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
       <KeyboardAwareScrollView
-        bounces={false}
-        contentContainerStyle={{ flex: 1, paddingBottom: bottom }}>
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: bottom, flex: 1 }}>
         <ImageUpload
-          source={{ uri: profileImage }}
+          source={{ uri: profileImage?.uri }}
           containerStyle={styles.imageUploadContainer}
           onSelectImage={onSelectProfileImageHandler}
         />
         <View style={styles.selectOptionsContainer}>
           <FormRadioGroup
-            label="option"
+            label="option *"
             radioValues={teamTypeOptions}
             value={selectedTeamOption}
             onValueChange={onTeamOptionChangeHandler}
           />
           {isHighSchoolSelected ? (
             <HighSchoolForm
-              classesData={classesData}
               formik={highSchoolFormik}
               onSelectDropdownValue={onSelectDropdownValue}
               schoolsData={schoolsData}
@@ -79,10 +77,13 @@ export default AddNewTeam;
 const styles = StyleSheet.create({
   backButtonContainer: { marginHorizontal: wp(5), marginTop: hp(3) },
   imageUploadContainer: { alignSelf: 'center', marginTop: hp(5) },
-  selectOptionsContainer: { marginHorizontal: wp(8), marginTop: hp(2) },
+  selectOptionsContainer: {
+    marginHorizontal: wp(6),
+    marginTop: hp(2),
+  },
   saveButton: {
     marginHorizontal: wp(8),
-    marginTop: 'auto',
     marginBottom: hp(2),
+    marginTop: 'auto',
   },
 });

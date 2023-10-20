@@ -15,6 +15,7 @@ const SelectionDropdown = ({
   onSelectItem = () => {},
   renderItem,
   error = '',
+  placeholder = '',
 }) => {
   return (
     <View>
@@ -37,15 +38,17 @@ const SelectionDropdown = ({
               cancelButtonProps: {
                 iconStyle: { tintColor: customTheme.colors.light },
               },
-              title,
             }}
             showSearch
             pickerModalProps={{
               overlayBackgroundColor: customTheme.colors.background,
             }}
             renderPicker={() => (
-              <Text medium-600 numberOfLines={1} style={styles.valueText}>
-                {value || ' '}
+              <Text
+                medium-600
+                numberOfLines={1}
+                style={[styles.valueText, !value && styles.placeholder]}>
+                {value || placeholder || ' '}
               </Text>
             )}
             searchStyle={{
@@ -68,8 +71,11 @@ const SelectionDropdown = ({
           </Picker>
         ) : (
           <TouchableOpacity onPress={onPressValue}>
-            <Text medium-600 numberOfLines={1} style={styles.valueText}>
-              {value || ' '}
+            <Text
+              medium-600
+              numberOfLines={1}
+              style={[styles.valueText, !value && styles.placeholder]}>
+              {value || placeholder || ' '}
             </Text>
           </TouchableOpacity>
         )}
@@ -100,4 +106,10 @@ const styles = StyleSheet.create({
     backgroundColor: customTheme.colors.background,
   },
   errorText: { color: customTheme.colors.red10, marginTop: hp(0.5) },
+  placeholder: {
+    color: customTheme.colors.$textNeutral,
+    fontSize: 14,
+    fontWeight: '300',
+    fontFamily: customTheme.fontFamily.robotoLight,
+  },
 });

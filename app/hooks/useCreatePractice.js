@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const padTime = val => String(val).padStart(2, '0');
 
@@ -48,6 +49,8 @@ const practiceSchema = Yup.object().shape({
 });
 
 const useCreatePractice = () => {
+  const navigation = useNavigation();
+
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [timeModalData, setTimeModalData] = useState({
@@ -58,8 +61,17 @@ const useCreatePractice = () => {
 
   const { values, setFieldValue, setFieldError, errors, handleSubmit } =
     useFormik({
-      initialValues: { location: '', date: '', time: '', tag: '' },
-      onSubmit: () => Alert.alert('Success'),
+      initialValues: {
+        location: '',
+        date: '',
+        time: '',
+        tag: '',
+        locationExtraData: {},
+      },
+      onSubmit: formData => {
+        console.log(' ~ formData:', formData);
+        Alert.alert('Success');
+      },
       validationSchema: practiceSchema,
       validateOnBlur: false,
       validateOnChange: false,
@@ -118,6 +130,20 @@ const useCreatePractice = () => {
     setFieldError('tag', text ? '' : 'Please enter tags');
   };
 
+  const onSelectLocation = (locationData, locationExtraDetails) => {
+    const locationString = locationData?.description || '';
+    setFieldValue('location', locationString);
+    setFieldError('location', locationString ? '' : 'Please select location');
+    setFieldValue('locationExtraData', {
+      locationData,
+      locationExtraDetails,
+    });
+  };
+
+  const onPressLocation = () => {
+    navigation.navigate('GoogleAutoCompleteScreen', { onSelectLocation });
+  };
+
   return {
     errors,
     openDateCalendarHandler,
@@ -134,6 +160,8 @@ const useCreatePractice = () => {
     setShowDatePicker,
     onSelectDateHandler,
     selectedCalendarDate,
+    onPressLocation,
+    values,
   };
 };
 

@@ -30,13 +30,21 @@ export const CreatePractice = () => {
     showTimePicker,
     timeModalInitialData,
     timeValue,
+    onPressLocation,
+    values,
   } = useCreatePractice();
 
   return (
     <View flex style={{ paddingBottom: bottom }}>
       <Back title="Create Practice" containerStyle={styles.back} />
       <View style={styles.dropdownSelectionBody}>
-        <SelectionDropdown title={'Location'} error={errors.location} />
+        <SelectionDropdown
+          title={'Location'}
+          error={errors.location}
+          isPicker={false}
+          onPressValue={onPressLocation}
+          value={values.location}
+        />
         <View row centerV spread style={styles.datTimeRowDropdown}>
           <SelectionDropdown
             title={'Date'}

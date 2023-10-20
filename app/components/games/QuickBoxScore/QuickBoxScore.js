@@ -81,7 +81,7 @@ const renderHeaderCustomItem = item => {
   const isFirstItem = item.key === 0;
   const isLastItem = item.key === 6;
   return (
-    <View style={styles.headerItem(isFirstItem, isLastItem)}>
+    <View key={item.key} style={styles.headerItem(isFirstItem, isLastItem)}>
       <Text style={styles.headerItemText}>{item.title}</Text>
     </View>
   );
@@ -91,7 +91,9 @@ const renderBodyCustomItem = (item, rowIndex) => {
   const isFirstItem = item.key === 0;
   const isLastItem = item.key === 7;
   return (
-    <View style={styles.bodyItem(isFirstItem, isLastItem, rowIndex)}>
+    <View
+      key={item.key}
+      style={styles.bodyItem(isFirstItem, isLastItem, rowIndex)}>
       <Text
         style={[
           styles.headerItemText,

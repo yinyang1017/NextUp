@@ -1,16 +1,11 @@
 import { StyleSheet } from 'react-native';
 import React, { memo } from 'react';
 import { customTheme } from '../../../constants';
-import { Picker } from 'react-native-ui-lib';
+import { Picker, View } from 'react-native-ui-lib';
 import SelectionDropdown from '../../common/SelectionDropdown';
-import { hp } from '../../../utils/responsive';
+import { hp, wp } from '../../../utils/responsive';
 
-const HighSchoolForm = ({
-  onSelectDropdownValue,
-  formik,
-  schoolsData,
-  classesData,
-}) => {
+const HighSchoolForm = ({ onSelectDropdownValue, formik, schoolsData }) => {
   const renderSchoolItem = item => {
     const name = item.name;
     const color = customTheme.colors.light;
@@ -31,29 +26,41 @@ const HighSchoolForm = ({
   return (
     <>
       <SelectionDropdown
-        containerStyle={styles.highSchoolDropdownContainer}
-        title={'Select School'}
+        title={'Team *'}
         value={formik.values.school}
         data={schoolsData?.data || []}
         renderItem={renderSchoolItem}
         error={formik.errors.school}
+        placeholder="Select Team"
       />
-      <SelectionDropdown
-        containerStyle={styles.highSchoolDropdownContainer}
-        title={'Select Team'}
-        value={formik.values.teamYear}
-        data={classesData?.data || []}
-        onSelectItem={value => {
-          onSelectDropdownValue(formik, 'teamYear', value);
-        }}
-        error={formik.errors.teamYear}
-      />
+      <View row spread centerV style={{ marginTop: hp(2) }}>
+        <SelectionDropdown
+          containerStyle={{ width: wp(40) }}
+          title="Gender *"
+          placeholder={'Select Gender'}
+          value={formik.values.gender}
+          data={['Boys', 'Girls']}
+          onSelectItem={value => {
+            onSelectDropdownValue(formik, 'gender', value);
+          }}
+          error={formik.errors.gender}
+        />
+        <SelectionDropdown
+          containerStyle={{ width: wp(40) }}
+          title="Level *"
+          placeholder={'Select Level'}
+          value={formik.values.level}
+          data={['Jr & Varsity', 'Varsity', 'Both']}
+          onSelectItem={value => {
+            onSelectDropdownValue(formik, 'level', value);
+          }}
+          error={formik.errors.level}
+        />
+      </View>
     </>
   );
 };
 
 export default memo(HighSchoolForm);
 
-const styles = StyleSheet.create({
-  highSchoolDropdownContainer: { marginTop: hp(3) },
-});
+const styles = StyleSheet.create({});

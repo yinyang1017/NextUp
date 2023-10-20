@@ -405,7 +405,7 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
       <TextField
         {...props}
         enablesReturnKeyAutomatically
-        placeholderTextColor={customTheme.colors.tertiary}
+        placeholderTextColor={props?.placeholderTextColor ||  customTheme.colors.tertiary}
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}

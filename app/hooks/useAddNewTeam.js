@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
-  useGetListOfClasses,
   useGetListOfSchools,
   useGetListOfStatesAndCities,
 } from '../api/onboarding.api';
@@ -14,21 +13,24 @@ const teamTypeOptions = [
 ];
 
 const highSchoolSchema = Yup.object().shape({
-  school: Yup.string().required('Please select School'),
-  teamYear: Yup.string().required('Please select Team'),
+  school: Yup.string().required('Please select school'),
+  teamYear: Yup.string().required('Please select team'),
+  gender: Yup.string().required('Please select gender'),
+  level: Yup.string().required('Please select level'),
 });
 
 const travelTeamSchema = Yup.object().shape({
   teamName: Yup.string().required('Please enter team name'),
   state: Yup.string().required('Please select state'),
   city: Yup.string().required('Please select city'),
-  age: Yup.string().required('Please select age'),
+  ageGroup: Yup.string().required('Please select age group'),
+  gender: Yup.string().required('Please select gender'),
 });
 
 const useAddNewTeam = () => {
   const isFocus = useIsFocused();
 
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
 
   const onSubmitFormHandler = (data, isHighSchool) => {
     console.log('~ onSubmitFormHandler ~ data:', data);
@@ -43,6 +45,8 @@ const useAddNewTeam = () => {
     initialValues: {
       school: '',
       teamYear: '',
+      gender: '',
+      level: '',
     },
     onSubmit: onSubmitFormHandler,
     validationSchema: highSchoolSchema,
@@ -55,7 +59,8 @@ const useAddNewTeam = () => {
       teamName: '',
       state: '',
       city: '',
-      age: '',
+      ageGroup: '',
+      gender: '',
     },
     onSubmit: onSubmitFormHandler,
     validationSchema: travelTeamSchema,
@@ -67,7 +72,6 @@ const useAddNewTeam = () => {
   const [citiesData, setCitiesData] = useState([]);
 
   const { data: schoolsData, mutate: getListOfSchools } = useGetListOfSchools();
-  const { data: classesData, mutate: getListOfClasses } = useGetListOfClasses();
   const { data: statesData, mutate: getListOfStates } =
     useGetListOfStatesAndCities();
   const { mutate: getListOfCities } = useGetListOfStatesAndCities();
@@ -77,7 +81,6 @@ const useAddNewTeam = () => {
   useEffect(() => {
     if (isFocus) {
       getListOfSchools();
-      getListOfClasses();
       getListOfStates();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,8 +108,8 @@ const useAddNewTeam = () => {
   };
 
   const onSelectProfileImageHandler = imageResponse => {
-    const newUri = imageResponse?.assets?.[0]?.uri || '';
-    setProfileImage(newUri);
+    const newImageData = imageResponse?.assets?.[0] || null;
+    setProfileImage(newImageData);
   };
 
   const onPressSaveHandler = isHighSchoolSelected
@@ -118,13 +121,16 @@ const useAddNewTeam = () => {
       highSchoolFormik.setErrors({
         school: '',
         teamYear: '',
+        gender: '',
+        level: '',
       });
     } else {
       travelTeamFormik.setErrors({
-        age: '',
         city: '',
         state: '',
         teamName: '',
+        ageGroup: '',
+        gender: '',
       });
     }
     setSelectedTeamOption(value);
@@ -136,7 +142,6 @@ const useAddNewTeam = () => {
     selectedTeamOption,
     onTeamOptionChangeHandler,
     isHighSchoolSelected,
-    classesData,
     highSchoolFormik,
     onSelectDropdownValue,
     schoolsData,
