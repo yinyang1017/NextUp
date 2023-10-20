@@ -51,6 +51,14 @@ export function useLookup() {
     }, [classOfData])
 
     const queryFilter = (key, value) => {
+        if (key === 'state') {
+            setQuery(prev => ({
+                ...prev,
+                city: '',
+                [key]: value
+            }))
+            return
+        }
         setQuery(prev => ({
             ...prev,
             [key]: value

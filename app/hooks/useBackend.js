@@ -60,12 +60,6 @@ const useBackend = () => {
   };
 
   const handleAppleLogin = async () => {
-    console.warn('Beginning Apple Authentication');
-    // if (!appleAuth.isSupported) {
-    //     alert('Apple Authentication is not supported on this device.');
-    //     return null;
-    // }
-
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,

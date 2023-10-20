@@ -26,8 +26,8 @@ const Back = ({ onPress, containerStyle = {}, title = '' }) => {
           style={styles.backImage}
         />
       </TouchableOpacity>
-      {!!title && (
-        <Text medium style={styles.title}>
+      {title && (
+        <Text white medium style={styles.title}>
           {title}
         </Text>
       )}

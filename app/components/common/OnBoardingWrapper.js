@@ -8,6 +8,7 @@ import { FormButton } from "./FormInputs";
 import { hp, wp } from "../../utils/responsive";
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import Back from "../../utils/HeaderButtons/Back";
 export default function OnBoardingWrapper({
     title = '',
     children,
@@ -25,7 +26,7 @@ export default function OnBoardingWrapper({
     const [keyboardHeight, setKeyboardHeight] = useState(0);
 
     const CButton = () => (
-        <View>
+        <>
             <FormButton
                 onPress={handleForm}
                 loading={loading}
@@ -40,7 +41,7 @@ export default function OnBoardingWrapper({
                     >Skip</Text>
                 </TouchableOpacity>
             }
-        </View>
+        </>
     )
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {

@@ -60,18 +60,21 @@ export default function CoachDetails() {
 
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <FormInputField
-                label={'First Name'}
-                value={value ?? ''}
-                required
-                removeSpace
-                placeholder="Enter First Name"
-                onChangeText={onChange}
-                width={'50%'}
-                error={
-                  error && error?.message
-                }
-              />
+              <View width={'50%'}>
+                <FormInputField
+                  label={'First Name'}
+                  value={value ?? ''}
+                  required
+                  removeSpace
+                  placeholder="Enter First Name"
+                  onChangeText={onChange}
+                  width={'50%'}
+                  error={
+                    error && error?.message
+                  }
+                />
+              </View>
+
             )}
           />
           <Controller
@@ -95,7 +98,7 @@ export default function CoachDetails() {
             }}
 
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <>
+              <View width={'50%'}>
                 <FormInputField
                   label={'Last Name'}
                   value={value ?? ''}
@@ -108,7 +111,7 @@ export default function CoachDetails() {
                     error && error?.message
                   }
                 />
-              </>
+              </View>
 
             )}
           />

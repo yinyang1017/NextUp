@@ -15,15 +15,15 @@ ThemeManager.setComponentTheme('Button', (props, context) => {
   };
 });
 
-ThemeManager.setComponentTheme('Text', (props, context) => {
-  return {
-    color: customTheme.colors.light,
-  };
-});
+// ThemeManager.setComponentForcedTheme('Text', (props, context) => {
+//   return {
+//     color: customTheme.colors.light,
+//   };
+// });
 
-ThemeManager.setComponentForcedTheme('Icon', (props, context) => {
-  return { tintColor: customTheme.colors.light };
-});
+// ThemeManager.setComponentForcedTheme('Icon', (props, context) => {
+//   return { tintColor: customTheme.colors.light };
+// });
 
 // need this to fix searchinput background color issue in Picker component in SelectionDropdown File.
 Colors.loadColors({ $backgroundDefault: customTheme.colors.background });

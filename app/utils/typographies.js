@@ -53,6 +53,7 @@ Typography.loadTypographies({
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontSize: customTheme.fontSizes.size_16,
     fontWeight: '500',
+    color: customTheme.colors.light,
   },
   'medium-600': {
     fontWeight: '600',
@@ -63,6 +64,7 @@ Typography.loadTypographies({
     fontWeight: '700',
     fontSize: customTheme.fontSizes.size_16,
     fontFamily: customTheme.fontFamily.robotoBold,
+
   },
   'medium-x-400': {
     fontWeight: '400',
@@ -132,6 +134,7 @@ Typography.loadTypographies({
     marginBottom: customTheme.spacings.spacing_16,
     textTransform: 'uppercase',
     fontSize: customTheme.fontSizes.size_12,
+    color: customTheme.colors.light,
     fontWeight: '700',
     fontFamily: customTheme.fontFamily.robotoBold,
   },
@@ -149,4 +152,9 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_16,
     fontWeight: '400',
   },
+  'text-error': {
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontSize: customTheme.fontSizes.size_12,
+    color: customTheme.colors.red10,
+  }
 });

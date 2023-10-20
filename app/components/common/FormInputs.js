@@ -23,9 +23,9 @@ import { ScrollViewContainer } from './SrollViewContainer';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Layout, customTheme } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faChevronDown, faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { SelectableCard } from './SelectableCard';
-import { ActivityIndicator, Dimensions, Pressable, Modal as NativeModal, FlatList } from 'react-native';
+import { ActivityIndicator, Dimensions, Pressable, Modal as NativeModal, FlatList, Alert } from 'react-native';
 import { ViewContainer, statusBarHeight } from './ViewConatiner';
 import moment from 'moment';
 import { hp } from '../../utils/responsive';
@@ -48,7 +48,7 @@ export const _renderCustomModal = (modalProps) => {
       animationType='slide'
 
     >
-      <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight}></View>
+      <View backgroundColor={customTheme.colors.background} width={'100%'} height={statusBarHeight}></View>
       <View
         backgroundColor={customTheme.colors.background}
         paddingH-16
@@ -318,7 +318,7 @@ export function FormRadioGroup({
     column: false,
   };
   return (
-    <View marginV-12>
+    <View height={hp(10)} >
       <Text
         style={{
           opacity: 0.6,
@@ -353,7 +353,10 @@ export function FormRadioGroup({
           })}
         </View>
       </RadioGroup>
-      <Text red10>{rest?.error}</Text>
+      {
+        rest?.error && <Text text-error>{rest?.error}</Text>
+      }
+
     </View>
   );
 }
@@ -389,7 +392,7 @@ export function FormSelectable({ data, value, onChange, ...rest }) {
 
 export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, containerStyle, ...props }) {
   return (
-    <View marginR-20 height={hp(12)} style={containerStyle}>
+    <View marginR-20 height={hp(10)} style={containerStyle}>
       <View row spread centerH>
         <Text input-label>{label} {
           props?.required && <Text red10>*</Text>
@@ -423,6 +426,11 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
         }}
         enableErrors={error}
         validationMessage={error}
+        validationMessageStyle={{
+          color: customTheme.colors.red10,
+          fontFamily: customTheme.fontFamily.robotoRegular,
+          fontSize: customTheme.fontSizes.size_12,
+        }}
       />
       {
         optionBtn && <TouchableOpacity flex right marginT-4 onPress={optionBtn.onPress}>
@@ -500,7 +508,6 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
   return <>
     <TouchableOpacity onPress={handleVisible} >
       <FormInputField
-        readonly
         onKeyPress={() => setVisible(true)}
         onPress={() => setVisible(true)}
         picker
