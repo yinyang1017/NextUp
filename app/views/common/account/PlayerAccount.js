@@ -108,12 +108,7 @@ export default function PlayerAccount() {
           {user?.firstName}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} >
-          <Text
-            style={{
-              color: customTheme.colors.white,
-              textAlign: 'center',
-              fontSize: customTheme.fontSizes.size_16,
-            }}>
+          <Text centerH medium>
             Edit profile
           </Text>
         </TouchableOpacity>

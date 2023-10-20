@@ -528,7 +528,7 @@ export function FormDatePicker({ label, value, onChange, ...props }) {
         onChange(moment(date).format('MM/DD/YYYY').toString())
       }}
       maximumDate={new Date()}
-
+      minimumDate={new Date(1900, 0, 1)}
 
       onCancel={() => handleVisible()}
     />

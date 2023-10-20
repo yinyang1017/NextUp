@@ -22,6 +22,7 @@ export const ScreenHeader = ({ title, backButtonAction = () => null }) => {
     <View
       row
       marginB-20
+      marginH-16
       style={{
         alignItems: 'center',
       }}
