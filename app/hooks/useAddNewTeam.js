@@ -1,10 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {
-  useGetListOfSchools,
-  useGetListOfStatesAndCities,
-} from '../api/onboarding.api';
+import { useGetListOfStatesAndCities } from '../api/onboarding.api';
 import { useIsFocused } from '@react-navigation/native';
 
 const teamTypeOptions = [
@@ -47,6 +44,8 @@ const useAddNewTeam = () => {
       teamYear: '',
       gender: '',
       level: '',
+      state: '',
+      city: '',
     },
     onSubmit: onSubmitFormHandler,
     validationSchema: highSchoolSchema,
@@ -71,7 +70,6 @@ const useAddNewTeam = () => {
   // Travel Team Option
   const [citiesData, setCitiesData] = useState([]);
 
-  const { data: schoolsData, mutate: getListOfSchools } = useGetListOfSchools();
   const { data: statesData, mutate: getListOfStates } =
     useGetListOfStatesAndCities();
   const { mutate: getListOfCities } = useGetListOfStatesAndCities();
@@ -80,7 +78,6 @@ const useAddNewTeam = () => {
 
   useEffect(() => {
     if (isFocus) {
-      getListOfSchools();
       getListOfStates();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +141,6 @@ const useAddNewTeam = () => {
     isHighSchoolSelected,
     highSchoolFormik,
     onSelectDropdownValue,
-    schoolsData,
     citiesData,
     travelTeamFormik,
     statesData,

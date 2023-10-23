@@ -1,61 +1,90 @@
 import { StyleSheet } from 'react-native';
 import React, { memo } from 'react';
-import { customTheme } from '../../../constants';
-import { Picker, View } from 'react-native-ui-lib';
-import SelectionDropdown from '../../common/SelectionDropdown';
+import { View } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
+import { FormActionPicker, FormInputPicker } from '../../common/FormInputs';
+import { useLookup } from '../../../hooks/useLookup';
 
-const HighSchoolForm = ({ onSelectDropdownValue, formik, schoolsData }) => {
-  const renderSchoolItem = item => {
-    const name = item.name;
-    const color = customTheme.colors.light;
+const HighSchoolForm = ({ onSelectDropdownValue, formik }) => {
+  const { resetFilter, queryFilter, cities, states, schools } = useLookup();
+
+  const _renderInputFilter = () => {
     return (
-      <Picker.Item
-        key={item.name}
-        onPress={() => {
-          onSelectDropdownValue(formik, 'school', name);
-        }}
-        label={name}
-        value={name}
-        selectedIconColor={color}
-        labelStyle={{ color }}
-      />
+      <>
+        <View width={'50%'} marginR-4>
+          <FormInputPicker
+            data={states ?? []}
+            value={formik.values?.state || ''}
+            label={'State'}
+            title="Search for States"
+            placeholder="Select State"
+            onValueChange={value => {
+              queryFilter('state', value?.value);
+              onSelectDropdownValue(formik, 'state', value?.value);
+              onSelectDropdownValue(formik, 'city', '');
+            }}
+          />
+        </View>
+        <View width={'50%'}>
+          <FormInputPicker
+            data={cities ?? []}
+            label={'City'}
+            value={formik.values?.city || ''}
+            title="Search for city"
+            placeholder="City"
+            onValueChange={value => {
+              queryFilter('city', value?.value);
+              onSelectDropdownValue(formik, 'city', value?.value);
+            }}
+          />
+        </View>
+      </>
     );
   };
 
   return (
     <>
-      <SelectionDropdown
-        title={'Team *'}
-        value={formik.values.school}
-        data={schoolsData?.data || []}
-        renderItem={renderSchoolItem}
-        error={formik.errors.school}
+      <FormInputPicker
+        value={formik.values.school?.value}
+        data={schools || []}
+        required
+        renderFilter={_renderInputFilter}
+        label={'Team'}
+        title="Search for team"
         placeholder="Select Team"
+        error={formik.errors.school}
+        onValueChange={value => {
+          resetFilter();
+          onSelectDropdownValue(formik, 'school', value);
+        }}
       />
-      <View row spread centerV style={{ marginTop: hp(2) }}>
-        <SelectionDropdown
-          containerStyle={{ width: wp(40) }}
-          title="Gender *"
-          placeholder={'Select Gender'}
-          value={formik.values.gender}
-          data={['Boys', 'Girls']}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'gender', value);
-          }}
-          error={formik.errors.gender}
-        />
-        <SelectionDropdown
-          containerStyle={{ width: wp(40) }}
-          title="Level *"
-          placeholder={'Select Level'}
-          value={formik.values.level}
-          data={['Jr & Varsity', 'Varsity', 'Both']}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'level', value);
-          }}
-          error={formik.errors.level}
-        />
+      <View row spread style={styles.dropdownRow}>
+        <View width={wp(44)}>
+          <FormActionPicker
+            value={formik.values.gender}
+            data={['Boy', 'Girl']}
+            required
+            label={'Gender'}
+            placeholder="Select Gender"
+            onValueChange={value =>
+              onSelectDropdownValue(formik, 'gender', value)
+            }
+            error={formik.errors.gender}
+          />
+        </View>
+        <View width={wp(44)}>
+          <FormActionPicker
+            value={formik.values.level}
+            required
+            data={['Jr & Varsity', 'Varsity', 'Both']}
+            label={'Level'}
+            placeholder="Select Level"
+            onValueChange={value =>
+              onSelectDropdownValue(formik, 'level', value)
+            }
+            error={formik.errors.level}
+          />
+        </View>
       </View>
     </>
   );
@@ -63,4 +92,7 @@ const HighSchoolForm = ({ onSelectDropdownValue, formik, schoolsData }) => {
 
 export default memo(HighSchoolForm);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  rowDropdownItem: { width: wp(40) },
+  dropdownRow: { marginTop: hp(1) },
+});

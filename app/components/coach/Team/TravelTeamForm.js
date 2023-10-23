@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
-import React from 'react';
-import { FormInputField } from '../../common/FormInputs';
-import SelectionDropdown from '../../common/SelectionDropdown';
+import React, { memo } from 'react';
+import {
+  FormActionPicker,
+  FormInputField,
+  FormInputPicker,
+} from '../../common/FormInputs';
 import { hp, wp } from '../../../utils/responsive';
 import { View } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
@@ -12,77 +15,88 @@ const TravelTeamForm = ({
   statesData,
   citiesData,
 }) => {
+  const onChangeTeamName = text => {
+    formik.setFieldValue('teamName', text);
+    formik.setFieldError('teamName', text ? '' : 'Please enter team name');
+  };
+
   return (
     <>
       <FormInputField
+        required
         containerStyle={styles.schoolNameInput}
-        label={'Team Name *'}
+        label={'Team Name'}
         placeholder="Enter Team Name"
         value={formik.values.teamName}
-        onChangeText={text => {
-          formik.setFieldValue('teamName', text);
-          formik.setFieldError(
-            'teamName',
-            text ? '' : 'Please enter team name',
-          );
-        }}
+        onChangeText={onChangeTeamName}
         error={formik.errors.teamName}
         onBlur={formik.handleBlur('teamName')}
         placeholderTextColor={customTheme.colors.$textNeutral}
       />
-      <View row centerV spread style={{ marginVertical: hp(1) }}>
-        <SelectionDropdown
-          containerStyle={styles.dropdownWithLimitedWidth}
-          title={'States *'}
-          value={formik.values.state}
-          data={statesData?.data || []}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'state', value);
-          }}
-          error={formik.errors.state}
-          placeholder="Select State"
-        />
-        <SelectionDropdown
-          containerStyle={styles.dropdownWithLimitedWidth}
-          title={'Cities *'}
-          value={formik.values.city}
-          data={citiesData || []}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'city', value);
-          }}
-          error={formik.errors.city}
-          placeholder="Select City"
-        />
+      <View row centerV spread style={{ marginBottom: hp(1) }}>
+        <View width={wp(46)}>
+          <FormInputPicker
+            value={formik.values.state}
+            data={statesData?.data || []}
+            required
+            label={'States'}
+            title="States"
+            placeholder="Select State"
+            error={formik.errors.state}
+            onValueChange={value => {
+              onSelectDropdownValue(formik, 'state', value);
+            }}
+          />
+        </View>
+        <View width={wp(46)}>
+          <FormInputPicker
+            value={formik.values.city}
+            data={citiesData || []}
+            required
+            label={'Cities'}
+            disabled={!formik.values.state}
+            title="Cities"
+            placeholder="Select City"
+            error={formik.errors.city}
+            onValueChange={value => {
+              onSelectDropdownValue(formik, 'city', value);
+            }}
+          />
+        </View>
       </View>
-      <View row centerV spread>
-        <SelectionDropdown
-          containerStyle={{ width: wp(40) }}
-          title="Gender *"
-          placeholder={'Select Gender'}
-          value={formik.values.gender}
-          data={['Boys', 'Girls']}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'gender', value);
-          }}
-          error={formik.errors.gender}
-        />
-        <SelectionDropdown
-          containerStyle={styles.dropdownWithLimitedWidth}
-          title={'Age Group *'}
-          value={formik.values.ageGroup}
-          data={['Jr & Varsity', 'Varsity', 'Both']}
-          onSelectItem={value => {
-            onSelectDropdownValue(formik, 'ageGroup', value);
-          }}
-          error={formik.errors.ageGroup}
-          placeholder="Select Age Group"
-        />
+      <View row spread style={styles.dropdownRow}>
+        <View width={wp(46)}>
+          <FormActionPicker
+            value={formik.values.gender}
+            data={['Boy', 'Girl']}
+            required
+            label={'Gender'}
+            placeholder="Select Gender"
+            onValueChange={value =>
+              onSelectDropdownValue(formik, 'gender', value)
+            }
+            error={formik.errors.gender}
+          />
+        </View>
+        <View width={wp(46)}>
+          <FormActionPicker
+            value={formik.values.ageGroup}
+            required
+            data={['14 & Under', '15 & Under', '17 & Under']}
+            label={'Age Group'}
+            placeholder="Select Age Group"
+            onValueChange={value =>
+              onSelectDropdownValue(formik, 'ageGroup', value)
+            }
+            error={formik.errors.ageGroup}
+          />
+        </View>
       </View>
     </>
   );
 };
 
-export default TravelTeamForm;
+export default memo(TravelTeamForm);
 
 const styles = StyleSheet.create({
   schoolNameInput: {
@@ -92,4 +106,5 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   dropdownWithLimitedWidth: { width: wp(42) },
+  dropdownRow: { marginTop: hp(1) },
 });

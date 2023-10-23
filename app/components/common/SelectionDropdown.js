@@ -16,18 +16,32 @@ const SelectionDropdown = ({
   renderItem,
   error = '',
   placeholder = '',
+  isMandatory = true,
+  disabled = false,
 }) => {
   return (
     <View>
-      <View style={[styles.container, containerStyle]}>
+      <View
+        style={[
+          styles.container,
+          disabled && { opacity: 0.6 },
+          containerStyle,
+        ]}>
         <View row centerV spread>
           <Text small-700 flex style={styles.title} numberOfLines={1}>
             {title}
+            {isMandatory && (
+              <Text input-label red10>
+                {' '}
+                *
+              </Text>
+            )}
           </Text>
           <Image source={appImages.dropdown} style={styles.dropdownIcon} />
         </View>
         {isPicker ? (
           <Picker
+            editable={!disabled}
             listProps={{
               contentContainerStyle: styles.pickerListContentContainer,
             }}
@@ -70,7 +84,7 @@ const SelectionDropdown = ({
                 ))}
           </Picker>
         ) : (
-          <TouchableOpacity onPress={onPressValue}>
+          <TouchableOpacity onPress={onPressValue} disabled={disabled}>
             <Text
               medium-600
               numberOfLines={1}
@@ -100,7 +114,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     paddingRight: wp(2),
   },
-  dropdownIcon: { height: wp(4), width: wp(4) },
+  dropdownIcon: { height: wp(6), width: wp(6) },
   pickerListContentContainer: {
     paddingBottom: hp(5),
     backgroundColor: customTheme.colors.background,

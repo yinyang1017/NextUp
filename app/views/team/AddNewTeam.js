@@ -1,15 +1,16 @@
 import { StyleSheet } from 'react-native';
 import React from 'react';
 import Back from '../../utils/HeaderButtons/Back';
-import { hp, wp } from '../../utils/responsive';
+import { hp, isAndroid, wp } from '../../utils/responsive';
 import ImageUpload from '../../components/common/ImageUpload';
-import { KeyboardAwareScrollView, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 import PrimaryButton from '../../components/common/PrimaryButton';
 import { FormRadioGroup } from '../../components/common/FormInputs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HighSchoolForm from '../../components/coach/Team/HighSchoolForm';
 import TravelTeamForm from '../../components/coach/Team/TravelTeamForm';
 import useAddNewTeam from '../../hooks/useAddNewTeam';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const AddNewTeam = () => {
   const { bottom } = useSafeAreaInsets();
@@ -21,7 +22,6 @@ const AddNewTeam = () => {
     isHighSchoolSelected,
     highSchoolFormik,
     onSelectDropdownValue,
-    schoolsData,
     citiesData,
     onPressSaveHandler,
     statesData,
@@ -33,8 +33,9 @@ const AddNewTeam = () => {
     <View flex>
       <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
       <KeyboardAwareScrollView
+        extraScrollHeight={isAndroid ? hp(4) : 0}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: bottom, flex: 1 }}>
+        contentContainerStyle={{ paddingBottom: bottom, flexGrow: 1 }}>
         <ImageUpload
           source={{ uri: profileImage?.uri }}
           containerStyle={styles.imageUploadContainer}
@@ -42,7 +43,8 @@ const AddNewTeam = () => {
         />
         <View style={styles.selectOptionsContainer}>
           <FormRadioGroup
-            label="option *"
+            required
+            label="option"
             radioValues={teamTypeOptions}
             value={selectedTeamOption}
             onValueChange={onTeamOptionChangeHandler}
@@ -51,7 +53,6 @@ const AddNewTeam = () => {
             <HighSchoolForm
               formik={highSchoolFormik}
               onSelectDropdownValue={onSelectDropdownValue}
-              schoolsData={schoolsData}
             />
           ) : (
             <TravelTeamForm
@@ -64,7 +65,7 @@ const AddNewTeam = () => {
         </View>
         <PrimaryButton
           title={'Save'}
-          style={styles.saveButton}
+          style={styles.saveButton(bottom, isHighSchoolSelected)}
           onPress={onPressSaveHandler}
         />
       </KeyboardAwareScrollView>
@@ -80,10 +81,10 @@ const styles = StyleSheet.create({
   selectOptionsContainer: {
     marginHorizontal: wp(6),
     marginTop: hp(2),
+    height: hp(52),
   },
-  saveButton: {
+  saveButton: bottom => ({
     marginHorizontal: wp(8),
-    marginBottom: hp(2),
-    marginTop: 'auto',
-  },
+    marginBottom: bottom + hp(2),
+  }),
 });

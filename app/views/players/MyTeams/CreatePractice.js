@@ -10,6 +10,8 @@ import SelectionDropdown from '../../../components/common/SelectionDropdown';
 import { View } from 'react-native-ui-lib';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import useCreatePractice from '../../../hooks/useCreatePractice';
+import { customTheme } from '../../../constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const CreatePractice = () => {
   const { bottom } = useSafeAreaInsets();
@@ -37,44 +39,53 @@ export const CreatePractice = () => {
   return (
     <View flex style={{ paddingBottom: bottom }}>
       <Back title="Create Practice" containerStyle={styles.back} />
-      <View style={styles.dropdownSelectionBody}>
-        <SelectionDropdown
-          title={'Location'}
-          error={errors.location}
-          isPicker={false}
-          onPressValue={onPressLocation}
-          value={values.location}
-        />
-        <View row centerV spread style={styles.datTimeRowDropdown}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.dropdownSelectionBody}>
           <SelectionDropdown
-            title={'Date'}
+            title={'Location'}
+            error={errors.location}
             isPicker={false}
-            onPressValue={openDateCalendarHandler}
-            containerStyle={styles.dateTimeDropdown}
-            value={dateValue}
-            error={errors.date}
+            onPressValue={onPressLocation}
+            value={values.location}
+            placeholder="Select location"
           />
-          <SelectionDropdown
-            title={'Time'}
-            isPicker={false}
-            onPressValue={openTimePickerHandler}
-            containerStyle={styles.dateTimeDropdown}
-            value={timeValue}
-            error={errors.time}
+          <View row centerV spread style={styles.datTimeRowDropdown}>
+            <SelectionDropdown
+              title={'Date'}
+              isPicker={false}
+              onPressValue={openDateCalendarHandler}
+              containerStyle={styles.dateTimeDropdown}
+              value={dateValue}
+              error={errors.date}
+              placeholder="Select date"
+            />
+            <SelectionDropdown
+              title={'Time'}
+              isPicker={false}
+              onPressValue={openTimePickerHandler}
+              containerStyle={styles.dateTimeDropdown}
+              value={timeValue}
+              error={errors.time}
+              placeholder="Select time"
+            />
+          </View>
+          <FormInputField
+            label={'Tag'}
+            containerStyle={styles.tagInput}
+            onChangeText={onChangeTagHandler}
+            error={errors.tag}
+            placeholder="Enter Tags"
+            placeholderTextColor={customTheme.colors.$textNeutral}
           />
         </View>
-        <FormInputField
-          label={'Tag'}
-          containerStyle={styles.tagInput}
-          onChangeText={onChangeTagHandler}
-          error={errors.tag}
+        <PrimaryButton
+          style={styles.button}
+          title={'Schedule'}
+          onPress={handleSubmit}
         />
-      </View>
-      <PrimaryButton
-        style={styles.button}
-        title={'Schedule'}
-        onPress={handleSubmit}
-      />
+      </KeyboardAwareScrollView>
       <SetTimeModal
         isVisible={showTimePicker}
         setIsVisible={setShowTimePicker}

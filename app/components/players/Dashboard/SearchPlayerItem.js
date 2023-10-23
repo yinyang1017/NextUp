@@ -13,7 +13,11 @@ const PointsInfoItem = ({ title, value }) => {
   );
 };
 
-const SearchPlayerItem = ({ onPress }) => {
+const SearchPlayerItem = ({
+  onPress,
+  isSelected = false,
+  onCheckBoxPress = () => {},
+}) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <Image
@@ -30,10 +34,14 @@ const SearchPlayerItem = ({ onPress }) => {
       </View>
       <Checkbox
         style={styles.checkbox}
-        color={true ? customTheme.colors.btnBg : customTheme.colors.lightGray1}
-        value
+        color={
+          isSelected ? customTheme.colors.btnBg : customTheme.colors.lightGray1
+        }
+        value={isSelected}
+        onValueChange={onCheckBoxPress}
         size={wp(5.5)}
         borderRadius={wp(1)}
+        hitSlop={wp(2)}
       />
     </Pressable>
   );
@@ -64,9 +72,7 @@ const styles = StyleSheet.create({
     gap: wp(11),
     marginTop: hp(0.5),
   },
-  pointInfoItemContainer: {
-    alignItems: 'center',
-  },
+  pointInfoItemContainer: { alignItems: 'center' },
   pointInfoItemTitle: {
     fontSize: customTheme.fontSizes.size_11,
     color: customTheme.colors.light + '60',
@@ -77,7 +83,5 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: customTheme.fontFamily.robotoRegular,
   },
-  checkbox: {
-    marginRight: wp(3),
-  },
+  checkbox: { marginRight: wp(3) },
 });

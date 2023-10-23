@@ -105,11 +105,9 @@ const useCreatePractice = () => {
 
   const timeValue = timeModalData.isTimeSelected
     ? getSelectedTimeString(timeModalData.selectedData)
-    : 'Select time';
+    : '';
 
-  const dateValue = values.date
-    ? values.date.format('DD MMMM YYYY')
-    : 'Select date';
+  const dateValue = values.date ? values.date.format('DD MMMM YYYY') : '';
 
   const timeModalInitialData = timeModalData.isTimeSelected
     ? timeModalData.selectedData
