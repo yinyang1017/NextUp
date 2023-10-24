@@ -81,7 +81,7 @@ function MatchUp() {
         style={{
           flexDirection: 'row',
           marginTop: wide * 0.03,
-          marginBottom: wide,
+          marginBottom: wide * 0.03,
         }}>
         <FlatList
           data={data}

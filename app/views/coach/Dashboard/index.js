@@ -15,7 +15,7 @@ import DashBoardHeader from '../../../components/common/DashBoardHeader';
 import { MyTeams, TeamsBar } from '../../../components/coach/Dashboard/MyTeams';
 import UpcomingGames from '../../../components/coach/Dashboard/EventsCarousel';
 import StatsContainer from '../../../components/coach/Dashboard/StatsContainer';
-import { MyChallenges } from '../../../components/coach/Dashboard/Challenges';
+import MyChallenges from '../../../components/coach/Dashboard/Challenges';
 import { Button, Colors } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
 import StatisticOverview from '../../../components/coach/Dashboard/StatisticOverview';
@@ -55,6 +55,8 @@ export default function CoachDashboard() {
         />
       </View>
       <MatchUp />
+      {/* <Chall:e /> */}
+      <MyChallenges />
     </ScrollView>
   );
 }
