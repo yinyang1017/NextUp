@@ -46,9 +46,7 @@ export default function CoachDashboard() {
         <Button
           label={'Compare Teams'}
           onPress={() => {
-            navigation.navigate('Home', {
-              screen: 'TeamCompare',
-            });
+            navigation.navigate('TeamCompare');
           }}
           backgroundColor={customTheme.colors.darkYellow}
           style={{
@@ -58,7 +56,6 @@ export default function CoachDashboard() {
         />
       </View>
       <MatchUp />
-      {/* <Chall:e /> */}
       <MyChallenges />
     </ScrollView>
   );

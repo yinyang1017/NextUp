@@ -8,7 +8,6 @@ import EditProfile from '../views/common/account/EditProfile';
 import CoachProfile from '../views/coach/Profile';
 export default function MyAccountStack() {
   const { isCoach } = useAuth();
-  console.log('myaccount stack')
 
   const Stack = createNativeStackNavigator();
   const _renderPlayerStack = () => (
@@ -25,6 +24,7 @@ export default function MyAccountStack() {
         name="AccountDetails"
         component={isCoach ? CoachProfile : PlayerAccountDetails}
       />
+      
       <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );

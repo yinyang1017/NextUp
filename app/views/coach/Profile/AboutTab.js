@@ -21,7 +21,7 @@ const _data = [
 ];
 export default function AboutTab() {
   return (
-    <View contentContainerStyle={styles.scrollContainer}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.aboutContainer}>
         <View>
           <Text style={styles.aboutLabel}>About</Text>
@@ -52,7 +52,7 @@ export default function AboutTab() {
         titleStyle={styles.tableTitle}
         tableContainerStyle={styles.tableContainer}
       />
-    </View>
+    </ScrollView>
   );
 }
 

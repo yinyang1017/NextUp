@@ -98,8 +98,7 @@ function MatchUp() {
             <MatchUpBoard
               key={index}
               onPress={() => {
-                navigation.navigate('Home', {
-                  screen: 'PlayerCompare',
+                navigation.navigate('PlayerCompare', {
                   params: {
                     homePlayer: item.homePlayer,
                     secondPlayer: item.secondPlayer,

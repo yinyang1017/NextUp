@@ -7,7 +7,6 @@ import {Colors} from '../../../constants';
 import AboutTab from './AboutTab';
 import RosterTab from './RosterTab';
 import coachImg from '../../../assets/images/coachPublicImage.png';
-import { View } from 'react-native-ui-lib';
 
 export default function CoachProfile() {
   const Tab = createMaterialTopTabNavigator();
@@ -31,7 +30,7 @@ export default function CoachProfile() {
     },
   };
   return (
-    <View
+    <ScrollView
       showsVerticalScrollIndicator={false}
       bounces={false}
       contentContainerStyle={styles.container}>
@@ -46,7 +45,7 @@ export default function CoachProfile() {
         <Tab.Screen name="About" component={AboutTab} />
         <Tab.Screen name="Roster" component={RosterTab} />
       </Tab.Navigator>
-    </View>
+    </ScrollView>
   );
 }
 
