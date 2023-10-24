@@ -14,11 +14,16 @@ import { faSearch, faBell } from '@fortawesome/free-solid-svg-icons';
 import FastImage from 'react-native-fast-image';
 import { customTheme } from '../../constants';
 import { RoundButtons } from './button';
-export const DashBoardHeader = ({ imgSrc = null, name = null }) => {
+export const DashBoardHeader = ({ imgSrc = null, name = null, onClick }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Avatar containerStyle={styles.avatar} source={imgSrc} size={61} />
+        <Avatar
+          containerStyle={styles.avatar}
+          source={imgSrc}
+          size={61}
+          onPress={onClick}
+        />
         <View style={styles.infoContainer}>
           <Text style={[styles.welcomeMsg]}>
             <Text style={styles.welcomeText}>{'Welcome '}</Text>
@@ -44,7 +49,6 @@ export const DashBoardHeader = ({ imgSrc = null, name = null }) => {
         </Button>
         <Button
           round
-
           style={{ width: 44, height: 44 }}
           size={'large'}
           backgroundColor={customTheme.colors.overlay2}>

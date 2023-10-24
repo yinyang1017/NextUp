@@ -33,7 +33,10 @@ export default function CoachDashboard() {
       showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.playerDashScrollViewContent}>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
-        <DashBoardHeader imgSrc={profileImg} />
+        <DashBoardHeader
+          imgSrc={profileImg}
+          onClick={() => navigation.navigate('AccountDetails')}
+        />
         <TeamsBar />
         <UpcomingGames />
         <StatisticOverview />
