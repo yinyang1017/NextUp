@@ -1,149 +1,102 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import SetTimeModal, {
-  getStaticTimeData,
-} from '../../../components/common/SetTimeModal';
-import moment from 'moment';
+import SetTimeModal from '../../../components/common/SetTimeModal';
 import CalendarModal from '../../../components/common/CalendarModal';
 import SelectionDropdown from '../../../components/common/SelectionDropdown';
 import { View } from 'react-native-ui-lib';
-
-const getInitialTimeData = () => {
-  const timeData = getStaticTimeData();
-
-  const currentDateMoment = moment();
-  const currentHour =
-    currentDateMoment.get('h') > 12
-      ? currentDateMoment.get('h') - 12
-      : currentDateMoment.get('h');
-  const currentMinutes = currentDateMoment.get('minutes');
-  const currentSeconds = currentDateMoment.get('seconds');
-  const currentTimeType = currentDateMoment.format('A');
-
-  const hourIndex = timeData.hours.findIndex(
-    i => i === String(currentHour).padStart(2, '0'),
-  );
-
-  const minuteIndex = timeData.minutes.findIndex(
-    i => i === String(currentMinutes).padStart(2, '0'),
-  );
-
-  const secondsIndex = timeData.seconds.findIndex(
-    i => i === String(currentSeconds).padStart(2, '0'),
-  );
-
-  const timeTypeIndex = timeData.timeTypes.findIndex(
-    i => i === currentTimeType,
-  );
-
-  const newData = {
-    selectedHour: {
-      data: String(currentHour).padStart(2, '0'),
-      index: hourIndex,
-    },
-    selectedMinute: {
-      data: String(currentMinutes).padStart(2, '0'),
-      index: minuteIndex,
-    },
-    selectedSecond: {
-      data: String(currentSeconds).padStart(2, '0'),
-      index: secondsIndex,
-    },
-    selectedTimeType: {
-      data: currentTimeType,
-      index: timeTypeIndex,
-    },
-  };
-
-  return newData;
-};
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import useCreatePractice from '../../../hooks/useCreatePractice';
+import { customTheme } from '../../../constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const CreatePractice = () => {
-  const [showTimePicker, setShowTimePicker] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const { bottom } = useSafeAreaInsets();
 
-  const [selectedDate, setSelectedDate] = useState();
-
-  const [timeModalData, setTimeModalData] = useState({
-    isTimeSelected: false,
-    selectedData: null,
-    currentTimeData: getInitialTimeData(),
-  });
-
-  const openTimePickerHandler = () => {
-    setTimeModalData(prevValue => ({
-      ...prevValue,
-      currentTimeData: getInitialTimeData(),
-    }));
-    setShowTimePicker(true);
-  };
-
-  const onConfirmTimeHandler = data => {
-    setTimeModalData(prevValue => ({
-      ...prevValue,
-      isTimeSelected: true,
-      selectedData: data,
-    }));
-  };
-
-  const openDateCalendarHandler = () => {
-    setShowDatePicker(true);
-  };
-
-  const timeValue = timeModalData.isTimeSelected
-    ? `${timeModalData.selectedData?.selectedHour?.data}:${timeModalData.selectedData?.selectedMinute?.data} ${timeModalData.selectedData?.selectedTimeType?.data}`
-    : 'Select time';
-
-  const dateValue = selectedDate
-    ? selectedDate.format('DD MMMM YYYY')
-    : 'Select date';
+  const {
+    dateValue,
+    errors,
+    handleSubmit,
+    onChangeTagHandler,
+    onConfirmTimeHandler,
+    onSelectDateHandler,
+    openDateCalendarHandler,
+    openTimePickerHandler,
+    selectedCalendarDate,
+    setShowDatePicker,
+    setShowTimePicker,
+    showDatePicker,
+    showTimePicker,
+    timeModalInitialData,
+    timeValue,
+    onPressLocation,
+    values,
+  } = useCreatePractice();
 
   return (
-    <View flex>
+    <View flex style={{ paddingBottom: bottom }}>
       <Back title="Create Practice" containerStyle={styles.back} />
-      <View style={styles.dropdownSelectionBody}>
-        <SelectionDropdown title={'Location'} />
-        <View row centerV spread style={styles.datTimeRowDropdown}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.dropdownSelectionBody}>
           <SelectionDropdown
-            title={'Date'}
+            title={'Location'}
+            error={errors.location}
             isPicker={false}
-            onPressValue={openDateCalendarHandler}
-            containerStyle={styles.dateTimeDropdown}
-            value={dateValue}
+            onPressValue={onPressLocation}
+            value={values.location}
+            placeholder="Select location"
           />
-          <SelectionDropdown
-            title={'Time'}
-            isPicker={false}
-            onPressValue={openTimePickerHandler}
-            containerStyle={styles.dateTimeDropdown}
-            value={timeValue}
+          <View row centerV spread style={styles.datTimeRowDropdown}>
+            <SelectionDropdown
+              title={'Date'}
+              isPicker={false}
+              onPressValue={openDateCalendarHandler}
+              containerStyle={styles.dateTimeDropdown}
+              value={dateValue}
+              error={errors.date}
+              placeholder="Select date"
+            />
+            <SelectionDropdown
+              title={'Time'}
+              isPicker={false}
+              onPressValue={openTimePickerHandler}
+              containerStyle={styles.dateTimeDropdown}
+              value={timeValue}
+              error={errors.time}
+              placeholder="Select time"
+            />
+          </View>
+          <FormInputField
+            label={'Tag'}
+            containerStyle={styles.tagInput}
+            onChangeText={onChangeTagHandler}
+            error={errors.tag}
+            placeholder="Enter Tags"
+            placeholderTextColor={customTheme.colors.$textNeutral}
           />
         </View>
-        <FormInputField label={'Tag'} containerStyle={styles.tagInput} />
-      </View>
-      <PrimaryButton style={styles.button} title={'Schedule'} />
+        <PrimaryButton
+          style={styles.button}
+          title={'Schedule'}
+          onPress={handleSubmit}
+        />
+      </KeyboardAwareScrollView>
       <SetTimeModal
         isVisible={showTimePicker}
         setIsVisible={setShowTimePicker}
-        initialData={
-          timeModalData.isTimeSelected
-            ? timeModalData.selectedData
-            : timeModalData.currentTimeData
-        }
+        initialData={timeModalInitialData}
         onConfirmTime={onConfirmTimeHandler}
       />
       <CalendarModal
         isVisible={showDatePicker}
         setIsVisible={setShowDatePicker}
-        onSelectDate={date => {
-          setShowDatePicker(false);
-          setSelectedDate(moment(date.timestamp));
-        }}
-        selectedDate={selectedDate ? selectedDate.format('YYYY-MM-DD') : ''}
+        onSelectDate={onSelectDateHandler}
+        selectedDate={selectedCalendarDate}
       />
     </View>
   );
@@ -155,9 +108,9 @@ const styles = StyleSheet.create({
   dropdownSelectionBody: {
     marginHorizontal: wp(6),
     marginTop: hp(5),
-    rowGap: hp(5),
+    rowGap: hp(2),
   },
   datTimeRowDropdown: { columnGap: wp(4) },
-  dateTimeDropdown: { flex: 1 },
+  dateTimeDropdown: { width: wp(40) },
   tagInput: { flex: 0, marginTop: 0, marginRight: 0, height: 'auto' },
 });

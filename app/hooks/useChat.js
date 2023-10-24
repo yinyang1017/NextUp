@@ -4,11 +4,9 @@ import { useSendChatMessage } from '../api/chat.api';
 import EventSource from 'react-native-sse';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-import { BASE_URL } from '../hooks/useUpload';
 import { errorToast } from '../utils/toast';
 import compact from 'lodash/compact';
-import { isJsonString } from '../utils/helper';
+import { isJsonString, uploadImageApi } from '../utils/helper';
 import moment from 'moment';
 import { CHAT_ENUMS } from '../utils/chatEnums';
 import { baseUrl } from '../utils/api-client';
@@ -67,26 +65,6 @@ export const useChat = ({ screenParams }) => {
     sendChatMessageMutation(newChatMessageInfo);
   };
 
-  const uploadImageAxiosHandler = file => {
-    const formData = new FormData();
-    formData.append('file', {
-      uri: file.uri,
-      name: file.fileName,
-      type: file.type,
-    });
-
-    return axios({
-      method: 'POST',
-      url: BASE_URL + '/storage/upload/image',
-      maxBodyLength: Infinity,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Accept: '*',
-      },
-      data: formData,
-    });
-  };
-
   const uploadChatImagesHandler = useCallback(
     async response => {
       try {
@@ -94,7 +72,7 @@ export const useChat = ({ screenParams }) => {
           const promiseArray = [];
           setIsSendingImageMessage(true);
           response?.assets?.map(imageFile => {
-            promiseArray.push(uploadImageAxiosHandler(imageFile));
+            promiseArray.push(uploadImageApi(imageFile));
           });
           const imagesUploadResponses = await Promise.all(promiseArray);
           const imageUrlsArray = compact(

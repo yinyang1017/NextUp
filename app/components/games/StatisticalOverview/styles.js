@@ -1,6 +1,6 @@
+import { StyleSheet } from 'react-native';
 import { customTheme } from '../../../constants';
-const { StyleSheet } = require('react-native');
-const { wp, hp } = require('../../../utils/responsive');
+import { hp, wp } from '../../../utils/responsive';
 
 const styles = StyleSheet.create({
   title: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   totalGamesContainer: {
     position: 'absolute',
-    top: wp(14.5),
+    top: 58,
     right: 0,
     left: 0,
     alignItems: 'center',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   totalGamesCount: {
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontWeight: '300',
-    fontSize: customTheme.fontSizes.size_26,
+    fontSize: customTheme.fontSizes.size_24,
     color: customTheme.colors.light,
   },
   totalGamesText: {

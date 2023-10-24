@@ -1,5 +1,5 @@
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
@@ -13,6 +13,8 @@ import times from 'lodash/times';
 const SearchPlayers = () => {
   const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
+
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   const onSearchPlayers = () => {
     // console.log('API Called');
@@ -59,22 +61,43 @@ const SearchPlayers = () => {
     navigation.navigate('InvitePlayers');
   };
 
+  const renderPlayerItem = useCallback(
+    ({ index }) => {
+      const isSelected = selectedPlayers.find(i => i === index) !== undefined;
+
+      const onPressCheckBoxHandler = () => {
+        let newValues = [...selectedPlayers];
+        if (isSelected) {
+          newValues = newValues.filter(i => i !== index);
+        } else {
+          newValues.push(index);
+        }
+        setSelectedPlayers(newValues);
+      };
+
+      return (
+        <SearchPlayerItem
+          onPress={() => navigation.navigate('CoachViewPlayerDetails')}
+          isSelected={isSelected}
+          onCheckBoxPress={onPressCheckBoxHandler}
+        />
+      );
+    },
+    [navigation, selectedPlayers],
+  );
+
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
       <Back containerStyle={styles.backContainer} />
       <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
       <FlatList
         data={times(10)}
-        renderItem={() => (
-          <SearchPlayerItem
-            onPress={() => navigation.navigate('CoachViewPlayerDetails')}
-          />
-        )}
+        renderItem={renderPlayerItem}
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={[
           styles.listContentContainer,
-          { paddingBottom: bottom },
+          { paddingBottom: bottom + hp(5) },
         ]}
       />
       <View style={styles.footer}>

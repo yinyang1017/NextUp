@@ -28,7 +28,7 @@ import { SelectableCard } from './SelectableCard';
 import { ActivityIndicator, Dimensions, Pressable, Modal as NativeModal, FlatList, Alert } from 'react-native';
 import { ViewContainer, statusBarHeight } from './ViewConatiner';
 import moment from 'moment';
-import { hp } from '../../utils/responsive';
+import { hp, isAndroid } from '../../utils/responsive';
 import Back from '../../utils/HeaderButtons/Back';
 const dropdownIcon = (
   <FontAwesomeIcon icon={faChevronDown} color={customTheme.colors.light} />
@@ -48,7 +48,7 @@ export const _renderCustomModal = (modalProps) => {
       animationType='slide'
 
     >
-      <View backgroundColor={customTheme.colors.background} width={'100%'} height={statusBarHeight}></View>
+      <View backgroundColor={customTheme.colors.background} width={'100%'} height={isAndroid ? hp(2) : statusBarHeight}></View>
       <View
         backgroundColor={customTheme.colors.background}
         paddingH-16
@@ -126,7 +126,7 @@ export const _renderCustomModal = (modalProps) => {
  * @param {function} props.onValueChange - The callback function to be called when the picker value changes.
  * @return {JSX.Element} The rendered form input picker component.
  */
-export function FormInputPicker({ data = [], value, onValueChange, label, title, ...rest }) {
+export function FormInputPicker({ data = [], value, onValueChange, label, title, disabled = false, ...rest }) {
   const [search, setSearch] = useState(null)
   const searchData = search ? data.filter((item) => item?.value?.toLowerCase().includes(search.toLowerCase())) : data
   return (
@@ -135,6 +135,7 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
         topBarProps={{
           title: title,
         }}
+        editable={!disabled}
         renderPicker={() => {
           return (
             <>
@@ -147,6 +148,7 @@ export function FormInputPicker({ data = [], value, onValueChange, label, title,
                 required={rest?.required}
                 error={rest?.error}
                 placeholder={rest?.placeholder}
+                disabled={disabled}
                 {...rest}
               />
             </>
@@ -390,9 +392,9 @@ export function FormSelectable({ data, value, onChange, ...rest }) {
   );
 }
 
-export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, containerStyle, ...props }) {
+export function FormInputField({ label, value, error, onChangeText, removeSpace, optionBtn, containerStyle, disabled = false, ...props }) {
   return (
-    <View marginR-20 height={hp(10)} style={containerStyle}>
+    <View marginR-20 height={hp(10)} style={[ disabled && {opacity: 0.65} ,containerStyle]}>
       <View row spread centerH>
         <Text input-label>{label} {
           props?.required && <Text red10>*</Text>
@@ -405,7 +407,7 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
       <TextField
         {...props}
         enablesReturnKeyAutomatically
-        placeholderTextColor={customTheme.colors.tertiary}
+        placeholderTextColor={props?.placeholderTextColor ||  customTheme.colors.tertiary}
         value={value}
         color={customTheme.colors.light}
         selectionColor={customTheme.colors.light}
@@ -417,10 +419,9 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
             fontSize: customTheme.fontSizes.size_16,
             fontFamily: customTheme.fontFamily.robotoRegular,
             overflow: 'hidden',
-
           },
         ]}
-        onChangeText={(txt) => {
+        onChangeText={txt => {
           const value = removeSpace ? txt.replace(/ /g, '') : txt;
           onChangeText(value);
         }}
@@ -437,9 +438,7 @@ export function FormInputField({ label, value, error, onChangeText, removeSpace,
           <Text link-text>{optionBtn?.title ?? ''}</Text>
         </TouchableOpacity>
       }
-
     </View>
-
   );
 }
 

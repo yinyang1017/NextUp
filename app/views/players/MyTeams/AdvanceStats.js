@@ -44,6 +44,7 @@ const AdvanceStats = () => {
   const renderBoxAverageCustomItem = useCallback(
     item => (
       <StatsBoxItem
+        key={item.key}
         title={item.title}
         subtitle={item.subtitle}
         style={{ width: getStatBoxWidth(4), margin: wp(1) }}
@@ -55,6 +56,7 @@ const AdvanceStats = () => {
   const renderShootingAverageCustomItem = useCallback(
     item => (
       <StatsBoxItem
+        key={item.key}
         title={item.title}
         subtitle={item.subtitle}
         style={{ width: getStatBoxWidth(5), margin: wp(1) }}
@@ -67,6 +69,7 @@ const AdvanceStats = () => {
   const renderAnalyticsCustomItem = useCallback(
     item => (
       <StatsBoxItem
+        key={item.key}
         title={item.title}
         subtitle={item.subtitle}
         style={{ width: getStatBoxWidth(3), margin: wp(1) }}
