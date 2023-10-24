@@ -1,6 +1,5 @@
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
 import { useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
@@ -8,9 +7,12 @@ import { SearchInput } from '../../../components/common/searchbar';
 import SearchPlayerItem from '../../../components/players/Dashboard/SearchPlayerItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import Share from 'react-native-share';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import times from 'lodash/times';
 
 const SearchPlayers = () => {
   const navigation = useNavigation();
+  const { bottom } = useSafeAreaInsets();
 
   const onSearchPlayers = () => {
     // console.log('API Called');
@@ -50,7 +52,7 @@ const SearchPlayers = () => {
     });
     try {
       Share.open(options);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const onPressInviteHandler = () => {
@@ -58,20 +60,22 @@ const SearchPlayers = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Back
-        onPress={() => navigation.goBack()}
-        containerStyle={styles.backContainer}
-      />
+    <View style={[styles.container, { paddingBottom: bottom }]}>
+      <Back containerStyle={styles.backContainer} />
       <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
       <FlatList
-        data={[1, 2, 3]}
+        data={times(10)}
         renderItem={() => (
           <SearchPlayerItem
             onPress={() => navigation.navigate('CoachViewPlayerDetails')}
           />
         )}
-        contentContainerStyle={styles.listContentContainer}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(_, index) => index.toString()}
+        contentContainerStyle={[
+          styles.listContentContainer,
+          { paddingBottom: bottom },
+        ]}
       />
       <View style={styles.footer}>
         <PrimaryButton
@@ -81,7 +85,7 @@ const SearchPlayers = () => {
         />
         <PrimaryButton title={'Invite'} onPress={onPressInviteHandler} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

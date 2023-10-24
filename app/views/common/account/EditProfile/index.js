@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { wp, hp } from '../../../../utils/responsive';

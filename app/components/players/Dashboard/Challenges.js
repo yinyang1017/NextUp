@@ -136,11 +136,13 @@ const CompletedChallenges = () => {
     </View>
 }
 
-export const MyChallenges = () => {
+export const MyChallenges = ({ title = "My Challenges", onPressSeeAll = () => null }) => {
     return (
         <>
             <SectionHeader
-                title={'My Challenges'}
+                title={title}
+                onPressSeeAll={onPressSeeAll}
+
             />
             {/* Challenges Card List */}
             <ActiveChallenges />

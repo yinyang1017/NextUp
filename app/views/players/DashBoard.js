@@ -9,8 +9,9 @@ import { Button } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 import { useAuth } from '../../hooks/useAuth';
 import { ScrollViewContainer } from '../../components/common/SrollViewContainer';
+import { useNavigation } from '@react-navigation/native';
 const PlayerDashboard = () => {
-  //   const navigation = useNavigation();
+  const navigation = useNavigation();
   const { user } = useAuth();
 
 

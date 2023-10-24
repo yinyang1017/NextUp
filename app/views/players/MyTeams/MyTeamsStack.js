@@ -5,7 +5,6 @@ import Games from './Games';
 import { TeamsBar } from '../../../components/players/Dashboard/MyTeams';
 import Roaster from './Roaster';
 import PlayerStats from './Stats';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native-ui-lib';
 import { Color } from '../../GlobalStyles';
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
@@ -81,7 +80,7 @@ export const NewMyTeamsStack = () => {
 
 export default function MyTeamsStack() {
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <View style={{ flex: 1 }}>
       <View style={{ paddingHorizontal: customTheme.spacings.spacing_16 }}>
         <TeamsBar />
       </View>
@@ -94,7 +93,7 @@ export default function MyTeamsStack() {
         <TopTab.Screen name="Schedule" component={Schedule} />
         <TopTab.Screen name="Challenges" component={Challenges} />
       </TopTab.Navigator>
-    </SafeAreaView>
+    </View>
   );
 }
 

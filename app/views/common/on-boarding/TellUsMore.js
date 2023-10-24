@@ -27,6 +27,8 @@ export default function TellUsMore() {
     isPlayer,
     isCoach,
     isTravelTeam,
+    resetField,
+    reset,
     setValue,
     chekIfStateSelected,
     handleSubmit,
@@ -34,6 +36,7 @@ export default function TellUsMore() {
   const {
     resetFilter,
     queryFilter,
+
     schools,
     cities,
     states,
@@ -92,7 +95,11 @@ export default function TellUsMore() {
         <FormRadioGroup
           label={'Gender'}
           value={value}
-          onValueChange={value => onChange(value)}
+          onValueChange={value => {
+            resetFilter()
+            // reset()
+            onChange(value)
+          }}
           radioValues={[
             { label: 'Male', value: 'male' },
             { label: 'Female', value: 'female' },
@@ -102,12 +109,12 @@ export default function TellUsMore() {
     />
     <Controller
       control={control}
-      name="schoolInfo"
+      name="schoolInfo.name"
       rules={{
         required: 'Please select a school',
+
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
-
         return <FormInputPicker
           value={value?.value || value}
           data={schools ?? []}
@@ -120,7 +127,8 @@ export default function TellUsMore() {
           placeholder="Select School"
           onValueChange={value => {
             resetFilter()
-            onChange(value)
+            setValue('schoolInfo', value)
+            onChange(value.value)
           }}
           error={
             error && error?.message
@@ -162,7 +170,7 @@ export default function TellUsMore() {
       <View width={'50%'}>
         <Controller
           control={control}
-          name="schoolInfo"
+          name="schoolInfo.name"
           rules={{
             required: 'Please select a team',
           }}
@@ -180,7 +188,8 @@ export default function TellUsMore() {
               placeholder="Select Team"
               onValueChange={value => {
                 resetFilter()
-                onChange(value)
+                setValue('schoolInfo', value)
+                onChange(value.value)
               }}
               error={
                 error && error?.message
@@ -223,18 +232,21 @@ export default function TellUsMore() {
         rules={{
           required: 'Please select a level',
         }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <FormActionPicker
-            value={value}
-            required
-            data={['Jr & Varsity', 'Varsity', 'Both']}
-            label={'Level'}
-            placeholder="Select Level"
-            onValueChange={value => onChange(value)}
-            error={
-              error && error?.message
-            }
-          />
+        render={({ field: { onChange, value, name }, fieldState: { error, } }) => (
+          <>
+            <FormActionPicker
+              value={value}
+              required
+              data={['Jr & Varsity', 'Varsity', 'Both']}
+              label={'Level'}
+              placeholder="Select Level"
+              onValueChange={value => onChange(value)}
+              error={
+                error && error?.message
+              }
+            />
+
+          </>
         )}
       />
     </View>
@@ -253,7 +265,16 @@ export default function TellUsMore() {
         <FormRadioGroup
           label={'Option'}
           value={value}
-          onValueChange={value => onChange(value)}
+          onValueChange={value => {
+            resetField('coachingType.state', '')
+            resetField('coachingType.city', '')
+            resetField('coachingType.ageGroup', '')
+            resetField('schoolInfo', '')
+            resetField('onBoardingTeamName', '')
+            resetFilter()
+            onChange(value)
+
+          }}
           radioValues={[
             { label: 'High School', value: 'HIGH_SCHOOL' },
             { label: 'Travel Team', value: 'TRAVEL_TEAM' },
@@ -312,8 +333,8 @@ export default function TellUsMore() {
             required: 'Please select a state',
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => {
-
-            // console.log('error', error);
+            // console.log('value', states);
+            console.log('vaelue', value);
             return <View width={'50%'}>
               <FormInputPicker
                 value={value}
@@ -323,7 +344,10 @@ export default function TellUsMore() {
                 placeholder="Select State"
                 title="Search for states"
                 onValueChange={value => {
+                  console.log('value on chnages', value);
+                  resetFilter()
                   queryFilter('state', value?.value)
+                  resetField('coachingType.city', '')
                   onChange(value?.value)
                 }}
                 error={
@@ -451,7 +475,11 @@ export default function TellUsMore() {
           render={({ field: { onChange, value } }) => (
             <FormSelectable
               value={value ?? null}
-              onChange={onChange}
+              onChange={(value) => {
+                resetFilter()
+                resetField('schoolInfo', '')
+                onChange(value)
+              }}
               data={[
                 {
                   label: 'PLAYER',

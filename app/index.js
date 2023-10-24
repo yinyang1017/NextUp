@@ -9,9 +9,11 @@ import AuthProvider from './context/AuthProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ImagePreviewProvider from './context/ImagePreviewProvider';
 import { statusBarHeight } from './components/common/ViewConatiner';
-import "./constants/theme-manager"
 import './utils/typographies';
+import './constants/theme-manager';
+
 
 export default function App() {
   return (
@@ -21,12 +23,18 @@ export default function App() {
         <NavigationContainer theme={customTheme}>
           <AppProviders>
             <AuthProvider>
-              {/* <View backgroundColor={customTheme.colors.light.background} width={'100%'} height={statusBarHeight + customTheme.spacings.spacing_12}></View> */}
-              <StatusBar
-                barStyle={customTheme.statusBarStyle}
-                backgroundColor={customTheme.colors.light.background}
-              />
-              <AppLoadignStack />
+              <ImagePreviewProvider>
+                <View
+                  backgroundColor={customTheme.colors.light.background}
+                  width={'100%'}
+                  height={statusBarHeight + customTheme.spacings.spacing_12}
+                />
+                <StatusBar
+                  barStyle={customTheme.statusBarStyle}
+                  backgroundColor={customTheme.colors.light.background}
+                />
+                <AppLoadignStack />
+              </ImagePreviewProvider>
             </AuthProvider>
             <Toast />
           </AppProviders>

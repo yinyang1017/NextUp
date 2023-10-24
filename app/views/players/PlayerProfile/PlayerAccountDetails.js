@@ -76,7 +76,7 @@ const PlayerAccountDetails = () => {
             <TopTab.Navigator tabBar={props => <CustomTabView {...props} />} >
                 <TopTab.Screen options={{ tabBarLabel: 'Stats' }} name="PlayerAccountStats" component={PlayerAccountStats} />
                 <TopTab.Screen options={{
-                    tabBarLabel: 'Ready to Pro'
+                    tabBarLabel: 'Road to Pro'
                 }} name="PlayerAccountReadyToPro" component={ReadyToPro} />
                 <TopTab.Screen options={{
                     tabBarLabel: 'Highlights'

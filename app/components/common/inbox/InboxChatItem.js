@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { memo } from 'react';
 import { hp, wp } from '../../../utils/responsive';
 import { customTheme } from '../../../constants';
@@ -7,9 +7,12 @@ import FastImage from 'react-native-fast-image';
 import { appImages } from '../../../constants/appImages';
 import { useAuth } from '../../../hooks/useAuth';
 import moment from 'moment';
+import { CHAT_ENUMS } from '../../../utils/chatEnums';
+import { Text } from 'react-native-ui-lib';
 
-const InboxChatItem = ({ index, chatInfo }) => {
-  const showMediaType = chatInfo?.recentMessageType === 'IMAGE';
+const InboxChatItem = ({ chatInfo }) => {
+  const showMediaType =
+    chatInfo?.recentMessageType === CHAT_ENUMS.MESSSAGE_TYPE.IMAGE;
   const showUnread = false;
 
   const navigation = useNavigation();
@@ -22,6 +25,12 @@ const InboxChatItem = ({ index, chatInfo }) => {
 
   const isGroup = chatInfo?.type === 'GROUP';
 
+  const chatProfileImage = isGroup
+    ? chatInfo?.groupLogoUrl
+    : chatInfo?.userProfilePicUrl;
+
+  const chatName = isGroup ? chatInfo?.groupName : chatInfo?.otherUserName;
+
   return (
     <>
       <TouchableOpacity
@@ -30,14 +39,12 @@ const InboxChatItem = ({ index, chatInfo }) => {
         onPress={onPressChatHandler}>
         <FastImage
           style={styles.profileImage}
-          source={{
-            uri: isGroup ? chatInfo?.groupLogoUrl : chatInfo?.userProfilePicUrl,
-          }}
+          source={{ uri: chatProfileImage, priority: 'high' }}
           defaultSource={appImages.defaultAvatarImage}
         />
         <View style={styles.messagesContainer}>
           <Text style={styles.name} numberOfLines={1}>
-            {isGroup ? chatInfo?.groupName : chatInfo?.otherUserName}
+            {chatName}
           </Text>
           {showMediaType ? (
             <Text style={[styles.message, { color: customTheme.colors.btnBg }]}>

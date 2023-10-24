@@ -2,7 +2,7 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import EventItem from '../../common/EventItem';
 import { SectionHeader } from '../../common/SectionHeader';
-import { times } from 'lodash';
+import times from 'lodash/times';
 import { wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
 

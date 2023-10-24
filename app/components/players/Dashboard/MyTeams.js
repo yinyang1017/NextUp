@@ -6,9 +6,11 @@ import { Color } from '../../../views/GlobalStyles';
 import TeamItem from '../../common/TeamItem';
 import { hp, wp } from '../../../utils/responsive';
 import { customTheme } from '../../../constants';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const TeamsBar = () => {
   const navigation = useNavigation();
+  const { isCoach } = useAuth();
 
   return (
     <View style={styles.myTeamsParent}>
@@ -23,20 +25,22 @@ export const TeamsBar = () => {
         </View>
       </View>
       <View style={styles.teamNamesRow}>
-        <View>
-          <TouchableOpacity
-            style={styles.plusView}
-            onPress={() => navigation.navigate('AddNewTeam')}>
-            <View style={styles.plusIconView}>
-              <Image
-                style={[styles.plusIcon]}
-                source={require('../../../assets/plus.png')}
-                tintColor={customTheme.colors.btnBg}
-              />
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.plusIconAddText}>Add</Text>
-        </View>
+        {!!isCoach && (
+          <View>
+            <TouchableOpacity
+              style={styles.plusView}
+              onPress={() => navigation.navigate('AddNewTeam')}>
+              <View style={styles.plusIconView}>
+                <Image
+                  style={[styles.plusIcon]}
+                  source={require('../../../assets/plus.png')}
+                  tintColor={customTheme.colors.btnBg}
+                />
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.plusIconAddText}>Add</Text>
+          </View>
+        )}
         <TeamItem
           imageSource={require('../../../assets/frame8.png')}
           name="Rotary AAU 17"

@@ -1,41 +1,50 @@
 import React, { memo } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { wp } from '../responsive';
-import { Colors, customTheme } from '../../constants';
+import { customTheme } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
+import { Text, TouchableOpacity, View } from 'react-native-ui-lib';
 
-const Back = ({ onPress, containerStyle = {}, title = '' }) => (
-  <View style={[styles.wrapper, containerStyle]}>
-    <TouchableOpacity
-      activeOpacity={0.5}
-      style={styles.container}
-      onPress={onPress}>
-      <Image
-        source={require('../../assets/leftArrow1.png')}
-        style={styles.backImage}
-      />
-    </TouchableOpacity>
-    {!!title && <Text style={styles.title}>{title}</Text>}
-  </View>
-);
+const Back = ({ onPress, containerStyle = {}, title = '' }) => {
+  const navigation = useNavigation();
+  const onBackPress = () => {
+    if (onPress) {
+      onPress();
+    } else {
+      navigation.goBack();
+    }
+  };
+  return (
+    <View row centerV style={containerStyle}>
+      <TouchableOpacity
+        center
+        activeOpacity={0.5}
+        style={styles.back}
+        onPress={onBackPress}>
+        <Image
+          source={require('../../assets/leftArrow1.png')}
+          style={styles.backImage}
+        />
+      </TouchableOpacity>
+      {title && (
+        <Text white medium style={styles.title}>
+          {title}
+        </Text>
+      )}
+    </View>
+  );
+};
 
 export default memo(Back);
 
 const styles = StyleSheet.create({
-  wrapper: { flexDirection: 'row', alignItems: 'center' },
-  container: {
+  back: {
     height: wp(8),
     width: wp(8),
     borderRadius: wp(1),
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: 2,
     borderColor: customTheme.colors.borderColor,
   },
   backImage: { height: wp(3.5), width: wp(3.5) },
-  title: {
-    marginLeft: wp(3),
-    color: Colors.light,
-    fontFamily: customTheme.fontFamily.robotoRegular,
-    fontSize: customTheme.fontSizes.size_16,
-  },
+  title: { marginLeft: wp(3) },
 });

@@ -6,9 +6,12 @@ import LineupItem from '../../../components/common/LineupItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { customTheme } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../../hooks/useAuth';
 
 const Lineup = () => {
   const navigation = useNavigation();
+
+  const { isCoach } = useAuth();
 
   const onPressAddLineupHandler = () => {
     navigation.navigate('AddLineup');
@@ -32,11 +35,13 @@ const Lineup = () => {
           viewTextStyle={styles.aiLineupItemViewText}
         />
       </View>
-      <PrimaryButton
-        onPress={onPressAddLineupHandler}
-        style={styles.newLineupButton}
-        title={'New Lineup'}
-      />
+      {!!isCoach && (
+        <PrimaryButton
+          onPress={onPressAddLineupHandler}
+          style={styles.newLineupButton}
+          title={'New Lineup'}
+        />
+      )}
     </ScrollView>
   );
 };

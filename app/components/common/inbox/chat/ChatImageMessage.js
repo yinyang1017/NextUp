@@ -1,15 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { memo, useCallback } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { memo, useCallback, useContext } from 'react';
 import commonChatStyles from './commonChatStyles';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import { hp, wp } from '../../../../utils/responsive';
 import { chunk, isArray } from 'lodash';
+import { useAuth } from '../../../../hooks/useAuth';
+import { ImagePreviewContext } from '../../../../context/ImagePreviewProvider';
+import { Text } from 'react-native-ui-lib';
 
 const ChatImageMessage = props => {
-  const userId = 1;
+  const { user } = useAuth();
 
-  const isSameUserMessage = props.currentMessage?.user?._id === userId;
+  const imagePreviewCtx = useContext(ImagePreviewContext);
+
+  const isSameUserMessage =
+    props.currentMessage?.user?._id?.toString?.() === user?.id?.toString?.();
 
   const isNextMessageFromSameUser =
     props.currentMessage?.user?._id === props.nextMessage?.user?._id;
@@ -18,23 +25,35 @@ const ChatImageMessage = props => {
     props.currentMessage?.user?._id === props.previousMessage?.user?._id;
 
   const RenderImages = useCallback(() => {
-    const images = [props.image];
-
+    const images =
+      props.currentMessage?.image?.length > 4
+        ? props.currentMessage?.image?.slice(0, 4)
+        : props.currentMessage?.image;
     const isThreeImagesOrMore = images.length >= 3;
-
     const isMoreThanThreeImages = images.length > 3;
+    const chunkImagesArr = chunk([...images].reverse(), 2).reverse();
 
-    const chunkImagesArr = chunk(images, 2).reverse();
+    const imagePreviewHandler = (index = 0) => {
+      imagePreviewCtx.showImagePreview(
+        props.currentMessage?.image || [],
+        index,
+      );
+    };
 
     return images.length === 1 ? (
-      <FastImage
-        source={{ uri: props.currentMessage?.image, priority: 'high' }}
+      <TouchableOpacity
         style={styles.image}
-      />
+        activeOpacity={0.7}
+        onPress={() => imagePreviewHandler()}>
+        <FastImage
+          source={{ uri: images[0], priority: 'high' }}
+          style={styles.image}
+        />
+      </TouchableOpacity>
     ) : (
       <View style={styles.imagesRow}>
         {isThreeImagesOrMore
-          ? chunkImagesArr.map((chunkItem, chunkIndex) => {
+          ? chunkImagesArr.map((chunkItem, chunkItemIndex) => {
               if (isArray(chunkItem) && chunkItem.length === 2) {
                 return (
                   <View
@@ -43,39 +62,75 @@ const ChatImageMessage = props => {
                       height: '100%',
                     }}>
                     {chunkItem.map((nestedChunkItem, nestedChunkIndex) => (
-                      <FastImage
-                        key={chunkIndex + nestedChunkIndex}
+                      <TouchableOpacity
                         style={{
                           height: hp(12),
                           width: isMoreThanThreeImages ? '100%' : '50%',
                         }}
-                        source={{ uri: nestedChunkItem, priority: 'high' }}
-                      />
+                        activeOpacity={0.7}
+                        onPress={() => {
+                          if (isMoreThanThreeImages) {
+                            imagePreviewHandler(
+                              chunkItemIndex
+                                ? 2 + (nestedChunkIndex ? 0 : 1)
+                                : 0 + (nestedChunkIndex ? 0 : 1),
+                            );
+                          } else {
+                            imagePreviewHandler((nestedChunkIndex ? 0 : 1) + 1);
+                          }
+                        }}>
+                        {chunkItemIndex === 1 &&
+                        nestedChunkIndex === 1 &&
+                        props.currentMessage?.image?.length > 4 ? (
+                          <View style={styles.moreImageOverlay}>
+                            <Text header-400>
+                              + {props.currentMessage?.image?.length - 4}
+                            </Text>
+                          </View>
+                        ) : null}
+                        <FastImage
+                          key={nestedChunkItem}
+                          style={styles.image}
+                          source={{ uri: nestedChunkItem, priority: 'high' }}
+                        />
+                      </TouchableOpacity>
                     ))}
                   </View>
                 );
               } else {
                 return (
-                  <FastImage
-                    key={chunkIndex}
+                  <TouchableOpacity
                     style={styles.twoImagesImage}
-                    source={{ uri: chunkItem[0], priority: 'high' }}
-                  />
+                    activeOpacity={0.7}
+                    onPress={() => {
+                      imagePreviewHandler(0);
+                    }}>
+                    <FastImage
+                      style={styles.image}
+                      key={chunkItem[0]}
+                      source={{ uri: chunkItem[0], priority: 'high' }}
+                    />
+                  </TouchableOpacity>
                 );
               }
             })
           : images.map((item, index) => {
               return (
-                <FastImage
-                  key={index}
+                <TouchableOpacity
                   style={styles.twoImagesImage}
-                  source={{ uri: item, priority: 'high' }}
-                />
+                  activeOpacity={0.7}
+                  onPress={() => imagePreviewHandler(index)}>
+                  <FastImage
+                    style={styles.image}
+                    key={item}
+                    source={{ uri: item, priority: 'high' }}
+                  />
+                </TouchableOpacity>
               );
             })}
       </View>
     );
-  }, [props]);
+  }, [imagePreviewCtx, props]);
 
   return (
     <View style={commonChatStyles.container(isSameUserMessage)}>
@@ -107,14 +162,19 @@ const styles = StyleSheet.create({
       isSameUserMessage,
       isNextMessageFromSameUser,
     ),
-    marginTop: isPreviousMessageFromSameUser ? hp(0.5) : hp(1),
+    marginTop: isPreviousMessageFromSameUser ? 0 : hp(1),
     overflow: 'hidden',
     height: hp(24),
     width: wp(60),
-    marginLeft: isSameUserMessage ? wp(1.5) : 0,
-    marginRight: isSameUserMessage ? 0 : wp(1.5),
   }),
   image: { width: '100%', height: '100%' },
   imagesRow: { width: '100%', flexDirection: 'row', height: '100%' },
   twoImagesImage: { width: '50%', height: hp(24) },
+  moreImageOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#00000090',
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

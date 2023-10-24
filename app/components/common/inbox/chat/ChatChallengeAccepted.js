@@ -5,7 +5,11 @@ import { hp, wp } from '../../../../utils/responsive';
 import { customTheme } from '../../../../constants';
 import { appImages } from '../../../../constants/appImages';
 
-const ChatChallengeAccepted = ({ containerStyle = {}, name = '' }) => {
+const ChatChallengeAccepted = ({
+  containerStyle = {},
+  bannerText = '',
+  dateString = '',
+}) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.imageContainer}>
@@ -13,10 +17,10 @@ const ChatChallengeAccepted = ({ containerStyle = {}, name = '' }) => {
       </View>
       <View style={styles.content}>
         <Text tiny style={styles.dateText}>
-          December 18, 2020
+          {dateString}
         </Text>
         <Text small-x style={styles.acceptedText}>
-          {name} has accepted your request and preparing your challenge.
+          {bannerText}
         </Text>
       </View>
     </View>

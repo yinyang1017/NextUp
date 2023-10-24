@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
 import { hp, wp } from '../../utils/responsive';
-import { times } from 'lodash';
+import times from 'lodash/times';
 import MultiImagesRow from './MultiImagesRow';
 import { appImages } from '../../constants/appImages';
 import { useNavigation } from '@react-navigation/native';
