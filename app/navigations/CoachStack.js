@@ -18,6 +18,7 @@ import MyAccount from '../views/common/account/PlayerAccount';
 import { wp } from '../utils/responsive';
 import { Image } from 'react-native-ui-lib';
 import MyAccountStack from './MyAccountStack';
+import CoachDashboard from '../views/coach/Dashboard';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ const CoachStack = () => {
       }}>
       <Tab.Screen
         name="DashBoard"
-        component={PlayerDashboard}
+        component={CoachDashboard}
         options={{
           tabBarLabel: ({ focused }) => {
             return <Text style={tabBarLabel(focused)}>Dashboard</Text>;

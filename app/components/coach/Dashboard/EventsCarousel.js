@@ -6,7 +6,7 @@ import { times } from 'lodash';
 import { wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
 
-export const EventCarousel = ({ title = 'Upcoming Games' }) => {
+export default function EventCarousel({ title = 'Upcoming Games' }){
   const navigation = useNavigation();
   return (
     <>

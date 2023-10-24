@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import DashBoardHeader from '../../../components/common/DashBoardHeader';
 import { MyTeams, TeamsBar } from '../../../components/coach/Dashboard/MyTeams';
-import { UpcomingGames } from '../../../components/coach/Dashboard/EventsCarousel';
+import UpcomingGames from '../../../components/coach/Dashboard/EventsCarousel';
 import StatsContainer from '../../../components/coach/Dashboard/StatsContainer';
 import { MyChallenges } from '../../../components/coach/Dashboard/Challenges';
 import { Button, Colors } from 'react-native-ui-lib';
@@ -24,9 +24,8 @@ import LastGameSection from '../../../components/coach/Dashboard/LastGame';
 import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import { Padding } from '../../GlobalStyles';
 
-const CoachDashboard = () => {
+export default function CoachDashboard() {
   const navigation = useNavigation();
-
   return (
     <ScrollView
       style={styles.playerDash}
@@ -39,8 +38,6 @@ const CoachDashboard = () => {
         <UpcomingGames />
         <StatisticOverview />
         <LastGameSection />
-        {/* <StatsContainer /> */}
-        {/* <MyChallenges /> */}
       </View>
       <View style={styles.compareButtonContainer}>
         <Button
@@ -60,7 +57,7 @@ const CoachDashboard = () => {
       <MatchUp />
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   playerDash: {
@@ -89,5 +86,3 @@ const styles = StyleSheet.create({
     marginVertical: Padding.p_base,
   },
 });
-
-export default CoachDashboard;

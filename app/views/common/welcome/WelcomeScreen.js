@@ -7,18 +7,19 @@ import SocialButton from '../../../components/common/SocialButton';
 import useBackend from '../../../hooks/useBackend';
 import { useUserRegister } from '../../../api/register.api';
 import { useAuth } from '../../../hooks/useAuth';
+import { Text } from 'react-native-ui-lib';
 const loginOptions = [
   {
     id: 1,
     text: 'Continue with Apple',
     logo: appImages.apple_logo,
-    showBtn: Platform.OS === 'ios'
+    showBtn: Platform.OS === 'ios',
   },
   {
     id: 2,
     text: 'Continue with Google',
     logo: appImages.google_logo,
-    showBtn: Platform.OS === 'ios' || Platform.OS === 'android'
+    showBtn: Platform.OS === 'ios' || Platform.OS === 'android',
   },
   // {
   //   id: 0,
@@ -36,20 +37,20 @@ export default function WelcomeScreen() {
   });
   const handleSubmit = async type => {
     await handleImperativeLogin(type)
-    // .then(res => {
-    //   const dataToSend = {
-    //     email: res?.user._user?.email,
-    //     firebaseAuthTokenId: res?.user._user.uid,
-    //     loginWith: 'GOOGLE',
-    //     roles: ['ROLE_COACH', 'ROLE_PLAYER'],
-    //   };
-    //   //// console.log(dataToSend)s
-    //   mutate(dataToSend);
-    //   // alert(JSON.stringify(res, null, 2))
-    // })
-    // .catch(err => {
-    //  // console.log(err, 'in welcome screen');
-    // });
+      .then(res => {
+        const dataToSend = {
+          email: res?.user._user?.email,
+          firebaseAuthTokenId: res?.user._user.uid,
+          loginWith: 'GOOGLE',
+          roles: ['ROLE_COACH', 'ROLE_PLAYER'],
+        };
+        //// console.log(dataToSend)s
+        mutate(dataToSend);
+        // alert(JSON.stringify(res, null, 2))
+      })
+      .catch(err => {
+        // console.log(err, 'in welcome screen');
+      });
   };
   return (
     <SafeAreaView style={[CommonStyles.appThemeBgContainer]}>
@@ -65,35 +66,36 @@ export default function WelcomeScreen() {
       </View>
       {loginOptions.map((item, index) => {
         return (
-          item.showBtn && (<View
-            key={index}
-            style={[
-              [
-                CommonStyles.mt10,
-                CommonStyles.mb10,
-                CommonStyles.ph10,
-                { marginHorizontal: customTheme.spacings.spacing_12 },
-              ],
-            ]}>
-            <SocialButton
-              buttonContainerStyle={[
-                CommonStyles.flexRowAlignCenter,
-                CommonStyles.socialLoginButton,
-                CommonStyles.oynxBlueBorder,
-              ]}
-              title={item.text}
-              textStyle={{
-                color: customTheme.colors.background,
-                fontSize: customTheme.fontSizes.size_16,
-                fontWeight: '600',
-                marginLeft: customTheme.spacings.spacing_8,
-              }}
-              imageSrc={item.logo}
-              imageStyle={CommonStyles.midSizeLogo}
-              onPressButton={() => handleSubmit(item?.id)}
-            />
-          </View>)
-
+          item.showBtn && (
+            <View
+              key={index}
+              style={[
+                [
+                  CommonStyles.mt10,
+                  CommonStyles.mb10,
+                  CommonStyles.ph10,
+                  { marginHorizontal: customTheme.spacings.spacing_12 },
+                ],
+              ]}>
+              <SocialButton
+                buttonContainerStyle={[
+                  CommonStyles.flexRowAlignCenter,
+                  CommonStyles.socialLoginButton,
+                  CommonStyles.oynxBlueBorder,
+                ]}
+                title={item.text}
+                textStyle={{
+                  color: customTheme.colors.background,
+                  fontSize: customTheme.fontSizes.size_16,
+                  fontWeight: '600',
+                  marginLeft: customTheme.spacings.spacing_8,
+                }}
+                imageSrc={item.logo}
+                imageStyle={CommonStyles.midSizeLogo}
+                onPressButton={() => handleSubmit(item?.id)}
+              />
+            </View>
+          )
         );
       })}
     </SafeAreaView>
