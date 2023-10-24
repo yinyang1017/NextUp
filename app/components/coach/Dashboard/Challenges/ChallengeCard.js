@@ -48,9 +48,9 @@ export default function Challenge({
   );
 }
 const styles = StyleSheet.create({
-    cardWrapper: {
-        paddingVertical: 5,
-    },
+  cardWrapper: {
+    paddingVertical: 5,
+  },
   cardHeader: {
     backgroundColor: Colors.yellow30,
     height: 50,
