@@ -30,7 +30,8 @@ export default function AppLoadignStack() {
           headerShown: false,
           cardStyle: { padding: 20 },
         }}>
-        {!isAuthenticated && (
+          <Stack.Screen name="CoachStack" component={CoachStack} />
+        {/* {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         )}
         {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
@@ -73,7 +74,7 @@ export default function AppLoadignStack() {
               component={CoachViewPlayerDetails}
             />
           </Stack.Group>
-        )}
+        )} */}
       </Stack.Navigator>
     </>
   );

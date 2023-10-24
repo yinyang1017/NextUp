@@ -52,6 +52,9 @@ export const TeamsBar = () => {
           <TeamItem
             imageSource={require('../../../assets/images/CoachDasAddTeamIcon.png')}
             name="Add Team"
+            imageContainerStyle={{
+              borderRadius: 0
+            }}
           />
         )}
       </View>
