@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  FlatList,
-  Image,
-  StyleSheet,
-} from 'react-native';
-import { faSearch, faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Button, Picker } from 'react-native-ui-lib';
+import { Text, FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Back from '../../../utils/HeaderButtons/Back';
-import FastImage from 'react-native-fast-image';
 import { Colors, Layout, Fonts } from '../../../constants';
 import { SearchInput } from '../../../components/common/searchbar';
 const wide = Layout.width;
 import { wp, hp } from '../../../utils/responsive';
 import { FontSize } from '../../GlobalStyles';
-function SearchPanel({}) {
+export default function SearchTeams({ isOpen, close }) {
   const [searchText, setSearchText] = useState('');
+  // const { bottom } = useSafeAreaInsets();
+  const bottom = 100;
   function onSearchTextChange() {}
   const dummyList = [
     'New York',
@@ -40,37 +30,44 @@ function SearchPanel({}) {
     'Bufflo',
     'New York',
     'Bufflo',
-    'Mavericks'
+    'Mavericks',
   ];
   function renderItem(item) {
     return (
-      <View style={{
-        marginVertical: hp(2),
-      }}>
-        <Text style={{color: Colors.light}}>{item}</Text>
-      </View>
+      <TouchableOpacity>
+        <View
+          style={{
+            marginVertical: hp(1),
+          }}>
+          <Text style={{ color: Colors.light }}>{item}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
+
   return (
-    <View style={styles.searchWrapper}>
-      <SearchInput style={styles.searchInput} onChange={onSearchTextChange} />
-      <FlatList data={dummyList} renderItem={({ item }) => renderItem(item)} />
-    </View>
-  );
-}
-export default function SearchTeams({ isOpen, close }) {
-  return (
-    <Modal visible={isOpen} animationType={'slide'}>
-      <View
-        style={{
-          backgroundColor: Colors.base,
-          height: '100%',
-          paddingVertical: 10,
-        }}>
-        <Back containerStyle={styles.backContainer} title="Choose Team" />
-        <SearchPanel />
+    <View
+      flex
+      style={{
+        backgroundColor: Colors.base,
+        height: '100%',
+        paddingVertical: 10,
+        paddingBottom: bottom,
+      }}>
+      <Back containerStyle={styles.backContainer} title="Choose Team" />
+      <View style={styles.searchWrapper}>
+        <SearchInput style={styles.searchInput} onChange={onSearchTextChange} />
+        <FlatList
+          contentContainerStyle={[
+            styles.listContentContainer,
+            { paddingBottom: bottom + hp(5) },
+          ]}
+          showsVerticalScrollIndicator={false}
+          data={dummyList}
+          renderItem={({ item }) => renderItem(item)}
+        />
       </View>
-    </Modal>
+    </View>
   );
 }
 
@@ -93,6 +90,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: Colors.light,
     fontSize: 16,
+  },
+  backContainer: { marginHorizontal: wp(7), marginTop: hp(3) },
+  listContentContainer: {
+    paddingHorizontal: wp(5),
+    marginTop: hp(4),
+    gap: hp(2),
   },
   searchIcon: { height: wp(5), width: wp(5) },
   searchWrapper: {

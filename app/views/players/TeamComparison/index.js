@@ -43,7 +43,7 @@ export default function TeamComparison() {
   );
 }
 
-function TeamComparisonScreen() {
+export function TeamComparisonScreen() {
   const [season, setSeason] = useState(_seasonList[0]);
   const navigation = useNavigation();
   const [isSearchOpen, openSearch] = useState(false);

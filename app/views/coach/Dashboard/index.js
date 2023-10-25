@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   Image,
@@ -16,16 +16,20 @@ import { MyTeams, TeamsBar } from '../../../components/coach/Dashboard/MyTeams';
 import UpcomingGames from '../../../components/coach/Dashboard/EventsCarousel';
 import StatsContainer from '../../../components/coach/Dashboard/StatsContainer';
 import MyChallenges from '../../../components/coach/Dashboard/Challenges';
-import { Button, Colors } from 'react-native-ui-lib';
+import { Avatar, Button, Colors } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
 import StatisticOverview from '../../../components/coach/Dashboard/StatisticOverview';
 import profileImg from '../../../assets/images/avatar.png';
 import LastGameSection from '../../../components/coach/Dashboard/LastGame';
 import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import { Padding } from '../../GlobalStyles';
-
+import Notification from '../../../components/coach/Dashboard/Notification';
 export default function CoachDashboard() {
   const navigation = useNavigation();
+  const [isNotify, setNotify] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setNotify(true), 3000);
+  }, []);
   return (
     <ScrollView
       style={styles.playerDash}
@@ -57,6 +61,7 @@ export default function CoachDashboard() {
       </View>
       <MatchUp />
       <MyChallenges />
+      {isNotify && <Notification close={() => setNotify(false)} />}
     </ScrollView>
   );
 }
@@ -71,12 +76,13 @@ const styles = StyleSheet.create({
   },
   playerDashScrollViewContent: {
     flexDirection: 'column',
-    paddingTop: 48,
+    // paddingTop: 50,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   frameParent: {
     // alignItems: "center",
+    position: 'relative',
     paddingVertical: 0,
     alignSelf: 'stretch',
   },
