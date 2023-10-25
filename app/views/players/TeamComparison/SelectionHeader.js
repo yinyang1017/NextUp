@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -7,17 +7,17 @@ import {
   Modal,
   FlatList,
 } from 'react-native';
-import {BlurView} from '@react-native-community/blur';
+import { BlurView } from '@react-native-community/blur';
 import FastImage from 'react-native-fast-image';
-import {Colors, Layout, Fonts} from '../../../constants';
-import {FontSize} from '../../GlobalStyles';
+import { Colors, Layout, Fonts } from '../../../constants';
+import { FontSize } from '../../GlobalStyles';
 const wide = Layout.width;
 const high = Layout.height;
 export default function SelectionHeader({
   season,
   allSeason,
   selectSeason,
-  selectPlayer,
+  selectTeam,
   homeTeamData,
   awayTeamData,
 }) {
@@ -108,9 +108,8 @@ export default function SelectionHeader({
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: wide * 0.01,
-        }}>
-       
-      </View>
+        }}
+      />
     </View>
   );
   const renderRightSide = data => (
@@ -120,7 +119,8 @@ export default function SelectionHeader({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-      }}>
+      }}
+      onPress={selectTeam}>
       {renderLeftSide(data)}
       <Image
         style={{
@@ -128,7 +128,7 @@ export default function SelectionHeader({
           height: wide * 0.04,
           marginLeft: wide * 0.01,
           position: 'absolute',
-          transform: [{translateX: 60}],
+          transform: [{ translateX: 60 }],
         }}
         source={require('../../../assets/images/dropDownIcon.png')}
       />
@@ -143,7 +143,7 @@ export default function SelectionHeader({
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onPress={selectPlayer}>
+        onPress={selectTeam}>
         <Image
           source={require('../../../assets/add.png')}
           style={{
@@ -237,7 +237,7 @@ export default function SelectionHeader({
           justifyContent: 'space-start',
           alignItems: 'center',
         }}>
-        <View style={{width: '40%'}}>{renderLeftSide(homeTeamData)}</View>
+        <View style={{ width: '40%' }}>{renderLeftSide(homeTeamData)}</View>
         <View
           style={{
             width: '20%',
@@ -248,12 +248,12 @@ export default function SelectionHeader({
             // backgroundColor: 'red'
           }}>
           <Image
-            style={{width: '95%', height: '95%'}}
+            style={{ width: '95%', height: '95%' }}
             source={require('../../../assets/images/playerCompareVS.png')}
             resizeMode={'contain'}
           />
         </View>
-        <View style={{width: '40%'}}>
+        <View style={{ width: '40%' }}>
           {awayTeamData ? renderRightSide(awayTeamData) : renderAddIcon()}
         </View>
       </View>
@@ -307,10 +307,10 @@ export default function SelectionHeader({
               </Text>
             </View>
 
-            <View style={{width: '60%', height: '80%'}}>
+            <View style={{ width: '60%', height: '80%' }}>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                style={{flex: 1}}
+                style={{ flex: 1 }}
                 data={allSeason}
                 renderItem={(item, index) => renderSeasonList(item, index)}
               />
