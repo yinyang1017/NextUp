@@ -88,3 +88,8 @@ export const uploadImageApi = file => {
     data: formData,
   });
 };
+
+export const getSeasonString = () => {
+  const currentYear = new Date().getFullYear();
+  return `${currentYear}-${+currentYear.toString().slice(2) + 1}`;
+};

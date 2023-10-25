@@ -45,7 +45,7 @@ const HighSchoolForm = ({ onSelectDropdownValue, formik }) => {
   return (
     <>
       <FormInputPicker
-        value={formik.values.school?.value}
+        value={formik.values.school}
         data={schools || []}
         required
         renderFilter={_renderInputFilter}
@@ -55,7 +55,7 @@ const HighSchoolForm = ({ onSelectDropdownValue, formik }) => {
         error={formik.errors.school}
         onValueChange={value => {
           resetFilter();
-          onSelectDropdownValue(formik, 'school', value);
+          onSelectDropdownValue(formik, 'school', value?.value);
         }}
       />
       <View row spread style={styles.dropdownRow}>

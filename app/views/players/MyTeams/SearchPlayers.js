@@ -1,23 +1,47 @@
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
+  StyleSheet,
+} from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
 import { SearchInput } from '../../../components/common/searchbar';
 import SearchPlayerItem from '../../../components/players/Dashboard/SearchPlayerItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import Share from 'react-native-share';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import times from 'lodash/times';
+import { useGetPlayersForInvite } from '../../../api/myteam.api';
+import { Text, View } from 'react-native-ui-lib';
+import { customTheme } from '../../../constants';
+import { useAuth } from '../../../hooks/useAuth';
 
 const SearchPlayers = () => {
   const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
+  const { user } = useAuth();
+  const isFocused = useIsFocused();
+  const {
+    mutateAsync: getPlayersForInvite,
+    data: playersListData,
+    isLoading: isLoadingPlayersList,
+  } = useGetPlayersForInvite();
 
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
-  const onSearchPlayers = () => {
-    // console.log('API Called');
+  useEffect(() => {
+    if (isFocused) {
+      getPlayersForInvite({ userId: user?.id });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+
+  const onSearchPlayers = async (searchText = '') => {
+    try {
+      getPlayersForInvite({ userId: user?.id, search: searchText });
+    } catch (error) {}
   };
 
   const onPressShareHandler = () => {
@@ -62,36 +86,48 @@ const SearchPlayers = () => {
   };
 
   const renderPlayerItem = useCallback(
-    ({ index }) => {
-      const isSelected = selectedPlayers.find(i => i === index) !== undefined;
-
+    ({ item }) => {
+      const isSelected = !!selectedPlayers.find(i => i === item?.id);
       const onPressCheckBoxHandler = () => {
         let newValues = [...selectedPlayers];
         if (isSelected) {
-          newValues = newValues.filter(i => i !== index);
+          newValues = newValues.filter(i => i !== item?.id);
         } else {
-          newValues.push(index);
+          newValues.push(item?.id);
         }
         setSelectedPlayers(newValues);
       };
-
       return (
         <SearchPlayerItem
           onPress={() => navigation.navigate('CoachViewPlayerDetails')}
           isSelected={isSelected}
           onCheckBoxPress={onPressCheckBoxHandler}
+          data={item}
         />
       );
     },
     [navigation, selectedPlayers],
   );
 
+  const ListEmptyComponent = useMemo(
+    () => (
+      <View center height={hp(52)}>
+        {isLoadingPlayersList ? (
+          <ActivityIndicator size={'small'} color={customTheme.colors.light} />
+        ) : (
+          <Text large-3xl-700>No Players Found</Text>
+        )}
+      </View>
+    ),
+    [isLoadingPlayersList],
+  );
+
   return (
-    <View style={[styles.container, { paddingBottom: bottom }]}>
+    <View flex style={{ paddingBottom: bottom }}>
       <Back containerStyle={styles.backContainer} />
       <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
       <FlatList
-        data={times(10)}
+        data={playersListData?.data || []}
         renderItem={renderPlayerItem}
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
@@ -99,6 +135,7 @@ const SearchPlayers = () => {
           styles.listContentContainer,
           { paddingBottom: bottom + hp(5) },
         ]}
+        ListEmptyComponent={ListEmptyComponent}
       />
       <View style={styles.footer}>
         <PrimaryButton
@@ -115,7 +152,6 @@ const SearchPlayers = () => {
 export default SearchPlayers;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
   backContainer: { marginHorizontal: wp(7), marginTop: hp(3) },
   searchInput: {
     alignSelf: 'center',
@@ -131,7 +167,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginHorizontal: wp(10),
     marginBottom: hp(2),
-    gap: hp(2),
+    gap: hp(1),
   },
   shareButton: { backgroundColor: 'transparent' },
 });

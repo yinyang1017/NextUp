@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useGetListOfStatesAndCities } from '../api/onboarding.api';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useAddTeamApi } from '../api/myteam.api';
+import { errorToast, successToast } from '../utils/toast';
+import { useAuth } from './useAuth';
+import { getSeasonString, uploadImageApi } from '../utils/helper';
 
 const teamTypeOptions = [
   { label: 'High School', value: 'highSchool' },
@@ -11,7 +15,6 @@ const teamTypeOptions = [
 
 const highSchoolSchema = Yup.object().shape({
   school: Yup.string().required('Please select school'),
-  teamYear: Yup.string().required('Please select team'),
   gender: Yup.string().required('Please select gender'),
   level: Yup.string().required('Please select level'),
 });
@@ -26,22 +29,87 @@ const travelTeamSchema = Yup.object().shape({
 
 const useAddNewTeam = () => {
   const isFocus = useIsFocused();
+  const navigation = useNavigation();
+  const { mutateAsync: addNewTeamMutation } = useAddTeamApi();
+  const { user } = useAuth();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Travel Team Option
+  const [citiesData, setCitiesData] = useState([]);
+
+  const { data: statesData, mutate: getListOfStates } =
+    useGetListOfStatesAndCities();
+  const { mutate: getListOfCities } = useGetListOfStatesAndCities();
+
+  const [selectedTeamOption, setSelectedTeamOption] = useState('highSchool');
+
+  const isHighSchoolSelected = useMemo(
+    () => selectedTeamOption === 'highSchool',
+    [selectedTeamOption],
+  );
 
   const [profileImage, setProfileImage] = useState(null);
 
-  const onSubmitFormHandler = (data, isHighSchool) => {
-    console.log('~ onSubmitFormHandler ~ data:', data);
-    if (isHighSchool) {
-      // ... Add HighSchool Team API
-    } else {
-      // ... Add Travel Team API
+  const onSubmitFormHandler = async () => {
+    if (!profileImage) {
+      errorToast({
+        title: 'Team image is mandatory',
+        body: 'Please select a team image',
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const teamImageUrl = (await uploadImageApi(profileImage))?.data?.data
+        ?.imageUrl;
+
+      const teamPayload = {
+        name: isHighSchoolSelected
+          ? highSchoolFormik.values.school
+          : travelTeamFormik.values.teamName,
+        teamLogo: teamImageUrl,
+        ownerId: user?.id || null,
+        recentSeasonType: getSeasonString(),
+        ...(!isHighSchoolSelected && {
+          travelTeamInfo: {
+            teamName: travelTeamFormik.values.teamName,
+            state: travelTeamFormik.values.state,
+            city: travelTeamFormik.values.city,
+            gender: travelTeamFormik.values.gender,
+            ageGroup: travelTeamFormik.values.ageGroup,
+          },
+        }),
+        ...(isHighSchoolSelected && {
+          highSchoolTeamInfo: {
+            teamName: highSchoolFormik.values.school,
+            gender: highSchoolFormik.values.gender,
+            level: highSchoolFormik.values.level,
+          },
+        }),
+      };
+      const response = await addNewTeamMutation(teamPayload);
+      setIsLoading(false);
+      if (response.success && !response.error) {
+        successToast({ title: 'Success', body: 'Team added successfully' });
+        navigation.goBack();
+      } else {
+        throw new Error('Fail');
+      }
+    } catch (error) {
+      setIsLoading(false);
+      errorToast({
+        title: 'Error',
+        body: 'Failed to add team! Please try again after some time',
+      });
     }
   };
 
   const highSchoolFormik = useFormik({
     initialValues: {
       school: '',
-      teamYear: '',
       gender: '',
       level: '',
       state: '',
@@ -67,15 +135,6 @@ const useAddNewTeam = () => {
     validateOnBlur: false,
   });
 
-  // Travel Team Option
-  const [citiesData, setCitiesData] = useState([]);
-
-  const { data: statesData, mutate: getListOfStates } =
-    useGetListOfStatesAndCities();
-  const { mutate: getListOfCities } = useGetListOfStatesAndCities();
-
-  const [selectedTeamOption, setSelectedTeamOption] = useState('highSchool');
-
   useEffect(() => {
     if (isFocus) {
       getListOfStates();
@@ -93,11 +152,6 @@ const useAddNewTeam = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [travelTeamFormik.values.state]);
-
-  const isHighSchoolSelected = useMemo(
-    () => selectedTeamOption === 'highSchool',
-    [selectedTeamOption],
-  );
 
   const onSelectDropdownValue = (_formik, key, value) => {
     _formik.setFieldValue(key, value);
@@ -117,7 +171,6 @@ const useAddNewTeam = () => {
     if (value === 'travelTeam') {
       highSchoolFormik.setErrors({
         school: '',
-        teamYear: '',
         gender: '',
         level: '',
       });
@@ -146,6 +199,7 @@ const useAddNewTeam = () => {
     statesData,
     onPressSaveHandler,
     teamTypeOptions,
+    isLoading,
   };
 };
 
