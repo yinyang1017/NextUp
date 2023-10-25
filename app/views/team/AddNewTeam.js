@@ -11,6 +11,7 @@ import HighSchoolForm from '../../components/coach/Team/HighSchoolForm';
 import TravelTeamForm from '../../components/coach/Team/TravelTeamForm';
 import useAddNewTeam from '../../hooks/useAddNewTeam';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import AppLoader from '../../utils/Apploader';
 
 const AddNewTeam = () => {
   const { bottom } = useSafeAreaInsets();
@@ -27,10 +28,12 @@ const AddNewTeam = () => {
     statesData,
     travelTeamFormik,
     teamTypeOptions,
+    isLoading,
   } = useAddNewTeam();
 
   return (
     <View flex>
+      {isLoading && <AppLoader />}
       <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
       <KeyboardAwareScrollView
         extraScrollHeight={isAndroid ? hp(4) : 0}

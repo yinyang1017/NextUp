@@ -1,14 +1,16 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import React from 'react';
-import { Checkbox } from 'react-native-ui-lib';
+import { Checkbox, Text, View } from 'react-native-ui-lib';
 import { hp, wp } from '../../../utils/responsive';
 import { customTheme } from '../../../constants';
+import FastImage from 'react-native-fast-image';
+import { appImages } from '../../../constants/appImages';
 
 const PointsInfoItem = ({ title, value }) => {
   return (
     <View style={styles.pointInfoItemContainer}>
       <Text style={styles.pointInfoItemTitle}>{title}</Text>
-      <Text style={styles.pointInfoItemValue}>{value}</Text>
+      <Text regular-500>{value}</Text>
     </View>
   );
 };
@@ -17,19 +19,26 @@ const SearchPlayerItem = ({
   onPress,
   isSelected = false,
   onCheckBoxPress = () => {},
+  data = {},
 }) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Image
-        source={require('../../../assets/avatar2.png')}
+      <FastImage
+        source={{
+          uri: data?.profilePictureUrl,
+          priority: FastImage.priority.high,
+        }}
         style={styles.image}
+        defaultSource={appImages.defaultAvatarImage}
       />
-      <View style={styles.body}>
-        <Text style={styles.name}>Arlene McCoy</Text>
-        <View style={styles.pointsInfoContainer}>
-          <PointsInfoItem title={'PPG'} value={'21.5'} />
-          <PointsInfoItem title={'RPG'} value={'10.9'} />
-          <PointsInfoItem title={'APG'} value={'1.9'} />
+      <View flex>
+        <Text medium-600 numberOfLines={2}>
+          {data?.name}
+        </Text>
+        <View row centerV style={styles.pointsInfoContainer}>
+          <PointsInfoItem title={'PPG'} value={data?.pgs?.PPG || '0'} />
+          <PointsInfoItem title={'RPG'} value={data?.pgs?.RPG || '0'} />
+          <PointsInfoItem title={'APG'} value={data?.pgs?.APG || '0'} />
         </View>
       </View>
       <Checkbox
@@ -59,28 +68,11 @@ const styles = StyleSheet.create({
     paddingVertical: hp(1.5),
   },
   image: { height: wp(12.5), width: wp(12.5), marginRight: wp(3) },
-  body: { flex: 1 },
-  name: {
-    fontFamily: customTheme.fontFamily.robotoRegular,
-    fontWeight: '600',
-    fontSize: customTheme.fontSizes.size_16,
-    color: customTheme.colors.light,
-  },
-  pointsInfoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: wp(11),
-    marginTop: hp(0.5),
-  },
+  pointsInfoContainer: { gap: wp(11), marginTop: hp(0.7) },
   pointInfoItemContainer: { alignItems: 'center' },
   pointInfoItemTitle: {
     fontSize: customTheme.fontSizes.size_11,
     color: customTheme.colors.light + '60',
-    fontFamily: customTheme.fontFamily.robotoRegular,
-  },
-  pointInfoItemValue: {
-    color: customTheme.colors.light,
-    fontWeight: '500',
     fontFamily: customTheme.fontFamily.robotoRegular,
   },
   checkbox: { marginRight: wp(3) },
