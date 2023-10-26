@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCoachOnBoardingRegister, usePlayerOnBoardingRegister } from "../api/onboarding.api";
 import { useGetCity, useGetClassOffYears, useGetSchools, useGetState } from "../api/lookup.api";
-import { errorToast, successToast } from "../utils/toast";
+import { errorToast } from "../utils/toast";
 
 export const OnBoardingContext = React.createContext();
 const COCH_STEP = 4

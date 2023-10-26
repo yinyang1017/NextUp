@@ -2,6 +2,7 @@ import { height, width } from '../constants/dimensions';
 import { v5 as uuidv5 } from 'uuid';
 import axios from 'axios';
 import { BASE_URL } from '../hooks/useUpload';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 export const getDesiredNumber = (desiredNumber = 12) => {
   let number = desiredNumber;
@@ -92,4 +93,14 @@ export const uploadImageApi = file => {
 export const getSeasonString = () => {
   const currentYear = new Date().getFullYear();
   return `${currentYear}-${+currentYear.toString().slice(2) + 1}`;
+};
+
+export const getInvitePlayerDynamicLink = async userId => {
+  const link = await dynamicLinks().buildLink({
+    link: 'https://nextupapp.page.link/invite?user_id=' + userId,
+    domainUriPrefix: 'https://nextupapp.page.link/invite',
+    android: { packageName: 'com.ftc.app.nextup' },
+    ios: { bundleId: 'com.ftc.app.nextup' },
+  });
+  return link;
 };

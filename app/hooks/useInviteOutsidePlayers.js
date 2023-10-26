@@ -4,9 +4,10 @@ import Share from 'react-native-share';
 import * as Yup from 'yup';
 import { useInviteOutsidePlayer } from '../api/myteam.api';
 import { useAuth } from './useAuth';
-import { getSeasonString } from '../utils/helper';
+import { getInvitePlayerDynamicLink, getSeasonString } from '../utils/helper';
 import { useNavigation } from '@react-navigation/native';
-import { errorToast, successToast } from '../utils/toast';
+import { errorToast } from '../utils/toast';
+import { useState } from 'react';
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter full name'),
@@ -21,41 +22,39 @@ const validationSchema = Yup.object().shape({
 const useInviteOutsidePlayers = () => {
   const { user } = useAuth();
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
 
-  const { mutateAsync: inviteOutsidePlayerMutation, isLoading } =
-    useInviteOutsidePlayer();
+  const { mutateAsync: inviteOutsidePlayerMutation } = useInviteOutsidePlayer();
 
   const onSubmitHandler = async data => {
     try {
+      setLoading(true);
+      const inviteLink = await getInvitePlayerDynamicLink(user?.id);
       const invitePlayerPayload = {
         fullName: data?.fullName || null,
         emailId: data?.email || null,
         contactNumber: data?.phoneNumber || null,
         seasonName: getSeasonString(),
-        sharedLink: null, // TODO: confirm what data to send
-        playerPositions: 'POINT_GUARD', // TODO: confirm what data to send
-        teamPositionIndex: 0, // TODO: confirm what data to send
+        sharedLink: inviteLink,
+        positionIndex: 0,
+        teamPositionIndex: 0,
       };
-      console.log(
-        '🚀 ~ file: useInviteOutsidePlayers.js:40 ~ onSubmitHandler ~ invitePlayerPayload:',
-        invitePlayerPayload,
-      );
+      console.log("🚀 ~ file: useInviteOutsidePlayers.js:42 ~ onSubmitHandler ~ invitePlayerPayload:", invitePlayerPayload, user?.id)
 
-      // const response = await inviteOutsidePlayerMutation({
-      //   userId: user?.id,
-      //   payload: invitePlayerPayload,
-      // });
-
-      // TODO : Replace this with real response
-      const response = { success: true, error: null, data: 12345 };
+      const response = await inviteOutsidePlayerMutation({
+        userId: user?.id,
+        payload: invitePlayerPayload,
+      });
 
       if (response.success && !response.error) {
-        successToast({ title: 'Success', body: 'Player invited successfully' });
+        // successToast({ title: 'Success', body: 'Player invited successfully' });
         navigation.goBack();
       } else {
         throw new Error('Fail');
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       errorToast({
         title: 'Error',
         body: 'Failed to invite player! Please try again after some time',
@@ -101,7 +100,7 @@ const useInviteOutsidePlayers = () => {
     handleBlur,
     handleSubmit,
     touched,
-    isLoading,
+    loading,
   };
 };
 

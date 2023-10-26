@@ -93,7 +93,7 @@ const useAddNewTeam = () => {
       const response = await addNewTeamMutation(teamPayload);
       setIsLoading(false);
       if (response.success && !response.error) {
-        successToast({ title: 'Success', body: 'Team added successfully' });
+        // successToast({ title: 'Success', body: 'Team added successfully' });
         navigation.goBack();
       } else {
         throw new Error('Fail');

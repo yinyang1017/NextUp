@@ -17,6 +17,7 @@ import { CreatePractice } from '../views/players/MyTeams/CreatePractice';
 import { PlayerStack } from './PlayerStack';
 import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 import GoogleAutoCompleteScreen from '../views/coach/GoogleAutoCompleteScreen';
+import PlayerComparison from '../views/players/PlayerComparison';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -50,6 +51,7 @@ export default function AppLoadignStack() {
             <Stack.Screen name="AddLineup" component={AddLineup} />
             <Stack.Screen name="LineupDetails" component={LineupDetails} />
             <Stack.Screen name="CreatePractice" component={CreatePractice} />
+            <Stack.Screen name="PlayerCompare" component={PlayerComparison} />
             <Stack.Screen
               name="CoachViewPlayerDetails"
               component={CoachViewPlayerDetails}
