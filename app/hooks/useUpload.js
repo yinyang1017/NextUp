@@ -81,10 +81,10 @@ export const useUpload = () => {
           throw new Error('Cannot upload file. Please try again.');
         }
         if (resp?.data) {
-          successToast({
-            title: 'Success',
-            body: 'Uploaded successfully',
-          });
+          // successToast({
+          //   title: 'Success',
+          //   body: 'Uploaded successfully',
+          // });
           setUploadedDocument(resp?.data);
           return resp?.data;
         }

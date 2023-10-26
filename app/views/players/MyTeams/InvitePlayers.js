@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
@@ -6,6 +6,7 @@ import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import useInviteOutsidePlayers from '../../../hooks/useInviteOutsidePlayers';
 import AppLoader from '../../../utils/Apploader';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const InvitePlayers = () => {
   const {
@@ -16,19 +17,20 @@ const InvitePlayers = () => {
     handleSubmit,
     values,
     touched,
-    isLoading,
+    loading,
   } = useInviteOutsidePlayers();
 
   return (
     <View style={styles.container}>
       <Back containerStyle={styles.backContainer} title="Invite Player" />
-      {isLoading && <AppLoader />}
-      <ScrollView
+      {loading && <AppLoader />}
+      <KeyboardAwareScrollView
+        enableOnAndroid
         keyboardShouldPersistTaps="handled"
         bounces={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
-        <View>
+        <View style={{ flex: 1 }}>
           <FormInputField
             placeholder={'Enter Full name'}
             onChangeText={handleChange('fullName')}
@@ -67,7 +69,7 @@ const InvitePlayers = () => {
           />
           <PrimaryButton title={'Invite'} onPress={handleSubmit} />
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -92,10 +94,10 @@ const styles = StyleSheet.create({
   },
   shareButton: { backgroundColor: 'transparent' },
   footer: {
-    marginTop: 'auto',
+    marginTop: hp(22),
     marginHorizontal: wp(10),
     marginBottom: hp(2),
     gap: hp(2),
   },
-  scrollContent: { flex: 1, paddingBottom: hp(5) },
+  scrollContent: { paddingBottom: hp(5) },
 });

@@ -32,13 +32,14 @@ const AddNewTeam = () => {
   } = useAddNewTeam();
 
   return (
-    <View flex>
+    <View>
       {isLoading && <AppLoader />}
       <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
       <KeyboardAwareScrollView
-        extraScrollHeight={isAndroid ? hp(4) : 0}
+        extraScrollHeight={isAndroid ? hp(7) : 0}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: bottom, flexGrow: 1 }}>
+        enableOnAndroid
+        contentContainerStyle={{ paddingBottom: bottom }}>
         <ImageUpload
           source={{ uri: profileImage?.uri }}
           containerStyle={styles.imageUploadContainer}
@@ -84,10 +85,10 @@ const styles = StyleSheet.create({
   selectOptionsContainer: {
     marginHorizontal: wp(6),
     marginTop: hp(2),
-    height: hp(52),
   },
-  saveButton: bottom => ({
+  saveButton: (bottom, isHighSchoolSelected) => ({
     marginHorizontal: wp(8),
     marginBottom: bottom + hp(2),
+    marginTop: isHighSchoolSelected ? hp(28) : hp(14.8),
   }),
 });
