@@ -57,7 +57,6 @@ export default function DuelChart({
         key={`shape-${i}`}
         d={initPath(
           columns.map(column => {
-            console.log(units[column.key]);
             return [
               posX(column.angle, data[column.key] / units[column.key]),
               posY(column.angle, data[column.key] / units[column.key]),
@@ -94,7 +93,6 @@ export default function DuelChart({
   };
 
   const label = (data, colorList) => column => {
-    console.log(column, labels, data, colorList);
     return (
       <View
         style={{
@@ -145,7 +143,6 @@ export default function DuelChart({
   labels.forEach(
     el => (units[el] = Math.max(_.get(data[0], el), _.get(data[1], el))),
   );
-  console.log(units);
   const columns = labels.map((key, i, arr) => {
     return {
       key,

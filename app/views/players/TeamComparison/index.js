@@ -9,6 +9,7 @@ import SearchModal from './SearchTeams';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import DuelChart from '../../../components/common/DuelGraph';
+import StatDuel from './StatDuel';
 
 const _seasonList = [
   '2020-21',
@@ -60,40 +61,7 @@ export default function TeamComparison() {
       <ScrollView horizontal={false}>
         <GameStats />
         <LastGames />
-        <View style={{ paddingHorizontal: wp(10) }}>
-          <DuelChart
-            graphSize={wp(80)}
-            scaleCount={5}
-            xthreshold={wp(5)}
-            ythreshold={20}
-            numberInterval={2}
-            data={[
-              {
-                AST: 26.3,
-                RPG: 48.6,
-                STL: 5.4,
-                BPG: 7.5,
-                FG: 47.3,
-                PTS: 115.8,
-              },
-              {
-                AST: 30.2,
-                RPG: 20.6,
-                STL: 5.2,
-                BPG: 10.2,
-                FG: 40.3,
-                PTS: 110.25,
-              },
-            ]}
-            options={{
-              graphShape: 1,
-              showAxis: false,
-              showIndicator: false,
-              colorList: ['#27DC70', '#246BFD'],
-              dotList: [false, false],
-            }}
-          />
-        </View>
+        <StatDuel />
       </ScrollView>
     </SafeAreaView>
   );
