@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
 import SelectionHeader from './SelectionHeader';
@@ -8,6 +8,7 @@ import LastGames from './LastGames';
 import SearchModal from './SearchTeams';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import DuelChart from '../../../components/common/DuelGraph';
 
 const _seasonList = [
   '2020-21',
@@ -35,12 +36,12 @@ const _awayTeamData = {
 export default function TeamComparison() {
   const [season, setSeason] = useState(_seasonList[0]);
   const [awayTeam, setAwayTeam] = useState(null);
-  function handleTeamChance(e){
+  function handleTeamChance(e) {
     setAwayTeam({
       name: e.name,
       location: e.state,
-      logoUrl: e.imageUrl
-    })
+      logoUrl: e.imageUrl,
+    });
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -59,6 +60,40 @@ export default function TeamComparison() {
       <ScrollView horizontal={false}>
         <GameStats />
         <LastGames />
+        <View style={{ paddingHorizontal: wp(10) }}>
+          <DuelChart
+            graphSize={wp(80)}
+            scaleCount={5}
+            xthreshold={wp(5)}
+            ythreshold={20}
+            numberInterval={2}
+            data={[
+              {
+                AST: 26.3,
+                RPG: 48.6,
+                STL: 5.4,
+                BPG: 7.5,
+                FG: 47.3,
+                PTS: 115.8,
+              },
+              {
+                AST: 30.2,
+                RPG: 20.6,
+                STL: 5.2,
+                BPG: 10.2,
+                FG: 40.3,
+                PTS: 110.25,
+              },
+            ]}
+            options={{
+              graphShape: 1,
+              showAxis: false,
+              showIndicator: false,
+              colorList: ['#27DC70', '#246BFD'],
+              dotList: [false, false],
+            }}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
