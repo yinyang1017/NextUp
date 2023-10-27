@@ -1815,10 +1815,10 @@
   dependencies:
     plist "^3.1.0"
 
-"@react-native-firebase/dynamic-links@18.5.0":
-  version "18.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/dynamic-links/-/dynamic-links-18.5.0.tgz#6c63666171a16e5ccc1d0fe4f6924ed5d3b747b7"
-  integrity sha512-RQDhEmPN6w+1MFdpzlzS4DZShAfkVxObQTXZ9CCeO7dUdwlkUcJfXZSwDKl770C8hiuNUXlumztFepvoprrjlQ==
+"@react-native-firebase/dynamic-links@^18.6.0":
+  version "18.6.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/dynamic-links/-/dynamic-links-18.6.0.tgz#2877d6481c753ea437c657b42a755f507cd5506d"
+  integrity sha512-miDoTbXJXWj+f6njHgmwMNo+BJm3g4gbAB8mfkSuN9b2/jZha3TC47VMWAHT/xt9Cxxj9T6LlmWBAUMaWw8Ymg==
 
 "@react-native-firebase/messaging@18.5.0":
   version "18.5.0"

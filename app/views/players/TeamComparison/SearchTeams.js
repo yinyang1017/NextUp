@@ -6,40 +6,32 @@ import Back from '../../../utils/HeaderButtons/Back';
 import { Colors, Layout, Fonts } from '../../../constants';
 import { SearchInput } from '../../../components/common/searchbar';
 const wide = Layout.width;
+import _ from 'lodash';
 import { wp, hp } from '../../../utils/responsive';
 import { FontSize } from '../../GlobalStyles';
-export default function SearchTeams({ isOpen, close }) {
+import { useTeams } from '../../../hooks/useTeams';
+import { FormInputPicker } from '../../../components/common/FormInputs';
+export default function SearchTeams({ isOpen, close, selectTeam }) {
   const [searchText, setSearchText] = useState('');
+  const { resetFilter, queryFilter, schools } = useTeams();
+  // console.log(schools.length);
   // const { bottom } = useSafeAreaInsets();
   const bottom = 100;
-  function onSearchTextChange() {}
-  const dummyList = [
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'New York',
-    'Bufflo',
-    'Mavericks',
-  ];
+  function onSearchTextChange(value) {
+    // resetFilter();
+    queryFilter('school', value);
+  }
   function renderItem(item) {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(item);
+        }}>
         <View
           style={{
             marginVertical: hp(1),
           }}>
-          <Text style={{ color: Colors.light }}>{item}</Text>
+          <Text style={{ color: Colors.light }}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -55,6 +47,7 @@ export default function SearchTeams({ isOpen, close }) {
         paddingBottom: bottom,
       }}>
       <Back containerStyle={styles.backContainer} title="Choose Team" />
+      
       <View style={styles.searchWrapper}>
         <SearchInput style={styles.searchInput} onChange={onSearchTextChange} />
         <FlatList
@@ -63,7 +56,7 @@ export default function SearchTeams({ isOpen, close }) {
             { paddingBottom: bottom + hp(5) },
           ]}
           showsVerticalScrollIndicator={false}
-          data={dummyList}
+          data={schools || []}
           renderItem={({ item }) => renderItem(item)}
         />
       </View>

@@ -24,9 +24,12 @@ import LastGameSection from '../../../components/coach/Dashboard/LastGame';
 import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import { Padding } from '../../GlobalStyles';
 import Notification from '../../../components/coach/Dashboard/Notification';
+import { useAuth } from '../../../hooks/useAuth';
 export default function CoachDashboard() {
   const navigation = useNavigation();
   const [isNotify, setNotify] = useState(false);
+  const { user } = useAuth();
+  console.log(user);
   useEffect(() => {
     setTimeout(() => setNotify(true), 3000);
   }, []);
@@ -38,7 +41,12 @@ export default function CoachDashboard() {
       contentContainerStyle={styles.playerDashScrollViewContent}>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
         <DashBoardHeader
-          imgSrc={profileImg}
+          imgSrc={user?.personalInfo?.profilePictureURL}
+          name={
+            user?.personalInfo?.firstName
+              ? `${user?.personalInfo?.firstName} ${user?.personalInfo?.lastName}`
+              : null
+          }
           onClick={() => navigation.navigate('AccountDetails')}
         />
         <TeamsBar />

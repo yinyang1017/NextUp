@@ -11,8 +11,11 @@ import { BlurView } from '@react-native-community/blur';
 import FastImage from 'react-native-fast-image';
 import { Colors, Layout, Fonts } from '../../../constants';
 import { FontSize } from '../../GlobalStyles';
+import { SearchInput } from '../../../components/common/FormInputs';
+import { useTeams } from '../../../hooks/useTeams';
 const wide = Layout.width;
 const high = Layout.height;
+import emptyImg from '../../../assets/ellipse-703.png'
 export default function SelectionHeader({
   season,
   allSeason,
@@ -23,6 +26,7 @@ export default function SelectionHeader({
 }) {
   // console.log(homePlayerData);
   const [isExpanded, setExpand] = useState(false);
+  const { resetFilter, queryFilter, schools } = useTeams();
   const renderSeasonList = (item, index) => {
     return (
       <TouchableOpacity
@@ -72,7 +76,7 @@ export default function SelectionHeader({
             height: '95%',
             borderRadius: (wide * 0.14) / 2,
           }}
-          source={data?.profileImg}
+          source={data?.logoUrl || emptyImg}
           resizeMode={'cover'}
         />
       </View>
@@ -119,8 +123,7 @@ export default function SelectionHeader({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
-      onPress={selectTeam}>
+      }}>
       {renderLeftSide(data)}
       <Image
         style={{
@@ -254,7 +257,15 @@ export default function SelectionHeader({
           />
         </View>
         <View style={{ width: '40%' }}>
-          {awayTeamData ? renderRightSide(awayTeamData) : renderAddIcon()}
+          <SearchInput
+            data={schools}
+            required
+            label={'Teams'}
+            title="Teams"
+            onValueChange={selectTeam}
+            placeholder="Search Team">
+            {awayTeamData ? renderRightSide(awayTeamData) : renderAddIcon()}
+          </SearchInput>
         </View>
       </View>
 

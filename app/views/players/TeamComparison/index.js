@@ -24,30 +24,24 @@ const _seasonList = [
 const _homeTeamData = {
   name: 'Bulls',
   location: 'Chicago',
-  profileImg: require('../../../assets/images/dummyTeamLogo.png'),
+  logoUrl: require('../../../assets/images/dummyTeamLogo.png'),
 };
 const _awayTeamData = {
   name: 'Lakers',
   location: 'Ros Angeles',
-  profileImg: require('../../../assets/images/dummyTeamLogo1.png'),
+  logoUrl: require('../../../assets/images/dummyTeamLogo1.png'),
 };
 
 export default function TeamComparison() {
-  const Stack = createNativeStackNavigator();
-  const options = { headerShown: false };
-  return (
-    <Stack.Navigator screenOptions={options} initialRouteName="CompareTeam">
-      <Stack.Screen name="CompareTeam" component={TeamComparisonScreen} />
-      <Stack.Screen name="SearchTeam" component={SearchModal} />
-    </Stack.Navigator>
-  );
-}
-
-export function TeamComparisonScreen() {
   const [season, setSeason] = useState(_seasonList[0]);
-  const navigation = useNavigation();
-  const [isSearchOpen, openSearch] = useState(false);
-
+  const [awayTeam, setAwayTeam] = useState(null);
+  function handleTeamChance(e){
+    setAwayTeam({
+      name: e.name,
+      location: e.state,
+      logoUrl: e.imageUrl
+    })
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Back
@@ -57,17 +51,14 @@ export function TeamComparisonScreen() {
       <SelectionHeader
         allSeason={_seasonList}
         season={season}
-        selectTeam={() => {
-          navigation.navigate('SearchTeam');
-        }}
+        selectTeam={handleTeamChance}
         selectSeason={e => setSeason(e)}
         homeTeamData={_homeTeamData}
-        awayTeamData={_awayTeamData}
+        awayTeamData={awayTeam}
       />
       <ScrollView horizontal={false}>
         <GameStats />
         <LastGames />
-        {/* <SearchModal isOpen={isSearchOpen} close={() => openSearch(false)} /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -76,7 +67,6 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   backButtonContainer: {
     marginHorizontal: wp(5),
-    // marginTop: hp(3),
     marginBottom: hp(3),
   },
 });

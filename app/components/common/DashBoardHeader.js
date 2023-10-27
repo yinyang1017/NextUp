@@ -26,11 +26,10 @@ export const DashBoardHeader = ({ imgSrc = null, name = null, onClick }) => {
         />
         <View style={styles.infoContainer}>
           <Text style={[styles.welcomeMsg]}>
-            <Text style={styles.welcomeText}>{'Welcome '}</Text>
-            <Text style={styles.welcomeHand}>👋</Text>
+            <Text style={styles.welcomeText}>{'Coach '}</Text>
           </Text>
           <Text style={[styles.vaibhavChibbar1, styles.vamTypo1]}>
-            {name ?? 'Vaibhav Chibbar'}
+            {name ?? 'Unnamed User'}
           </Text>
         </View>
       </View>
