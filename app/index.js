@@ -13,7 +13,7 @@ import ImagePreviewProvider from './context/ImagePreviewProvider';
 import { statusBarHeight } from './components/common/ViewConatiner';
 import './utils/typographies';
 import './constants/theme-manager';
-
+import FBDynamicLinkHandler from './utils/FBDynamicLinkHandler';
 
 export default function App() {
   return (
@@ -37,6 +37,7 @@ export default function App() {
                   backgroundColor={customTheme.colors.light.background}
                 />
                 <AppLoadignStack />
+                <FBDynamicLinkHandler />
               </ImagePreviewProvider>
             </AuthProvider>
             <Toast />

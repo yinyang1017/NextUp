@@ -1,112 +1,43 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  Platform,
-  StyleSheet,
-} from 'react-native';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { hp, wp } from '../../../utils/responsive';
 import { SearchInput } from '../../../components/common/searchbar';
 import SearchPlayerItem from '../../../components/players/Dashboard/SearchPlayerItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import Share from 'react-native-share';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useGetPlayersForInvite } from '../../../api/myteam.api';
 import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
-import { useAuth } from '../../../hooks/useAuth';
+import useInvitePlayersFromSearch from '../../../hooks/useInvitePlayersFromSearch';
+import AppLoader from '../../../utils/Apploader';
 
 const SearchPlayers = () => {
-  const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
-  const { user } = useAuth();
-  const isFocused = useIsFocused();
   const {
-    mutateAsync: getPlayersForInvite,
-    data: playersListData,
-    isLoading: isLoadingPlayersList,
-  } = useGetPlayersForInvite();
-
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
-
-  useEffect(() => {
-    if (isFocused) {
-      getPlayersForInvite({ userId: user?.id });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
-
-  const onSearchPlayers = async (searchText = '') => {
-    try {
-      getPlayersForInvite({ userId: user?.id, search: searchText });
-    } catch (error) {}
-  };
-
-  const onPressShareHandler = () => {
-    const url = 'https://awesome.contents.com/';
-    const title = 'Nextup';
-    const subTitle = 'Invite friend';
-    const options = Platform.select({
-      ios: {
-        activityItemSources: [
-          {
-            // For using custom icon instead of default text icon at share preview when sharing with message.
-            placeholderItem: {
-              type: 'url',
-              content: subTitle,
-            },
-            item: {
-              default: {
-                type: 'text',
-                content: url,
-              },
-            },
-            linkMetadata: {
-              title: title,
-              // icon: icon,
-            },
-          },
-        ],
-      },
-      default: {
-        title,
-        subject: title,
-        message: `${url}`,
-      },
-    });
-    try {
-      Share.open(options);
-    } catch (error) {}
-  };
-
-  const onPressInviteHandler = () => {
-    navigation.navigate('InvitePlayers');
-  };
+    selectedPlayers,
+    navigation,
+    isLoadingPlayersList,
+    onSearchPlayers,
+    onPressInviteHandler,
+    onPressShareHandler,
+    playersListData,
+    onPressCheckBoxHandler,
+    isLoading,
+  } = useInvitePlayersFromSearch();
 
   const renderPlayerItem = useCallback(
     ({ item }) => {
-      const isSelected = !!selectedPlayers.find(i => i === item?.id);
-      const onPressCheckBoxHandler = () => {
-        let newValues = [...selectedPlayers];
-        if (isSelected) {
-          newValues = newValues.filter(i => i !== item?.id);
-        } else {
-          newValues.push(item?.id);
-        }
-        setSelectedPlayers(newValues);
-      };
+      const isSelected = !!selectedPlayers.find(i => i?.id === item?.id);
       return (
         <SearchPlayerItem
           onPress={() => navigation.navigate('CoachViewPlayerDetails')}
           isSelected={isSelected}
-          onCheckBoxPress={onPressCheckBoxHandler}
+          onCheckBoxPress={() => onPressCheckBoxHandler(isSelected, item)}
           data={item}
         />
       );
     },
-    [navigation, selectedPlayers],
+    [navigation, selectedPlayers, onPressCheckBoxHandler],
   );
 
   const ListEmptyComponent = useMemo(
@@ -124,8 +55,14 @@ const SearchPlayers = () => {
 
   return (
     <View flex style={{ paddingBottom: bottom }}>
+      {isLoading && <AppLoader />}
       <Back containerStyle={styles.backContainer} />
-      <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
+      <View>
+        <SearchInput style={styles.searchInput} onChange={onSearchPlayers} />
+        <Text medium-700 style={styles.selectedPlayersText}>
+          {selectedPlayers.length} Players Selected
+        </Text>
+      </View>
       <FlatList
         data={playersListData?.data || []}
         renderItem={renderPlayerItem}
@@ -153,16 +90,8 @@ export default SearchPlayers;
 
 const styles = StyleSheet.create({
   backContainer: { marginHorizontal: wp(7), marginTop: hp(3) },
-  searchInput: {
-    alignSelf: 'center',
-    width: wp(86),
-    marginTop: hp(2),
-  },
-  listContentContainer: {
-    paddingHorizontal: wp(5),
-    marginTop: hp(4),
-    gap: hp(2),
-  },
+  searchInput: { alignSelf: 'center', width: wp(86), marginTop: hp(2) },
+  listContentContainer: { paddingHorizontal: wp(5), gap: hp(2) },
   footer: {
     marginTop: 'auto',
     marginHorizontal: wp(10),
@@ -170,4 +99,9 @@ const styles = StyleSheet.create({
     gap: hp(1),
   },
   shareButton: { backgroundColor: 'transparent' },
+  selectedPlayersText: {
+    marginVertical: hp(2),
+    alignSelf: 'flex-end',
+    marginHorizontal: wp(7),
+  },
 });
