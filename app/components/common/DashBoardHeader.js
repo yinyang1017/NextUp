@@ -20,7 +20,7 @@ export const DashBoardHeader = ({ imgSrc = null, name = null, onClick }) => {
       <View style={styles.header}>
         <Avatar
           containerStyle={styles.avatar}
-          source={imgSrc}
+          source={{ uri: imgSrc }}
           size={61}
           onPress={onClick}
         />
