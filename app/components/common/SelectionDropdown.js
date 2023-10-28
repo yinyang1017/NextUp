@@ -15,18 +15,33 @@ const SelectionDropdown = ({
   onSelectItem = () => {},
   renderItem,
   error = '',
+  placeholder = '',
+  isMandatory = true,
+  disabled = false,
 }) => {
   return (
     <View>
-      <View style={[styles.container, containerStyle]}>
+      <View
+        style={[
+          styles.container,
+          disabled && { opacity: 0.6 },
+          containerStyle,
+        ]}>
         <View row centerV spread>
           <Text small-700 flex style={styles.title} numberOfLines={1}>
             {title}
+            {isMandatory && (
+              <Text input-label red10>
+                {' '}
+                *
+              </Text>
+            )}
           </Text>
           <Image source={appImages.dropdown} style={styles.dropdownIcon} />
         </View>
         {isPicker ? (
           <Picker
+            editable={!disabled}
             listProps={{
               contentContainerStyle: styles.pickerListContentContainer,
             }}
@@ -37,15 +52,17 @@ const SelectionDropdown = ({
               cancelButtonProps: {
                 iconStyle: { tintColor: customTheme.colors.light },
               },
-              title,
             }}
             showSearch
             pickerModalProps={{
               overlayBackgroundColor: customTheme.colors.background,
             }}
             renderPicker={() => (
-              <Text medium-600 numberOfLines={1} style={styles.valueText}>
-                {value || ' '}
+              <Text
+                medium-600
+                numberOfLines={1}
+                style={[styles.valueText, !value && styles.placeholder]}>
+                {value || placeholder || ' '}
               </Text>
             )}
             searchStyle={{
@@ -67,18 +84,19 @@ const SelectionDropdown = ({
                 ))}
           </Picker>
         ) : (
-          <TouchableOpacity onPress={onPressValue}>
-            <Text medium-600 numberOfLines={1} style={styles.valueText}>
-              {value || ' '}
+          <TouchableOpacity onPress={onPressValue} disabled={disabled}>
+            <Text
+              medium-600
+              numberOfLines={1}
+              style={[styles.valueText, !value && styles.placeholder]}>
+              {value || placeholder || ' '}
             </Text>
           </TouchableOpacity>
         )}
       </View>
-      {!!error && (
-        <Text small style={styles.errorText}>
-          {error}
-        </Text>
-      )}
+      <Text small style={styles.errorText}>
+        {error || ' '}
+      </Text>
     </View>
   );
 };
@@ -90,16 +108,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: customTheme.colors.aboutTxtBorder,
   },
-  valueText: { paddingVertical: hp(1.5) },
+  valueText: { paddingVertical: hp(1.5), height: hp(5.5) },
   title: {
     color: customTheme.colors.txtFieldPlaceHolder,
     textTransform: 'uppercase',
     paddingRight: wp(2),
   },
-  dropdownIcon: { height: wp(4), width: wp(4) },
+  dropdownIcon: { height: wp(6), width: wp(6) },
   pickerListContentContainer: {
     paddingBottom: hp(5),
     backgroundColor: customTheme.colors.background,
   },
-  errorText: { color: customTheme.colors.red10, marginTop: hp(1) },
+  errorText: { color: customTheme.colors.red10, marginTop: hp(0.5) },
+  placeholder: {
+    color: customTheme.colors.$textNeutral,
+    fontSize: 14,
+    fontWeight: '300',
+    fontFamily: customTheme.fontFamily.robotoLight,
+  },
 });

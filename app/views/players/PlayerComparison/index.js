@@ -9,6 +9,7 @@ import StatsComparison from './StatsComparison';
 import LastGames from './LastGames';
 import UpcomingGames from './UpcomingGames';
 import SearchModal from './SearchModal';
+import { Text } from 'react-native-ui-lib';
 
 const _seasonList = [
   '2020-21',
@@ -62,10 +63,10 @@ export default function PlayerComparison({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginVertical: hp(2) },
+  container: { flex: 1 },
   backButtonContainer: {
     marginHorizontal: wp(5),
-    marginTop: hp(3),
+    marginTop: hp(1),
     marginBottom: hp(3),
   },
 });

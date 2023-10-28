@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {TouchableOpacity, View, Text, FlatList, Image} from 'react-native';
+import { TouchableOpacity, View, Text, FlatList, Image } from 'react-native';
 
-import {Layout, Colors, Fonts} from '../../../../constants';
+import { Layout, Colors, Fonts } from '../../../../constants';
 import MatchUpBoard from './MatchUpBoard';
-import {FontSize} from '../../../../views/GlobalStyles';
-import {hp} from '../../../../utils/responsive';
-import {FontFamily} from '../../../../views/GlobalStyles';
-import {MyColors} from '../../../../constants/colors';
+import { FontSize } from '../../../../views/GlobalStyles';
+import { hp } from '../../../../utils/responsive';
+import { FontFamily } from '../../../../views/GlobalStyles';
+import { MyColors } from '../../../../constants/colors';
 
 import _img1 from '../../../../assets/images/dummyPlayer.png';
 import _img2 from '../../../../assets/images/dummy2.png';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 const wide = Layout.width;
 function MatchUp() {
   const navigation = useNavigation();
@@ -72,7 +72,7 @@ function MatchUp() {
           </Text>
           <Image
             source={require('.../../../../assets/images/seeAll_Icon.png')}
-            style={{width: 14, height: 14}}
+            style={{ width: 14, height: 14 }}
           />
         </TouchableOpacity>
       </View>
@@ -81,7 +81,7 @@ function MatchUp() {
         style={{
           flexDirection: 'row',
           marginTop: wide * 0.03,
-          marginBottom: wide,
+          marginBottom: wide * 0.03,
         }}>
         <FlatList
           data={data}
@@ -94,11 +94,11 @@ function MatchUp() {
           // pagingEnabled={true}
           legacyImplementation={false}
           keyExtractor={item => item.index}
-          renderItem={({item}) => (
+          renderItem={({ item, index }) => (
             <MatchUpBoard
+              key={index}
               onPress={() => {
-                navigation.navigate('Home', {
-                  screen: 'PlayerCompare',
+                navigation.navigate('PlayerCompare', {
                   params: {
                     homePlayer: item.homePlayer,
                     secondPlayer: item.secondPlayer,

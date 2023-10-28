@@ -23,7 +23,7 @@ const StatisticalOverview = () => {
         />
         <ScoreItem score={'0 - 0'} subTitle={'Away Record'} />
       </View>
-      <Svg width={wp(46)} height={wp(46)} style={styles.chartSvg}>
+      <Svg width={180} height={180} style={styles.chartSvg}>
         <View style={styles.totalGamesContainer}>
           <Text style={styles.totalGamesCount}>0</Text>
           <Text style={styles.totalGamesText}>Total Games</Text>
@@ -35,9 +35,9 @@ const StatisticalOverview = () => {
             { x: 'Dogs', y: 30 },
             { x: 'Cats', y: 70 },
           ]}
-          height={wp(46)}
-          width={wp(46)}
-          innerRadius={wp(16)}
+          height={180}
+          width={180}
+          innerRadius={64}
           labelComponent={<></>}
         />
       </Svg>

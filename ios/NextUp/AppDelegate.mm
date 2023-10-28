@@ -1,11 +1,13 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
 #import <React/RCTBundleURLProvider.h>
+#import <RNFBDynamicLinksAppDelegateInterceptor.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [RNFBDynamicLinksAppDelegateInterceptor sharedInstance]; // this should be the in first line 
   [FIRApp configure];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   if (![defaults boolForKey:@"notFirstRun"]) {
