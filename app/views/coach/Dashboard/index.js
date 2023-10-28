@@ -27,13 +27,19 @@ import Notification from '../../../components/coach/Dashboard/Notification';
 import { useAuth } from '../../../hooks/useAuth';
 import useCoachDash from '../../../hooks/useCoachDash';
 import Empty from '../../../components/coach/Dashboard/Empty';
+import PracticeNotification from '../../../components/coach/Dashboard/PracticeNotification';
 export default function CoachDashboard() {
   const navigation = useNavigation();
   const [isNotify, setNotify] = useState(false);
+  const [isPracticeNotify, setPracticeNotify] = useState(false);
   const { user } = useAuth();
   const [teamIndex, selectTeam, teams] = useCoachDash(user?.userId);
   useEffect(() => {
     setTimeout(() => setNotify(true), 4000);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => setPracticeNotify(true), 8000);
   }, []);
 
   function addTeam() {
@@ -44,6 +50,10 @@ export default function CoachDashboard() {
       <Notification
         containerStyle={{ display: isNotify ? 'flex' : 'none' }}
         close={() => setNotify(false)}
+      />
+      <PracticeNotification
+        isVisible={isPracticeNotify}
+        onClick={() => setPracticeNotify(false)}
       />
       <ScrollView
         style={styles.playerDash}
@@ -62,31 +72,36 @@ export default function CoachDashboard() {
               navigation.navigate('Account', { screen: 'AccountDetails' })
             }
           />
-          <Empty onAddTeam={addTeam} />
-          <TeamsBar
-            current={teamIndex}
-            onSelect={selectTeam}
-            teams={teams}
-            handleAddTeam={addTeam}
-          />
-          <UpcomingGames />
-          <StatisticOverview />
-          <LastGameSection />
-          <View style={styles.compareButtonContainer}>
-            <Button
-              label={'Compare Teams'}
-              onPress={() => {
-                navigation.navigate('TeamCompare');
-              }}
-              backgroundColor={customTheme.colors.darkYellow}
-              style={{
-                width: Dimensions.get('window').width * 0.9,
-                marginBottom: 20,
-              }}
-            />
-          </View>
-          <MatchUp />
-          <MyChallenges />
+          {teams.length === 0 ? (
+            <Empty onAddTeam={addTeam} />
+          ) : (
+            <>
+              <TeamsBar
+                current={teamIndex}
+                onSelect={selectTeam}
+                teams={teams}
+                handleAddTeam={addTeam}
+              />
+              <UpcomingGames />
+              <StatisticOverview />
+              <LastGameSection />
+              <View style={styles.compareButtonContainer}>
+                <Button
+                  label={'Compare Teams'}
+                  onPress={() => {
+                    navigation.navigate('TeamCompare');
+                  }}
+                  backgroundColor={customTheme.colors.darkYellow}
+                  style={{
+                    width: Dimensions.get('window').width * 0.9,
+                    marginBottom: 20,
+                  }}
+                />
+              </View>
+              <MatchUp />
+              <MyChallenges />
+            </>
+          )}
         </View>
       </ScrollView>
     </>
