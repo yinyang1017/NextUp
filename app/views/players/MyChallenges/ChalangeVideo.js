@@ -21,118 +21,121 @@ export default function ChallengeVideo() {
 
     }
     return (
-        <ScrollView>
-            <Image
-                source={appImages.playerPlaying}
-                style={{
-                    width: Layout.width,
-                    height: 300, // Set a fixed height for the image or adjust it as needed.
-                    flex: 1
-                }}
-            />
-            <View center>
-                <View padding-16 style={{
-                    backgroundColor: customTheme.colors.primary,
-                    width: Layout.width * 0.9,
-                    minHeight: Layout.width * 0.4,
-                    borderRadius: Layout.width * 0.04,
+        <>
+            <ScrollView >
+                <Image
+                    source={appImages.playerPlaying}
+                    style={{
+                        width: Layout.width,
+                        height: 300, // Set a fixed height for the image or adjust it as needed.
+                        flex: 1
+                    }}
+                />
+                <View center>
+                    <View padding-16 style={{
+                        backgroundColor: customTheme.colors.primary,
+                        width: Layout.width * 0.9,
+                        minHeight: Layout.width * 0.4,
+                        borderRadius: Layout.width * 0.04,
 
-                    justifyContent: 'center'
+                        justifyContent: 'center'
 
-                }}>
-                    <Text large-xl-600>Dribble Challenge</Text>
-                    <Text subheader-light marginV-8>
-                        Navigate varying obstacles, sharpen control, and elevate your court command. Ready to elevate your game?
-                    </Text>
-                    <View row padding-8 style={{
-                        backgroundColor: '#2C2E33',
-                        width: Layout.width * 0.2,
-                        borderRadius: 8,
-                        alignItems: 'center',
-                    }} >
-                        <FontAwesomeIcon icon={faRepeat} color="white" />
-                        <Text centerH white marginR-8> 3 Sets</Text>
+                    }}>
+                        <Text large-xl-600>Dribble Challenge</Text>
+                        <Text subheader-light marginV-8>
+                            Navigate varying obstacles, sharpen control, and elevate your court command. Ready to elevate your game?
+                        </Text>
+                        <View row padding-8 style={{
+                            backgroundColor: '#2C2E33',
+                            width: Layout.width * 0.2,
+                            borderRadius: 8,
+                            alignItems: 'center',
+                        }} >
+                            <FontAwesomeIcon icon={faRepeat} color="white" />
+                            <Text centerH white marginR-8> 3 Sets</Text>
+                        </View>
+
+
+
                     </View>
 
+                    <View padding-12 style={{
+                        backgroundColor: customTheme.colors.primary,
+                        width: Layout.width * 0.9,
+                        minHeight: Layout.width * 0.4,
+                        borderRadius: Layout.width * 0.04,
+                        marginTop: Layout.width * 0.1,
+                        justifyContent: 'center'
 
+                    }}>
+                        <Text subheader-light >Instruction</Text>
+                        <View marginT-24 row spread>
+                            <View marginR-8 style={{
+                                backgroundColor: '#2C2E33',
+                                width: Layout.width * 0.09,
+                                height: Layout.width * 0.09,
+                                borderRadius: Layout.width * 0.04,
+                                padding: Layout.width * 0.02
+                            }}>
+                                <FontAwesomeIcon icon={faFlag} color="blue" />
+                            </View>
+                            <Text medium white marginL-8 style={{
+                                width: Layout.width * 0.7
+                            }}>
+                                Maintain a controlled and rhythmic dribble as you navigate the obstacles. Focus on keeping the ball close to your hand to minimize turnovers.
+
+                            </Text>
+
+                        </View>
+                        <View marginT-24 row spread>
+                            <View marginR-8 style={{
+                                backgroundColor: '#2C2E33',
+                                width: Layout.width * 0.09,
+                                height: Layout.width * 0.09,
+                                borderRadius: Layout.width * 0.04,
+                                padding: Layout.width * 0.02
+                            }}>
+                                <FontAwesomeIcon icon={faArrowAltCircleUp} color="blue" />
+                            </View>
+                            <Text medium white marginL-8 style={{
+                                width: Layout.width * 0.7
+                            }}>
+                                Keep your head up and eyes forward while dribbling. This helps you anticipate upcoming obstacles and make quick decisions on the court.
+
+                            </Text>
+
+                        </View>
+                        <View marginT-24 row spread>
+                            <View marginR-8 style={{
+                                backgroundColor: '#2C2E33',
+                                width: Layout.width * 0.09,
+                                height: Layout.width * 0.09,
+                                borderRadius: Layout.width * 0.04,
+                                padding: Layout.width * 0.02
+                            }}>
+                                <FontAwesomeIcon icon={faArrowAltCircleDown} color="blue" />
+                            </View>
+                            <Text medium white marginL-8 style={{
+                                width: Layout.width * 0.7
+                            }}>
+                                Practice dribbling at different speeds, from slow to fast. This will improve your ability to change direction quickly and maintain control under various game scenarios.
+                            </Text>
+
+                        </View>
+
+
+                    </View>
+
+                </View>
+                <View paddingH-16 marginT-16 marginB-16 >
+                    <Button onPress={start} label={`Lets Get It`} size={Button.sizes.large} />
 
                 </View>
 
-                <View padding-12 style={{
-                    backgroundColor: customTheme.colors.primary,
-                    width: Layout.width * 0.9,
-                    minHeight: Layout.width * 0.4,
-                    borderRadius: Layout.width * 0.04,
-                    marginTop: Layout.width * 0.1,
-                    justifyContent: 'center'
+                {/* <VideoRecorder ref={videoRecorder} compressQuality={'medium'} /> */}
+            </ScrollView>
+        </>
 
-                }}>
-                    <Text subheader-light >Instruction</Text>
-                    <View marginT-24 row spread>
-                        <View marginR-8 style={{
-                            backgroundColor: '#2C2E33',
-                            width: Layout.width * 0.09,
-                            height: Layout.width * 0.09,
-                            borderRadius: Layout.width * 0.04,
-                            padding: Layout.width * 0.02
-                        }}>
-                            <FontAwesomeIcon icon={faFlag} color="blue" />
-                        </View>
-                        <Text medium white marginL-8 style={{
-                            width: Layout.width * 0.7
-                        }}>
-                            Maintain a controlled and rhythmic dribble as you navigate the obstacles. Focus on keeping the ball close to your hand to minimize turnovers.
-
-                        </Text>
-
-                    </View>
-                    <View marginT-24 row spread>
-                        <View marginR-8 style={{
-                            backgroundColor: '#2C2E33',
-                            width: Layout.width * 0.09,
-                            height: Layout.width * 0.09,
-                            borderRadius: Layout.width * 0.04,
-                            padding: Layout.width * 0.02
-                        }}>
-                            <FontAwesomeIcon icon={faArrowAltCircleUp} color="blue" />
-                        </View>
-                        <Text medium white marginL-8 style={{
-                            width: Layout.width * 0.7
-                        }}>
-                            Keep your head up and eyes forward while dribbling. This helps you anticipate upcoming obstacles and make quick decisions on the court.
-
-                        </Text>
-
-                    </View>
-                    <View marginT-24 row spread>
-                        <View marginR-8 style={{
-                            backgroundColor: '#2C2E33',
-                            width: Layout.width * 0.09,
-                            height: Layout.width * 0.09,
-                            borderRadius: Layout.width * 0.04,
-                            padding: Layout.width * 0.02
-                        }}>
-                            <FontAwesomeIcon icon={faArrowAltCircleDown} color="blue" />
-                        </View>
-                        <Text medium white marginL-8 style={{
-                            width: Layout.width * 0.7
-                        }}>
-                            Practice dribbling at different speeds, from slow to fast. This will improve your ability to change direction quickly and maintain control under various game scenarios.
-                        </Text>
-
-                    </View>
-
-
-                </View>
-
-            </View>
-            <View paddingH-16 marginT-16 marginB-16 >
-                <Button onPress={start} label={`Lets Get It`} size={Button.sizes.large} />
-
-            </View>
-
-            <VideoRecorder ref={videoRecorder} compressQuality={'medium'} />
-        </ScrollView>
 
     )
 }
