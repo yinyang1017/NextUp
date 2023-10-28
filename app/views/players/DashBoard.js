@@ -22,7 +22,7 @@ const PlayerDashboard = () => {
         <TeamsBar />
         <EventCarousel />
         <StatsContainer />
-        <MyChallenges />
+        <MyChallenges onPressSeeAll={() => navigation.navigate('MyChallenges')} />
         <Button
           center
           paddingV-24

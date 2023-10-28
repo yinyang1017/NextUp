@@ -30,13 +30,13 @@ export default function AppLoadignStack() {
           headerShown: false,
           cardStyle: { padding: 20 },
         }}>
-        {!isAuthenticated && (
+        {/* {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        )}
-        {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
+        )} */}
+        {/* {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
-        )}
-        {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
+        )} */}
+        {/* {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -54,8 +54,8 @@ export default function AppLoadignStack() {
               component={CoachViewPlayerDetails}
             />
           </Stack.Group>
-        )}
-        {isAuthenticated && onBoardingDone && isPlayer && (
+        )} */}
+        {/* {isAuthenticated && onBoardingDone && isPlayer && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={PlayerStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -73,7 +73,24 @@ export default function AppLoadignStack() {
               component={CoachViewPlayerDetails}
             />
           </Stack.Group>
-        )}
+        )} */}
+        <Stack.Group>
+          <Stack.Screen name="CoachStack" component={PlayerStack} />
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
+          <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
+          <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
+          <Stack.Screen name="AllStandings" component={AllStandings} />
+          <Stack.Screen name="GameStatistics" component={GameStatistics} />
+          <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
+          <Stack.Screen name="AddLineup" component={AddLineup} />
+          <Stack.Screen name="LineupDetails" component={LineupDetails} />
+          <Stack.Screen name="CreatePractice" component={CreatePractice} />
+          <Stack.Screen
+            name="CoachViewPlayerDetails"
+            component={CoachViewPlayerDetails}
+          />
+        </Stack.Group>
       </Stack.Navigator>
     </>
   );

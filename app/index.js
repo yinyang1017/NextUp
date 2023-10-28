@@ -24,11 +24,11 @@ export default function App() {
           <AppProviders>
             <AuthProvider>
               <ImagePreviewProvider>
-                <View
+                {/* <View
                   backgroundColor={customTheme.colors.light.background}
                   width={'100%'}
                   height={statusBarHeight + customTheme.spacings.spacing_12}
-                />
+                /> */}
                 <StatusBar
                   barStyle={customTheme.statusBarStyle}
                   backgroundColor={customTheme.colors.light.background}
