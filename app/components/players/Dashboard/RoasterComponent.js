@@ -1,10 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { hp, wp } from '../../../utils/responsive';
 import { useNavigation } from '@react-navigation/native';
 import HeaderGreyComponent from '../../common/HeaderGreyComponent';
 import AddButtonWithIcon from '../../common/AddButtonWithIcon';
-import { Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import AvatarItem from '../../common/AvatarItem';
 import { customTheme } from '../../../constants';
 import { useAuth } from '../../../hooks/useAuth';
@@ -55,23 +55,17 @@ const newPlayersData = [
     id: '1',
     name: 'A.McCoy',
     source: require('../../../assets/ellipse-691.png'),
-    button: 'Reject',
-    button2: 'Confirm',
   },
   {
     id: '2',
     name: 'R.Fox',
     source: require('../../../assets/avatar4.png'),
-    button: 'Reject',
-    button2: 'Confirm',
   },
 
   {
     id: '3',
     name: 'Cooper',
     source: require('../../../assets/ellipse-7566.png'),
-    button: 'VARSITY',
-    button2: 'JUNIOR V',
   },
 ];
 
@@ -94,24 +88,32 @@ export const RoasterComponent = () => {
 
   const renderNewPlayerItem = (item, index) => {
     return (
-      <View style={styles.newPlayerItem} key={index}>
+      <View row centerV spread key={index}>
         <AvatarItem title={item.name} image={item.source} />
         {item.id === '3' ? (
-          <View style={styles.rowCenter}>
+          <View row centerV style={styles.varsityJuniorContainer}>
             <TouchableOpacity style={styles.varsityButton}>
-              <Text small-x-500>{item.button}</Text>
+              <Text small-x-500>VARSITY</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.juniorVButton}>
-              <Text small-x-500>{item.button2}</Text>
+              <Text small-x-500>JUNIOR V</Text>
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={styles.newPlayerItemButtonRow}>
-            <TouchableOpacity style={styles.rejectButtonView}>
-              <Text medium-500>{item.button}</Text>
+          <View row centerV spread style={styles.newPlayerItemButtonRow}>
+            <TouchableOpacity
+              style={[
+                styles.rejectConfirmButton,
+                { backgroundColor: customTheme.colors.darkRed2 },
+              ]}>
+              <Text medium-500>Reject</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.confirmButtonView}>
-              <Text medium-500>{item.button2}</Text>
+            <TouchableOpacity
+              style={[
+                styles.rejectConfirmButton,
+                { backgroundColor: customTheme.colors.darkGreen },
+              ]}>
+              <Text medium-500>Confirm</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -122,7 +124,7 @@ export const RoasterComponent = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
       <HeaderGreyComponent title="Varsity" containerStyle={styles.headerGrey} />
-      <View style={styles.varsityListContainer}>
+      <View row centerV style={styles.varsityListContainer}>
         {varsityData.map(renderVarsityItem)}
       </View>
       <HeaderGreyComponent
@@ -135,7 +137,7 @@ export const RoasterComponent = () => {
           {newPlayersData.map(renderNewPlayerItem)}
         </View>
       ) : (
-        <View style={styles.varsityListContainer}>
+        <View row centerV style={styles.varsityListContainer}>
           {newPlayersData.map(renderVarsityItem)}
         </View>
       )}
@@ -144,10 +146,12 @@ export const RoasterComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  newPlayerItem: {
-    flexDirection: 'row',
+  rejectConfirmButton: {
+    borderRadius: wp(1.5),
+    paddingBottom: hp(0.4),
+    width: wp(22),
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   varsityButton: {
     borderTopLeftRadius: wp(1),
@@ -155,7 +159,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(4),
     backgroundColor: customTheme.colors.btnBg,
     padding: wp(1.5),
-    marginLeft: wp(28),
   },
   juniorVButton: {
     borderTopRightRadius: wp(1),
@@ -164,34 +167,15 @@ const styles = StyleSheet.create({
     padding: wp(1.5),
     paddingHorizontal: wp(4),
   },
-  rejectButtonView: {
-    borderRadius: wp(1.5),
-    paddingHorizontal: wp(5),
-    backgroundColor: customTheme.colors.darkRed2,
-    paddingBottom: wp(0.4),
-  },
-  confirmButtonView: {
-    borderRadius: wp(1.5),
-    backgroundColor: customTheme.colors.darkGreen,
-    paddingBottom: wp(0.4),
-    paddingHorizontal: wp(3),
-  },
   headerGrey: { marginTop: hp(3), marginBottom: hp(1.5) },
   varsityAvatar: { width: '20%' },
-  varsityListContainer: {
-    alignItems: 'center',
-    rowGap: hp(2.5),
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
+  varsityListContainer: { rowGap: hp(2.5), flexWrap: 'wrap' },
   scrollContent: { paddingBottom: hp(4), marginHorizontal: wp(7) },
   newPlayersListContainer: { rowGap: hp(1.5) },
-  newPlayerItemButtonRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '70%',
-    justifyContent: 'space-between',
+  newPlayerItemButtonRow: { width: '70%', paddingHorizontal: wp(2) },
+  varsityJuniorContainer: {
     paddingHorizontal: wp(2),
+    justifyContent: 'flex-end',
+    width: '70%',
   },
-  rowCenter: { flexDirection: 'row', alignItems: 'center' },
 });

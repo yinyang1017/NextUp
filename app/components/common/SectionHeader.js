@@ -7,10 +7,11 @@ export const SectionHeader = ({
   title,
   onPressSeeAll = () => { },
   containerStyle = {},
+  textStyle={}
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, textStyle]}>{title}</Text>
       <TouchableOpacity
         activeOpacity={0.6}
         style={[styles.seeAllParent, styles.parentFlexBox]}
