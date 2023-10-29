@@ -10,6 +10,9 @@ import CoachViewPlayerDetailsStatsTab from '../../components/coach/CoachViewPlay
 import { appImages } from '../../constants/appImages';
 import Back from '../../utils/HeaderButtons/Back';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import _img1 from '../../assets/images/dummyPlayer.png';
+import _img2 from '../../assets/images/dummy2.png';
+import { useNavigation } from '@react-navigation/native';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -17,10 +20,32 @@ const ReadyToPro = () => {
   return <Text>This is ReadyToPro Component</Text>;
 };
 
+const data = {
+  homePlayer: {
+    id: 0,
+    imgUrl: _img1,
+    name: 'Player A',
+  },
+  secondPlayer: {
+    id: 1,
+    imgUrl: _img2,
+    name: 'Player B',
+  },
+};
+
 const CoachViewPlayerDetails = () => {
   const renderTabBar = props => <CustomTabView {...props} />;
+  const navigation = useNavigation();
 
   const { top } = useSafeAreaInsets();
+
+  const onComparePlayerHandler = () => {
+    navigation.navigate('PlayerCompare', {
+      homePlayer: data.homePlayer,
+      secondPlayer: data.secondPlayer,
+      isSingle: false,
+    });
+  };
 
   return (
     <ScrollView
@@ -42,7 +67,7 @@ const CoachViewPlayerDetails = () => {
             style={styles.playerProfileActionButton}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onComparePlayerHandler}>
           <Image
             source={appImages.playerCompareIcon}
             style={styles.playerProfileActionButton}

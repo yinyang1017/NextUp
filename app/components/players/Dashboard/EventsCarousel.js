@@ -32,10 +32,7 @@ export const EventCarousel = ({ title = 'Upcoming Schedules' }) => {
 };
 
 const styles = StyleSheet.create({
-  frameScrollview: {
-    alignSelf: 'stretch',
-    width: '100%',
-  },
+  frameScrollview: { alignSelf: 'stretch', width: '100%' },
   frameScrollViewContent: {
     flexDirection: 'row',
     alignItems: 'flex-start',

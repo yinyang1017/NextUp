@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Colors, Layout} from '../../../constants';
+import { Colors, Layout } from '../../../constants';
 import SideBySideBarGraph from '../../../components/common/SideBySideBar';
-import {FontSize} from '../../GlobalStyles';
-import {Fonts} from '../../../constants';
+import { FontSize } from '../../GlobalStyles';
+import { Fonts } from '../../../constants';
 import StatDuel from './StatDuel';
 const wide = Layout.width;
 const high = Layout.height;
@@ -286,13 +286,12 @@ export default function LastGames() {
     <View style={styles.container}>
       <Text style={styles.textLabel}>Last Game</Text>
       <View style={styles.graphContainer}>
-        <View style={{marginBottom: wide * 0.03}}>
+        <View style={{ marginBottom: wide * 0.03 }}>
           <LastGameCard {...homeTeamLast} />
         </View>
-        <View style={{marginBottom: wide * 0.03}}>
+        <View style={{ marginBottom: wide * 0.03 }}>
           <LastGameCard {...homeTeamLast} />
         </View>
-        <StatDuel />
       </View>
     </View>
   );

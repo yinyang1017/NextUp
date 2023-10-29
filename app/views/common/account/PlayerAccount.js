@@ -35,7 +35,7 @@ export default function PlayerAccount() {
       name: 'My Profile',
       icon: faUser,
       onPress: () => {
-        navigation.navigate('PlayerAccountDetails');
+        navigation.navigate('AccountDetails');
       },
     },
     {

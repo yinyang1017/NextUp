@@ -96,10 +96,10 @@ export default function AuthProvider({ children }) {
   const logout = () => {
     auth().signOut().then(() => {
       dispatch({ type: 'LOGOUT' });
-      successToast({
-        title: 'Success',
-        body: 'Logged out successfully'
-      })
+      // successToast({
+      //   title: 'Success',
+      //   body: 'Logged out successfully'
+      // })
     })
 
   };

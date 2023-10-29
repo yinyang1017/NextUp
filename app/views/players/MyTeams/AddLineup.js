@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import { hp, isAndroid, wp } from '../../../utils/responsive';
 import Back from '../../../utils/HeaderButtons/Back';
@@ -10,6 +10,7 @@ import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { appImages } from '../../../constants/appImages';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const AddLineup = () => {
   const renderAvatarItem = (_, index) => {
@@ -25,13 +26,14 @@ const AddLineup = () => {
   return (
     <View flex style={styles.container}>
       <Back title="Create New Lineup" containerStyle={styles.backButton} />
-      <ScrollView
+      <KeyboardAwareScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <FormInputField
           label={'LINEUP  NAME'}
           placeholder="Enter lineup name"
           containerStyle={styles.lineupNameInput}
+          onChangeText={() => {}}
         />
         <HeaderGreyComponent title="Forwards" />
         <View row center style={styles.rowWrap}>
@@ -69,7 +71,7 @@ const AddLineup = () => {
           />
           <PrimaryButton title={'Save'} />
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };

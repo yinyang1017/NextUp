@@ -1,84 +1,64 @@
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Back from '../../../utils/HeaderButtons/Back';
 import { hp, wp } from '../../../utils/responsive';
-import { useNavigation } from '@react-navigation/native';
 import { FormInputField } from '../../../components/common/FormInputs';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import Share from 'react-native-share';
+import useInviteOutsidePlayers from '../../../hooks/useInviteOutsidePlayers';
+import AppLoader from '../../../utils/Apploader';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const InvitePlayers = () => {
-  const navigation = useNavigation();
-
-  const onPressShareHandler = () => {
-    const url = 'https://awesome.contents.com/';
-    const title = 'Nextup';
-    const subTitle = 'Invite friend';
-    const options = Platform.select({
-      ios: {
-        activityItemSources: [
-          {
-            // For using custom icon instead of default text icon at share preview when sharing with message.
-            placeholderItem: {
-              type: 'url',
-              content: subTitle,
-            },
-            item: {
-              default: {
-                type: 'text',
-                content: url,
-              },
-            },
-            linkMetadata: {
-              title: title,
-              // icon: icon,
-            },
-          },
-        ],
-      },
-      default: {
-        title,
-        subject: title,
-        message: `${url}`,
-      },
-    });
-    try {
-      Share.open(options);
-    } catch (error) {}
-  };
-
-  const onPressInviteHandler = () => {
-    navigation.navigate('InvitePlayers');
-  };
+  const {
+    onPressShareHandler,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    touched,
+    loading,
+  } = useInviteOutsidePlayers();
 
   return (
     <View style={styles.container}>
       <Back containerStyle={styles.backContainer} title="Invite Player" />
-      <ScrollView
+      {loading && <AppLoader />}
+      <KeyboardAwareScrollView
+        enableOnAndroid
         keyboardShouldPersistTaps="handled"
         bounces={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
-        <View>
+        <View style={{ flex: 1 }}>
           <FormInputField
             placeholder={'Enter Full name'}
-            onChangeText={text => {}}
+            onChangeText={handleChange('fullName')}
+            onBlur={handleBlur('fullName')}
             containerStyle={styles.fullNameInput}
             label="Full name"
+            value={values.fullName}
+            error={touched.fullName && errors.fullName}
           />
           <FormInputField
             placeholder={'Enter email id'}
-            onChangeText={text => {}}
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
             containerStyle={styles.emailIdInput}
             label="Email ID"
             keyboardType="email-address"
+            value={values.email}
+            error={touched.email && errors.email}
           />
           <FormInputField
             placeholder={'Enter phone number'}
-            onChangeText={text => {}}
+            onChangeText={handleChange('phoneNumber')}
+            onBlur={handleBlur('phoneNumber')}
             containerStyle={styles.emailIdInput}
             label="Phone number"
             keyboardType="number-pad"
+            value={values.phoneNumber}
+            error={touched.phoneNumber && errors.phoneNumber}
           />
         </View>
         <View style={styles.footer}>
@@ -87,9 +67,9 @@ const InvitePlayers = () => {
             style={styles.shareButton}
             onPress={onPressShareHandler}
           />
-          <PrimaryButton title={'Invite'} onPress={onPressInviteHandler} />
+          <PrimaryButton title={'Invite'} onPress={handleSubmit} />
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -114,10 +94,10 @@ const styles = StyleSheet.create({
   },
   shareButton: { backgroundColor: 'transparent' },
   footer: {
-    marginTop: 'auto',
+    marginTop: hp(22),
     marginHorizontal: wp(10),
     marginBottom: hp(2),
     gap: hp(2),
   },
-  scrollContent: { flex: 1, paddingBottom: hp(5) },
+  scrollContent: { paddingBottom: hp(5) },
 });

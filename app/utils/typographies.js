@@ -5,47 +5,56 @@ Typography.loadTypographies({
   tiny: {
     fontSize: customTheme.fontSizes.size_10,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
   'tiny-600': {
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_8,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
   'small-400': {
     fontWeight: '400',
     fontSize: customTheme.fontSizes.size_12,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
   'small-500': {
     fontWeight: '500',
     fontSize: customTheme.fontSizes.size_12,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
   'small-600': {
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_12,
     fontFamily: customTheme.fontFamily.robotoMedium,
+    color: customTheme.colors.light,
   },
   'small-700': {
     fontWeight: '700',
     fontSize: customTheme.fontSizes.size_12,
     fontFamily: customTheme.fontFamily.robotoBold,
+    color: customTheme.colors.light,
   },
   'small-x': {
     fontSize: customTheme.fontSizes.size_14,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
   'small-x-500': {
     fontWeight: '500',
     fontSize: customTheme.fontSizes.size_14,
     fontFamily: customTheme.fontFamily.robotoMedium,
+    color: customTheme.colors.light,
   },
   'small-x-600': {
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_14,
     fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
   },
-  'medium': {
+  medium: {
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontSize: customTheme.fontSizes.size_16,
     color: customTheme.colors.light,
@@ -67,7 +76,6 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_16,
     fontFamily: customTheme.fontFamily.robotoBold,
     color: customTheme.colors.light,
-
   },
   'medium-x-400': {
     fontWeight: '400',
@@ -179,5 +187,5 @@ Typography.loadTypographies({
     fontFamily: customTheme.fontFamily.robotoRegular,
     fontSize: customTheme.fontSizes.size_12,
     color: customTheme.colors.red10,
-  }
+  },
 });

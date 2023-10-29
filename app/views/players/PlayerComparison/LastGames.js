@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Fonts, Colors, Layout} from '../../../constants';
+import { View, Text, StyleSheet } from 'react-native';
+import { Fonts, Colors, Layout } from '../../../constants';
 import SideBySideBarGraph from '../../../components/common/SideBySideBar';
 const wide = Layout.width;
 export default function LastGames() {
@@ -29,14 +29,14 @@ export default function LastGames() {
         }}>
         <SideBySideBarGraph
           pgsData={[
-            {name: 'PST', value: [12.7, null]},
-            {name: 'AST', value: [7.7, null]},
-            {name: 'RPG', value: [10.9, null]},
-            {name: 'BPG', value: [12.7, null]},
-            {name: 'STL', value: [7.7, null]},
-            {name: 'FG%', value: [10.9, null]},
-            {name: '2PT', value: [7.7, null]},
-            {name: '3PT', value: [10.9, null]},
+            { name: 'PST', value: [12.7, null] },
+            { name: 'AST', value: [7.7, null] },
+            { name: 'RPG', value: [10.9, null] },
+            { name: 'BPG', value: [12.7, null] },
+            { name: 'STL', value: [7.7, null] },
+            { name: 'FG%', value: [10.9, null] },
+            { name: '2PT', value: [7.7, null] },
+            { name: '3PT', value: [10.9, null] },
           ]}
         />
       </View>
