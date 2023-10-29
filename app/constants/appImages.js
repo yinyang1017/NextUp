@@ -19,6 +19,8 @@ const appImages = {
   certificateCoaching: require('../assets/images/certificate_coaching.png'),
   coachOnboardingIcon: require('../assets/images/coach_onboard_icon.png'),
   practiceCardImage: require('../assets/practice_court.png'),
+  playerPlaying: require('../assets/images/player_playing.png'),
+  recoderPlaceholder: require('../assets/images/recorder_placeholder.png'),
   // backIcon: require('../assets/images/back_ico.png'),
   // maleProfile: require('../assets/images/maleProfile.jpg'),
   // femaleProfile: require('../assets/images/FemalePlayerProfile.jpg'),

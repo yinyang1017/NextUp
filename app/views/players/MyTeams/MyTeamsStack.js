@@ -1,4 +1,5 @@
 import React from 'react';
+// import { ViewContainer } from '../../../components/common/ViewConatiner';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { customTheme } from '../../../constants';
 import Games from './Games';
@@ -15,6 +16,7 @@ import Roles from './Roles';
 import Lineup from './Lineup';
 import { Challenges } from './Challenges';
 import Schedule from './Schedule';
+import { ViewContainer } from '../../../components/common/ViewConatiner';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -80,7 +82,8 @@ export const NewMyTeamsStack = () => {
 
 export default function MyTeamsStack() {
   return (
-    <View style={{ flex: 1 }}>
+    <ViewContainer isView={false}>
+
       <View style={{ paddingHorizontal: customTheme.spacings.spacing_16 }}>
         <TeamsBar />
       </View>
@@ -93,7 +96,7 @@ export default function MyTeamsStack() {
         <TopTab.Screen name="Schedule" component={Schedule} />
         <TopTab.Screen name="Challenges" component={Challenges} />
       </TopTab.Navigator>
-    </View>
+    </ViewContainer>
   );
 }
 

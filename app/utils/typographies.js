@@ -153,6 +153,13 @@ Typography.loadTypographies({
     lineheight: 40,
     color: customTheme.colors.light,
   },
+  'subheader-light': {
+    fontWeight: 'bold',
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
+    opacity: 0.6
+  },
   'input-label': {
     opacity: 0.6,
     marginBottom: customTheme.spacings.spacing_16,
