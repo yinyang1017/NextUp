@@ -110,7 +110,7 @@ Typography.loadTypographies({
   'large-xl-600': {
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_22,
-    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoMedium,
     color: customTheme.colors.light,
   },
   'large-3xl-400': {
@@ -158,7 +158,7 @@ Typography.loadTypographies({
     fontSize: customTheme.fontSizes.size_14,
     fontFamily: customTheme.fontFamily.robotoRegular,
     color: customTheme.colors.light,
-    opacity: 0.6
+    opacity: 0.6,
   },
   'input-label': {
     opacity: 0.6,

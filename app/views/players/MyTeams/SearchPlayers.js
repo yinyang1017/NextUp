@@ -5,7 +5,10 @@ import { hp, wp } from '../../../utils/responsive';
 import { SearchInput } from '../../../components/common/searchbar';
 import SearchPlayerItem from '../../../components/players/Dashboard/SearchPlayerItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../constants';
 import useInvitePlayersFromSearch from '../../../hooks/useInvitePlayersFromSearch';
@@ -54,7 +57,7 @@ const SearchPlayers = () => {
   );
 
   return (
-    <View flex style={{ paddingBottom: bottom }}>
+    <SafeAreaView edges={['top']} style={{ paddingBottom: bottom, flex: 1 }}>
       {isLoading && <AppLoader />}
       <Back containerStyle={styles.backContainer} />
       <View>
@@ -82,7 +85,7 @@ const SearchPlayers = () => {
         />
         <PrimaryButton title={'Invite'} onPress={onPressInviteHandler} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -10,6 +10,7 @@ import { Text, View } from 'react-native-ui-lib';
 import CheckboxItem from '../../../components/common/CheckboxItem';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { useAuth } from '../../../hooks/useAuth';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LineupDetails = () => {
   const { isCoach } = useAuth();
@@ -28,7 +29,7 @@ const LineupDetails = () => {
   };
 
   return (
-    <View flex style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <Back title="O’Dea High School" containerStyle={styles.backButton} />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -67,14 +68,14 @@ const LineupDetails = () => {
           </>
         )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default LineupDetails;
 
 const styles = StyleSheet.create({
-  container: { marginHorizontal: wp(5) },
+  container: { marginHorizontal: wp(5), flex: 1 },
   backButton: { marginTop: hp(2), marginBottom: hp(4) },
   scrollContent: { paddingBottom: hp(isAndroid ? 3 : 5) },
   rowWrap: { flexWrap: 'wrap', marginTop: hp(1) },
