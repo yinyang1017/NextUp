@@ -18,6 +18,7 @@ import { PlayerStack } from './PlayerStack';
 import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 import GoogleAutoCompleteScreen from '../views/coach/GoogleAutoCompleteScreen';
 import PlayerComparison from '../views/players/PlayerComparison';
+import TeamComparison from '../views/players/TeamComparison';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();

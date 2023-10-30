@@ -12,15 +12,14 @@ import SelectCoachingLocation from '../views/common/on-boarding/SelectCoachingLo
 import { useAuth } from '../hooks/useAuth';
 export default function OnBoardingStack() {
   const Stack = createNativeStackNavigator();
-  const { isAuthenticated, onBoardingDone,
-    user,
-    isCoach,
-    isPlayer,
-  } = useAuth();
+  const { isAuthenticated, onBoardingDone, user, isCoach, isPlayer } =
+    useAuth();
   return (
     <OnBoardingProvider>
       <Stack.Navigator
-        initialRouteName={onBoardingDone ? 'DocumentVerification' : 'TellUsMore'}
+        initialRouteName={
+          onBoardingDone ? 'DocumentVerification' : 'TellUsMore'
+        }
         screenOptions={{
           headerShown: false,
           cardStyle: {
@@ -33,8 +32,10 @@ export default function OnBoardingStack() {
         <Stack.Screen name="CoachDetails" component={CoachDetails} />
         <Stack.Screen name="PlayerStyle" component={PlayerStyle} />
         <Stack.Screen name="PhotoUpload" component={PhotoUpload} />
-        <Stack.Screen name="DocumentVerification" component={DocumentVerification} />
-
+        <Stack.Screen
+          name="DocumentVerification"
+          component={DocumentVerification}
+        />
       </Stack.Navigator>
     </OnBoardingProvider>
   );

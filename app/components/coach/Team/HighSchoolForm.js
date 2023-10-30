@@ -7,7 +7,7 @@ import { useLookup } from '../../../hooks/useLookup';
 
 const HighSchoolForm = ({ onSelectDropdownValue, formik }) => {
   const { resetFilter, queryFilter, cities, states, schools } = useLookup();
-
+  console.log(schools.length)
   const _renderInputFilter = () => {
     return (
       <>

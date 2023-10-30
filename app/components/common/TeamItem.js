@@ -13,6 +13,7 @@ const TeamItem = ({
   name = '',
   isActive = false,
   containerStyle = {},
+  imageContainerStyle= {},
 }) => {
   const isImageSVG = imageSource?.uri?.split('.').slice(-1)[0] === 'svg';
 
@@ -23,7 +24,7 @@ const TeamItem = ({
         isActive && styles.containerActiveBottomBorder,
         containerStyle,
       ]}>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, imageContainerStyle]}>
         {isImageSVG ? (
           <SvgCssUri
             width="88%"

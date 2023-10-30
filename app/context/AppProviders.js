@@ -56,7 +56,8 @@ const ErrorFallback = (props) => (
   </View>
 )
 export default function AppProviders({ children }) {
-  useOnlineManager()
+  const isOnline = useOnlineManager()
+  console.log(useOnlineManager(), 'online')
   // useAppState(onAppStateChange)
   return <QueryClientProvider client={queryClient}>
     <QueryErrorResetBoundary>

@@ -18,6 +18,8 @@ import { wp } from '../utils/responsive';
 import { Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Challenges from '../views/players/MyChallenges/Challenges';
+import ChallengeVideo from '../views/players/MyChallenges/ChalangeVideo';
+import RecorderScreen from '../views/players/MyChallenges/RecorderScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator()
@@ -29,6 +31,8 @@ const PlayerDashBoardStack = () => {
     }}>
     <Stack.Screen name="PlayerDashboard" component={PlayerDashboard} />
     <Stack.Screen name="MyChallenges" component={Challenges} />
+    <Stack.Screen name="ChallengeVideo" component={ChallengeVideo} />
+    <Stack.Screen name="StartRecording" component={RecorderScreen} />
     {/* Rest Code section  */}
   </Stack.Navigator>
 }

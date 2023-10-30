@@ -8,7 +8,7 @@ import AboutTab from './AboutTab';
 import RosterTab from './RosterTab';
 import coachImg from '../../../assets/images/coachPublicImage.png';
 
-export default function CoachDashboard() {
+export default function CoachProfile() {
   const Tab = createMaterialTopTabNavigator();
   const screenOptions = {
     headerShown: true,

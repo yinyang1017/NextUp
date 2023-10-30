@@ -24,14 +24,6 @@ export default function App() {
           <AppProviders>
             <AuthProvider>
               <ImagePreviewProvider>
-                <View
-                  backgroundColor={customTheme.colors.light.background}
-                  width={'100%'}
-                  height={
-                    Platform.select({ default: statusBarHeight, android: 0 }) +
-                    customTheme.spacings.spacing_12
-                  }
-                />
                 <StatusBar
                   barStyle={customTheme.statusBarStyle}
                   backgroundColor={customTheme.colors.light.background}
