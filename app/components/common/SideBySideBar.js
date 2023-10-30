@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Colors, Fonts, customTheme} from '../../constants';
+import { View, Text, StyleSheet } from 'react-native';
+import { Colors, Fonts, customTheme } from '../../constants';
 
-const SideBySideBarGraph = ({pgsData}) => {
+const SideBySideBarGraph = ({ pgsData }) => {
   const maxWidth = Math.max(...pgsData.map(el => Math.max(...el.value)));
   return (
     <>
-      {pgsData.map(obj => {
+      {pgsData.map((obj, index) => {
         const key = obj.name;
         const leftVal = obj.value[0];
         const rightVal = obj.value[1];
         return (
-          <View style={styles.container}>
+          <View key={index} style={styles.container}>
             <View style={styles.leftContainer}>
               {leftVal > 0 ? (
                 <Text style={styles.leftLabel}>{leftVal}</Text>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.emptyBar,
     height: 12,
   },
-  bar: ({color, width}) => ({
+  bar: ({ color, width }) => ({
     width,
     backgroundColor: color,
     height: 12,
