@@ -75,5 +75,6 @@ export const MyColors = {
   btnGrn: '#00A54D',
   declineBtnBg: '#E3E3E3',
   declineTxtClr: '#666666',
-  neutral: '#10141C'
+  neutral: '#10141C',
+  violet: '#552583'
 };
