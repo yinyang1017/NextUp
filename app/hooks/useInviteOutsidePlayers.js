@@ -39,10 +39,9 @@ const useInviteOutsidePlayers = () => {
         positionIndex: 0,
         teamPositionIndex: 0,
       };
-      console.log("🚀 ~ file: useInviteOutsidePlayers.js:42 ~ onSubmitHandler ~ invitePlayerPayload:", invitePlayerPayload, user?.id)
 
       const response = await inviteOutsidePlayerMutation({
-        userId: user?.id,
+        userId: '169840945000808',
         payload: invitePlayerPayload,
       });
 
@@ -69,27 +68,28 @@ const useInviteOutsidePlayers = () => {
       validationSchema: validationSchema,
     });
 
-  const onPressShareHandler = () => {
-    const url = 'https://awesome.contents.com/';
-    const title = 'Nextup';
-    const subTitle = 'Invite friend';
-
-    const options = Platform.select({
-      ios: {
-        activityItemSources: [
-          {
-            placeholderItem: { type: 'url', content: subTitle },
-            item: { default: { type: 'text', content: url } },
-            linkMetadata: { title },
-          },
-        ],
-      },
-      default: { title, subject: title, message: `${url}` },
-    });
-
+  const onPressShareHandler = async () => {
     try {
+      const url = await getInvitePlayerDynamicLink(user?.id);
+      const title = 'Nextup';
+      const subTitle = 'Invite friend';
+
+      const options = Platform.select({
+        ios: {
+          activityItemSources: [
+            {
+              placeholderItem: { type: 'url', content: subTitle },
+              item: { default: { type: 'text', content: url } },
+              linkMetadata: { title },
+            },
+          ],
+        },
+        default: { title, subject: title, message: url },
+      });
       Share.open(options);
-    } catch (error) {}
+    } catch (error) {
+      console.log('~ error:', error);
+    }
   };
 
   return {

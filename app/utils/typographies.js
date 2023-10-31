@@ -110,7 +110,7 @@ Typography.loadTypographies({
   'large-xl-600': {
     fontWeight: '600',
     fontSize: customTheme.fontSizes.size_22,
-    fontFamily: customTheme.fontFamily.robotoRegular,
+    fontFamily: customTheme.fontFamily.robotoMedium,
     color: customTheme.colors.light,
   },
   'large-3xl-400': {
@@ -152,6 +152,13 @@ Typography.loadTypographies({
     fontFamily: customTheme.fontFamily.robotoBold,
     lineheight: 40,
     color: customTheme.colors.light,
+  },
+  'subheader-light': {
+    fontWeight: 'bold',
+    fontSize: customTheme.fontSizes.size_14,
+    fontFamily: customTheme.fontFamily.robotoRegular,
+    color: customTheme.colors.light,
+    opacity: 0.6,
   },
   'input-label': {
     opacity: 0.6,

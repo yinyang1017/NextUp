@@ -8,7 +8,10 @@ import SetTimeModal from '../../../components/common/SetTimeModal';
 import CalendarModal from '../../../components/common/CalendarModal';
 import SelectionDropdown from '../../../components/common/SelectionDropdown';
 import { View } from 'react-native-ui-lib';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import useCreatePractice from '../../../hooks/useCreatePractice';
 import { customTheme } from '../../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -37,7 +40,7 @@ export const CreatePractice = () => {
   } = useCreatePractice();
 
   return (
-    <View flex style={{ paddingBottom: bottom }}>
+    <SafeAreaView edges={['top']} style={{ paddingBottom: bottom, flex: 1 }}>
       <Back title="Create Practice" containerStyle={styles.back} />
       <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1 }}
@@ -98,7 +101,7 @@ export const CreatePractice = () => {
         onSelectDate={onSelectDateHandler}
         selectedDate={selectedCalendarDate}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

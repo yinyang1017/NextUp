@@ -6,8 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import CalendarStrip from 'react-native-calendar-strip';
 import { useMemo, useState } from "react";
 import moment from "moment";
-import { EventCarousel } from "../../../components/coach/Dashboard/EventsCarousel";
-import { MyChallenges } from "../../../components/coach/Dashboard/Challenges";
+import  EventCarousel  from "../../../components/coach/Dashboard/EventsCarousel";
 import { ViewContainer } from "../../../components/common/ViewConatiner";
 import { CardSectionTitle } from "../../../components/common/cards/CardSectionTitile";
 import { PracticeCard } from "../../../components/common/cards/PracticeCard";
@@ -132,20 +131,16 @@ export default function ScheduleCalendar() {
                         subTitle={'3-4:00 PM'}
 
                     />
-                    {/* <CardSectionTitle title={'My Challenges'} onPress={() => navigation.navigate('MyChallenges')} /> */}
                     <ChallengeCard
                         title={'August 21, 2022'}
                         subTitle={'3-4:00 PM'}
                     />
-                    {/* 
-                       Challenges
-                    */}
+                    
                     <CardSectionTitle title={'My Practice'} onPress={() => navigation.navigate('MyChallenges')} />
                     <PracticeCard
                         title={'August 21, 2022'}
                         subTitle={'3-4:00 PM'}
                     />
-                    {/* End */}
 
                 </ViewContainer>
             </ScrollView >

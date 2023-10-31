@@ -7,6 +7,7 @@ import PrimaryButton from '../../../components/common/PrimaryButton';
 import useInviteOutsidePlayers from '../../../hooks/useInviteOutsidePlayers';
 import AppLoader from '../../../utils/Apploader';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const InvitePlayers = () => {
   const {
@@ -21,7 +22,7 @@ const InvitePlayers = () => {
   } = useInviteOutsidePlayers();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <Back containerStyle={styles.backContainer} title="Invite Player" />
       {loading && <AppLoader />}
       <KeyboardAwareScrollView
@@ -70,7 +71,7 @@ const InvitePlayers = () => {
           <PrimaryButton title={'Invite'} onPress={handleSubmit} />
         </View>
       </KeyboardAwareScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
