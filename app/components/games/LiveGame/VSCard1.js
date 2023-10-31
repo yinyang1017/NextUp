@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     gap: hp(1),
+    marginBottom: hp(2),
   },
   verticalRow: {
     flexDirection: 'column',
