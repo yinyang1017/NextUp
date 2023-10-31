@@ -5,10 +5,11 @@ import { hp, wp } from '../../../utils/responsive';
 import { appImages } from '../../../constants/appImages';
 import StandingsTable from '../../../components/games/Standings/StandingsTable';
 import { Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AllStandings = () => {
   return (
-    <View flex>
+    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <View row centerV spread style={styles.header}>
         <Back title="Standings" />
         <TouchableOpacity row centerV>
@@ -19,7 +20,7 @@ const AllStandings = () => {
         </TouchableOpacity>
       </View>
       <StandingsTable />
-    </View>
+    </SafeAreaView>
   );
 };
 

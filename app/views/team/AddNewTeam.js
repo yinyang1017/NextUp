@@ -12,6 +12,7 @@ import TravelTeamForm from '../../components/coach/Team/TravelTeamForm';
 import useAddNewTeam from '../../hooks/useAddNewTeam';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppLoader from '../../utils/Apploader';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddNewTeam = () => {
   const { bottom } = useSafeAreaInsets();
@@ -32,7 +33,7 @@ const AddNewTeam = () => {
   } = useAddNewTeam();
 
   return (
-    <View>
+    <SafeAreaView edges={['top']}>
       {isLoading && <AppLoader />}
       <Back containerStyle={styles.backButtonContainer} title="Add New Team" />
       <KeyboardAwareScrollView
@@ -73,7 +74,7 @@ const AddNewTeam = () => {
           onPress={onPressSaveHandler}
         />
       </KeyboardAwareScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -89,6 +90,6 @@ const styles = StyleSheet.create({
   saveButton: (bottom, isHighSchoolSelected) => ({
     marginHorizontal: wp(8),
     marginBottom: bottom + hp(2),
-    marginTop: isHighSchoolSelected ? hp(28) : hp(14.8),
+    marginTop: isHighSchoolSelected ? hp(25.3) : hp(14.8),
   }),
 });

@@ -1800,34 +1800,14 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-9.4.1.tgz#7b880758adca65fe47ee866cf7b00416b9dcc192"
   integrity sha512-dAbY5mfw+6Kas/GJ6QX9AZyY+K+eq9ad4Su6utoph/nxyH3whp5cMSgRNgE2VhGQVRZ/OG0qq3IaD3+wzoqJXw==
 
-<<<<<<< HEAD
-"@react-native-firebase/app@^18.4.0":
-  version "18.6.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-18.6.0.tgz#939c92fda17c2641079314f30d52797db43a673e"
-  integrity sha512-pJwq2D0VBk8QvmIw6qZ5P3Y5Uaq4LL9NarAcTdEIA342VlhmTB1rovcYHE/F/hohdGBwFzi5qXAQnZmTxv27sg==
-=======
 "@react-native-firebase/app@18.5.0":
   version "18.5.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-18.5.0.tgz#198a133229d1b8710f257e76d9703dcb7e4cd6e0"
   integrity sha512-AhHQi5KFDlKZn/lH7rEYtLfpsGamEq+P/cXZWcNPcP0WGlmi++abk7Pxnn4MjnG7TNhEyG/C9uq//qb6VhXaZg==
->>>>>>> origin/develop
   dependencies:
-    opencollective-postinstall "^2.0.3"
+    opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-<<<<<<< HEAD
-"@react-native-firebase/auth@^18.4.0":
-  version "18.6.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-18.6.0.tgz#0940644fceec3454e2351d33205e1074fa93bd69"
-  integrity sha512-Z0UL1nLEy/98Lb4HTeemTbvezEDO9boVEy0bPijH/SYw3gOUoKzHCBVgTIhQb8X6BHpcSYsSHSD+pwp4bfcbzw==
-  dependencies:
-    plist "^3.1.0"
-
-"@react-native-firebase/messaging@^18.4.0":
-  version "18.6.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-18.6.0.tgz#be0a7b8841c65a7b6d4dfd8407e9e216e7b57633"
-  integrity sha512-0fBDvbu13MJazAJhiT1rm//hnxhzOSu1ZpqmGUKpNu73llxPqVYDk4L8uZ7WBRtu3e6TP7Mw8IfH3gGB1qeelA==
-=======
 "@react-native-firebase/auth@18.5.0":
   version "18.5.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-18.5.0.tgz#9969d0b756c7f68b9f46813759b1f7ca0c9f2c2d"
@@ -1835,16 +1815,15 @@
   dependencies:
     plist "^3.1.0"
 
-"@react-native-firebase/dynamic-links@^18.5.0":
-  version "18.6.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/dynamic-links/-/dynamic-links-18.6.0.tgz#2877d6481c753ea437c657b42a755f507cd5506d"
-  integrity sha512-miDoTbXJXWj+f6njHgmwMNo+BJm3g4gbAB8mfkSuN9b2/jZha3TC47VMWAHT/xt9Cxxj9T6LlmWBAUMaWw8Ymg==
+"@react-native-firebase/dynamic-links@18.5.0":
+  version "18.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/dynamic-links/-/dynamic-links-18.5.0.tgz#6c63666171a16e5ccc1d0fe4f6924ed5d3b747b7"
+  integrity sha512-RQDhEmPN6w+1MFdpzlzS4DZShAfkVxObQTXZ9CCeO7dUdwlkUcJfXZSwDKl770C8hiuNUXlumztFepvoprrjlQ==
 
 "@react-native-firebase/messaging@18.5.0":
   version "18.5.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-18.5.0.tgz#2a80b25816470e9843682e031a3a113566067ce6"
   integrity sha512-y1FApYxBMcygmbWBqUPFC+fCfvx6Yf6TdZewun7kPwx+S+tkYzoKx1IsXtxOXtqyJjCNEYirjFgNrs5SSd02zA==
->>>>>>> origin/develop
 
 "@react-native-google-signin/google-signin@^10.0.1":
   version "10.1.0"
@@ -2922,9 +2901,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001541:
-  version "1.0.30001555"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001555.tgz#e36f4d49e345337d6788f32093867cec8d951789"
-  integrity sha512-NzbUFKUnJ3DTcq6YyZB6+qqhfD112uR3uoEnkmfzm2wVzUNsFkU7AwBjKQ654Sp5cau0JxhFyRSn/tQZ+XfygA==
+  version "1.0.30001558"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001558.tgz#d2c6e21fdbfe83817f70feab902421a19b7983ee"
+  integrity sha512-/Et7DwLqpjS47JPEcz6VnxU9PwcIdVi0ciLXRWBQdj1XFye68pSQYpV0QtPTfUKWuOaEig+/Vez2l74eDc1tPQ==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -3576,15 +3555,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.535:
-<<<<<<< HEAD
-  version "1.4.568"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.568.tgz#6ab444e120dd7fd9c3789eac54d3132b6cfcd0f9"
-  integrity sha512-3TCOv8+BY6Ltpt1/CmGBMups2IdKOyfEmz4J8yIS4xLSeMm0Rf+psSaxLuswG9qMKt+XbNbmADybtXGpTFlbDg==
-=======
   version "1.4.569"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.569.tgz#1298b67727187ffbaac005a7425490d157f3ad03"
   integrity sha512-LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==
->>>>>>> origin/develop
 
 eme-encryption-scheme-polyfill@^2.0.1:
   version "2.1.1"
@@ -6544,7 +6517,7 @@ open@^6.2.0:
   dependencies:
     is-wsl "^1.1.0"
 
-opencollective-postinstall@^2.0.3:
+opencollective-postinstall@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
@@ -7279,11 +7252,7 @@ react-native-ui-lib@7.8.0:
     url-parse "^1.2.0"
     wix-react-native-text-size "~1.0.0"
 
-<<<<<<< HEAD
 react-native-vector-icons@^10.0.1:
-=======
-react-native-vector-icons@^10.0.0:
->>>>>>> origin/develop
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-10.0.1.tgz#ef5aa98034c5fb7cc45cd0c6ea5f37c74ce4c44b"
   integrity sha512-oqVyhSgK1wLm7JuN5yep+BCWb4F4C6qi2/mHGsdNqneGWn3MI9VVMX+AIkw0q9GsbY6QjhNd5sUanjRyDJfuUg==

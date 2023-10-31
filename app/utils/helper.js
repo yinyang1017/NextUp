@@ -96,11 +96,27 @@ export const getSeasonString = () => {
 };
 
 export const getInvitePlayerDynamicLink = async userId => {
-  const link = await dynamicLinks().buildLink({
+  const link = await dynamicLinks().buildShortLink({
     link: 'https://nextupapp.page.link/invite?user_id=' + userId,
-    domainUriPrefix: 'https://nextupapp.page.link/invite',
-    android: { packageName: 'com.ftc.app.nextup' },
-    ios: { bundleId: 'com.ftc.app.nextup' },
+    domainUriPrefix: 'https://nextupapp.page.link',
   });
   return link;
+};
+
+export const getQueryParamsFromURL = (url = '') => {
+  const urlWithoutDomainPrefix = url?.split('/')?.slice(-1)?.[0] || '';
+  const [domainSuffix, queryParamString] = urlWithoutDomainPrefix.split('?');
+  if (!queryParamString) {
+    return { domainSuffix, queryParams: null };
+  }
+
+  let regex = /[?&]([^=#]+)=([^&#]*)/g,
+    queryParams = {},
+    match;
+
+  while ((match = regex.exec(url))) {
+    queryParams[match[1]] = match[2];
+  }
+
+  return { domainSuffix, queryParams };
 };

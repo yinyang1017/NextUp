@@ -1,9 +1,7 @@
 import React from 'react';
-// import { ViewContainer } from '../../../components/common/ViewConatiner';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { customTheme } from '../../../constants';
 import Games from './Games';
-import { TeamsBar } from '../../../components/players/Dashboard/MyTeams';
 import Roaster from './Roaster';
 import PlayerStats from './Stats';
 import { View } from 'react-native-ui-lib';
@@ -17,6 +15,8 @@ import Lineup from './Lineup';
 import { Challenges } from './Challenges';
 import Schedule from './Schedule';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
+import MyTeamsHeader from '../../../components/coach/Team/MyTeamsHeader';
+import MyTeamsProvider from '../../../context/MyTeamsProvider';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -82,21 +82,24 @@ export const NewMyTeamsStack = () => {
 
 export default function MyTeamsStack() {
   return (
-    <ViewContainer isView={false}>
-
-      <View style={{ paddingHorizontal: customTheme.spacings.spacing_16 }}>
-        <TeamsBar />
-      </View>
-      <TopTab.Navigator tabBar={CustomTabView} screenOptions={tabScreenOptions}>
-        <TopTab.Screen name="Roaster" component={Roaster} />
-        <TopTab.Screen name="Games" component={Games} />
-        <TopTab.Screen name="Stats" component={PlayerStats} />
-        <TopTab.Screen name="Lineup" component={Lineup} />
-        <TopTab.Screen name="Staff" component={Roles} />
-        <TopTab.Screen name="Schedule" component={Schedule} />
-        <TopTab.Screen name="Challenges" component={Challenges} />
-      </TopTab.Navigator>
-    </ViewContainer>
+    <MyTeamsProvider>
+      <ViewContainer isView={false}>
+        <View style={{ paddingHorizontal: customTheme.spacings.spacing_16 }}>
+          <MyTeamsHeader />
+        </View>
+        <TopTab.Navigator
+          tabBar={CustomTabView}
+          screenOptions={tabScreenOptions}>
+          <TopTab.Screen name="Roaster" component={Roaster} />
+          <TopTab.Screen name="Games" component={Games} />
+          <TopTab.Screen name="Stats" component={PlayerStats} />
+          <TopTab.Screen name="Lineup" component={Lineup} />
+          <TopTab.Screen name="Staff" component={Roles} />
+          <TopTab.Screen name="Schedule" component={Schedule} />
+          <TopTab.Screen name="Challenges" component={Challenges} />
+        </TopTab.Navigator>
+      </ViewContainer>
+    </MyTeamsProvider>
   );
 }
 
