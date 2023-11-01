@@ -96,7 +96,7 @@ export default function AllChallenges() {
     }
 
     return (
-        <ViewContainer >
+        <ViewContainer includeStatusBar={false}>
             <SafeAreaView style={{ flex: 1, marginTop: Platform.OS == 'android' ? 30 : 0, }} >
                 {/* <AppLoader /> */}
                 <KeyboardAvoidingView keyboardVerticalOffset={45} style={{ flex: 1, }}

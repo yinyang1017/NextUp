@@ -9,6 +9,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:nextupapp.page.link</string>
+		<string>http://34.134.29.128:8081</string>
 	</array>
 </dict>
 </plist>

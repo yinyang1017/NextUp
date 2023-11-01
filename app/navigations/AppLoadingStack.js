@@ -33,13 +33,13 @@ export default function AppLoadignStack() {
           headerShown: false,
           cardStyle: { padding: 20 },
         }}>
-        {/* {!isAuthenticated && (
+        {!isAuthenticated && (
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        )} */}
-        {/* {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
+        )}
+        {isAuthenticated && (!onBoardingDone || !isIdProvider) && (
           <Stack.Screen name="OnboadingStack" component={OnBoardingStack} />
-        )} */}
-        {/* {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
+        )}
+        {isAuthenticated && onBoardingDone && isCoach && isIdProvider && (
           <Stack.Group>
             <Stack.Screen name="CoachStack" component={CoachStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -63,10 +63,10 @@ export default function AppLoadignStack() {
               component={GoogleAutoCompleteScreen}
             />
           </Stack.Group>
-        )} */}
-        {/* {isAuthenticated && onBoardingDone && isPlayer && (
+        )}
+        {isAuthenticated && onBoardingDone && isPlayer && (
           <Stack.Group>
-            <Stack.Screen name="CoachStack" component={PlayerStack} />
+            <Stack.Screen name="PlayerStack" component={PlayerStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
             <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
             <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
@@ -82,8 +82,8 @@ export default function AppLoadignStack() {
               component={CoachViewPlayerDetails}
             />
           </Stack.Group>
-        )} */}
-        <Stack.Group>
+        )}
+        {/* <Stack.Group>
           <Stack.Screen name="CoachStack" component={PlayerStack} />
           <Stack.Screen name="ChatScreen" component={ChatScreen} />
           <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
@@ -99,7 +99,7 @@ export default function AppLoadignStack() {
             name="CoachViewPlayerDetails"
             component={CoachViewPlayerDetails}
           />
-        </Stack.Group>
+        </Stack.Group> */}
       </Stack.Navigator>
     </>
   );

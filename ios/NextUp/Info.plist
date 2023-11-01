@@ -2,25 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-<<<<<<< HEAD
 		<key>CFBundleDevelopmentRegion</key>
 		<string>en</string>
-		<key>NSCameraUsageDescription</key>
-		<string>Your message to user when the camera is accessed for the first time</string>
-		<!-- Include this only if you are planning to use the microphone for video recording -->
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Your message to user when the microsphone is accessed for the first time</string>
-=======
-		<key>NSAppTransportSecurity</key>
-		<dict>
-			<key>NSAllowsArbitraryLoadsInWebContent</key>
-			<true/>
-			<key>NSAllowsArbitraryLoads</key>
-			<true/>
-		</dict>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>en</string>
->>>>>>> origin/develop
 		<key>CFBundleDisplayName</key>
 		<string>NextUp</string>
 		<key>CFBundleExecutable</key>
@@ -47,19 +30,6 @@
 					<string>com.googleusercontent.apps.537714754431-ee89nel2s61999a4m1nsh4e11lelmcsr</string>
 				</array>
 			</dict>
-<<<<<<< HEAD
-=======
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLName</key>
-				<string>Bundle ID</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>com.ftc.app.nextup</string>
-				</array>
-			</dict>
->>>>>>> origin/develop
 		</array>
 		<key>CFBundleVersion</key>
 		<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -67,14 +37,8 @@
 		<true/>
 		<key>NSAppTransportSecurity</key>
 		<dict>
-			<key>NSExceptionDomains</key>
-			<dict>
-				<key>localhost</key>
-				<dict>
-					<key>NSExceptionAllowsInsecureHTTPLoads</key>
-					<true/>
-				</dict>
-			</dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
 		</dict>
 		<key>NSAppleMusicUsageDescription</key>
 		<string>Please give permission</string>

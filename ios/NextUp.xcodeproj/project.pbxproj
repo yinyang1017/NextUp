@@ -510,11 +510,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NextUp/NextUp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 375Y89H2GR;
+				DEVELOPMENT_TEAM = 375Y89H2GR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NextUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Next Up";
@@ -533,11 +531,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ftc.app.nextup;
 				PRODUCT_NAME = NextUp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-<<<<<<< HEAD
-				SDKROOT = iphoneos;
-=======
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = nextup_dev_26_oct;
->>>>>>> origin/develop
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -553,11 +546,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NextUp/NextUpRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 375Y89H2GR;
+				DEVELOPMENT_TEAM = 375Y89H2GR;
 				INFOPLIST_FILE = NextUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Next Up";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
@@ -575,11 +566,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ftc.app.nextup;
 				PRODUCT_NAME = NextUp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-<<<<<<< HEAD
-				SDKROOT = iphoneos;
-=======
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = nextup_dev_26_oct;
->>>>>>> origin/develop
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

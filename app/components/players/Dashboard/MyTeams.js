@@ -8,7 +8,9 @@ import { hp, wp } from '../../../utils/responsive';
 import { customTheme } from '../../../constants';
 import { useAuth } from '../../../hooks/useAuth';
 
-export const TeamsBar = () => {
+export const TeamsBar = ({
+  showDropDown = true,
+}) => {
   const navigation = useNavigation();
   const { isCoach } = useAuth();
 
@@ -16,13 +18,16 @@ export const TeamsBar = () => {
     <View style={styles.myTeamsParent}>
       <View style={styles.myTeamChildView}>
         <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
-        <View style={styles.chevronIconView}>
-          <Text style={styles.yearText}>2020-21</Text>
-          <Image
-            source={require('../../../assets/chevrondown5.png')}
-            style={styles.chevronIcon}
-          />
-        </View>
+        {
+          showDropDown && <View style={styles.chevronIconView}>
+
+            <Text style={styles.yearText}>2020-21</Text>
+            <Image
+              source={require('../../../assets/chevrondown5.png')}
+              style={styles.chevronIcon}
+            />
+          </View>
+        }
       </View>
       <View style={styles.teamNamesRow}>
         {!!isCoach && (

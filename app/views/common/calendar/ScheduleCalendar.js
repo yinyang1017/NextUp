@@ -88,7 +88,7 @@ export default function ScheduleCalendar() {
                 <CalendarStrip
                     scrollable
                     scrollToOnSetSelectedDate
-                    selectedDate={calendarDate}
+                    selectedDate={new Date()}
                     calendarAnimation={{ type: 'sequence', duration: 30 }}
                     headerText={" "}
                     onDateSelected={(date) => {
