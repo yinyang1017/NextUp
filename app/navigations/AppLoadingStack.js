@@ -70,7 +70,7 @@ export default function AppLoadignStack() {
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
           <Stack.Group>
-            <Stack.Screen name="CoachStack" component={PlayerStack} />
+            <Stack.Screen name="PlayerStack" component={PlayerStack} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
             <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
             <Stack.Screen name="SearchPlayers" component={SearchPlayers} />

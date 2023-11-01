@@ -14,7 +14,7 @@ import { faSearch, faBell } from '@fortawesome/free-solid-svg-icons';
 import FastImage from 'react-native-fast-image';
 import { customTheme } from '../../constants';
 import { RoundButtons } from './button';
-export const DashBoardHeader = ({ imgSrc = null, name = null, onClick }) => {
+export const DashBoardHeader = ({ imgSrc = null, name = null, headerLabel = 'Coach', onClick }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,7 +26,7 @@ export const DashBoardHeader = ({ imgSrc = null, name = null, onClick }) => {
         />
         <View style={styles.infoContainer}>
           <Text style={[styles.welcomeMsg]}>
-            <Text style={styles.welcomeText}>{'Coach '}</Text>
+            <Text style={styles.welcomeText}>{headerLabel}</Text>
           </Text>
           <Text style={[styles.vaibhavChibbar1, styles.vamTypo1]}>
             {name ?? 'Unnamed User'}

@@ -1,8 +1,11 @@
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCheckCircle, faCheckToSlot, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Dimensions } from 'react-native';
+import { Alert, Modal, StyleSheet, Pressable, View, Dimensions } from 'react-native';
+import { Button, Image, Text } from 'react-native-ui-lib';
 import { customTheme } from '../../constants';
+import { hp, wp } from '../../utils/responsive';
+import { appImages } from '../../constants/appImages';
 
 export const ConfirmationDialog = ({
     open, onClose, onConfirm,
@@ -77,6 +80,73 @@ export const ConfirmationDialog = ({
     );
 };
 
+// COnfirmation Ok dialog
+
+export const RecordingConfirmationDialog = ({
+    open,
+    onClose,
+    onConfirm,
+    title = "Make sure your Camera is in position?",
+    body = "You won’t be able to continue your journey logged out.",
+    confirmText = "Yes, log me out",
+    cancelText = "No, stay here",
+}) => {
+    return (
+        <>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={open}
+                onRequestClose={() => {
+                    onClose(!open);
+                }}>
+                <View style={styles.centeredView}>
+                    <View style={[styles.modalView, {
+                        backgroundColor: '#10141C'
+                    }]}>
+                        <Image
+                            source={appImages.checkCircle}
+                            height={hp(8)}
+                            width={hp(8)}
+                            style={{
+                                marginBottom: hp(2.5)
+                            }}
+                        />
+                        <Text large-3xl-600 center white>
+                            {
+                                title
+                            }
+                        </Text>
+                        <Text center marginT-16 small-x style={{
+                            opacity: 0.8
+                        }}>
+                            Have someone film you or place your camera in a position that can see you and the space
+                        </Text>
+                        <Button
+                            size='large'
+                            label='Got It'
+                            labelStyle={{
+                                fontWeight: 'bold'
+                            }}
+                            onPress={onConfirm}
+                            style={{
+                                backgroundColor: '#000533',
+                                marginTop: hp(4.5),
+                                width: '100%',
+                                paddingVertical: hp(2.6),
+
+                            }} />
+                    </View>
+
+
+
+
+                </View>
+            </Modal>
+        </>
+    );
+};
+
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
@@ -90,7 +160,7 @@ const styles = StyleSheet.create({
         backgroundColor: customTheme.colors.primary,
         borderRadius: 20,
         padding: 35,
-        width: Dimensions.get('screen').width - customTheme.spacings.spacing_20,
+        width: Dimensions.get('screen').width - wp(4),
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {

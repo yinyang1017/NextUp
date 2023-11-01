@@ -8,6 +8,8 @@ import { faArrowAltCircleDown, faArrowAltCircleUp, faFlag, faRepeat } from "@for
 import VideoRecorder from 'react-native-beautiful-video-recorder';
 import { useRef } from "react"
 import { useNavigation } from "@react-navigation/native"
+import { hp } from "../../../utils/responsive"
+import PrimaryButton from "../../../components/common/PrimaryButton"
 export default function ChallengeVideo() {
     const navigation = useNavigation()
     const videoRecorder = useRef()
@@ -23,20 +25,33 @@ export default function ChallengeVideo() {
     return (
         <>
             <ScrollView >
+
                 <Image
                     source={appImages.playerPlaying}
+                    resizeMode="cover"
                     style={{
                         width: Layout.width,
                         height: 300, // Set a fixed height for the image or adjust it as needed.
-                        flex: 1
+
                     }}
                 />
+                <View style={{
+                    position: 'absolute',
+                    top: hp(2.7),
+                    left: hp(2.5),
+                }}>
+                    <ScreenHeader />
+
+                </View>
+
+
                 <View center>
                     <View padding-16 style={{
                         backgroundColor: customTheme.colors.primary,
                         width: Layout.width * 0.9,
                         minHeight: Layout.width * 0.4,
                         borderRadius: Layout.width * 0.04,
+                        marginTop: - Layout.width * 0.2,
 
                         justifyContent: 'center'
 
@@ -127,10 +142,12 @@ export default function ChallengeVideo() {
                     </View>
 
                 </View>
-                <View paddingH-16 marginT-16 marginB-16 >
-                    <Button onPress={start} label={`Lets Get It`} size={Button.sizes.large} />
+                <View paddingH-16 paddingV-16>
+                    <PrimaryButton onPress={start} title={`Lets Get It`} />
 
                 </View>
+
+
 
                 {/* <VideoRecorder ref={videoRecorder} compressQuality={'medium'} /> */}
             </ScrollView>

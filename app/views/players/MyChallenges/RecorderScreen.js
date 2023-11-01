@@ -1,5 +1,5 @@
 import { ImageBackground } from "react-native"
-import { Button, Image, View } from "react-native-ui-lib"
+import { Button, Image, View, Text } from "react-native-ui-lib"
 import { appImages } from "../../../constants/appImages"
 import { Layout } from "../../../constants"
 import LinearGradient from "react-native-linear-gradient"
@@ -7,12 +7,15 @@ import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { faClose, faRepeat } from "@fortawesome/free-solid-svg-icons"
 import VideoRecorder from 'react-native-beautiful-video-recorder'
+import { hp } from "../../../utils/responsive"
+import { ConfirmationDialog, RecordingConfirmationDialog } from "../../../components/common/confirmationDialog"
 
 
 
 
 export default function RecorderScreen() {
     const videoRecorder = useRef(null)
+    const [dialog, showDialog] = React.useState(true)
     function startRecorder() {
         if (videoRecorder && videoRecorder.current) {
             console.log('captured data');
@@ -21,9 +24,11 @@ export default function RecorderScreen() {
             })
         }
     }
-    useEffect(() => {
+    function onConfirm() {
+        showDialog(false)
         startRecorder()
-    }, [])
+    }
+
     return <>
         <ImageBackground
             source={appImages.recoderPlaceholder}
@@ -37,25 +42,32 @@ export default function RecorderScreen() {
             }}
 
         >
+
             <LinearGradient style={
                 {
                     position: 'absolute',
                     width: Layout.width,
                     bottom: 0,
-                    height: Layout.height * 0.07
+                    height: hp(8),
+                    justifyContent: 'center'
                 }
             } colors={['rgba(35, 38, 47, 1)', 'rgba(35, 38, 47, 0.76)', 'rgba(35, 38, 47, 0)']}
                 start={{ x: 0.0, y: 0.0 }} end={{ x: 1.5, y: 1.0 }}
             >
-                <View row center spread style={{
+
+
+                <View row spread style={{
                     alignItems: 'center',
-                }} paddingH-16 paddingV-8 >
+
+
+                }}
+                    paddingH-16
+                    paddingV-8
+                >
                     <FontAwesomeIcon icon={faRepeat} color="white" />
-                    <Button style={{
-                        width: Layout.width * 0.6,
-                        marginLeft: Layout.width * 0.05,
-                        marginRight: Layout.width * 0.05,
-                    }} onPress={() => null} label={`Finish`} size={Button.sizes.large} />
+                    <Button onPress={() => null} style={{
+                        width: Layout.width * 0.6
+                    }} label={`Finish`} size={Button.sizes.large} />
                     <FontAwesomeIcon icon={faClose} color="white" />
 
                 </View>
@@ -64,6 +76,10 @@ export default function RecorderScreen() {
 
         </ImageBackground>
         <VideoRecorder ref={videoRecorder} compressQuality={'medium'} />
+        <RecordingConfirmationDialog
+            open={dialog}
+            onConfirm={onConfirm}
+        />
     </>
 
 }

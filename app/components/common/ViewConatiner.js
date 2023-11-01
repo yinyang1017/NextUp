@@ -10,15 +10,18 @@ export const statusBarHeight =
   (Platform.OS === 'ios'
     ? isX ? customTheme.spacings.spacing_48 : customTheme.spacings.spacing_48
     : customTheme.spacings.spacing_48);
-export const ViewContainer = ({ headerTilte, isView = true, ...props }) => {
+export const ViewContainer = ({ headerTilte, isView = true, includeStatusBar = true, ...props }) => {
   // Default values for iOS and Android
   return (
     <>
-      <View
-        backgroundColor={customTheme.colors.light.background}
-        width={'100%'}
-        height={Platform.select({default: statusBarHeight, android: 0}) + customTheme.spacings.spacing_12}
-      />
+      {
+        includeStatusBar && <View
+          backgroundColor={customTheme.colors.light.background}
+          width={'100%'}
+          height={statusBarHeight + customTheme.spacings.spacing_12}
+        />
+      }
+
       {
         headerTilte && <ScreenHeader title={headerTilte ?? ''} />
       }

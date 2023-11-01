@@ -97,8 +97,8 @@ const Challenges = (props) => {
     const TopTab = createMaterialTopTabNavigator();
     let wide = Layout.width;
     return (
-        <>
-            <ScreenHeader title={"Challenges"} />
+        <ViewContainer isView={false}>
+            <ScreenHeader title={"My Challenges"} />
             <TopTab.Navigator tabBar={props => <CustomTabView {...props} />}>
                 {[...new Array(3).keys()].map((item, index) => {
                     return (
@@ -111,7 +111,7 @@ const Challenges = (props) => {
                 })}
             </TopTab.Navigator>
 
-        </>
+        </ViewContainer>
 
     )
 }
