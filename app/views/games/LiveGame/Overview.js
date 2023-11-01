@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Text, View } from 'react-native-ui-lib';
@@ -7,7 +7,10 @@ import { Colors } from '../../../constants';
 import { FontSize } from '../../GlobalStyles';
 import { hp, wp } from '../../../utils/responsive';
 import GameStats from './GameStat';
+import { GAME, LiveGameContext } from '.';
+import PlayerStats from './PlayerStats';
 export default function Overview() {
+  const status = useContext(LiveGameContext);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Prediction />
@@ -17,10 +20,14 @@ export default function Overview() {
         tempor nisl ultricies ultrices ut. Malesuada ultrices vel cursus
         sollicitudin ut nunc et lectus quis.
       </Text>
-      <GameStats />
-      <View style={styles.buttonWrapper}>
-      <Button label="Start Stat Collection" />
-      </View>
+      <GameStats title={status === GAME.BEFORE ? 'Game Stats' : 'Box Score'} />
+      {status === GAME.BEFORE ? (
+        <View style={styles.buttonWrapper}>
+          <Button label="Start Stat Collection" />
+        </View>
+      ) : (
+        <PlayerStats />
+      )}
     </ScrollView>
   );
 }
@@ -34,6 +41,6 @@ const styles = StyleSheet.create({
     marginBottom: hp(3),
   },
   buttonWrapper: {
-    paddingVertical: hp(2)
-  }
+    paddingVertical: hp(2),
+  },
 });

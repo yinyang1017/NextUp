@@ -553,10 +553,10 @@ function GameDetails({}) {
   );
 }
 
-export default function GameStat({}) {
+export default function GameStat({title}) {
   return (
     <View>
-      <Text style={styles.header}>Game Stats</Text>
+      <Text style={styles.header}>{title}</Text>
       <GameTable />
       <GameDetails />
     </View>
