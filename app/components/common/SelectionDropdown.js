@@ -18,6 +18,7 @@ const SelectionDropdown = ({
   placeholder = '',
   isMandatory = true,
   disabled = false,
+  renderPicker,
 }) => {
   return (
     <View>
@@ -57,14 +58,17 @@ const SelectionDropdown = ({
             pickerModalProps={{
               overlayBackgroundColor: customTheme.colors.background,
             }}
-            renderPicker={() => (
-              <Text
-                medium-600
-                numberOfLines={1}
-                style={[styles.valueText, !value && styles.placeholder]}>
-                {value || placeholder || ' '}
-              </Text>
-            )}
+            renderPicker={
+              renderPicker ||
+              (() => (
+                <Text
+                  medium-600
+                  numberOfLines={1}
+                  style={[styles.valueText, !value && styles.placeholder]}>
+                  {value || placeholder || ' '}
+                </Text>
+              ))
+            }
             searchStyle={{
               placeholderTextColor: customTheme.colors.light + 75,
               color: customTheme.colors.light,

@@ -11,6 +11,7 @@ import { customTheme } from '../../../constants';
 import PrimaryButton from '../../../components/common/PrimaryButton';
 import { appImages } from '../../../constants/appImages';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddLineup = () => {
   const renderAvatarItem = (_, index) => {
@@ -24,7 +25,7 @@ const AddLineup = () => {
   };
 
   return (
-    <View flex style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <Back title="Create New Lineup" containerStyle={styles.backButton} />
       <KeyboardAwareScrollView
         contentContainerStyle={styles.scrollContent}
@@ -72,14 +73,14 @@ const AddLineup = () => {
           <PrimaryButton title={'Save'} />
         </View>
       </KeyboardAwareScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default AddLineup;
 
 const styles = StyleSheet.create({
-  container: { marginHorizontal: wp(5) },
+  container: { flex: 1, marginHorizontal: wp(5) },
   backButton: { marginTop: hp(2) },
   avatarItem: { width: '20%', marginBottom: hp(2) },
   listContentContainer: { marginTop: hp(2) },

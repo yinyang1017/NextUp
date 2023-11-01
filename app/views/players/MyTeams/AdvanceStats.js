@@ -6,6 +6,7 @@ import GameHeaderTeamItem from '../../../components/games/LastGame/GameHeaderTea
 import { customTheme } from '../../../constants';
 import { GridView, Text, View } from 'react-native-ui-lib';
 import StatsBoxItem from '../../../components/common/StatsBoxItem';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const boxAveragesData = [
   { title: '56.0', subtitle: 'Points' },
@@ -79,7 +80,7 @@ const AdvanceStats = () => {
   );
 
   return (
-    <View flex>
+    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <Back title="Advance Statistics" containerStyle={styles.backButton} />
       <View row centerV spread style={styles.gameScoreContainer}>
         <GameHeaderTeamItem
@@ -120,7 +121,7 @@ const AdvanceStats = () => {
           renderCustomItem={renderAnalyticsCustomItem}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

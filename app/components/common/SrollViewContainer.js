@@ -17,7 +17,7 @@ export const ScrollViewContainer = ({ children, headerTilte, showHeader }) => {
       <View
         backgroundColor={customTheme.colors.light.background}
         width={'100%'}
-        height={statusBarHeight + customTheme.spacings.spacing_36}
+        height={Platform.select({default: statusBarHeight, android: 0}) + customTheme.spacings.spacing_36}
       />
       {
         showHeader &&

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Image } from 'react-native-ui-lib';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Color } from '../../../views/GlobalStyles';
 import TeamItem from '../../common/TeamItem';
 import { hp, wp } from '../../../utils/responsive';
 import { customTheme } from '../../../constants';
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
   },
   myTeams: {
     fontSize: customTheme.fontSizes.size_22,
-    color: Color.othersWhite,
+    color: customTheme.colors.light,
   },
   plusIconView: {
     borderWidth: 1.5,
