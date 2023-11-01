@@ -2172,9 +2172,9 @@
   integrity sha512-YI/M/4HRImtNf3pJgbF+W6FrXovqj+T+/HpENLTooK9PnkacBsDpeP3IpHab40CClUfhNmdM2WTNP2sa2dni5Q==
 
 "@types/node@*":
-  version "20.8.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.9.tgz#646390b4fab269abce59c308fc286dcd818a2b08"
-  integrity sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==
+  version "20.8.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.10.tgz#a5448b895c753ae929c26ce85cab557c6d4a365e"
+  integrity sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2901,9 +2901,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001541:
-  version "1.0.30001558"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001558.tgz#d2c6e21fdbfe83817f70feab902421a19b7983ee"
-  integrity sha512-/Et7DwLqpjS47JPEcz6VnxU9PwcIdVi0ciLXRWBQdj1XFye68pSQYpV0QtPTfUKWuOaEig+/Vez2l74eDc1tPQ==
+  version "1.0.30001559"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001559.tgz#95a982440d3d314c471db68d02664fb7536c5a30"
+  integrity sha512-cPiMKZgqgkg5LY3/ntGeLFUpi6tzddBNS58A4tnTgQw1zON7u2sZMU7SzOeVH4tj20++9ggL+V6FDOFMTaFFYA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -3189,9 +3189,9 @@ convert-source-map@^2.0.0:
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
 
 core-js-compat@^3.31.0, core-js-compat@^3.33.1:
-  version "3.33.1"
-  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.33.1.tgz#debe80464107d75419e00c2ee29f35982118ff84"
-  integrity sha512-6pYKNOgD/j/bkC5xS5IIg6bncid3rfrI42oBH1SQJbsmYPKF7rhzcFzYCcxYMmNQQ0rCEB8WqpW7QHndOggaeQ==
+  version "3.33.2"
+  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.33.2.tgz#3ea4563bfd015ad4e4b52442865b02c62aba5085"
+  integrity sha512-axfo+wxFVxnqf8RvxTzoAlzW4gRoacrHeoFlc9n0x50+7BEyZL/Rt3hicaED1/CEd7I6tPCPVUYcJwCMO5XUYw==
   dependencies:
     browserslist "^4.22.1"
 
@@ -3555,9 +3555,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.535:
-  version "1.4.569"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.569.tgz#1298b67727187ffbaac005a7425490d157f3ad03"
-  integrity sha512-LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==
+  version "1.4.572"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.572.tgz#ed9876658998138fe9e3aa47ecfa0bf914192a86"
+  integrity sha512-RlFobl4D3ieetbnR+2EpxdzFl9h0RAJkPK3pfiwMug2nhBin2ZCsGIAJWdpNniLz43sgXam/CgipOmvTA+rUiA==
 
 eme-encryption-scheme-polyfill@^2.0.1:
   version "2.1.1"
@@ -3599,9 +3599,9 @@ entities@^4.2.0:
   integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
 
 envinfo@^7.7.2:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.10.0.tgz#55146e3909cc5fe63c22da63fb15b05aeac35b13"
-  integrity sha512-ZtUjZO6l5mwTHvc1L9+1q5p/R3wTopcfqMW8r5t8SJSKqeVI/LtajORwRFEKpEFuekjD0VBjwu1HMxL4UalIRw==
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.11.0.tgz#c3793f44284a55ff8c82faf1ffd91bc6478ea01f"
+  integrity sha512-G9/6xF1FPbIw0TtalAMaVPpiq2aDEuKLXM314jPVAO9r2fo2a4BLqMNkmRS7O/xPPZ+COAhGIz3ETvHEV3eUcg==
 
 error-ex@^1.3.1:
   version "1.3.2"
@@ -6782,7 +6782,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@*, prop-types@15.8.1, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x, prop-types@^15.8.1:
+prop-types@*, prop-types@15.8.1, prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.7.x, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6831,9 +6831,9 @@ punycode@^1.4.1:
   integrity sha512-jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==
 
 punycode@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
-  integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
+  integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
 pure-rand@^6.0.0:
   version "6.0.4"
@@ -6938,9 +6938,9 @@ react-native-calendar-strip@^2.2.6:
     recyclerlistview "^3.0.0"
 
 react-native-calendars@^1.1301.0:
-  version "1.1301.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1301.0.tgz#250760b5762944e0e28bd0431c398332ece28226"
-  integrity sha512-KfDntslK2qKoVl99Hm9bKZuFrdQTru1Ss2t12bCwKuhrKRh5Ho1wgXBAY5SE9sxxWy8mbydmOcLnmxl7BeYWXw==
+  version "1.1302.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1302.0.tgz#1b81074d08a9aa5aadcd2fb546d08517d4974952"
+  integrity sha512-QZdkFYVKafxjc/oHmbmzyEhMkF0sWl+1hYd9FbKQFcf/c3D0K+sfG81A40C1YsOR8nxb1nq2OpsNT81CGd1L4Q==
   dependencies:
     hoist-non-react-statics "^3.3.1"
     lodash "^4.17.15"
@@ -7092,12 +7092,26 @@ react-native-masked-text@^1.13.0:
     date-and-time "0.9.0"
     tinymask "1.0.2"
 
+react-native-mo-video-player@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-mo-video-player/-/react-native-mo-video-player-1.0.0.tgz#1ffe8cc17cdba3a9897fb91b426c12c08fd1ad91"
+  integrity sha512-xtN6xPrI8uTFp6RiQMcVMDsljjsGup2g/889OeeYBhZI3U2+vkl77tjluK7o7HAijk3wO/HkRADYs33zpx2YKQ==
+  dependencies:
+    react-native-orientation-locker "^1.3.1"
+    react-native-sliders "^1.1.1"
+    react-native-video "^5.2.0"
+
 react-native-modal-datetime-picker@^17.1.0:
   version "17.1.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-17.1.0.tgz#74291bf92b830be285752f437841f52885c90e0b"
   integrity sha512-jfTwfaCLtBffYbQ+pOGFLM+J5HmUh3vb9rT0JrrQPjxzecdc8pNYreB1c96+mVuq8bDCvaCdIeuEsslTqLJL0Q==
   dependencies:
     prop-types "^15.7.2"
+
+react-native-orientation-locker@^1.3.1:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-orientation-locker/-/react-native-orientation-locker-1.5.0.tgz#324853937eed4835ecd1c8613ab2206135d908ac"
+  integrity sha512-4XOCGmNN4BXg5JUFjUuXpsfhPJmbA3LkQilJO1ed+6vL97teTdG2w5IEevKiqL9/hPjeWE8YYtX/YW+yp53hkg==
 
 react-native-pager-view@^6.2.1:
   version "6.2.2"
@@ -7172,6 +7186,13 @@ react-native-shimmer-placeholder@^2.0.9:
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/react-native-shimmer-placeholder/-/react-native-shimmer-placeholder-2.0.9.tgz#0096932289bd9ec5747cd4f1c9d15f91ba02157a"
   integrity sha512-s2pfAAO6uaybREYM2KcaxP3c2XlZvLfHfzmhMlGEoOhSKaoM92KpA1Hx0BeC75yilkliJuowqO/hFzvLB0h7hg==
+
+react-native-sliders@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-sliders/-/react-native-sliders-1.1.1.tgz#41c9ff45abe61d2fbcf43c2ac7923c6871dad4d6"
+  integrity sha512-OEIPw/KF/fqPSGQWAOUCoXzklF0fLlP45iKewaZxPqmyme4cdrbsNM1i+5qPbAf45mM+1MIvfT8dKjvP+aiy9w==
+  dependencies:
+    prop-types "^15.5.6"
 
 react-native-splash-screen@^3.3.0:
   version "3.3.0"
@@ -7260,7 +7281,7 @@ react-native-vector-icons@^10.0.1:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-video@^5.2.1:
+react-native-video@^5.2.0, react-native-video@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-5.2.1.tgz#a17e856759d7e17eee9cbd9df0d05ba22e88d457"
   integrity sha512-aJlr9MeTuQ0LpZ4n+EC9RvhoKeiPbLtI2Rxy8u7zo/wzGevbRpWHSBj9xZ5YDBXnAVXzuqyNIkGhdw7bfdIBZw==
@@ -8047,9 +8068,9 @@ temp@^0.8.4:
     rimraf "~2.6.2"
 
 terser@^5.15.0:
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.22.0.tgz#4f18103f84c5c9437aafb7a14918273310a8a49d"
-  integrity sha512-hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==
+  version "5.24.0"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.24.0.tgz#4ae50302977bca4831ccc7b4fef63a3c04228364"
+  integrity sha512-ZpGR4Hy3+wBEzVEnHvstMvqpD/nABNelQn/z2r0fjVWGQsN3bpOLzQlqDxmb4CDZnXq5lpjnQ+mHQLAOpfM5iw==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.8.2"

@@ -17,113 +17,11 @@ const dimension = Dimensions.get("window");
 const noop = () => { };
 
 let wide = Layout.width;
-// const VideoPlay = ({ source, close, sty }) => {
-//     const videoPlayer = useRef(null);
-//     const [currentTime, setCurrentTime] = useState(0);
-//     const [duration, setDuration] = useState(0);
-//     const [isFullScreen, setIsFullScreen] = useState(false);
-//     const [isLoading, setIsLoading] = useState(true);
-//     const [paused, setPaused] = useState(true);
-//     const [playerState, setPlayerState] = useState(1);
-
-//     const onSeek = (seek) => {
-//         videoPlayer?.current.seek(seek);
-//     };
-
-//     const onPaused = (playerState) => {
-//         setPaused(!paused);
-//         setPlayerState(playerState);
-//     };
-
-//     const onReplay = () => {
-//         setPlayerState(PLAYER_STATES.PLAYING);
-//         videoPlayer?.current.seek(0);
-//     };
-
-//     const onProgress = (data) => {
-//         // Video Player will continue progress even if the video already ended
-//         if (!isLoading) {
-//             setCurrentTime(data.currentTime);
-//         }
-//     };
-
-//     const onLoad = (data) => {
-//         setDuration(data.duration);
-//         setIsLoading(false);
-//     };
-
-//     const onLoadStart = () => setIsLoading(true);
-
-//     const onEnd = () => {
-//         setPlayerState(PLAYER_STATES.ENDED);
-//     };
-
-//     const onSeeking = (currentTime) => setCurrentTime(currentTime);
-
-//     return (
-//         <View style={[{ justifyContent: 'center', alignItems: 'center', backgroundColor: "rgb(39,42,49)" }]}>
-
-//             <View style={sty}>
-//                 <Video
-//                     onEnd={onEnd}
-//                     onLoad={onLoad}
-//                     onLoadStart={onLoadStart}
-//                     fullscreen={isFullScreen}
-//                     onProgress={onProgress}
-//                     onFullscreenPlayerDidDismiss={() => setIsFullScreen(false)}
-//                     paused={paused}
-//                     ref={(ref) => (videoPlayer.current = ref)}
-//                     resizeMode="cover"
-//                     source={source}
-//                     onError={(err) =>// console.log(err)}
-//                     repeat={false}
-//                     style={styles.mediaPlayer}
-//                     volume={1}
-//                 />
-//                 <MediaControls
-//                     isFullScreen={isFullScreen}
-//                     duration={duration}
-//                     isLoading={isLoading}
-//                     mainColor={"white"}
-//                     onFullScreen={() => setIsFullScreen(true)}
-//                     onPaused={onPaused}
-//                     onReplay={onReplay}
-//                     onSeek={onSeek}
-//                     onSeeking={onSeeking}
-//                     playerState={playerState}
-//                     progress={currentTime}
-//                 />
-//             </View>
-//         </View>
-//     );
-// };
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//     },
-//     toolbar: {
-//         marginTop: 30,
-//         backgroundColor: "white",
-//         padding: 10,
-//         borderRadius: 5,
-//     },
-//     mediaPlayer: {
-//         position: "absolute",
-//         top: 0,
-//         left: 0,
-//         bottom: 0,
-//         right: 0,
-//         backgroundColor: "black",
-//     },
-// });
 
 const VideoPlay = ({ source, sty, thumbnailUrl, onBackPress }) => {
     return (
         <View>
 
-            {/* <View style={{ flex: 1, }} > */}
-            {/* <StatusBar /> */}
             <TouchableOpacity
                 onPress={onBackPress}
 

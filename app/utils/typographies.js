@@ -119,6 +119,12 @@ Typography.loadTypographies({
     fontFamily: customTheme.fontFamily.robotoRegular,
     color: customTheme.colors.light,
   },
+  'large-3xl-600': {
+    fontWeight: '700',
+    fontSize: customTheme.fontSizes.size_22,
+    fontFamily: customTheme.fontFamily.robotoBold,
+    color: customTheme.colors.light,
+  },
   'large-3xl-700': {
     fontWeight: '700',
     fontSize: customTheme.fontSizes.size_24,

@@ -10,6 +10,7 @@ import { customTheme } from '../../constants';
 import { useAuth } from '../../hooks/useAuth';
 import { ScrollViewContainer } from '../../components/common/SrollViewContainer';
 import { useNavigation } from '@react-navigation/native';
+import PrimaryButton from '../../components/common/PrimaryButton';
 const PlayerDashboard = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
@@ -18,15 +19,16 @@ const PlayerDashboard = () => {
   return (
     <ScrollViewContainer>
       <>
-        <DashBoardHeader name={user?.personalInfo?.firstName} imgSrc={user?.personalInfo?.profilePictureURL} />
+        <DashBoardHeader
+          headerLabel='Welcome'
+          name={user?.personalInfo?.firstName}
+          imgSrc={user?.personalInfo?.profilePictureURL} />
         <TeamsBar showDropDown={false} />
         <EventCarousel />
         <StatsContainer />
         <MyChallenges onPressSeeAll={() => navigation.navigate('MyChallenges')} />
-        <Button
-          center
-          paddingV-24
-          label={'Add Player Match Up'}
+        <PrimaryButton
+          title={'Add Player Match Up'}
           onPress={() => {
             Alert.alert('player match up');
           }}
