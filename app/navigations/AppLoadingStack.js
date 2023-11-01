@@ -20,6 +20,7 @@ import GoogleAutoCompleteScreen from '../views/coach/GoogleAutoCompleteScreen';
 import PlayerComparison from '../views/players/PlayerComparison';
 import TeamComparison from '../views/players/TeamComparison';
 import LiveGame from '../views/games/LiveGame';
+import MyChallenges from '../views/coach/MyChallenges';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -64,6 +65,7 @@ export default function AppLoadignStack() {
               name="GoogleAutoCompleteScreen"
               component={GoogleAutoCompleteScreen}
             />
+            <Stack.Screen name="MyChallenges" component={MyChallenges} />
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
