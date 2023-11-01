@@ -19,7 +19,7 @@ const PlayerDashboard = () => {
     <ScrollViewContainer>
       <>
         <DashBoardHeader name={user?.personalInfo?.firstName} imgSrc={user?.personalInfo?.profilePictureURL} />
-        <TeamsBar />
+        <TeamsBar showDropDown={false} />
         <EventCarousel />
         <StatsContainer />
         <MyChallenges onPressSeeAll={() => navigation.navigate('MyChallenges')} />
