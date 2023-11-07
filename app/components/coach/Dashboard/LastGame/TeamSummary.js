@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import SideBySideBarGraph from '../../../../components/common/SideBySideBar';
-import {Layout, Colors, Fonts} from './../../../../constants';
+import { Layout, Colors, Fonts } from './../../../../constants';
 
 const wide = Layout.width;
 function TeamSummary() {
@@ -25,14 +25,14 @@ function TeamSummary() {
       <View style={styles.graphContainer}>
         <SideBySideBarGraph
           pgsData={[
-            {name: 'PST', value: [12.7, 10.7]},
-            {name: 'AST', value: [7.7, 8.7]},
-            {name: 'RPG', value: [10.9, 11.9]},
-            {name: 'BPG', value: [12.7, 10.7]},
-            {name: 'STL', value: [7.7, 8.7]},
-            {name: 'FG%', value: [10.9, 11.9]},
-            {name: '2PT', value: [7.7, 8.7]},
-            {name: '3PT', value: [10.9, 11.9]},
+            { name: 'PST', value: [12.7, 10.7] },
+            { name: 'AST', value: [7.7, 8.7] },
+            { name: 'RPG', value: [10.9, 11.9] },
+            { name: 'BPG', value: [12.7, 10.7] },
+            { name: 'STL', value: [7.7, 8.7] },
+            { name: 'FG%', value: [10.9, 11.9] },
+            { name: '2PT', value: [7.7, 8.7] },
+            { name: '3PT', value: [10.9, 11.9] },
           ]}
         />
       </View>

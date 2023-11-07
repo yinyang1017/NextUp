@@ -3,6 +3,7 @@ export const MyColors = {
   light: '#FFFFFF',
   effect: '#f8f9fb',
   base: '#181A20',
+  transparent: 'rgba(0,0,0,0)',
   overlay: 'rgba(0,0,0,0.3)',
   overlayDark: 'rgba(0,0,0,0.5)',
   overlayWhite: 'rgba(255,255,255,0.3)',
@@ -75,5 +76,6 @@ export const MyColors = {
   btnGrn: '#00A54D',
   declineBtnBg: '#E3E3E3',
   declineTxtClr: '#666666',
-  neutral: '#10141C'
+  neutral: '#10141C',
+  violet: '#552583'
 };

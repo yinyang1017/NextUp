@@ -19,6 +19,8 @@ import CoachViewPlayerDetails from '../views/coach/CoachViewPlayerDetails';
 import GoogleAutoCompleteScreen from '../views/coach/GoogleAutoCompleteScreen';
 import PlayerComparison from '../views/players/PlayerComparison';
 import TeamComparison from '../views/players/TeamComparison';
+import LiveGame from '../views/games/LiveGame';
+import MyChallenges from '../views/coach/MyChallenges';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -58,10 +60,12 @@ export default function AppLoadignStack() {
               name="CoachViewPlayerDetails"
               component={CoachViewPlayerDetails}
             />
+            <Stack.Screen name="LiveGame" component={LiveGame} />
             <Stack.Screen
               name="GoogleAutoCompleteScreen"
               component={GoogleAutoCompleteScreen}
             />
+            <Stack.Screen name="MyChallenges" component={MyChallenges} />
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
@@ -83,23 +87,6 @@ export default function AppLoadignStack() {
             />
           </Stack.Group>
         )}
-        {/* <Stack.Group>
-          <Stack.Screen name="CoachStack" component={PlayerStack} />
-          <Stack.Screen name="ChatScreen" component={ChatScreen} />
-          <Stack.Screen name="AddNewTeam" component={AddNewTeam} />
-          <Stack.Screen name="SearchPlayers" component={SearchPlayers} />
-          <Stack.Screen name="InvitePlayers" component={InvitePlayers} />
-          <Stack.Screen name="AllStandings" component={AllStandings} />
-          <Stack.Screen name="GameStatistics" component={GameStatistics} />
-          <Stack.Screen name="AdvanceStats" component={AdvanceStats} />
-          <Stack.Screen name="AddLineup" component={AddLineup} />
-          <Stack.Screen name="LineupDetails" component={LineupDetails} />
-          <Stack.Screen name="CreatePractice" component={CreatePractice} />
-          <Stack.Screen
-            name="CoachViewPlayerDetails"
-            component={CoachViewPlayerDetails}
-          />
-        </Stack.Group> */}
       </Stack.Navigator>
     </>
   );

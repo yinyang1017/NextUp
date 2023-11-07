@@ -21,7 +21,7 @@ export default function EventCarousel({ title = 'Upcoming Games' }){
           return (
             <EventItem
               key={index}
-              onPress={() => navigation.navigate('CoUpGame')}
+              onPress={() => navigation.navigate('LiveGame')}
               title="22 Aug 2022, 18:00"
             />
           );
