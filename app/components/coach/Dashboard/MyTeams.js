@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {View, Text, Image} from 'react-native-ui-lib';
-import {StyleSheet, Pressable, ScrollView} from 'react-native';
+import { View, Text, Image } from 'react-native-ui-lib';
+import { StyleSheet, Pressable, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   Padding,
   FontSize,
@@ -11,7 +11,8 @@ import {
   Border,
 } from '../../../views/GlobalStyles';
 import TeamItem from '../../common/TeamItem';
-import {hp} from '../../../utils/responsive';
+import { hp } from '../../../utils/responsive';
+import { TouchableOpacity } from 'react-native';
 
 /**
  * 😎 Anthony Lin Says:
@@ -21,41 +22,31 @@ import {hp} from '../../../utils/responsive';
  *
  */
 
-const _teams = [
-  {
-    id: 0,
-    name: 'Rotary AAU 17',
-    img: require('../../../assets/frame8.png'),
-  },
-  {
-    id: 1,
-    name: "O'Dea HS",
-    img: require('../../../assets/frame9.png'),
-  },
-  //   {
-  //     id: 2,
-  //     name: "O'Dea HS",
-  //     img: require('../../../assets/frame9.png'),
-  //   },
-];
-
-export const TeamsBar = () => {
+export const TeamsBar = ({ handleAddTeam, onSelect, current, teams }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.myTeamsParent}>
       <Text style={[styles.myTeams, styles.vamTypo1]}>My Teams</Text>
       <View style={styles.teamNamesRow}>
-        {_teams.map(el => (
-          <TeamItem imageSource={el.img} name={el.name} />
+        {teams.map((el, index) => (
+          <TouchableOpacity key={el.id} onPress={() => onSelect(index)}>
+            <TeamItem
+              imageSource={el.img}
+              name={el.name}
+              isActive={current === index}
+            />
+          </TouchableOpacity>
         ))}
-        {_teams.length < 3 && (
-          <TeamItem
-            imageSource={require('../../../assets/images/CoachDasAddTeamIcon.png')}
-            name="Add Team"
-            imageContainerStyle={{
-              borderRadius: 0
-            }}
-          />
+        {teams.length < 3 && (
+          <TouchableOpacity onPress={handleAddTeam}>
+            <TeamItem
+              imageSource={require('../../../assets/images/CoachDasAddTeamIcon.png')}
+              name="Add Team"
+              imageContainerStyle={{
+                borderRadius: 0,
+              }}
+            />
+          </TouchableOpacity>
         )}
       </View>
     </View>

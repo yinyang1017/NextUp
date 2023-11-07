@@ -27,8 +27,13 @@ export default function Notification({ containerStyle = {}, close }) {
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
-            <Button label="Accept" size='xSmall' />
-            <Button label="Decline" backgroundColor="red" onPress={close} size='xSmall'/>
+            <Button label="Accept" size="xSmall" />
+            <Button
+              label="Decline"
+              backgroundColor="red"
+              onPress={close}
+              size="xSmall"
+            />
           </View>
         </View>
       </View>
@@ -36,8 +41,8 @@ export default function Notification({ containerStyle = {}, close }) {
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    top: 0,
+  container: {    
+    // top: -100,
     position: 'absolute',
     width: '100%',
   },

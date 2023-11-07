@@ -25,52 +25,86 @@ import MatchUp from '../../../components/coach/Dashboard/MatchUp';
 import { Padding } from '../../GlobalStyles';
 import Notification from '../../../components/coach/Dashboard/Notification';
 import { useAuth } from '../../../hooks/useAuth';
+import useCoachDash from '../../../hooks/useCoachDash';
+import Empty from '../../../components/coach/Dashboard/Empty';
+import PracticeNotification from '../../../components/coach/Dashboard/PracticeNotification';
 export default function CoachDashboard() {
   const navigation = useNavigation();
   const [isNotify, setNotify] = useState(false);
+  const [isPracticeNotify, setPracticeNotify] = useState(false);
   const { user } = useAuth();
-  console.log(user);
+  const [teamIndex, selectTeam, teams] = useCoachDash(user?.userId);
   useEffect(() => {
-    setTimeout(() => setNotify(true), 3000);
+    setTimeout(() => setNotify(true), 4000);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => setPracticeNotify(true), 8000);
+  }, []);
+
+  function addTeam() {
+    navigation.navigate('MyTeam');
+  }
   return (
-    <ScrollView
-      style={styles.playerDash}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.playerDashScrollViewContent}>
-      <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
-        <DashBoardHeader
-          imgSrc={user?.personalInfo?.profilePictureURL}
-          name={
-            user?.personalInfo?.firstName
-              ? `${user?.personalInfo?.firstName} ${user?.personalInfo?.lastName}`
-              : null
-          }
-          onClick={() => navigation.navigate('AccountDetails')}
-        />
-        <TeamsBar />
-        <UpcomingGames />
-        <StatisticOverview />
-        <LastGameSection />
-      </View>
-      <View style={styles.compareButtonContainer}>
-        <Button
-          label={'Compare Teams'}
-          onPress={() => {
-            navigation.navigate('TeamCompare');
-          }}
-          backgroundColor={customTheme.colors.darkYellow}
-          style={{
-            width: Dimensions.get('window').width * 0.9,
-            marginBottom: 20,
-          }}
-        />
-      </View>
-      <MatchUp />
-      <MyChallenges />
-      {isNotify && <Notification close={() => setNotify(false)} />}
-    </ScrollView>
+    <>
+      <Notification
+        containerStyle={{ display: isNotify ? 'flex' : 'none' }}
+        close={() => setNotify(false)}
+      />
+      <PracticeNotification
+        isVisible={isPracticeNotify}
+        onClick={() => setPracticeNotify(false)}
+      />
+      <ScrollView
+        style={styles.playerDash}
+        showsVerticalScrollIndicator={true}
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={styles.playerDashScrollViewContent}>
+        <View style={[styles.frameParent, styles.frameParentSpaceBlock1]}>
+          <DashBoardHeader
+            imgSrc={user?.personalInfo?.profilePictureURL}
+            name={
+              user?.personalInfo?.firstName
+                ? `${user?.personalInfo?.firstName} ${user?.personalInfo?.lastName}`
+                : null
+            }
+            onClick={() =>
+              navigation.navigate('Account', { screen: 'AccountDetails' })
+            }
+          />
+          {teams.length === 0 ? (
+            <Empty onAddTeam={addTeam} />
+          ) : (
+            <>
+              <TeamsBar
+                current={teamIndex}
+                onSelect={selectTeam}
+                teams={teams}
+                handleAddTeam={addTeam}
+              />
+              <UpcomingGames />
+              <StatisticOverview />
+              <LastGameSection />
+              <View style={styles.compareButtonContainer}>
+                <Button
+                  label={'Compare Teams'}
+                  onPress={() => {
+                    navigation.navigate('TeamCompare');
+                  }}
+                  backgroundColor={customTheme.colors.darkYellow}
+                  style={{
+                    width: Dimensions.get('window').width * 0.9,
+                    marginBottom: 20,
+                  }}
+                />
+              </View>
+              <MatchUp />
+              <MyChallenges />
+            </>
+          )}
+        </View>
+      </ScrollView>
+    </>
   );
 }
 
