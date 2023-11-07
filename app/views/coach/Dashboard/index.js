@@ -38,10 +38,6 @@ export default function CoachDashboard() {
     setTimeout(() => setNotify(true), 4000);
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => setPracticeNotify(true), 8000);
-  // }, []);
-
   function addTeam() {
     navigation.navigate('MyTeam');
   }
