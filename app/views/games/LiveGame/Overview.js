@@ -9,8 +9,10 @@ import { hp, wp } from '../../../utils/responsive';
 import GameStats from './GameStat';
 import { GAME, LiveGameContext } from '.';
 import PlayerStats from './PlayerStats';
+import { useNavigation } from '@react-navigation/native';
 export default function Overview() {
   const status = useContext(LiveGameContext);
+  const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Prediction />
@@ -23,7 +25,10 @@ export default function Overview() {
       <GameStats title={status === GAME.BEFORE ? 'Game Stats' : 'Box Score'} />
       {status === GAME.BEFORE ? (
         <View style={styles.buttonWrapper}>
-          <Button label="Start Stat Collection" />
+          <Button
+            label="Start Stat Collection"
+            onPress={() => navigation.navigate('Stats')}
+          />
         </View>
       ) : (
         <PlayerStats />

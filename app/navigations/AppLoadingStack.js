@@ -21,6 +21,7 @@ import PlayerComparison from '../views/players/PlayerComparison';
 import TeamComparison from '../views/players/TeamComparison';
 import LiveGame from '../views/games/LiveGame';
 import MyChallenges from '../views/coach/MyChallenges';
+import GameStack from './GameStack';
 
 export default function AppLoadignStack() {
   const Stack = createNativeStackNavigator();
@@ -60,12 +61,12 @@ export default function AppLoadignStack() {
               name="CoachViewPlayerDetails"
               component={CoachViewPlayerDetails}
             />
-            <Stack.Screen name="LiveGame" component={LiveGame} />
             <Stack.Screen
               name="GoogleAutoCompleteScreen"
               component={GoogleAutoCompleteScreen}
             />
             <Stack.Screen name="MyChallenges" component={MyChallenges} />
+            <Stack.Screen name="LiveGame" component={GameStack} />
           </Stack.Group>
         )}
         {isAuthenticated && onBoardingDone && isPlayer && (
