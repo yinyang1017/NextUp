@@ -14,6 +14,7 @@ export const statusBarHeight =
     : StatusBar.currentHeight;
 export const ViewContainer = ({
   headerTilte,
+  hideStatusBar = false,
   isView = true,
   includeStatusBar = true,
   statusBarColor = customTheme.colors.light,
@@ -29,17 +30,16 @@ export const ViewContainer = ({
           height={statusBarHeight + customTheme.spacings.spacing_12}
         />
       ) : (
-        includeStatusBar && (
-          <>
-            <StatusBar
-              backgroundColor={statusBarColor}
-              width={'100%'}
-              translucent
-              height={statusBarHeight + customTheme.spacings.spacing_12}
-            />
-            <View height={statusBarHeight} />
-          </>
-        )
+        <>
+          <StatusBar
+            hidden={hideStatusBar}
+            backgroundColor={statusBarColor}
+            width={'100%'}
+            translucent
+            height={statusBarHeight + customTheme.spacings.spacing_12}
+          />
+          {!hideStatusBar && <View height={statusBarHeight} />}
+        </>
       )}
 
       {headerTilte && <ScreenHeader title={headerTilte ?? ''} />}

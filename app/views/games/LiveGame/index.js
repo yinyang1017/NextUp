@@ -39,8 +39,8 @@ export default function LiveGame({}) {
     },
   };
   useEffect(() => {
-    setTimeout(() => setStatus(GAME.PLAYING), 6000);
-    setTimeout(() => setStatus(GAME.FINISHED), 10000);
+    // setTimeout(() => setStatus(GAME.PLAYING), 6000);
+    // setTimeout(() => setStatus(GAME.FINISHED), 10000);
   }, []);
   return (
     <LiveGameContext.Provider value={status}>

@@ -2,7 +2,6 @@ import { DefaultTheme } from '@react-navigation/native';
 import { Colors } from 'react-native-ui-lib';
 import { MyColors } from './colors';
 
-
 export const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -19,6 +18,7 @@ export const customTheme = {
     tangaroa: '#041639',
     gray_500: '#22252e',
     gray_200: '#8a8a8a',
+    gray_300: '#32353E',
     gray_400: '#24262d',
     storm_gray: '#797B86',
     steel_blue: '#555A67',
@@ -91,4 +91,3 @@ export const customTheme = {
     paddingTop: 48,
   },
 };
-
