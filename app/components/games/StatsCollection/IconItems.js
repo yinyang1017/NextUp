@@ -13,4 +13,3 @@ export function Team({ size, logo, title, subtitle }) {
     </View>
   );
 }
-export function 
