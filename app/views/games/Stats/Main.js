@@ -12,11 +12,14 @@ import Button from '../../../components/games/StatsCollection/Main/Button';
 import HalfView from '../../../components/games/StatsCollection/Main/HalfView';
 import TimeoutModal from '../../../components/games/StatsCollection/Main/TimeoutModal';
 import useTimeout from '../../../hooks/LiveGame/useTimeout';
+import useWaiting from '../../../hooks/LiveGame/useWaiting';
+import WaitingModal from '../../../components/games/StatsCollection/Main/WaitingModal';
 
 export default function Main({}) {
   const navigation = useNavigation();
   const [isTimeout, showTimeout, remainingTime] = useTimeout();
-  console.log(isTimeout);
+  const [isWaiting, showWaiting, timeToNext, nextQuater] = useWaiting();
+
   const scoreData = [
     { type: 'scored', x: 0, y: 40 },
     { type: 'scored', x: -90, y: 40 },
@@ -172,7 +175,7 @@ export default function Main({}) {
                 <HalfView>
                   <Button
                     label={'Timeout'}
-                    onPress={() => showTimeout(true)}
+                    onPress={() => showWaiting(true)}
                     color={customTheme.colors.light}
                     backgroundColor={customTheme.colors.myTeamPlayerListLabel}
                   />
@@ -186,6 +189,12 @@ export default function Main({}) {
         isVisible={isTimeout}
         remainingTime={remainingTime}
         close={() => showTimeout(false)}
+      />
+      <WaitingModal
+        isVisible={isWaiting}
+        remainingTime={timeToNext}
+        nextQuater={nextQuater}
+        close={() => showWaiting(false)}
       />
     </ViewContainer>
   );
