@@ -12,11 +12,24 @@ import Button from '../../../components/games/StatsCollection/Main/Button';
 import HalfView from '../../../components/games/StatsCollection/Main/HalfView';
 export default function Quater({}) {
   const navigation = useNavigation();
+  const scoreData = [
+    { type: 'scored', x: 0, y: 40 },
+    { type: 'scored', x: -90, y: 40 },
+    { type: 'scored', x: -80, y: 80 },
+    { type: 'scored', x: -57, y: 85 },
+    { type: 'scored', x: -19, y: 54 },
+    { type: 'scored', x: -79, y: 76 },
+    { type: 'conceded', x: 76, y: 10 },
+    { type: 'conceded', x: -85, y: 50 },
+    { type: 'conceded', x: -32, y: 56 },
+    { type: 'conceded', x: -52, y: 34 },
+    { type: 'conceded', x: -54, y: 57 },
+  ];
   return (
     <ViewContainer hideStatusBar isView={false}>
       <StatsHeader />
       <View style={{ flexDirection: 'row' }}>
-        <View style={{ width: '30%' }}>
+        <View style={{ width: '30%', justifyContent: 'space-between' }}>
           <View
             style={{
               alignItems: 'center',
@@ -58,7 +71,7 @@ export default function Quater({}) {
         <View style={{ width: '70%' }}>
           <FuelBar time="08:52:22" />
           <View style={{ flexDirection: 'row' }}>
-            <Court />
+            <Court data={scoreData} />
             <View style={{ flex: 1, justifyContent: 'space-between' }}>
               <View style={{ gap: wp(2) }}>
                 <View
