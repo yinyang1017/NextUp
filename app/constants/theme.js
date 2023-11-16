@@ -34,6 +34,7 @@ export const customTheme = {
     slate_gray: '#ABB0BD',
     dark_slate_gray: '#45454A',
     royalblue: '#246bfd',
+    brightGreen: '#42FF00',
   },
   statusBarStyle: 'light-content',
   fontSizes: {

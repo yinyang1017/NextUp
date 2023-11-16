@@ -46,3 +46,32 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xs,
   },
 });
+
+export function PlayerAvatar({
+  image,
+  alt,
+  size,
+  color = customTheme.colors.red30,
+}) {
+  return image ? (
+    <Image
+      source={image}
+      style={{ height: size, width: size }}
+      borderRadius={size / 2}
+    />
+  ) : (
+    <View
+      style={{
+        width: size,
+        borderRadius: size / 2,
+        height: size,
+        backgroundColor: color,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Text style={{ color: customTheme.colors.light, fontSize: size / 2 }}>
+        {alt}
+      </Text>
+    </View>
+  );
+}

@@ -6,6 +6,7 @@ import backImg from '../../../assets/images/coatbg.png';
 import { hp, wp } from '../../../utils/responsive';
 import { FontSize } from '../../GlobalStyles';
 import { Colors } from '../../../constants';
+import { useNavigation } from '@react-navigation/native';
 function Position({ x, y, children }) {
   const style = { transform: [{ translateX: x }, { translateY: y }] };
   return <View style={[style, styles.positionContainer]}>{children}</View>;
@@ -114,6 +115,7 @@ export default function LineUp() {
       y: 20,
     },
   ];
+  const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
@@ -135,7 +137,10 @@ export default function LineUp() {
           ))}
         </ImageBackground>
       </View>
-      <Button label="Edit Lineup" />
+      <Button
+        label="Edit Lineup"
+        onPress={() => navigation.navigate('Stats', { screen: 'Lineup' })}
+      />
     </ScrollView>
   );
 }

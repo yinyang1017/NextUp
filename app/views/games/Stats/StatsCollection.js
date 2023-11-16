@@ -11,6 +11,7 @@ import ScoreIcon from '../../../components/games/StatsCollection/ScoreIcon';
 import { FontSize } from '../../GlobalStyles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './Main';
+import Lineup from './Lineup';
 export default function StatsCollection() {
   const Stack = createNativeStackNavigator();
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function StatsCollection() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen name="Quater" component={Main} />
+      <Stack.Screen name="Lineup" component={Lineup} />
     </Stack.Navigator>
   );
 }

@@ -29,7 +29,7 @@ const tableData = [
   {
     id: 4,
     imageUrl: require('../../../../assets/ellipse-7572.png'),
-    timeout: 0,
+    timeout: 4,
     data: ['9', '1', '0', '10'],
   },
   {
