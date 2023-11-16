@@ -10,8 +10,13 @@ import FuelBar from '../../../components/games/StatsCollection/Main/FuelBar';
 import Court from '../../../components/games/StatsCollection/Main/Court';
 import Button from '../../../components/games/StatsCollection/Main/Button';
 import HalfView from '../../../components/games/StatsCollection/Main/HalfView';
-export default function Quater({}) {
+import TimeoutModal from '../../../components/games/StatsCollection/Main/TimeoutModal';
+import useTimeout from '../../../hooks/LiveGame/useTimeout';
+
+export default function Main({}) {
   const navigation = useNavigation();
+  const [isTimeout, showTimeout, remainingTime] = useTimeout();
+  console.log(isTimeout);
   const scoreData = [
     { type: 'scored', x: 0, y: 40 },
     { type: 'scored', x: -90, y: 40 },
@@ -155,10 +160,19 @@ export default function Quater({}) {
                   </HalfView>
                 </View>
               </View>
-              <View style={{ alignItems: 'center' }}>
+              <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                 <HalfView>
                   <Button
                     label={'End Game'}
+                    color={customTheme.colors.light}
+                    backgroundColor={customTheme.colors.transparent}
+                    borderColor={customTheme.colors.white_08}
+                  />
+                </HalfView>
+                <HalfView>
+                  <Button
+                    label={'Timeout'}
+                    onPress={() => showTimeout(true)}
                     color={customTheme.colors.light}
                     backgroundColor={customTheme.colors.myTeamPlayerListLabel}
                   />
@@ -168,6 +182,11 @@ export default function Quater({}) {
           </View>
         </View>
       </View>
+      <TimeoutModal
+        isVisible={isTimeout}
+        remainingTime={remainingTime}
+        close={() => showTimeout(false)}
+      />
     </ViewContainer>
   );
 }
