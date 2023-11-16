@@ -14,25 +14,24 @@ import TimeoutModal from '../../../components/games/StatsCollection/Main/Timeout
 import useTimeout from '../../../hooks/LiveGame/useTimeout';
 import useWaiting from '../../../hooks/LiveGame/useWaiting';
 import WaitingModal from '../../../components/games/StatsCollection/Main/WaitingModal';
-
+const scoreData = [
+  { type: 'scored', x: 0, y: 40 },
+  { type: 'scored', x: -90, y: 40 },
+  { type: 'scored', x: -80, y: 80 },
+  { type: 'scored', x: -57, y: 85 },
+  { type: 'scored', x: -19, y: 54 },
+  { type: 'scored', x: -79, y: 76 },
+  { type: 'conceded', x: 76, y: 10 },
+  { type: 'conceded', x: -85, y: 50 },
+  { type: 'conceded', x: -32, y: 56 },
+  { type: 'conceded', x: -52, y: 34 },
+  { type: 'conceded', x: -54, y: 57 },
+];
 export default function Main({}) {
   const navigation = useNavigation();
   const [isTimeout, showTimeout, remainingTime] = useTimeout();
   const [isWaiting, showWaiting, timeToNext, nextQuater] = useWaiting();
 
-  const scoreData = [
-    { type: 'scored', x: 0, y: 40 },
-    { type: 'scored', x: -90, y: 40 },
-    { type: 'scored', x: -80, y: 80 },
-    { type: 'scored', x: -57, y: 85 },
-    { type: 'scored', x: -19, y: 54 },
-    { type: 'scored', x: -79, y: 76 },
-    { type: 'conceded', x: 76, y: 10 },
-    { type: 'conceded', x: -85, y: 50 },
-    { type: 'conceded', x: -32, y: 56 },
-    { type: 'conceded', x: -52, y: 34 },
-    { type: 'conceded', x: -54, y: 57 },
-  ];
   return (
     <ViewContainer hideStatusBar isView={false}>
       <StatsHeader />
@@ -62,6 +61,7 @@ export default function Main({}) {
             <HalfView>
               <Button
                 label="Sub player"
+                onPress={() => navigation.navigate('Substitute')}
                 backgroundColor={customTheme.colors.yellow20}
                 color={customTheme.colors.dark}
               />
@@ -70,6 +70,7 @@ export default function Main({}) {
               <Button
                 label="Lineup"
                 size="xSmall"
+                onPress={() => navigation.navigate('Lineup')}
                 backgroundColor={customTheme.colors.myTeamPlayerListLabel}
                 borderRadius={5}
               />

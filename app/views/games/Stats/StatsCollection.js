@@ -12,6 +12,7 @@ import { FontSize } from '../../GlobalStyles';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './Main';
 import Lineup from './Lineup';
+import Substitute from './Substitute';
 export default function StatsCollection() {
   const Stack = createNativeStackNavigator();
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function StatsCollection() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Main" component={Main} />
       <Stack.Screen name="Lineup" component={Lineup} />
+      <Stack.Screen name="Substitute" component={Substitute} />
     </Stack.Navigator>
   );
 }

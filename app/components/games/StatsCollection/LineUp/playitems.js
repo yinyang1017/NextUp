@@ -1,8 +1,8 @@
-import React from 'react';
-import { PlayerAvatar } from '../IconItems';
+import { useState, useEffect } from 'react';
+import { PlayerAvatar, Substitute } from '../IconItems';
 import { Text, View } from 'react-native-ui-lib';
 import { customTheme } from '../../../../constants';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { wp } from '../../../../utils/responsive';
 export default function Player({
   image,
@@ -23,7 +23,37 @@ export default function Player({
     </View>
   );
 }
-
+export function SeletablePlayer({
+  image,
+  name,
+  width,
+  imageWidth,
+  timeout = 0,
+  selected,
+  emptyColor = customTheme.colors.red10,
+}) {
+  const [isSelected, setSelected] = useState(false);
+  useEffect(() => {
+    setSelected(selected);
+  }, [selected]);
+  return (
+    <View style={{ width, alignItems: 'center', gap: wp(2) }}>
+      <Pressable onPress={() => setSelected(!isSelected)}>
+        {isSelected ? (
+          <Substitute
+            image={image}
+            size={imageWidth}
+            borderColor={emptyColor}
+            borderWidth={4}
+          />
+        ) : (
+          <Substitute image={image} size={imageWidth} />
+        )}
+      </Pressable>
+      <Text style={styles.name}>{name}</Text>
+    </View>
+  );
+}
 const styles = StyleSheet.create({
   name: {
     color: customTheme.colors.light,

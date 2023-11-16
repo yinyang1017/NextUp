@@ -75,3 +75,18 @@ export function PlayerAvatar({
     </View>
   );
 }
+
+export function Substitute({
+  image,
+  size,
+  borderWidth = 0,
+  borderColor = customTheme.colors.red30,
+}) {
+  return (
+    <Image
+      source={image}
+      style={{ height: size, width: size, borderWidth, borderColor }}
+      borderRadius={size / 2}
+    />
+  );
+}

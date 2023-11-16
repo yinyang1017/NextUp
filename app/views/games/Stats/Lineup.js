@@ -8,6 +8,7 @@ import { FontSize } from '../../GlobalStyles';
 import { hp, wp } from '../../../utils/responsive';
 import Player from '../../../components/games/StatsCollection/LineUp/playitems';
 import { ClickableBox } from '../../../components/games/StatsCollection/LineUp/box';
+import { useNavigation } from '@react-navigation/native';
 const players = [
   {
     name: 'Jacob Jones',
@@ -36,6 +37,7 @@ const players = [
   },
 ];
 export default function Lineup() {
+  const navigation = useNavigation();
   return (
     <ViewContainer hideStatusBar isView={false}>
       <StatsHeader />
@@ -54,7 +56,10 @@ export default function Lineup() {
               />
             ))}
           </View>
-          <Button label="Substitue" />
+          <Button
+            label="Substitute"
+            onPress={() => navigation.navigate('Substitute')}
+          />
         </View>
         <View style={styles.rightBar}>
           <View style={styles.boxList}>

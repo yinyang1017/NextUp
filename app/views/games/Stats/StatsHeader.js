@@ -18,7 +18,7 @@ export default function StatsHeader() {
   return (
     <View style={styles.header}>
       <Back />
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', gap: hp(5) }}>
         <Team
           logo={require('../../../assets/chicago-bulls-logo1.png')}
           size={20}
