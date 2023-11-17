@@ -4,6 +4,7 @@ export default function Button({
   label,
   backgroundColor,
   color,
+  style = {},
   onPress,
   borderColor,
 }) {
@@ -15,6 +16,7 @@ export default function Button({
       style={[
         { width: '100%' },
         borderColor && { borderColor, borderWidth: 1 },
+        style,
       ]}
       onPress={onPress}
       size="small"

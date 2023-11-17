@@ -153,6 +153,7 @@ export default function Main({}) {
                       backgroundColor={customTheme.colors.green30}
                       color={customTheme.colors.light}
                       label={'Free Throw'}
+                      onPress={() => navigation.navigate('Freethrow')}
                     />
                   </HalfView>
                   <HalfView>

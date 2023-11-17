@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from './Main';
 import Lineup from './Lineup';
 import Substitute from './Substitute';
+import Freethrow from './Freethrow';
 export default function StatsCollection() {
   const Stack = createNativeStackNavigator();
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function StatsCollection() {
       <Stack.Screen name="Main" component={Main} />
       <Stack.Screen name="Lineup" component={Lineup} />
       <Stack.Screen name="Substitute" component={Substitute} />
+      <Stack.Screen name="Freethrow" component={Freethrow} />
     </Stack.Navigator>
   );
 }

@@ -1,96 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
 import StatsHeader from './StatsHeader';
 import { customTheme } from '../../../constants';
 import { hp, wp } from '../../../utils/responsive';
 import { FontSize } from '../../GlobalStyles';
 import { StyleSheet } from 'react-native';
-import { ClickableBox } from '../../../components/games/StatsCollection/LineUp/box';
 import { Button, Text, View } from 'react-native-ui-lib';
 import { SeletablePlayer } from '../../../components/games/StatsCollection/LineUp/playitems';
 import { useNavigation } from '@react-navigation/native';
 import { SubstitutesArea } from '../../../components/games/StatsCollection/Substitute/sections';
-const activePlayers = [
-  {
-    name: 'Jacob Jones',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Guy Hawkins',
-    image: require('../../../assets/image-9.png'),
-    timeout: 5,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/ellipse-7578.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 21,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-];
-const substitutes = [
-  {
-    name: 'Jacob Jones',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Guy Hawkins',
-    image: require('../../../assets/image-9.png'),
-    timeout: 5,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/ellipse-7578.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 21,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Guy Hawkins',
-    image: require('../../../assets/image-9.png'),
-    timeout: 5,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/ellipse-7578.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 21,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-  {
-    name: 'Albert Flores',
-    image: require('../../../assets/image-9.png'),
-    timeout: 0,
-  },
-];
-export default function Substitute() {
+import { GameContext } from '../../../context/GameProvider';
+
+export default function Substitute({ MAX_SUBS = 2 }) {
   const navigation = useNavigation();
+  const { activePlayers, substitutePlayers } = useContext(GameContext);
   return (
     <ViewContainer hideStatusBar isView={false}>
       <StatsHeader />
@@ -102,7 +25,6 @@ export default function Substitute() {
               {activePlayers.map((el, index) => (
                 <SeletablePlayer
                   key={index}
-                  selected
                   name={el.name}
                   timeout={el.timeout}
                   image={el.image}
@@ -115,13 +37,14 @@ export default function Substitute() {
           <View style={styles.rightBar}>
             <View style={styles.boxList}>
               <Text style={styles.subtitle}>Select Substitute</Text>
-              <SubstitutesArea players={substitutes} />
+              <SubstitutesArea players={substitutePlayers} />
             </View>
           </View>
         </View>
         <View style={styles.bottomSection}>
           <Button
             label="Substitute"
+            onPress={() => navigation.goBack()}
             style={{
               alignSelf: 'center',
               paddingVertical: wp(3),
