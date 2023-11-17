@@ -26,7 +26,8 @@ export default function Substitute({ MAX_SUBS = 2 }) {
                 <SeletablePlayer
                   key={index}
                   name={el.name}
-                  timeout={el.timeout}
+                  number={el.number}
+                  available={el.available}
                   image={el.image}
                   width={hp(7)}
                   imageWidth={hp(7)}

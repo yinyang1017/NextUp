@@ -26,9 +26,10 @@ export default function Player({
 export function SeletablePlayer({
   image,
   name,
+  number,
   width,
   imageWidth,
-  timeout = 0,
+  available,
   selected,
   emptyColor = customTheme.colors.red10,
 }) {
