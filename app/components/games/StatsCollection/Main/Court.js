@@ -49,7 +49,7 @@ export default function Court({ data = [], onPress }) {
         {cursor && (
           <Position
             x={(wp(45) * cursor.x) / 100}
-            y={wp(1) - (wp(60) * cursor.y) / 100}>
+            y={wp(2) - (wp(60) * cursor.y) / 100}>
             <Cursor />
           </Position>
         )}
@@ -58,8 +58,8 @@ export default function Court({ data = [], onPress }) {
           .map((el, index) => (
             <Position
               key={index}
-              x={(wp(44) * el.x) / 100}
-              y={-(wp(56) * el.y) / 100}>
+              x={(wp(45) * el.x) / 100}
+              y={wp(2) - (wp(60) * el.y) / 100}>
               {el.type === 'made' ? <BlueCircle /> : <RedCircle />}
             </Position>
           ))}
