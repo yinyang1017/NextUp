@@ -53,7 +53,7 @@ export default function Main({}) {
               }}>
               Active Player
             </Text>
-            <PlayerTable />
+            <PlayerTable players={activePlayers} />
           </View>
           <View
             style={{

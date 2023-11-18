@@ -49,6 +49,7 @@ export default function Score() {
         <View style={styles.bottomSection}>
           <Button
             label={'Skip'}
+            onPress={() => navigation.navigate('Main')}
             backgroundColor={customTheme.colors.gray_300}
           />
         </View>

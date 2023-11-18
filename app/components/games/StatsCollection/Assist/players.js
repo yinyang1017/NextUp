@@ -33,6 +33,7 @@ export default function Players({ current, players, selectPlayer }) {
             </Pressable>
           ) : (
             <PlayerItem
+              key={el.id}
               selected={el.id === current}
               image={el.image}
               width={hp(14)}

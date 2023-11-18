@@ -85,10 +85,7 @@ const PLAYERS = [
     number: 33,
   },
 ];
-const DEFAULT_LINEUP = {
-  active: [0, 1, 2, 3, 4],
-  substitute: [5, 6, 7, 8, 9, 10, 11, 12, 13],
-};
+const DEFAULT_LINEUP = [0, 1, 2, 3, 4];
 export default function useGame() {
   const [conceded, setConceded] = useState([3]);
   const [players, setPlayers] = useState(
@@ -100,8 +97,8 @@ export default function useGame() {
   const [scores, setScore] = useState([]);
   const [lineup, setLineup] = useState(DEFAULT_LINEUP);
   return [
-    players.filter(el => lineup.active.includes(el.id)),
-    players.filter(el => lineup.substitute.includes(el.id)),
+    players.filter(el => lineup.includes(el.id)),
+    players.filter(el => !lineup.includes(el.id)),
     setLineup,
     scores,
     setScore,

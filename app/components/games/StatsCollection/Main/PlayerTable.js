@@ -65,59 +65,48 @@ function SimpleIcon({ text, size }) {
   );
 }
 
-const TableHeader = () => {
-  return (
-    <View style={styles.tableHeader}>
-      {headerData.map((item, index) => {
-        return (
-          <Text
-            key={index}
-            style={[styles.headerText(index), { width: widthData[index] }]}>
-            {item}
-          </Text>
-        );
-      })}
-    </View>
-  );
-};
-
-const TableBody = () => {
-  return (
-    <View style={styles.tableBody}>
-      {tableData.map((item, index) => {
-        return (
-          <View key={index} style={styles.tableBodyRow}>
-            <View style={{ width: widthData[0], alignItems: 'center' }}>
-              {item.timeout ? (
-                <SimpleIcon text={item.timeout} size={hp(3)} />
-              ) : (
-                <PlayerIcon image={item.imageUrl} size={hp(3)} />
-              )}
-            </View>
-            {item.data.map((dataItem, dataindex) => {
-              return (
-                <Text
-                  key={dataindex}
-                  style={[
-                    styles.tableBodyCellValue,
-                    { width: widthData[dataindex + 1] },
-                  ]}>
-                  {dataItem}
-                </Text>
-              );
-            })}
-          </View>
-        );
-      })}
-    </View>
-  );
-};
-
-const PlayerTable = () => {
+const PlayerTable = ({ players }) => {
+  console.log(players);
   return (
     <View>
-      <TableHeader />
-      <TableBody />
+      <View style={styles.tableHeader}>
+        {headerData.map((item, index) => {
+          return (
+            <Text
+              key={index}
+              style={[styles.headerText(index), { width: widthData[index] }]}>
+              {item}
+            </Text>
+          );
+        })}
+      </View>
+      <View style={styles.tableBody}>
+        {players.map(item => {
+          return (
+            <View key={item.id} style={styles.tableBodyRow}>
+              <View style={{ width: widthData[0], alignItems: 'center' }}>
+                {!item.available ? (
+                  <SimpleIcon text={item.number} size={hp(3)} />
+                ) : (
+                  <PlayerIcon image={item.image} size={hp(3)} />
+                )}
+              </View>
+              {['9', '1', '0', '10'].map((dataItem, dataindex) => {
+                return (
+                  <Text
+                    key={dataindex}
+                    style={[
+                      styles.tableBodyCellValue,
+                      { width: widthData[dataindex + 1] },
+                    ]}>
+                    {dataItem}
+                  </Text>
+                );
+              })}
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 };

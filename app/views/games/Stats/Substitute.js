@@ -1,19 +1,44 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
 import StatsHeader from './StatsHeader';
 import { customTheme } from '../../../constants';
 import { hp, wp } from '../../../utils/responsive';
 import { FontSize } from '../../GlobalStyles';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { Button, Text, View } from 'react-native-ui-lib';
 import { SeletablePlayer } from '../../../components/games/StatsCollection/LineUp/playitems';
 import { useNavigation } from '@react-navigation/native';
-import { SubstitutesArea } from '../../../components/games/StatsCollection/Substitute/sections';
 import { GameContext } from '../../../context/GameProvider';
 
 export default function Substitute({ MAX_SUBS = 2 }) {
   const navigation = useNavigation();
-  const { activePlayers, substitutePlayers } = useContext(GameContext);
+  const { activePlayers, substitutePlayers, setLineup } =
+    useContext(GameContext);
+  const [ins, setIns] = useState([]);
+  const [outs, setOuts] = useState([]);
+  function toggleIns(id) {
+    if (ins.includes(id)) {
+      setIns(ins.filter(el => el !== id));
+    } else {
+      setIns([...ins, id]);
+    }
+  }
+  function toggleOuts(id) {
+    if (outs.includes(id)) {
+      setOuts(outs.filter(el => el !== id));
+    } else {
+      setOuts([...outs, id]);
+    }
+  }
+  function handleSubstitute() {
+    if (ins.length !== outs.length) {
+      Alert.alert('Error', 'You should check your inputs again.');
+    } else {
+      setLineup(e => [...e.filter(el => !ins.includes(el)), ...outs]);
+      navigation.navigate('Main');
+      // console.log(ins, outs);
+    }
+  }
   return (
     <ViewContainer hideStatusBar isView={false}>
       <StatsHeader />
@@ -26,6 +51,8 @@ export default function Substitute({ MAX_SUBS = 2 }) {
                 <SeletablePlayer
                   key={index}
                   name={el.name}
+                  selected={ins.includes(el.id)}
+                  toggle={() => toggleIns(el.id)}
                   number={el.number}
                   available={el.available}
                   image={el.image}
@@ -38,14 +65,26 @@ export default function Substitute({ MAX_SUBS = 2 }) {
           <View style={styles.rightBar}>
             <View style={styles.boxList}>
               <Text style={styles.subtitle}>Select Substitute</Text>
-              <SubstitutesArea players={substitutePlayers} />
+              <View style={styles.substitutesArea}>
+                {substitutePlayers.map(el => (
+                  <SeletablePlayer
+                    image={el.image}
+                    name={el.name}
+                    width={wp(18)}
+                    selected={outs.includes(el.id)}
+                    toggle={() => toggleOuts(el.id)}
+                    imageWidth={wp(13)}
+                    emptyColor={customTheme.colors.brightGreen}
+                  />
+                ))}
+              </View>
             </View>
           </View>
         </View>
         <View style={styles.bottomSection}>
           <Button
             label="Substitute"
-            onPress={() => navigation.goBack()}
+            onPress={handleSubstitute}
             style={{
               alignSelf: 'center',
               paddingVertical: wp(3),
@@ -106,5 +145,11 @@ const styles = StyleSheet.create({
   },
   bottomSection: {
     paddingHorizontal: hp(2),
+  },
+  substitutesArea: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    rowGap: wp(3),
   },
 });

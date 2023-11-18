@@ -31,16 +31,13 @@ export function SeletablePlayer({
   imageWidth,
   available,
   selected,
+  toggle,
   emptyColor = customTheme.colors.red10,
 }) {
-  const [isSelected, setSelected] = useState(false);
-  useEffect(() => {
-    setSelected(selected);
-  }, [selected]);
   return (
     <View style={{ width, alignItems: 'center', gap: wp(2) }}>
-      <Pressable onPress={() => setSelected(!isSelected)}>
-        {isSelected ? (
+      <Pressable onPress={toggle}>
+        {selected ? (
           <Substitute
             image={image}
             size={imageWidth}
