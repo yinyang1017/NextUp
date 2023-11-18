@@ -6,11 +6,12 @@ import { wp } from '../../../../utils/responsive';
 
 export function Player({
   image,
-  timeout,
+  number,
+  available,
   size,
   color = customTheme.colors.overlay,
 }) {
-  return timeout === 0 ? (
+  return available ? (
     <Image
       source={image}
       style={{ height: size, width: size }}
@@ -27,7 +28,7 @@ export function Player({
         justifyContent: 'center',
       }}>
       <Text style={{ color: customTheme.colors.light, fontSize: size / 2 }}>
-        {timeout}
+        {number}
       </Text>
     </View>
   );
@@ -36,9 +37,11 @@ export function Player({
 export function PlayerItem({
   image,
   name,
+  available,
   width,
   imageWidth,
-  timeout = 0,
+  textSize,
+  number = 0,
   selected,
 }) {
   return (
@@ -46,18 +49,24 @@ export function PlayerItem({
       {selected ? (
         <Player
           image={image}
+          available={available}
           size={imageWidth}
-          timeout={timeout}
+          number={number}
           color={customTheme.colors.red30}
         />
       ) : (
-        <Player image={image} size={imageWidth} timeout={timeout} />
+        <Player
+          image={image}
+          size={imageWidth}
+          available={available}
+          number={number}
+        />
       )}
       <Text
         style={[
           styles.name,
           selected ? styles.selected : styles.unselected,
-          { fontSize: imageWidth / 3 },
+          { fontSize: textSize || imageWidth / 3 },
         ]}>
         {name}
       </Text>

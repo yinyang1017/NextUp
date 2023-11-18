@@ -1,47 +1,45 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
 import StatsHeader from './StatsHeader';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { View } from 'react-native-ui-lib';
-import useDelayedState from '../../../hooks/useBounceState';
-import Result from '../../../components/games/StatsCollection/Foul/result';
-import { StyleSheet } from 'react-native';
-import { customTheme } from '../../../constants';
-import FoulType from '../../../components/games/StatsCollection/Foul/foulTypes';
+import Result from '../../../components/games/StatsCollection/Score/result';
+import { hp, wp } from '../../../utils/responsive';
 import Button from '../../../components/games/StatsCollection/Main/Button';
-import { hp } from '../../../utils/responsive';
-import FouledPlayers from '../../../components/games/StatsCollection/Foul/fouledPlayers';
+import { customTheme } from '../../../constants';
+import Players from '../../../components/games/StatsCollection/Score/players';
+import useDelayedState from '../../../hooks/useBounceState';
 import { GameContext } from '../../../context/GameProvider';
-import { useNavigation } from '@react-navigation/native';
-export default function Foul() {
+export default function Score() {
+  const {
+    params: { x, y },
+  } = useRoute();
   const [result, setResult] = useState(null);
   const navigation = useNavigation();
   const { activePlayers } = useContext(GameContext);
-  const [foulType, foulTypeDelayed, setFoulType] = useDelayedState(null, 100); // one of Common Foul, Technical Foul, Shooting Foul, Offensive Foul
   const [selectedPlayerId, playerIsSelected, selectPlayer] = useDelayedState(
     null,
     100,
   );
   useEffect(() => {
     if (playerIsSelected !== null) {
-      navigation.goBack();
+      navigation.navigate('Assist', {
+        x,
+        y,
+        goalPlayerId: playerIsSelected,
+      });
     }
-  }, [playerIsSelected, navigation]);
+  }, [playerIsSelected, navigation, x, y]);
+
   return (
     <ViewContainer isView={false} hideStatusBar>
       <StatsHeader />
       <View style={styles.mainContainer}>
         <View style={styles.main}>
-          {foulTypeDelayed === null ? (
-            <>
-              <Result current={result} select={setResult} />
-              {result && (
-                <>
-                  <FoulType current={foulType} select={setFoulType} />
-                </>
-              )}
-            </>
-          ) : (
-            <FouledPlayers
+          <Result current={result} select={setResult} />
+          {result !== null && (
+            <Players
               current={selectedPlayerId}
               selectPlayer={selectPlayer}
               players={activePlayers}
@@ -61,10 +59,14 @@ export default function Foul() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'space-around',
   },
   main: {
     alignItems: 'center',
+    height: wp(60),
+    gap: wp(1),
+    justifyContent: 'center',
   },
 
   bottomSection: {

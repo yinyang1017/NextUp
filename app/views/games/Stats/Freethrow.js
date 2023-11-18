@@ -45,7 +45,8 @@ export default function Freethrow() {
                     width={hp(14)}
                     name={el.name}
                     imageWidth={hp(5)}
-                    timeout={el.timeout}
+                    available={el.available}
+                    number={el.timeout}
                   />
                 </Pressable>
               ))}
@@ -59,10 +60,11 @@ export default function Freethrow() {
                 <PlayerItem
                   selected={el.id === selectedPlayerId}
                   image={el.image}
+                  available={el.available}
                   width={hp(14)}
                   name={el.name}
                   imageWidth={hp(5)}
-                  timeout={el.timeout}
+                  number={el.timeout}
                 />
               ))}
             </View>

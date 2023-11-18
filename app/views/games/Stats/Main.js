@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, View } from 'react-native-ui-lib';
 import { ViewContainer } from '../../../components/common/ViewConatiner';
 import StatsHeader from './StatsHeader';
@@ -14,6 +14,7 @@ import TimeoutModal from '../../../components/games/StatsCollection/Main/Timeout
 import useTimeout from '../../../hooks/LiveGame/useTimeout';
 import useWaiting from '../../../hooks/LiveGame/useWaiting';
 import WaitingModal from '../../../components/games/StatsCollection/Main/WaitingModal';
+import { GameContext } from '../../../context/GameProvider';
 const scoreData = [
   { type: 'scored', x: 0, y: 40 },
   { type: 'scored', x: -90, y: 40 },
@@ -29,6 +30,7 @@ const scoreData = [
 ];
 export default function Main({}) {
   const navigation = useNavigation();
+  const { activePlayers, scores } = useContext(GameContext);
   const [isTimeout, showTimeout, remainingTime] = useTimeout();
   const [isWaiting, showWaiting, timeToNext, nextQuater] = useWaiting();
 
@@ -80,7 +82,15 @@ export default function Main({}) {
         <View style={{ width: '70%' }}>
           <FuelBar time="08:52:22" />
           <View style={{ flexDirection: 'row' }}>
-            <Court data={scoreData} />
+            <Court
+              data={scores}
+              onPress={({ x, y }) =>
+                navigation.navigate('Score', {
+                  x,
+                  y,
+                })
+              }
+            />
             <View style={{ flex: 1, justifyContent: 'space-between' }}>
               <View style={{ gap: wp(2) }}>
                 <View

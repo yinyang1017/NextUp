@@ -97,9 +97,13 @@ export default function useGame() {
       available: conceded.includes(el.id) ? false : true,
     })),
   );
+  const [scores, setScore] = useState([]);
   const [lineup, setLineup] = useState(DEFAULT_LINEUP);
   return [
     players.filter(el => lineup.active.includes(el.id)),
     players.filter(el => lineup.substitute.includes(el.id)),
+    setLineup,
+    scores,
+    setScore,
   ];
 }

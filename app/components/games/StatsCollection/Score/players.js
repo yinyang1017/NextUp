@@ -4,7 +4,7 @@ import { customTheme } from '../../../../constants';
 import { Pressable, StyleSheet } from 'react-native';
 import { PlayerItem } from '../Freethrow/players';
 import { Text, View } from 'react-native-ui-lib';
-export default function FouledPlayers({ current, players, selectPlayer }) {
+export default function Players({ current, players, selectPlayer }) {
   return (
     <View style={styles.main1}>
       <Text style={styles.titleText1}>Who Score</Text>
@@ -17,8 +17,9 @@ export default function FouledPlayers({ current, players, selectPlayer }) {
               width={hp(14)}
               name={el.name}
               available={el.available}
-              imageWidth={hp(5)}
+              imageWidth={hp(7)}
               number={el.number}
+              textSize={hp(1.4)}
             />
           </Pressable>
         ))}
