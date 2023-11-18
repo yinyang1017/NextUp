@@ -76,6 +76,7 @@ export default function Lineup() {
           </View>
           <Button
             label="Skip"
+            onPress={() => navigation.goBack()}
             style={{ alignSelf: 'flex-end', borderRadius: wp(1) }}
             backgroundColor={customTheme.colors.gray_300}
             size="small"

@@ -14,6 +14,7 @@ import Main from './Main';
 import Lineup from './Lineup';
 import Substitute from './Substitute';
 import Freethrow from './Freethrow';
+import Foul from './Foul';
 export default function StatsCollection() {
   const Stack = createNativeStackNavigator();
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function StatsCollection() {
       <Stack.Screen name="Lineup" component={Lineup} />
       <Stack.Screen name="Substitute" component={Substitute} />
       <Stack.Screen name="Freethrow" component={Freethrow} />
+      <Stack.Screen name="Foul" component={Foul} />
     </Stack.Navigator>
   );
 }

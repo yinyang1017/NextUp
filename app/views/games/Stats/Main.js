@@ -161,6 +161,7 @@ export default function Main({}) {
                       backgroundColor={customTheme.colors.red20}
                       color={customTheme.colors.light}
                       label={'Foul'}
+                      onPress={() => navigation.navigate('Foul')}
                     />
                   </HalfView>
                 </View>

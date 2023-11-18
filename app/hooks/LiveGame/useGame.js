@@ -90,8 +90,12 @@ const DEFAULT_LINEUP = {
   substitute: [5, 6, 7, 8, 9, 10, 11, 12, 13],
 };
 export default function useGame() {
+  const [conceded, setConceded] = useState([3]);
   const [players, setPlayers] = useState(
-    PLAYERS.map(el => ({ ...el, available: true })),
+    PLAYERS.map(el => ({
+      ...el,
+      available: conceded.includes(el.id) ? false : true,
+    })),
   );
   const [lineup, setLineup] = useState(DEFAULT_LINEUP);
   return [

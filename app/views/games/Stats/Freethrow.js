@@ -16,11 +16,15 @@ import useDelayedState from '../../../hooks/useBounceState';
 export default function Freethrow() {
   const navigation = useNavigation();
   const { activePlayers } = useContext(GameContext);
-  const [freethrowCount, countIsSelected, setFreethrowCount] =
-    useDelayedState(0);
-  const [selectedPlayerId, playerIsSelected, selectPlayer] =
-    useDelayedState(null);
-  const [result, isFinished, setResult] = useDelayedState(null); // can be Made/Miss
+  const [freethrowCount, countIsSelected, setFreethrowCount] = useDelayedState(
+    0,
+    500,
+  );
+  const [selectedPlayerId, playerIsSelected, selectPlayer] = useDelayedState(
+    null,
+    500,
+  );
+  const [result, isFinished, setResult] = useDelayedState(null, 500); // can be Made/Miss
   useEffect(() => {
     if (isFinished !== null) {
       navigation.goBack();
